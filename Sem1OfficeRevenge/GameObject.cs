@@ -35,7 +35,10 @@ namespace Sem1OfficeRevenge
 
         public virtual void Draw()
         {
-            Global.spriteBatch.Draw(texture, position, null, color, rotation, position, scale, SpriteEffects.None, layerDepth);
+            //Vector2 origin = new Vector2(texture.Width / 2, texture.Height / 2);
+            //Global.spriteBatch.Draw(texture, position, null, color, rotation, origin, scale, SpriteEffects.None, layerDepth);
+
+            Global.spriteBatch.Draw(texture, position, null, color, rotation, Vector2.Zero, scale, SpriteEffects.None, layerDepth);
         }
 
         public virtual void OnCollisionBox() { } //This don't need to have anything in it, in this GameObject script

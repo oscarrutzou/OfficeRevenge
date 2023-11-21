@@ -1,10 +1,7 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Numerics;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Sem1OfficeRevenge
 {
@@ -20,9 +17,25 @@ namespace Sem1OfficeRevenge
             this.onClick = onClick;
         }
 
+        public override void Draw()
+        {
+            base.Draw();
+            DrawDebugText();
+        }
+
+        public override void OnCollisionBox()
+        {
+            base.OnCollisionBox();
+        }
+
         public override void Update()
         {
-            
+            //scale += 0.001f;
+        }
+
+        private void DrawDebugText()
+        {
+            Global.spriteBatch.DrawString(GlobalTextures.defaultFont, $"Btn pos {position} + {InputManager.mousePositionOnScreen}", new Vector2(100,100), Color.Black);
         }
     }
 }

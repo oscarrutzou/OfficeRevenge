@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Numerics;
-using System.Threading.Tasks;
+
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Sem1OfficeRevenge
 {
@@ -23,11 +22,15 @@ namespace Sem1OfficeRevenge
         public override void Draw()
         {
             base.Draw();
+            
         }
+
+
 
         public override void Update()
         {
             base.Update();
+            
         }
     }
 }

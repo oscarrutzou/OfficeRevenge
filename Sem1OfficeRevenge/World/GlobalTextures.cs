@@ -27,7 +27,7 @@ namespace Sem1OfficeRevenge
 
             };
 
-            //defaultFont = Global.world.Content.Load<SpriteFont>("Fonts\\Arial");
+            defaultFont = Global.world.Content.Load<SpriteFont>("Fonts\\Arial");
         }
     }
 }
