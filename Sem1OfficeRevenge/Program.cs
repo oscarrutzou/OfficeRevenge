@@ -1,3 +1,3 @@
 ﻿
-using var game = new Sem1OfficeRevenge.Game1();
+using var game = new Spilprojekt.GameWorld();
 game.Run();
