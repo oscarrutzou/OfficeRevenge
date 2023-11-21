@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Office_Revenge
+namespace Sem1OfficeRevenge
 {
-    internal class SceneData
+    public class SceneData
     {
         public int score;
         public int highScore;

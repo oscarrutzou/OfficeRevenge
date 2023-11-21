@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Office_Revenge
+namespace Sem1OfficeRevenge
 {
-    internal class Wall
+    internal class Room
     {
-        public Wall() { }
+        //public TiledMap tileMap;
+        public Room() { }
     }
 }

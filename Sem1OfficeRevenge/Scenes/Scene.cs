@@ -4,10 +4,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Office_Revenge
+namespace Sem1OfficeRevenge
 {
-    internal abstract class Scene
+    public abstract class Scene
     {
+        // We have a data stored on each scene, to make it easy to add and remove gameObjects
+        private SceneData data = new SceneData();
+        
+        public Scene() 
+        {
+            Global.currentSceneData = data;
+        }
+
         public abstract void Initialize();
 
         public virtual void Update() 

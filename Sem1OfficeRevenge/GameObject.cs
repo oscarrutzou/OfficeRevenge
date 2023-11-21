@@ -7,9 +7,9 @@ using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Office_Revenge
+namespace Sem1OfficeRevenge
 {
-    internal abstract class GameObject
+    public abstract class GameObject
     {
         public Texture2D texture;
         public float layerDepth;
@@ -18,8 +18,9 @@ namespace Office_Revenge
         public float scale;
         public float speed;
         public Vector2 direction;
-        public Rectangle collisionBox;
         public bool isRemoved;
+
+        public Rectangle collisionBox;
 
         public abstract void Update();
 
@@ -28,10 +29,7 @@ namespace Office_Revenge
             
         }
 
-        public virtual void OnCollisionBox()
-        {
-
-        }
+        public virtual void OnCollisionBox() { } //This don't need to have anything in it, in this GameObject script
 
         public virtual void RotateTowardsTarget(Vector2 target)
         {

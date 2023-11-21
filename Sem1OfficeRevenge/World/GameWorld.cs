@@ -2,15 +2,18 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
-namespace Spilprojekt
+namespace Sem1OfficeRevenge
 {
     public class GameWorld : Game
     {
-        private GraphicsDeviceManager _graphics;
-        private SpriteBatch _spriteBatch;
+        public static GraphicsDeviceManager _graphics;
+        public static SpriteBatch _spriteBatch;
+        public static Scene[] scenes = new Scene[5];
+        public int activeSceneIndex;
 
         public GameWorld()
         {
+            Global.world = this;
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
@@ -18,10 +21,13 @@ namespace Spilprojekt
 
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
+            activeSceneIndex = 0;
+
 
             base.Initialize();
         }
+
+
 
         protected override void LoadContent()
         {
@@ -47,6 +53,11 @@ namespace Spilprojekt
             // TODO: Add your drawing code here
 
             base.Draw(gameTime);
+        }
+
+        private void GenerateScenes()
+        {
+            
         }
     }
 }
