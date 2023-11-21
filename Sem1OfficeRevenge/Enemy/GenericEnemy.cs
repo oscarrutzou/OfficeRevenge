@@ -6,13 +6,18 @@ using System.Threading.Tasks;
 
 namespace Sem1OfficeRevenge
 {
-    internal class GenericEnemy
+    public class GenericEnemy: GameObject
     {
         private int health;
-        private float speed;
+        //private float speed; Dette variable er også i gameobjects
         public bool dead;
 
+        //Skal vi fjernne denne så det bare er update?
         public void EnemyUpdate() { }
 
+        public override void Update()
+        {
+            
+        }
     }
 }

@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Sem1OfficeRevenge
 {
@@ -10,6 +7,13 @@ namespace Sem1OfficeRevenge
     {
         public static Scene currentScene;
         public static SceneData currentSceneData;
+        
         public static GameWorld world;
+        
+        public static GraphicsDeviceManager graphics;
+        public static SpriteBatch spriteBatch;
+
+        //Hvis der er problermer med dette variabel, så bare lige sig det til mig Oscar, så det kan fikses.
+        public static GameTime gameTime;
     }
 }

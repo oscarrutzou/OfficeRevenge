@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,10 +22,22 @@ namespace Sem1OfficeRevenge
 
         public virtual void Update() 
         { 
-        
+            
         }
 
         public virtual void Draw()
+        {
+            Global.graphics.GraphicsDevice.Clear(Color.DimGray);
+            
+
+        }
+
+        public virtual void AddObjectsToList()
+        {
+
+        }
+
+        private void SortIntoCategories(List<GameObject> gameObjectsToAdd)
         {
 
         }
@@ -33,10 +47,6 @@ namespace Sem1OfficeRevenge
 
         }
 
-        private void SortIntoCategories(List<GameObject> gameObjectsToAdd)
-        {
-
-        }
 
     }
 }

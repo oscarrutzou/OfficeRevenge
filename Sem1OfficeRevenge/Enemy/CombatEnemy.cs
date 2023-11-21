@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Sem1OfficeRevenge
 {
-    internal class CombatEnemy : GenericEnemy 
+    public class CombatEnemy : GenericEnemy 
     {
         public bool isAttacking;
 

@@ -6,24 +6,25 @@ namespace Sem1OfficeRevenge
 {
     public class GameWorld : Game
     {
-        public static GraphicsDeviceManager _graphics;
-        public static SpriteBatch _spriteBatch;
-        public static Scene[] scenes = new Scene[5];
-        public int activeSceneIndex;
+        private Scene[] scenes = new Scene[5];
+        private int activeSceneIndex;
 
         public GameWorld()
         {
             Global.world = this;
-            _graphics = new GraphicsDeviceManager(this);
+            Global.graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
+            Window.Title = "Office Revenge!";
+            
         }
 
         protected override void Initialize()
         {
-            activeSceneIndex = 0;
-
-
+            GenerateScenes();
+            activeSceneIndex = 4;
+            Global.currentScene = scenes[activeSceneIndex];
+            scenes[activeSceneIndex].Initialize();
             base.Initialize();
         }
 
@@ -31,25 +32,27 @@ namespace Sem1OfficeRevenge
 
         protected override void LoadContent()
         {
-            _spriteBatch = new SpriteBatch(GraphicsDevice);
+            Global.spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
         }
 
         protected override void Update(GameTime gameTime)
         {
+            Global.gameTime = gameTime;
+
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
+            //Update Inputmanager handleinput
 
-            // TODO: Add your update logic here
+            scenes[activeSceneIndex].Update();
 
             base.Update(gameTime);
         }
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
-
+            scenes[activeSceneIndex].Draw();
             // TODO: Add your drawing code here
 
             base.Draw(gameTime);
@@ -57,7 +60,11 @@ namespace Sem1OfficeRevenge
 
         private void GenerateScenes()
         {
-            
+            scenes[0] = new TestBaseScene();
+            scenes[1] = new TestSceneJasper();
+            scenes[2] = new TestSceneLeonard();
+            scenes[3] = new TestSceneMarc();
+            scenes[4] = new TestSceneOscar();
         }
     }
 }
