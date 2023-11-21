@@ -12,7 +12,7 @@ namespace Sem1OfficeRevenge
     public abstract class GameObject
     {
         public Texture2D texture;
-        public float layerDepth;
+        public float layerDepth; //How object gets drawn
         public Vector2 position;
         public float rotation;
         public float scale;

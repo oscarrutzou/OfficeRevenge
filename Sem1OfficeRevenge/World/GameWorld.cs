@@ -41,9 +41,7 @@ namespace Sem1OfficeRevenge
         {
             Global.gameTime = gameTime;
 
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                Exit();
-            //Update Inputmanager handleinput
+            InputManager.HandleInput();
 
             scenes[activeSceneIndex].Update();
 
@@ -52,8 +50,9 @@ namespace Sem1OfficeRevenge
 
         protected override void Draw(GameTime gameTime)
         {
+            Global.spriteBatch.Begin(sortMode: SpriteSortMode.FrontToBack);
             scenes[activeSceneIndex].Draw();
-            // TODO: Add your drawing code here
+            Global.spriteBatch.End();
 
             base.Draw(gameTime);
         }

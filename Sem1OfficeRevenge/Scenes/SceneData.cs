@@ -10,7 +10,12 @@ namespace Sem1OfficeRevenge
     {
         public int score;
         public int highScore;
-        public List<GameObject> gameObjects;
-        public List<GameObject> gameObjectsToAdd;
+
+        public List<GameObject> gameObjects; //All gameObjects in the scene
+        public List<GameObject> gameObjectsToAdd; //This list sorts the gameobject into the right list and adds it to the gameObject list
+
+        public List<GenericEnemy> enemies = new List<GenericEnemy>();
+        public List<Bullet> bullets = new List<Bullet>();
+        public List<Gui> guis = new List<Gui>(); //Lav til en superclass som hedder Gui
     }
 }
