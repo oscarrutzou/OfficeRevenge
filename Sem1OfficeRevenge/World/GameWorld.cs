@@ -21,10 +21,14 @@ namespace Sem1OfficeRevenge
 
         protected override void Initialize()
         {
+            GlobalTextures.LoadContent();
+
             GenerateScenes();
             activeSceneIndex = 4;
             Global.currentScene = scenes[activeSceneIndex];
             scenes[activeSceneIndex].Initialize();
+
+
             base.Initialize();
         }
 
