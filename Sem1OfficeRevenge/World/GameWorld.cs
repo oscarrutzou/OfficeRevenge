@@ -8,7 +8,7 @@ namespace Sem1OfficeRevenge
     {
         private Scene[] scenes = new Scene[5];
         private int activeSceneIndex;
-
+        public Camera camera;
         public GameWorld()
         {
             Global.world = this;
@@ -26,6 +26,7 @@ namespace Sem1OfficeRevenge
             GenerateScenes();
             activeSceneIndex = 4;
             Global.currentScene = scenes[activeSceneIndex];
+            camera = new Camera(new Vector2(Global.graphics.PreferredBackBufferWidth / 2, Global.graphics.PreferredBackBufferHeight / 2));
             scenes[activeSceneIndex].Initialize();
 
 
@@ -54,8 +55,12 @@ namespace Sem1OfficeRevenge
 
         protected override void Draw(GameTime gameTime)
         {
+            Global.spriteBatch.Begin(sortMode: SpriteSortMode.FrontToBack, transformMatrix: Global.world.camera.GetMatrix());
+            scenes[activeSceneIndex].DrawInWorld();
+            Global.spriteBatch.End();
+
             Global.spriteBatch.Begin(sortMode: SpriteSortMode.FrontToBack);
-            scenes[activeSceneIndex].Draw();
+            scenes[activeSceneIndex].DrawOnScreen();
             Global.spriteBatch.End();
 
             base.Draw(gameTime);

@@ -19,9 +19,9 @@ namespace Sem1OfficeRevenge
             Global.currentScene.Instantiate(newBtn);
         }
 
-        public override void Draw()
+        public override void DrawInWorld()
         {
-            base.Draw();
+            base.DrawInWorld();
             
         }
 
