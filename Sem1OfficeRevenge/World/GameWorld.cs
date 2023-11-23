@@ -8,6 +8,7 @@ namespace Sem1OfficeRevenge
     {
         private Scene[] scenes = new Scene[5];
         private int activeSceneIndex;
+        
 
         public GameWorld()
         {
@@ -37,7 +38,7 @@ namespace Sem1OfficeRevenge
         protected override void LoadContent()
         {
             Global.spriteBatch = new SpriteBatch(GraphicsDevice);
-
+            
             // TODO: use this.Content to load your game content here
         }
 
