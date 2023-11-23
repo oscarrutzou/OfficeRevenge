@@ -6,7 +6,7 @@ namespace Sem1OfficeRevenge
 {
     public static class InputManager
     {
-        private static KeyboardState keyboardState;
+        public static KeyboardState keyboardState;
         public static MouseState mouseState;
         /// <summary>
         /// Prevents multiple click when clicking a button

@@ -21,7 +21,9 @@ namespace Sem1OfficeRevenge
 
         protected override void Initialize()
         {
+            WindowedScreen();
             GlobalTextures.LoadContent();
+            GlobalAnimations.LoadContent();
 
             GenerateScenes();
             activeSceneIndex = 4;
@@ -38,8 +40,6 @@ namespace Sem1OfficeRevenge
         protected override void LoadContent()
         {
             Global.spriteBatch = new SpriteBatch(GraphicsDevice);
-
-            // TODO: use this.Content to load your game content here
         }
 
         protected override void Update(GameTime gameTime)
@@ -74,5 +74,16 @@ namespace Sem1OfficeRevenge
             scenes[3] = new TestSceneMarc();
             scenes[4] = new TestSceneOscar();
         }
+
+        private void WindowedScreen()
+        {
+            Global.graphics.HardwareModeSwitch = true;
+            Global.graphics.PreferredBackBufferWidth = 1280;
+            Global.graphics.PreferredBackBufferHeight = 720;
+            //camera.SetOrigin(new Vector2(_graphics.PreferredBackBufferWidth / 2, _graphics.PreferredBackBufferHeight / 2));
+            Global.graphics.IsFullScreen = false;
+            Global.graphics.ApplyChanges();
+        }
+
     }
 }
