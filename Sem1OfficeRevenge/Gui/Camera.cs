@@ -21,11 +21,12 @@ namespace Sem1OfficeRevenge
             this.origin = origin;
         }
 
-        public void Move(Vector2 delta)
+        public void FollowPlayerMove(Vector2 playerPos)
         {
-            // Update the camera's position by adding a delta vector.
-            position += delta;
+            // Update the camera's position so it follows the player
+            position = playerPos;
         }
+
         public Matrix GetMatrix()
         {
             // Create a transformation matrix that represents the camera's view.
@@ -40,7 +41,7 @@ namespace Sem1OfficeRevenge
             // 3. Translate the view to center it on the screen.
             // This assumes the camera view is centered within the game window.
             // The following lines center the view using the screen's dimensions.
-            Matrix centerMatrix = Matrix.CreateTranslation(new Vector3(_origin.X, _origin.Y, 0));
+            Matrix centerMatrix = Matrix.CreateTranslation(new Vector3(origin.X, origin.Y, 0));
 
             // Combine the matrices in the correct order to create the final transformation matrix.
             transformMatrix = translationMatrix * scaleMatrix * centerMatrix;
