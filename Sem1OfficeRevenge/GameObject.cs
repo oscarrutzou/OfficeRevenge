@@ -31,14 +31,13 @@ namespace Sem1OfficeRevenge
             {
                 // Try to get the width and height of the texture or the current frame of the animation.
                 Texture2D drawTexture = texture ?? animation?.frames[animation.CurrentFrame];
-                int width = drawTexture?.Width ?? 0;
-                int height = drawTexture?.Height ?? 0;
-
-                // If both the texture and animation are null (i.e., width and height are 0), throw an exception.
-                if (width == 0 || height == 0)
+                if (drawTexture == null)
                 {
                     throw new InvalidOperationException("GameObject must have a valid texture or animation.");
                 }
+
+                int width = drawTexture.Width;
+                int height = drawTexture.Height;
 
                 Vector2 origin = UseCenterOrigin ? new Vector2(width / 2, height / 2) : Vector2.Zero;
 
@@ -96,10 +95,6 @@ namespace Sem1OfficeRevenge
             Global.spriteBatch.Draw(pixel, new Rectangle(collisionBox.Right, collisionBox.Top, 1, collisionBox.Height), Color.Red); // Right
         }
 
-
-
-
-
         public virtual void OnCollisionBox() { } //This don't need to have anything in it, in this GameObject script
 
         public virtual void RotateTowardsTarget(Vector2 target)
@@ -107,10 +102,12 @@ namespace Sem1OfficeRevenge
 
         }
 
-        public void SetPlayerAnimation(AnimNames animationName)
+        public void SetObjectAnimation(AnimNames animationName)
         {
             animation = GlobalAnimations.SetObjAnimation(animationName);
         }
+
+
         //public virtual void Draw()
         //{
         //    //Vector2 origin = new Vector2(texture.Width / 2, texture.Height / 2);
