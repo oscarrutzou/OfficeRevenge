@@ -16,16 +16,12 @@ namespace Sem1OfficeRevenge
 
         public override void Initialize()
         {
-            comEnm = new CombatEnemy();   
+            comEnm = new CombatEnemy();
+            Global.currentScene.Instantiate(comEnm);
         }
 
         public override void DrawInWorld()
         {
-            if (comEnm.texture != null) 
-            { 
-            comEnm.Draw();
-            
-            }
             base.DrawInWorld();
         }
 

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using Pathfinding;
+
 
 namespace Sem1OfficeRevenge
 {
@@ -17,11 +17,8 @@ namespace Sem1OfficeRevenge
 
         public CombatEnemy()
         {
-            if (texture == null)
-            {
-                texture = GlobalTextures.textures[TextureNames.GuiButtonBasicBlue];
-                scale.X = 0.25f;
-            }
+                SetObjectAnimation(AnimNames.PlayerRifleReload);
+
 
         }
 
