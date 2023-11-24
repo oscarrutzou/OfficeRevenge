@@ -30,7 +30,7 @@ namespace Sem1OfficeRevenge
             ChangeScene(3);
 
             camera = new Camera(new Vector2(Global.graphics.PreferredBackBufferWidth / 2, Global.graphics.PreferredBackBufferHeight / 2));
-
+            
 
             base.Initialize();
         }
@@ -49,6 +49,11 @@ namespace Sem1OfficeRevenge
             InputManager.HandleInput();
 
             scenes[activeSceneIndex].Update();
+
+            if (Global.player != null)
+            {
+                camera.FollowPlayerMove(Global.player.position);
+            }
 
             base.Update(gameTime);
         }
