@@ -21,7 +21,8 @@ namespace Sem1OfficeRevenge
         {
             base.DrawOnScreen();
 
-            Global.spriteBatch.DrawString(GlobalTextures.defaultFont, "Hej", Global.world.camera.Center + new Vector2(0, -300), Color.Black);
+            Vector2 pos = Global.world.camera.Center + new Vector2(0, -300);
+            Global.spriteBatch.DrawString(GlobalTextures.defaultFont, "Hej", pos, Color.Black);
         }
     }
 }

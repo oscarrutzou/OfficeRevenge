@@ -32,6 +32,8 @@ namespace Sem1OfficeRevenge
                 Global.world.Exit();
             }
 
+            PlayerInput();
+
             //var direction = new Vector2((float)Math.Cos(Player.rotation), -(float)Math.Sin(Player.rotation));
             //if (keyboardState.IsKeyDown(Keys.A))
             //{
