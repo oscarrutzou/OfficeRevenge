@@ -18,9 +18,9 @@ namespace Sem1OfficeRevenge
             
         }
 
-        public override void Draw()
+        public override void DrawInWorld()
         {
-            base.Draw();
+            base.DrawInWorld();
         }
 
         public override void Update()

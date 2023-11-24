@@ -19,14 +19,14 @@ namespace Sem1OfficeRevenge
             comEnm = new CombatEnemy();   
         }
 
-        public override void Draw()
+        public override void DrawInWorld()
         {
             if (comEnm.texture != null) 
             { 
             comEnm.Draw();
             
             }
-            base.Draw();
+            base.DrawInWorld();
         }
 
         public override void Update()
