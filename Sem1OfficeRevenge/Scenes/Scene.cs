@@ -71,6 +71,7 @@ namespace Sem1OfficeRevenge
             Global.currentSceneData.bullets.RemoveAll(bullet => bullet.isRemoved);
             Global.currentSceneData.guis.RemoveAll(gui => gui.isRemoved);
             Global.currentSceneData.testObj.RemoveAll(testObj => testObj.isRemoved);
+            Global.currentSceneData.defults.RemoveAll(defultsObj => defultsObj.isRemoved);
         }
 
         /// <summary>
@@ -82,6 +83,7 @@ namespace Sem1OfficeRevenge
             Global.currentSceneData.gameObjects.AddRange(Global.currentSceneData.bullets);
             Global.currentSceneData.gameObjects.AddRange(Global.currentSceneData.guis);
             Global.currentSceneData.gameObjects.AddRange(Global.currentSceneData.testObj);
+            Global.currentSceneData.gameObjects.AddRange(Global.currentSceneData.defults);
         }
 
         /// <summary>
@@ -106,6 +108,11 @@ namespace Sem1OfficeRevenge
                     case TestObj:
                         Global.currentSceneData.testObj.Add((TestObj)obj);
                         break;
+
+                    default:
+                        Global.currentSceneData.defults.Add(obj);
+                        break;
+
                 }
             }
         }
