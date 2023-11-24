@@ -68,7 +68,7 @@ namespace Sem1OfficeRevenge
                 {
                     Global.player.position.X -= 1f;
                 }
-                else if (keyboardState.IsKeyDown(Keys.D))
+                if (keyboardState.IsKeyDown(Keys.D))
                 {
                     Global.player.position.X += 1f;
                 }
