@@ -7,10 +7,6 @@ namespace Sem1OfficeRevenge
     {
 
 
-        public override void DrawOnScreen()
-        {
-            base.DrawOnScreen();
-        }
 
         public override void Initialize()
         {
@@ -20,6 +16,13 @@ namespace Sem1OfficeRevenge
         public override void Update()
         {
             base.Update();
+        }
+        public override void DrawOnScreen()
+        {
+            base.DrawOnScreen();
+
+            Vector2 pos = Global.world.camera.Center + new Vector2(0, -300);
+            Global.spriteBatch.DrawString(GlobalTextures.defaultFont, "Hej", pos, Color.Black);
         }
     }
 }

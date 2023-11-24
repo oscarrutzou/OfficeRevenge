@@ -7,21 +7,23 @@ using System.Threading.Tasks;
 
 namespace Sem1OfficeRevenge
 {
-    public class Bullet: GameObject
+    internal class Weapon : GameObject
     {
-        public Bullet(int dmg, float velocity, Vector2 direction)
-        {
-
-        }
+        public int dmg;
+        public Vector2 shootDirection;
+        public float shootVelocity;
+        public int magSize;
+        public bool isMagFull;
 
         public override void Update()
         {
             
         }
 
-        public void SetCorrectBulletPosition()
+        private void Reload()
         {
 
         }
+        
     }
 }

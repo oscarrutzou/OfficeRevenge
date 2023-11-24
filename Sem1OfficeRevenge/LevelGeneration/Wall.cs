@@ -6,8 +6,16 @@ using System.Threading.Tasks;
 
 namespace Sem1OfficeRevenge
 {
-    internal class Wall
+    internal class Wall : GameObject
     {
-        public Wall() { }
+        public Wall() 
+        {
+        
+        }
+
+        public override void Update()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

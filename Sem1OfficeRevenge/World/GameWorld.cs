@@ -29,7 +29,6 @@ namespace Sem1OfficeRevenge
             activeSceneIndex = 2;
             Global.currentScene = scenes[activeSceneIndex];
             camera = new Camera(new Vector2(Global.graphics.PreferredBackBufferWidth / 2, Global.graphics.PreferredBackBufferHeight / 2));
-            scenes[activeSceneIndex].Initialize();
 
 
             base.Initialize();
@@ -74,6 +73,13 @@ namespace Sem1OfficeRevenge
             scenes[3] = new TestSceneMarc();
             scenes[4] = new TestSceneOscar();
             scenes[5] = new MainMenu();
+        }
+
+        public void ChangeScene(int index)
+        {
+            activeSceneIndex = index;
+            Global.currentScene = scenes[index];
+            scenes[activeSceneIndex].Initialize();
         }
 
         private void WindowedScreen()
