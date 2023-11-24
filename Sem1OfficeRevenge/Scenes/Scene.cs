@@ -38,13 +38,22 @@ namespace Sem1OfficeRevenge
             }
         }
 
-        public virtual void Draw()
+        public virtual void DrawInWorld()
         {
             Global.graphics.GraphicsDevice.Clear(Color.DimGray);
             
             foreach (GameObject gameObject in Global.currentSceneData.gameObjects)
             {
+                if (gameObject is Gui) return;
                 gameObject.Draw();
+            }
+        }
+
+        public virtual void DrawOnScreen()
+        {
+            foreach (GameObject guiGameObject in Global.currentSceneData.guis)
+            {
+                guiGameObject.Draw();
             }
         }
 
@@ -61,6 +70,8 @@ namespace Sem1OfficeRevenge
             Global.currentSceneData.enemies.RemoveAll(enemy => enemy.isRemoved);
             Global.currentSceneData.bullets.RemoveAll(bullet => bullet.isRemoved);
             Global.currentSceneData.guis.RemoveAll(gui => gui.isRemoved);
+            Global.currentSceneData.testObj.RemoveAll(testObj => testObj.isRemoved);
+            Global.currentSceneData.defults.RemoveAll(defultsObj => defultsObj.isRemoved);
         }
 
         /// <summary>
@@ -71,6 +82,8 @@ namespace Sem1OfficeRevenge
             Global.currentSceneData.gameObjects.AddRange(Global.currentSceneData.enemies);
             Global.currentSceneData.gameObjects.AddRange(Global.currentSceneData.bullets);
             Global.currentSceneData.gameObjects.AddRange(Global.currentSceneData.guis);
+            Global.currentSceneData.gameObjects.AddRange(Global.currentSceneData.testObj);
+            Global.currentSceneData.gameObjects.AddRange(Global.currentSceneData.defults);
         }
 
         /// <summary>
@@ -92,6 +105,14 @@ namespace Sem1OfficeRevenge
                     case Gui:
                         Global.currentSceneData.guis.Add((Gui)obj);
                         break;
+                    case TestObj:
+                        Global.currentSceneData.testObj.Add((TestObj)obj);
+                        break;
+
+                    default:
+                        Global.currentSceneData.defults.Add(obj);
+                        break;
+
                 }
             }
         }

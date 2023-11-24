@@ -16,6 +16,10 @@ namespace Sem1OfficeRevenge
 
         public List<GenericEnemy> enemies = new List<GenericEnemy>();
         public List<Bullet> bullets = new List<Bullet>();
-        public List<Gui> guis = new List<Gui>(); //Lav til en superclass som hedder Gui
+        public List<Gui> guis = new List<Gui>();
+
+        public List<GameObject> defults = new List<GameObject>();
+
+        public List<TestObj> testObj = new List<TestObj>(); 
     }
 }

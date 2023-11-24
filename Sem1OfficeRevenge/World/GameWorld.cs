@@ -6,10 +6,9 @@ namespace Sem1OfficeRevenge
 {
     public class GameWorld : Game
     {
-        private Scene[] scenes = new Scene[5];
+        private Scene[] scenes = new Scene[6];
         private int activeSceneIndex;
-        
-
+        public Camera camera;
         public GameWorld()
         {
             Global.world = this;
@@ -22,12 +21,13 @@ namespace Sem1OfficeRevenge
 
         protected override void Initialize()
         {
+            WindowedScreen();
             GlobalTextures.LoadContent();
+            GlobalAnimations.LoadContent();
 
             GenerateScenes();
-            activeSceneIndex = 4;
-            Global.currentScene = scenes[activeSceneIndex];
-            scenes[activeSceneIndex].Initialize();
+            ChangeScene(3);
+            camera = new Camera(new Vector2(Global.graphics.PreferredBackBufferWidth / 2, Global.graphics.PreferredBackBufferHeight / 2));
 
 
             base.Initialize();
@@ -38,8 +38,6 @@ namespace Sem1OfficeRevenge
         protected override void LoadContent()
         {
             Global.spriteBatch = new SpriteBatch(GraphicsDevice);
-            
-            // TODO: use this.Content to load your game content here
         }
 
         protected override void Update(GameTime gameTime)
@@ -55,8 +53,12 @@ namespace Sem1OfficeRevenge
 
         protected override void Draw(GameTime gameTime)
         {
+            Global.spriteBatch.Begin(sortMode: SpriteSortMode.FrontToBack, transformMatrix: Global.world.camera.GetMatrix());
+            scenes[activeSceneIndex].DrawInWorld();
+            Global.spriteBatch.End();
+
             Global.spriteBatch.Begin(sortMode: SpriteSortMode.FrontToBack);
-            scenes[activeSceneIndex].Draw();
+            scenes[activeSceneIndex].DrawOnScreen();
             Global.spriteBatch.End();
 
             base.Draw(gameTime);
@@ -69,6 +71,25 @@ namespace Sem1OfficeRevenge
             scenes[2] = new TestSceneLeonard();
             scenes[3] = new TestSceneMarc();
             scenes[4] = new TestSceneOscar();
+            scenes[5] = new MainMenu();
         }
+
+        public void ChangeScene(int index)
+        {
+            activeSceneIndex = index;
+            Global.currentScene = scenes[index];
+            scenes[activeSceneIndex].Initialize();
+        }
+
+        private void WindowedScreen()
+        {
+            Global.graphics.HardwareModeSwitch = true;
+            Global.graphics.PreferredBackBufferWidth = 1280;
+            Global.graphics.PreferredBackBufferHeight = 720;
+            //camera.SetOrigin(new Vector2(_graphics.PreferredBackBufferWidth / 2, _graphics.PreferredBackBufferHeight / 2));
+            Global.graphics.IsFullScreen = false;
+            Global.graphics.ApplyChanges();
+        }
+
     }
 }
