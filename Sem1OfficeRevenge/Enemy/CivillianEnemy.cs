@@ -10,7 +10,7 @@ namespace Sem1OfficeRevenge
     {
         public bool injured;
 
-        public new void EnemyUpdate()
+        public override void Update()
         {
 
         }

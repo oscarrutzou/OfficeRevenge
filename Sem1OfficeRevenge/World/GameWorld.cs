@@ -24,7 +24,7 @@ namespace Sem1OfficeRevenge
             GlobalTextures.LoadContent();
 
             GenerateScenes();
-            activeSceneIndex = 4;
+            activeSceneIndex = 2;
             Global.currentScene = scenes[activeSceneIndex];
             scenes[activeSceneIndex].Initialize();
 

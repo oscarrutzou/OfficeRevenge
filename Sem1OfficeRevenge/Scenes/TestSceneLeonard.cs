@@ -8,6 +8,7 @@ namespace Sem1OfficeRevenge
 {
     public class TestSceneLeonard : Scene
     {
+        CombatEnemy comEnm;
         public TestSceneLeonard()
         {
             
@@ -15,16 +16,22 @@ namespace Sem1OfficeRevenge
 
         public override void Initialize()
         {
-            
+            comEnm = new CombatEnemy();   
         }
 
         public override void Draw()
         {
+            if (comEnm.texture != null) 
+            { 
+            comEnm.Draw();
+            
+            }
             base.Draw();
         }
 
         public override void Update()
         {
+            comEnm.Update();
             base.Update();
         }
     }

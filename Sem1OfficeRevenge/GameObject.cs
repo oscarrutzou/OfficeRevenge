@@ -13,22 +13,25 @@ namespace Sem1OfficeRevenge
         public float layerDepth; //How object gets drawn
         public Vector2 position;
         public float rotation;
-        public float scale = 1;
+        public Vector2 scale = new Vector2(1, 1);
         public float speed;
         public Vector2 direction;
         public bool isRemoved;
         public Color color = Color.White;
+        public Rectangle rect;
         public Rectangle collisionBox
         {
             get
             {
                 return new Rectangle(
-                (int)(position.X - texture.Width / 2 * scale),
-                    (int)(position.Y - texture.Height / 2 * scale),
-                    (int)(texture.Width * scale),
-                    (int)(texture.Height * scale)
+                (int)(position.X - texture.Width / 2 * scale.X),
+                    (int)(position.Y - texture.Height / 2 * scale.Y),
+                    (int)(texture.Width * scale.X),
+                    (int)(texture.Height * scale.Y)
                     );
             }
+
+            set {  }
         }
 
         public abstract void Update();
