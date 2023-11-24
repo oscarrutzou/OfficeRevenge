@@ -14,7 +14,7 @@ namespace Sem1OfficeRevenge
         private Player player;
         private Texture2D texture;
         private Vector2 position;
-
+        
         public TestSceneMarc()
         {
             
@@ -22,7 +22,6 @@ namespace Sem1OfficeRevenge
 
         public override void Initialize()
         {
-            
             position = new Vector2(100, 100);
             player = new Player(texture, position);
             Global.currentScene.Instantiate(player);

@@ -9,12 +9,12 @@ using System.Xml.Linq;
 
 namespace Sem1OfficeRevenge
 {
-    internal class Player : GameObject
+    public class Player : GameObject
     {
         private int health;
         public bool alive;
         public Vector2 origin;
-        
+        public float playerSpeed = 10f;
         private bool hasAttacked;
         
 

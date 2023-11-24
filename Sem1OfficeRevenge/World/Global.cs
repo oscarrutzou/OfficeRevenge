@@ -16,6 +16,6 @@ namespace Sem1OfficeRevenge
         //Hvis der er problermer med dette variabel, så bare lige sig det til mig Oscar, så det kan fikses.
         public static GameTime gameTime;
 
-        public static GameObject player;
+        public static Player player;
     }
 }
