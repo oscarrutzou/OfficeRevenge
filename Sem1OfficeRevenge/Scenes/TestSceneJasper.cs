@@ -36,15 +36,15 @@ namespace Sem1OfficeRevenge
             Global.currentScene.Instantiate(startRoom);
         }
 
-        public override void Draw()
+        public override void DrawInWorld()
         {
             
             foreach (Room room in rooms)
             {
                 room.Draw();
             }
-
-            base.Draw();
+            
+            base.DrawInWorld();
             
         }
 
