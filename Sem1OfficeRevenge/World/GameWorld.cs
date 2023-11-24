@@ -6,7 +6,7 @@ namespace Sem1OfficeRevenge
 {
     public class GameWorld : Game
     {
-        private Scene[] scenes = new Scene[5];
+        private Scene[] scenes = new Scene[6];
         private int activeSceneIndex;
         public Camera camera;
         public GameWorld()
@@ -21,17 +21,15 @@ namespace Sem1OfficeRevenge
 
         protected override void Initialize()
         {
-            //WindowedScreen();
+            WindowedScreen();
             GlobalTextures.LoadContent();
             GlobalAnimations.LoadContent();
 
-            Global.spriteBatch = new SpriteBatch(GraphicsDevice);
-
             GenerateScenes();
-            activeSceneIndex = 1;
-            Global.currentScene = scenes[activeSceneIndex];
-            //camera = new Camera(new Vector2(Global.graphics.PreferredBackBufferWidth / 2, Global.graphics.PreferredBackBufferHeight / 2));
-            scenes[activeSceneIndex].Initialize();
+            
+            ChangeScene(3);
+
+            camera = new Camera(new Vector2(Global.graphics.PreferredBackBufferWidth / 2, Global.graphics.PreferredBackBufferHeight / 2));
 
 
             base.Initialize();
@@ -75,6 +73,14 @@ namespace Sem1OfficeRevenge
             scenes[2] = new TestSceneLeonard();
             scenes[3] = new TestSceneMarc();
             scenes[4] = new TestSceneOscar();
+            scenes[5] = new MainMenu();
+        }
+
+        public void ChangeScene(int index)
+        {
+            activeSceneIndex = index;
+            Global.currentScene = scenes[index];
+            scenes[activeSceneIndex].Initialize();
         }
 
         private void WindowedScreen()

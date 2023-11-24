@@ -19,6 +19,8 @@ namespace Sem1OfficeRevenge
             //testObj = new TestObj(GlobalTextures.textures[TextureNames.GuiButtonBasicBlue]);
             testObj = new TestObj(GlobalAnimations.SetObjAnimation(AnimNames.PlayerRifleIdle));
             Global.currentScene.Instantiate(testObj);
+            testObj.SetCollisionBox(300, 150, new Vector2(-10, 10));
+            
         }
 
         public override void DrawInWorld()
@@ -33,21 +35,30 @@ namespace Sem1OfficeRevenge
         {
             base.Update();
             
-            if (InputManager.keyboardState.IsKeyDown(Keys.A))
-            {
-                testObj.SetPlayerAnimation(AnimNames.PlayerRifleIdle);
-            }
 
-            if (InputManager.keyboardState.IsKeyDown(Keys.S))
-            {
-                testObj.SetPlayerAnimation(AnimNames.PlayerRifleMove);
-            }
-
-            if (InputManager.keyboardState.IsKeyDown(Keys.D))
-            {
-                testObj.SetPlayerAnimation(AnimNames.PlayerRifleShoot);
-            }
 
         }
+
+
+        //if (InputManager.keyboardState.IsKeyDown(Keys.A))
+        //{
+        //    testObj.SetObjectAnimation(AnimNames.PlayerRifleIdle);
+        //}
+
+        //if (InputManager.keyboardState.IsKeyDown(Keys.S))
+        //{
+        //    testObj.SetObjectAnimation(AnimNames.PlayerRifleMove);
+        //}
+
+        //if (InputManager.keyboardState.IsKeyDown(Keys.D))
+        //{
+        //    testObj.SetObjectAnimation(AnimNames.PlayerRifleShoot);
+        //}
+
+        //if (InputManager.keyboardState.IsKeyDown(Keys.F))
+        //{
+        //    testObj.SetObjectAnimation(AnimNames.PlayerRifleReload);
+        //}
+
     }
 }
