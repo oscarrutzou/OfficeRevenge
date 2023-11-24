@@ -22,7 +22,7 @@ namespace Sem1OfficeRevenge
         {
             this.texture = texture;
             this.position = position;
-            SetPlayerAnimation(AnimNames.PlayerRifleMove);
+            SetObjectAnimation(AnimNames.PlayerRifleMove);
         }
 
         public override void Update()

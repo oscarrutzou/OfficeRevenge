@@ -26,7 +26,7 @@ namespace Sem1OfficeRevenge
             GlobalAnimations.LoadContent();
 
             GenerateScenes();
-            ChangeScene(4);
+            ChangeScene(5);
             camera = new Camera(new Vector2(Global.graphics.PreferredBackBufferWidth / 2, Global.graphics.PreferredBackBufferHeight / 2));
 
 

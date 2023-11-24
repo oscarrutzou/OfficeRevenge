@@ -43,7 +43,7 @@ namespace Sem1OfficeRevenge
 
             if (InputManager.keyboardState.IsKeyDown(Keys.W))
             {
-                player.SetPlayerAnimation(AnimNames.PlayerRifleMove);
+                player.SetObjectAnimation(AnimNames.PlayerRifleMove);
             }
 
             //if (InputManager.keyboardState.IsKeyDown(Keys.D))

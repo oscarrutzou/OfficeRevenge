@@ -10,10 +10,9 @@ namespace Sem1OfficeRevenge
     {
         public static KeyboardState keyboardState;
         public static MouseState mouseState;
-        /// <summary>
-        /// Prevents multiple click when clicking a button
-        /// </summary>
+        // Prevents multiple click when clicking a button
         public static MouseState previousMouseState;
+
         public static Vector2 mousePositionOnScreen;
         
         
@@ -26,7 +25,7 @@ namespace Sem1OfficeRevenge
             mouseState = Mouse.GetState();
             
             //Sets the mouse position
-            mousePositionOnScreen = new Vector2(mouseState.X, mouseState.Y);
+            mousePositionOnScreen = GetMousePositionInWorld();
 
             if (keyboardState.IsKeyDown(Keys.Escape))
             {
@@ -83,6 +82,17 @@ namespace Sem1OfficeRevenge
             }
         }
 
+        /// <summary>
+        /// Translates the mouse's position into world space coordinates.
+        /// </summary>
+        /// <returns></returns>
+        private static Vector2 GetMousePositionInWorld()
+        {
+            Vector2 pos = new Vector2(mouseState.X, mouseState.Y);
+            Matrix invMatrix = Matrix.Invert(Global.world.camera.GetMatrix());
+
+            return Vector2.Transform(pos, invMatrix);
+        }
 
     }
 }
