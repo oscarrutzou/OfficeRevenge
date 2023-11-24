@@ -27,7 +27,7 @@ namespace Sem1OfficeRevenge
 
         public override void Update()
         {
-            comEnm.Update();
+            
             base.Update();
         }
     }
