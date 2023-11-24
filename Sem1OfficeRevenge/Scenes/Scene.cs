@@ -38,9 +38,10 @@ namespace Sem1OfficeRevenge
             }
         }
 
+
         public virtual void Draw()
         {
-            Global.graphics.GraphicsDevice.Clear(Color.DimGray);
+            Global.graphics.GraphicsDevice.Clear(Color.Black);
             
             foreach (GameObject gameObject in Global.currentSceneData.gameObjects)
             {

@@ -12,7 +12,7 @@ namespace Sem1OfficeRevenge
         //private float speed; Dette variable er også i gameobjects
         public bool dead;
 
-        //Skal vi fjernne denne så det bare er update?
+        //Skal vi fjerne denne så det bare er update?
         public void EnemyUpdate() { }
 
         public override void Update()

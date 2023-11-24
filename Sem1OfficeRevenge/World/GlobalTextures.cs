@@ -11,6 +11,7 @@ namespace Sem1OfficeRevenge
     public enum TextureNames
     {
         GuiButtonBasicBlue,
+        TileMap1,
     }
 
     public static class GlobalTextures
@@ -24,7 +25,7 @@ namespace Sem1OfficeRevenge
             textures = new Dictionary<TextureNames, Texture2D>
             {
                 {TextureNames.GuiButtonBasicBlue, Global.world.Content.Load<Texture2D>("PlaceHolder\\buttonBlue") },
-
+                {TextureNames.TileMap1, Global.world.Content.Load<Texture2D>("Rooms\\TempLobby1") },
             };
 
             defaultFont = Global.world.Content.Load<SpriteFont>("Fonts\\Arial");

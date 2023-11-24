@@ -23,8 +23,10 @@ namespace Sem1OfficeRevenge
         {
             GlobalTextures.LoadContent();
 
+            Global.spriteBatch = new SpriteBatch(GraphicsDevice);
+
             GenerateScenes();
-            activeSceneIndex = 4;
+            activeSceneIndex = 1;
             Global.currentScene = scenes[activeSceneIndex];
             scenes[activeSceneIndex].Initialize();
 
@@ -36,7 +38,7 @@ namespace Sem1OfficeRevenge
 
         protected override void LoadContent()
         {
-            Global.spriteBatch = new SpriteBatch(GraphicsDevice);
+            //Global.spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
         }
