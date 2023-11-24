@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace Sem1OfficeRevenge
 {
@@ -13,7 +14,7 @@ namespace Sem1OfficeRevenge
         private int health;
         public bool alive;
         public Vector2 origin;
-        public float rotationVelocity = 3f;
+        
         private bool hasAttacked;
         
 
@@ -21,11 +22,12 @@ namespace Sem1OfficeRevenge
         {
             this.texture = texture;
             this.position = position;
+            SetPlayerAnimation(AnimNames.PlayerRifleMove);
         }
 
         public override void Update()
         {
-            
+            base.Update();
         }
 
         public override void Draw()
