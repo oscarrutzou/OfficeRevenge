@@ -27,6 +27,37 @@ namespace Sem1OfficeRevenge
             position = playerPos;
         }
 
+        public Vector2 TopMiddle
+        {
+            get { return position + new Vector2(Global.graphics.PreferredBackBufferWidth / 2, 0); }
+        }
+
+        public Vector2 TopRight
+        {
+            get { return position + new Vector2(Global.graphics.PreferredBackBufferWidth, 0); }
+        }
+
+
+        public Vector2 Center
+        {
+            get { return position + new Vector2(Global.graphics.PreferredBackBufferWidth / 2, Global.graphics.PreferredBackBufferWidth / 2); }
+        }
+
+        public Vector2 BottomLeft
+        {
+            get { return position + new Vector2(0, Global.graphics.PreferredBackBufferHeight); }
+        }
+
+        public Vector2 BottomMiddle
+        {
+            get { return position + new Vector2(Global.graphics.PreferredBackBufferWidth / 2, Global.graphics.PreferredBackBufferHeight); }
+        }
+
+        public Vector2 BottomRight
+        {
+            get { return position + new Vector2(Global.graphics.PreferredBackBufferWidth, Global.graphics.PreferredBackBufferHeight); }
+        }
+
         public Matrix GetMatrix()
         {
             // Create a transformation matrix that represents the camera's view.

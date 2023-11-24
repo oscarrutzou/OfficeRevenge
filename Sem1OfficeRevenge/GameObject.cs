@@ -94,10 +94,6 @@ namespace Sem1OfficeRevenge
             Global.spriteBatch.Draw(pixel, new Rectangle(collisionBox.Right, collisionBox.Top, 1, collisionBox.Height), Color.Red); // Right
         }
 
-
-
-
-
         public virtual void OnCollisionBox() { } //This don't need to have anything in it, in this GameObject script
 
         public virtual void RotateTowardsTarget(Vector2 target)
@@ -109,6 +105,8 @@ namespace Sem1OfficeRevenge
         {
             animation = GlobalAnimations.SetObjAnimation(animationName);
         }
+
+
         //public virtual void Draw()
         //{
         //    //Vector2 origin = new Vector2(texture.Width / 2, texture.Height / 2);
