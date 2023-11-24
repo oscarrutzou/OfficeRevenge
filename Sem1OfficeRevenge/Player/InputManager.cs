@@ -61,24 +61,25 @@ namespace Sem1OfficeRevenge
         public static void PlayerInput()
         {
             if (Global.player != null)
-            {
-                var direction = new Vector2((float)Math.Cos(Global.player.rotation), -(float)Math.Sin(Global.player.rotation));
+            { 
+                Global.player.RotateTowardsTarget(mousePositionOnScreen);
+
                 if (keyboardState.IsKeyDown(Keys.A))
                 {
-                    Global.player.rotation -= MathHelper.ToRadians(Global.player.rotationVelocity);
+                    Global.player.position.X -= 1f;
                 }
                 else if (keyboardState.IsKeyDown(Keys.D))
                 {
-                    Global.player.rotation += MathHelper.ToRadians(Global.player.rotationVelocity);
+                    Global.player.position.X += 1f;
                 }
 
                 if (keyboardState.IsKeyDown(Keys.W))
                 {
-                    Global.player.position += direction * 4f;
+                    Global.player.position.Y -= 1f;
                 }
                 if (keyboardState.IsKeyDown(Keys.S))
                 {
-                    Global.player.position -= direction * 4f;
+                    Global.player.position.Y += 1f;
                 }
 
             }
