@@ -21,7 +21,7 @@ namespace Sem1OfficeRevenge
 
         protected override void Initialize()
         {
-            WindowedScreen();
+            //WindowedScreen();
             GlobalTextures.LoadContent();
             GlobalAnimations.LoadContent();
 
@@ -30,7 +30,7 @@ namespace Sem1OfficeRevenge
             GenerateScenes();
             activeSceneIndex = 1;
             Global.currentScene = scenes[activeSceneIndex];
-            camera = new Camera(new Vector2(Global.graphics.PreferredBackBufferWidth / 2, Global.graphics.PreferredBackBufferHeight / 2));
+            //camera = new Camera(new Vector2(Global.graphics.PreferredBackBufferWidth / 2, Global.graphics.PreferredBackBufferHeight / 2));
             scenes[activeSceneIndex].Initialize();
 
 

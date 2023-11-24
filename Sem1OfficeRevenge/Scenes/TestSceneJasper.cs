@@ -25,7 +25,7 @@ namespace Sem1OfficeRevenge
         public override void Initialize()
         {
             // lvlGen.GenerateLevel();
-
+            
             Global.graphics.IsFullScreen = false;
             Global.graphics.PreferredBackBufferWidth = 1920;
             Global.graphics.PreferredBackBufferHeight = 1080;
@@ -38,12 +38,12 @@ namespace Sem1OfficeRevenge
 
         public override void DrawInWorld()
         {
-            
+
             foreach (Room room in rooms)
             {
                 room.Draw();
             }
-            
+
             base.DrawInWorld();
             
         }
