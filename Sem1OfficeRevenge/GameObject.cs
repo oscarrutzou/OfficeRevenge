@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using SharpDX.Direct2D1.Effects;
 using SharpDX.Direct3D9;
+using SharpDX.MediaFoundation;
 using System;
 
 namespace Sem1OfficeRevenge
@@ -24,6 +25,10 @@ namespace Sem1OfficeRevenge
         private float timer;
         public float frameDuration = 0.05f; // 20 fps
 
+        private int collisionBoxWidth;
+        private int collisionBoxHeight;
+        private Vector2 offset;
+
         public Rectangle collisionBox
         {
             get
@@ -35,14 +40,14 @@ namespace Sem1OfficeRevenge
                     throw new InvalidOperationException("GameObject must have a valid texture or animation.");
                 }
 
-                int width = drawTexture.Width;
-                int height = drawTexture.Height;
+                int width = collisionBoxWidth > 0 ? collisionBoxWidth : drawTexture.Width;
+                int height = collisionBoxHeight > 0 ? collisionBoxHeight : drawTexture.Height;
 
                 Vector2 origin = UseCenterOrigin ? new Vector2(width / 2, height / 2) : Vector2.Zero;
 
                 return new Rectangle(
-                    (int)(position.X - origin.X * scale.X),
-                    (int)(position.Y - origin.Y * scale.Y),
+                    (int)(position.X + offset.X - origin.X * scale.X),
+                    (int)(position.Y + offset.Y - origin.Y * scale.Y),
                     (int)(width * scale.X),
                     (int)(height * scale.Y)
                 );
@@ -94,11 +99,27 @@ namespace Sem1OfficeRevenge
             Global.spriteBatch.Draw(pixel, new Rectangle(collisionBox.Right, collisionBox.Top, 1, collisionBox.Height), Color.Red); // Right
         }
 
+        public void SetCollisionBox(int width, int height)
+        {
+            collisionBoxWidth = width;
+            collisionBoxHeight = height;
+        }
+
+        public void SetCollisionBox(int width, int height, Vector2 offset)
+        {
+            collisionBoxWidth = width;
+            collisionBoxHeight = height;
+            this.offset = offset;
+        }
+
         public virtual void OnCollisionBox() { } //This don't need to have anything in it, in this GameObject script
 
         public virtual void RotateTowardsTarget(Vector2 target)
         {
+            if (position == target) return;
 
+            Vector2 dir = target - position;
+            rotation = (float)Math.Atan2(-dir.Y, -dir.X) + MathHelper.PiOver2;
         }
 
         public void SetObjectAnimation(AnimNames animationName)
