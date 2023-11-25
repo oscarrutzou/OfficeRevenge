@@ -2,30 +2,31 @@
 using System;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
+using static System.Net.Mime.MediaTypeNames;
+using Microsoft.Xna.Framework.Graphics;
 
 public class LoadingScene : Scene
 {
     private bool isLoading = false;
     //private float progress = 0f;
 
-    public override void Initialize()
+    public override async void Initialize()
     {
-        // Start loading content in a separate task
-        Task.Run(() => LoadContent()).ContinueWith(t => OnContentLoaded());
         isLoading = true;
+        await Task.Run(() => LoadContent());
+        OnContentLoaded();
     }
 
-    private void LoadContent()
+    private async Task LoadContent()
     {
-        // Load your content here
-        GlobalAnimations.LoadContent();
+        await GlobalAnimations.LoadContent();
     }
 
     private void OnContentLoaded()
     {
         // Switch to the main menu when the content is loaded
-        //Global.world.ChangeScene(Scenes.MainMenu);
-        //isLoading = false;
+        Global.world.ChangeScene(Scenes.TestOscar);
+        isLoading = false;
     }
 
     public override void Update()
@@ -46,8 +47,22 @@ public class LoadingScene : Scene
         if (isLoading)
         {
             // Draw loading screen
-            Vector2 pos = Global.world.camera.Center + new Vector2(0, -300);
-            Global.spriteBatch.DrawString(GlobalTextures.defaultFont, $"Loading: {GlobalAnimations.progress * 100}%", pos, Color.Black);
+            // Measure the size of the text
+            string text = $"Loading: {GlobalAnimations.progress * 100}%";
+            Vector2 textSize = GlobalTextures.defaultFont.MeasureString(text);
+
+            // Calculate the position to center the text
+            Vector2 textPosition = Global.world.camera.Center + new Vector2(0, -300) - textSize / 2;
+
+            Global.spriteBatch.DrawString(GlobalTextures.defaultFont,
+                                  text,
+                                  textPosition,
+                                  Color.Black,
+                                  0,
+                                  Vector2.Zero,
+                                  1,
+                                  SpriteEffects.None,
+                                  Global.currentScene.GetObjectLayerDepth(LayerDepth.GuiText));
         }
     }
 }
