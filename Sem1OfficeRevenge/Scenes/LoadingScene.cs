@@ -15,17 +15,17 @@ public class LoadingScene : Scene
         isLoading = true;
     }
 
-    private void LoadContent()
+    private async void LoadContent()
     {
         // Load your content here
-        GlobalAnimations.LoadContent();
+        await GlobalAnimations.LoadContent();
     }
 
     private void OnContentLoaded()
     {
         // Switch to the main menu when the content is loaded
-        //Global.world.ChangeScene(Scenes.MainMenu);
-        //isLoading = false;
+        Global.world.ChangeScene(Scenes.TestOscar);
+        isLoading = false;
     }
 
     public override void Update()
@@ -46,7 +46,7 @@ public class LoadingScene : Scene
         if (isLoading)
         {
             // Draw loading screen
-            Vector2 pos = Global.world.camera.Center + new Vector2(0, -300);
+            Vector2 pos = Global.world.camera.Center + new Vector2(0, -100);
             Global.spriteBatch.DrawString(GlobalTextures.defaultFont, $"Loading: {GlobalAnimations.progress * 100}%", pos, Color.Black);
         }
     }

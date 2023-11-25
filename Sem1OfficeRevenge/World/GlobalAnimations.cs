@@ -40,7 +40,7 @@ namespace Sem1OfficeRevenge
             for (int i = 0; i < framesInAnim; i++)
             {
                 animList.Add(Global.world.Content.Load<Texture2D>(path + i));
-                await Task.Delay(30); // Wait for 100 milliseconds
+                await Task.Delay(100);
             }
             animations[animationName] = animList;
             progress += 1f / totalAnimations; // Update the progress after each animation is loaded

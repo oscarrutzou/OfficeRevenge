@@ -32,7 +32,7 @@ namespace Sem1OfficeRevenge
 
             
             GenerateScenes();
-            ChangeScene(Scenes.MainMenu);
+            ChangeScene(Scenes.LoadingScreen);
             
             base.Initialize();
         }
