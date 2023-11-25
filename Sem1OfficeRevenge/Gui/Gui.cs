@@ -9,9 +9,12 @@ namespace Sem1OfficeRevenge
     public abstract class Gui : GameObject
     {
         //Variabler til at kunne vælge mellem når man laver UI
-        public override void Update()
-        {
+        public string text;
+        public Action onClick;
 
+        public Gui() {
+            Global.currentScene.SetObjectLayerDepth(this, LayerDepth.GuiObjects);
         }
+
     }
 }

@@ -12,13 +12,13 @@ namespace Sem1OfficeRevenge
         public TestObj(Texture2D textureStatic)
         {
             texture = textureStatic;
-            UseCenterOrigin = true;
+            CenterOrigin = true;
         }
 
         public TestObj(Animation anim)
         {
             animation = anim;
-            UseCenterOrigin = true;
+            CenterOrigin = true;
         }
 
     }

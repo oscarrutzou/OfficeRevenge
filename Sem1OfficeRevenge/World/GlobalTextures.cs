@@ -8,7 +8,8 @@ namespace Sem1OfficeRevenge
     public enum TextureNames
     {
         //Gui
-        GuiButtonBasicBlue,
+        GuiButtonTest,
+        
     }
 
     public static class GlobalTextures
@@ -16,15 +17,17 @@ namespace Sem1OfficeRevenge
         public static Dictionary<TextureNames, Texture2D> textures;
 
         public static SpriteFont defaultFont;
+        //public static SpriteFont crunchyFont;
         
         public static void LoadContent()
         {
             textures = new Dictionary<TextureNames, Texture2D>
             {
-                {TextureNames.GuiButtonBasicBlue, Global.world.Content.Load<Texture2D>("PlaceHolder\\buttonBlue") },
+                {TextureNames.GuiButtonTest, Global.world.Content.Load<Texture2D>("GUI\\TestBtn") },
             };
 
-            defaultFont = Global.world.Content.Load<SpriteFont>("Fonts\\Arial");
+            defaultFont = Global.world.Content.Load<SpriteFont>("Fonts\\CrunchyFont");
+            //crunchyFont = Global.world.Content.Load<SpriteFont>("Fonts\\CrunchyFont");
         }
     }
 }

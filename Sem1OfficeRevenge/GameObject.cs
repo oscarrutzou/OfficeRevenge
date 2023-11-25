@@ -19,8 +19,9 @@ namespace Sem1OfficeRevenge
         public float speed;
         public Vector2 direction;
         public bool isRemoved;
+        public bool isVisible = true;
         public Color color = Color.White;
-        public bool UseCenterOrigin;
+        public bool CenterOrigin;
         public float rotationVelocity = 3f;
 
         private float timer;
@@ -44,7 +45,7 @@ namespace Sem1OfficeRevenge
                 int width = collisionBoxWidth > 0 ? collisionBoxWidth : drawTexture.Width;
                 int height = collisionBoxHeight > 0 ? collisionBoxHeight : drawTexture.Height;
 
-                Vector2 origin = UseCenterOrigin ? new Vector2(width / 2, height / 2) : Vector2.Zero;
+                Vector2 origin = CenterOrigin ? new Vector2(width / 2, height / 2) : Vector2.Zero;
 
                 return new Rectangle(
                     (int)(position.X + offset.X - origin.X * scale.X),
@@ -53,6 +54,11 @@ namespace Sem1OfficeRevenge
                     (int)(height * scale.Y)
                 );
             }
+        }
+
+        public GameObject()
+        {
+            Global.currentScene.SetObjectLayerDepth(this, LayerDepth.Background);
         }
 
         public virtual void Update()
@@ -70,8 +76,10 @@ namespace Sem1OfficeRevenge
 
         public virtual void Draw()
         {
+            if (!isVisible) return;
+
             Texture2D drawTexture = texture ?? animation?.frames[animation.CurrentFrame];
-            Vector2 origin = UseCenterOrigin ? new Vector2(drawTexture.Width / 2, drawTexture.Height / 2) : Vector2.Zero;
+            Vector2 origin = CenterOrigin ? new Vector2(drawTexture.Width / 2, drawTexture.Height / 2) : Vector2.Zero;
 
             if (animation != null)
             {
@@ -83,10 +91,10 @@ namespace Sem1OfficeRevenge
                 // Draw static texture
                 Global.spriteBatch.Draw(texture, position, null, color, rotation, origin, scale, SpriteEffects.None, layerDepth);
             }
-            DrawDebugCollisionBox();
+            
         }
 
-        private void DrawDebugCollisionBox()
+        internal void DrawDebugCollisionBox()
         {
             // Draw debug collision box
             Texture2D pixel = new Texture2D(Global.graphics.GraphicsDevice, 1, 1);
@@ -167,7 +175,7 @@ namespace Sem1OfficeRevenge
         }
 
 
-        public virtual void OnCollisionBox() { } //This don't need to have anything in it, in this GameObject script
+        public virtual void OnCollisionBox() { } // This don't need to have anything in it, in this GameObject script
 
         public virtual void RotateTowardsTarget(Vector2 target)
         {
@@ -183,13 +191,8 @@ namespace Sem1OfficeRevenge
         }
 
 
-        //public virtual void Draw()
-        //{
-        //    //Vector2 origin = new Vector2(texture.Width / 2, texture.Height / 2);
-        //    //Global.spriteBatch.Draw(texture, position, null, color, rotation, origin, scale, SpriteEffects.None, layerDepth);
-
-        //    Global.spriteBatch.Draw(texture, position, null, color, rotation, Vector2.Zero, scale, SpriteEffects.None, layerDepth);
-        //}
 
     }
+
+
 }
