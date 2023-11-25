@@ -1,29 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using Sem1OfficeRevenge;
+using System;
 using System.Threading.Tasks;
+using Microsoft.Xna.Framework;
 
-namespace Sem1OfficeRevenge
+public class LoadingScene : Scene
 {
-    public class LoadingScene : Scene
+    private bool isLoading = false;
+    //private float progress = 0f;
+
+    public override void Initialize()
     {
         // Start loading content in a separate task
         Task.Run(() => LoadContent()).ContinueWith(t => OnContentLoaded());
         isLoading = true;
     }
 
-    private async void LoadContent()
+    private void LoadContent()
     {
         // Load your content here
-        await GlobalAnimations.LoadContent();
+        GlobalAnimations.LoadContent();
     }
 
     private void OnContentLoaded()
     {
         // Switch to the main menu when the content is loaded
-        Global.world.ChangeScene(Scenes.TestOscar);
-        isLoading = false;
+        //Global.world.ChangeScene(Scenes.MainMenu);
+        //isLoading = false;
     }
 
     public override void Update()
@@ -33,6 +35,9 @@ namespace Sem1OfficeRevenge
         // Optionally, update your loading screen animation here
         if (isLoading)
         {
+            // Update loading screen animation
+        }
+    }
 
     public override void DrawOnScreen()
     {
@@ -41,7 +46,7 @@ namespace Sem1OfficeRevenge
         if (isLoading)
         {
             // Draw loading screen
-            Vector2 pos = Global.world.camera.Center + new Vector2(0, -100);
+            Vector2 pos = Global.world.camera.Center + new Vector2(0, -300);
             Global.spriteBatch.DrawString(GlobalTextures.defaultFont, $"Loading: {GlobalAnimations.progress * 100}%", pos, Color.Black);
         }
     }
