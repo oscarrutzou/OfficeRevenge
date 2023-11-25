@@ -1,12 +1,14 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System.Collections.Generic;
+using System.Drawing;
 
 namespace Sem1OfficeRevenge
 {
     public class GameWorld : Game
     {
-        private Scene[] scenes = new Scene[6];
+        private Dictionary<Scenes, Scene> scenes = new Dictionary<Scenes, Scene>();
         private int activeSceneIndex;
         public Camera camera;
         public GameWorld()
@@ -25,11 +27,13 @@ namespace Sem1OfficeRevenge
             GlobalTextures.LoadContent();
             GlobalAnimations.LoadContent();
 
-            GenerateScenes();
-            
-            ChangeScene(3);
+            //camera = new Camera(new Vector2(Global.graphics.PreferredBackBufferWidth / 2, Global.graphics.PreferredBackBufferHeight / 2));
+            camera = new Camera(Vector2.Zero);
 
-            camera = new Camera(new Vector2(Global.graphics.PreferredBackBufferWidth / 2, Global.graphics.PreferredBackBufferHeight / 2));
+            
+            GenerateScenes();
+            ChangeScene(Scenes.MainMenu);
+
             
 
             base.Initialize();
@@ -48,7 +52,7 @@ namespace Sem1OfficeRevenge
 
             InputManager.HandleInput();
 
-            scenes[activeSceneIndex].Update();
+            Global.currentScene.Update();
 
             if (Global.player != null)
             {
@@ -61,11 +65,11 @@ namespace Sem1OfficeRevenge
         protected override void Draw(GameTime gameTime)
         {
             Global.spriteBatch.Begin(sortMode: SpriteSortMode.FrontToBack, transformMatrix: Global.world.camera.GetMatrix());
-            scenes[activeSceneIndex].DrawInWorld();
+            Global.currentScene.DrawInWorld();
             Global.spriteBatch.End();
 
             Global.spriteBatch.Begin(sortMode: SpriteSortMode.FrontToBack);
-            scenes[activeSceneIndex].DrawOnScreen();
+            Global.currentScene.DrawOnScreen();
             Global.spriteBatch.End();
 
             base.Draw(gameTime);
@@ -73,19 +77,27 @@ namespace Sem1OfficeRevenge
 
         private void GenerateScenes()
         {
-            scenes[0] = new TestBaseScene();
-            scenes[1] = new TestSceneJasper();
-            scenes[2] = new TestSceneLeonard();
-            scenes[3] = new TestSceneMarc();
-            scenes[4] = new TestSceneOscar();
-            scenes[5] = new MainMenu();
+            scenes[Scenes.MainMenu] = new MainMenu();
+            scenes[Scenes.LoadingScreen] = new LoadingScene();
+            scenes[Scenes.TestJasper] = new TestSceneJasper();
+            scenes[Scenes.TestLeonard] = new TestSceneLeonard();
+            scenes[Scenes.TestMarc] = new TestSceneMarc();
+            scenes[Scenes.TestOscar] = new TestSceneOscar();
+            
         }
 
-        public void ChangeScene(int index)
+        public void ChangeScene(Scenes scene)
         {
-            activeSceneIndex = index;
-            Global.currentScene = scenes[index];
-            scenes[activeSceneIndex].Initialize();
+            if (Global.currentSceneData != null)
+            {
+                foreach (GameObject gameObject in Global.currentSceneData.gameObjects)
+                {
+                    gameObject.isRemoved = true;
+                }
+            }
+
+            Global.currentScene = scenes[scene];
+            Global.currentScene.Initialize();
         }
 
         private void WindowedScreen()
@@ -93,8 +105,16 @@ namespace Sem1OfficeRevenge
             Global.graphics.HardwareModeSwitch = true;
             Global.graphics.PreferredBackBufferWidth = 1280;
             Global.graphics.PreferredBackBufferHeight = 720;
-            //camera.SetOrigin(new Vector2(_graphics.PreferredBackBufferWidth / 2, _graphics.PreferredBackBufferHeight / 2));
             Global.graphics.IsFullScreen = false;
+            Global.graphics.ApplyChanges();
+        }
+
+        public void Fullscreen()
+        {
+            Global.graphics.HardwareModeSwitch = false;
+            Global.graphics.PreferredBackBufferWidth = GraphicsDevice.DisplayMode.Width;
+            Global.graphics.PreferredBackBufferHeight = GraphicsDevice.DisplayMode.Height;
+            Global.graphics.IsFullScreen = true;
             Global.graphics.ApplyChanges();
         }
 

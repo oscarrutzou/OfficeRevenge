@@ -31,27 +31,13 @@ namespace Sem1OfficeRevenge
             {
                 Global.world.Exit();
             }
-
             PlayerInput();
 
-            //var direction = new Vector2((float)Math.Cos(Player.rotation), -(float)Math.Sin(Player.rotation));
-            //if (keyboardState.IsKeyDown(Keys.A))
-            //{
-            //    Player.rotation -= MathHelper.ToRadians(Player.rotationVelocity);
-            //}
-            //else if (keyboardState.IsKeyDown(Keys.D))
-            //{
-            //    Player.rotation += MathHelper.ToRadians(Player.rotationVelocity);
-            //}
+            if (mouseState.LeftButton == ButtonState.Pressed && previousMouseState.LeftButton != ButtonState.Pressed)
+            {
+                CheckButtons();
+            }
 
-            //if (keyboardState.IsKeyDown(Keys.W))
-            //{
-            //    Player.position += direction * 4f;
-            //}
-            //if (keyboardState.IsKeyDown(Keys.S))
-            //{
-            //    Player.position -= direction * 4f;
-            //}
 
             previousMouseState = mouseState;
 
@@ -84,6 +70,24 @@ namespace Sem1OfficeRevenge
 
             }
         }
+
+
+        private static void CheckButtons()
+        {
+            if (Global.currentSceneData.guis != null)
+            {
+                foreach (Button button in Global.currentSceneData.guis)
+                {
+                    if (button.IsMouseOver() && button.isVisible)
+                    {
+                        button.OnClick();
+                        return;  // Return early if a button was clicked
+                    }
+                }
+            }
+        }
+
+       
 
         /// <summary>
         /// Translates the mouse's position into world space coordinates.
