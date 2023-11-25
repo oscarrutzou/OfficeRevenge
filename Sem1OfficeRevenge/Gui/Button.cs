@@ -1,8 +1,6 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using SharpDX.Direct2D1.Effects;
-using System;
-using System.Collections.Generic;
 using Microsoft.Xna.Framework.Input;
 
 
@@ -16,12 +14,13 @@ namespace Sem1OfficeRevenge
         private bool invokeActionOnFullScale;
         private bool hasPressed;
 
-        public Button(Vector2 position, string text, Texture2D texture, Action onClick)
+        public Button(Vector2 position, string text, Texture2D texture, bool invokeActionOnFullScale, Action onClick)
         {
             this.position = position;
             this.text = text;
             this.texture = texture;
             this.onClick = onClick;
+            this.invokeActionOnFullScale = invokeActionOnFullScale;
             CenterOrigin = true;
         }
 
@@ -68,7 +67,7 @@ namespace Sem1OfficeRevenge
         {
             if (!isVisible) return;
 
-            scale = new Vector2(0.9f, 0.9f);  // Shrink the button by 10%
+            scale = new Vector2(0.95f, 0.95f);  // Shrink the button by 10%
 
             if (timeSinceLastClick >= clickCooldown)
             {
@@ -95,6 +94,7 @@ namespace Sem1OfficeRevenge
         private void DrawText()
         {
             if (!isVisible) return;
+
             // Measure the size of the text
             Vector2 textSize = GlobalTextures.defaultFont.MeasureString(text);
 

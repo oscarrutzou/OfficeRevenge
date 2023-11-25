@@ -25,6 +25,7 @@ namespace Sem1OfficeRevenge
         {
             WindowedScreen();
             GlobalTextures.LoadContent();
+            GlobalAnimations.LoadLoadingScreenIcon();
             //GlobalAnimations.LoadContent();
 
             //camera = new Camera(new Vector2(Global.graphics.PreferredBackBufferWidth / 2, Global.graphics.PreferredBackBufferHeight / 2));

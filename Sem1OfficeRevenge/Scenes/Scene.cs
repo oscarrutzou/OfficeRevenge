@@ -2,7 +2,6 @@
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
-using static Sem1OfficeRevenge.Scene;
 
 namespace Sem1OfficeRevenge
 {
@@ -59,6 +58,7 @@ namespace Sem1OfficeRevenge
             // Call update on every GameObject in the active scene.
             foreach (GameObject gameObject in Global.currentSceneData.gameObjects)
             {
+                gameObject.animation?.AnimationUpdate();
                 gameObject.Update();
             }
         }

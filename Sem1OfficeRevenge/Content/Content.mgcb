@@ -94,7 +94,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:GUI/Icons/icon_timeglass_0.png
+/build:GUI/Icons/icon_timeglass_0.png;GUI/Icons/icon_timeglass_1.png
 
 #begin GUI/Icons/icon_timeglass_1.png
 /importer:TextureImporter
@@ -106,7 +106,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:GUI/Icons/icon_timeglass_1.png
+/build:GUI/Icons/icon_timeglass_1.png;GUI/Icons/icon_timeglass_2.png
 
 #begin GUI/Icons/icon_timeglass_2.png
 /importer:TextureImporter
@@ -118,7 +118,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:GUI/Icons/icon_timeglass_2.png
+/build:GUI/Icons/icon_timeglass_2.png;GUI/Icons/icon_timeglass_0.png
 
 #begin GUI/TestBtn.png
 /importer:TextureImporter

@@ -10,33 +10,35 @@ namespace Sem1OfficeRevenge
 {
     public abstract class GameObject
     {
-        public Texture2D texture;
-        public Animation animation;
-        public float layerDepth; //How object gets drawn
         public Vector2 position;
-        public float rotation;
+        internal float rotation;
+        internal float rotationVelocity = 3f;
         public Vector2 scale = new Vector2(1,1);
         public float speed;
         public Vector2 direction;
-        public bool isRemoved;
-        public bool isVisible = true;
-        public Color color = Color.White;
-        public bool CenterOrigin;
-        public float rotationVelocity = 3f;
 
-        private float timer;
-        public float frameDuration = 0.05f; // 20 fps
+        public Texture2D texture;
+        
+        public bool CenterOrigin;
+        public float layerDepth; //How object gets drawn
+        public Color color = Color.White;
+
+        public Animation animation;
+        //public float frameRate = 20f;
 
         private int collisionBoxWidth;
         private int collisionBoxHeight;
         private Vector2 offset;
+        
+        public bool isVisible = true;
+        public bool isRemoved;
 
         public Rectangle collisionBox
         {
             get
             {
                 // Try to get the width and height of the texture or the current frame of the animation.
-                Texture2D drawTexture = texture ?? animation?.frames[animation.CurrentFrame];
+                Texture2D drawTexture = texture ?? animation?.frames[animation.currentFrame];
                 if (drawTexture == null)
                 {
                     throw new InvalidOperationException("GameObject must have a valid texture or animation.");
@@ -63,22 +65,14 @@ namespace Sem1OfficeRevenge
 
         public virtual void Update()
         {
-            if (animation != null)
-            {
-                timer += (float)Global.gameTime.ElapsedGameTime.TotalSeconds;
-                if (timer > frameDuration)
-                {
-                    timer -= frameDuration;
-                    animation.CurrentFrame = (animation.CurrentFrame + 1) % animation.frames.Count;
-                }
-            }
+
         }
 
         public virtual void Draw()
         {
             if (!isVisible) return;
 
-            Texture2D drawTexture = texture ?? animation?.frames[animation.CurrentFrame];
+            Texture2D drawTexture = texture ?? animation?.frames[animation.currentFrame];
             Vector2 origin = CenterOrigin ? new Vector2(drawTexture.Width / 2, drawTexture.Height / 2) : Vector2.Zero;
 
             if (animation != null)
@@ -91,7 +85,6 @@ namespace Sem1OfficeRevenge
                 // Draw static texture
                 Global.spriteBatch.Draw(texture, position, null, color, rotation, origin, scale, SpriteEffects.None, layerDepth);
             }
-            
         }
 
         internal void DrawDebugCollisionBox()

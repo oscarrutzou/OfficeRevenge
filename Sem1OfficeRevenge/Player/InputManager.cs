@@ -76,13 +76,17 @@ namespace Sem1OfficeRevenge
         {
             if (Global.currentSceneData.guis != null)
             {
-                foreach (Button button in Global.currentSceneData.guis)
+                foreach (Gui gui in Global.currentSceneData.guis)
                 {
-                    if (button.IsMouseOver() && button.isVisible)
+                    if (gui is Button button)
                     {
-                        button.OnClick();
-                        return;  // Return early if a button was clicked
+                        if (button.IsMouseOver() && button.isVisible)
+                        {
+                            button.OnClick();
+                            return;  // Return early if a button was clicked
+                        }
                     }
+
                 }
             }
         }
