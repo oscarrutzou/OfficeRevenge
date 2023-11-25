@@ -1,14 +1,12 @@
-﻿using Sem1OfficeRevenge;
-using System;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
-using Microsoft.Xna.Framework;
 
-public class LoadingScene : Scene
+namespace Sem1OfficeRevenge
 {
-    private bool isLoading = false;
-    //private float progress = 0f;
-
-    public override void Initialize()
+    public class LoadingScene : Scene
     {
         // Start loading content in a separate task
         Task.Run(() => LoadContent()).ContinueWith(t => OnContentLoaded());
@@ -35,9 +33,6 @@ public class LoadingScene : Scene
         // Optionally, update your loading screen animation here
         if (isLoading)
         {
-            // Update loading screen animation
-        }
-    }
 
     public override void DrawOnScreen()
     {
