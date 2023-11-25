@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 
@@ -9,7 +10,6 @@ namespace Sem1OfficeRevenge
     public class GameWorld : Game
     {
         private Dictionary<Scenes, Scene> scenes = new Dictionary<Scenes, Scene>();
-        private int activeSceneIndex;
         public Camera camera;
         public GameWorld()
         {
@@ -25,7 +25,7 @@ namespace Sem1OfficeRevenge
         {
             WindowedScreen();
             GlobalTextures.LoadContent();
-            GlobalAnimations.LoadContent();
+            //GlobalAnimations.LoadContent();
 
             //camera = new Camera(new Vector2(Global.graphics.PreferredBackBufferWidth / 2, Global.graphics.PreferredBackBufferHeight / 2));
             camera = new Camera(Vector2.Zero);
@@ -33,9 +33,7 @@ namespace Sem1OfficeRevenge
             
             GenerateScenes();
             ChangeScene(Scenes.MainMenu);
-
             
-
             base.Initialize();
         }
 
