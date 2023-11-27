@@ -18,9 +18,11 @@ namespace Sem1OfficeRevenge
         private bool hasAttacked;
         
 
-        public Player(Vector2 position)
+        public Player()
         {
-            this.position = position;
+            CenterOrigin = true;
+            position.X = Global.graphics.PreferredBackBufferWidth/2;
+            position.Y = Global.graphics.PreferredBackBufferHeight/2;
             SetObjectAnimation(AnimNames.PlayerRifleMove);
             Global.currentScene.SetObjectLayerDepth(this, LayerDepth.Player);
         }

@@ -27,8 +27,8 @@ namespace Sem1OfficeRevenge
             GlobalAnimations.LoadLoadingScreenIcon();
             GlobalAnimations.LoadContentTestScenes();
 
-            //camera = new Camera(new Vector2(Global.graphics.PreferredBackBufferWidth / 2, Global.graphics.PreferredBackBufferHeight / 2));
-            camera = new Camera(Vector2.Zero);
+            camera = new Camera(new Vector2(Global.graphics.PreferredBackBufferWidth / 2, Global.graphics.PreferredBackBufferHeight / 2));
+            //camera = new Camera(Vector2.Zero);
 
             
             GenerateScenes();

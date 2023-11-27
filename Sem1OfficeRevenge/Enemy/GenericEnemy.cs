@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Sem1OfficeRevenge.Content.UI;
 
 namespace Sem1OfficeRevenge
 {
@@ -19,12 +20,11 @@ namespace Sem1OfficeRevenge
         {
             Global.currentScene.SetObjectLayerDepth(this, LayerDepth.Enemies);
         }
-
         
-
-        public override void Update()
+        public void Death()
         {
-            base.Update();
+            dead = true;
+            ScoreManager.killCount++;
         }
     }
 }

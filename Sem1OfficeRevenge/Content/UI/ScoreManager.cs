@@ -8,12 +8,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Sem1OfficeRevenge.Content.UI
 {
     static internal class ScoreManager
     {
         public static int killCount = 0;
+        
 
         public static void UpdateScore()
         {
@@ -45,8 +47,8 @@ namespace Sem1OfficeRevenge.Content.UI
         }
         public static void Draw(Vector2 pos) 
         {
-            Global.spriteBatch.DrawString(GlobalTextures.defaultFont, "Kill Count: " + killCount, pos, Color.Red);
-
+            Global.spriteBatch.DrawString(GlobalTextures.defaultFont, "Kill Count: " + killCount, new Vector2(Global.player.position.X - (Global.graphics.PreferredBackBufferWidth/2) + 25, Global.player.position.Y - (Global.graphics.PreferredBackBufferHeight/2) + 20), Color.Red, 0, Vector2.Zero, 1, SpriteEffects.None, Global.currentScene.GetObjectLayerDepth(LayerDepth.GuiText));
+          
         }
 
 

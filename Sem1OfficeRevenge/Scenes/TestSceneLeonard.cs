@@ -13,6 +13,7 @@ namespace Sem1OfficeRevenge
     {
         CombatEnemy comEnm;
         Player player;
+        CivillianEnemy civEnm;
         bool pressed;
         public TestSceneLeonard()
         {
@@ -21,21 +22,25 @@ namespace Sem1OfficeRevenge
 
         public override void Initialize()
         {
-            comEnm = new CombatEnemy();
-            player = new Player(new Vector2(100,100));
+            //comEnm = new CombatEnemy();
+            player = new Player();
+            civEnm = new CivillianEnemy();
+            Global.player = player;
             
         }
 
         public override void DrawInWorld()
         {
             ScoreManager.Draw(new Vector2(10, 10));
+            player.Draw();
+            //comEnm.Draw();
             base.DrawInWorld();
         }
 
         public override void Update()
         {
             ScoreManager.UpdateScore();
-            comEnm.Update();
+            //comEnm.Update();
             base.Update();
         }
     }
