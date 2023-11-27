@@ -23,7 +23,7 @@ namespace Sem1OfficeRevenge
         public override void Initialize()
         {
             position = new Vector2(100, 100);
-            player = new Player(texture, position);
+            player = new Player(position);
             Global.currentScene.Instantiate(player);
             Global.player = player;
             player.CenterOrigin = true;

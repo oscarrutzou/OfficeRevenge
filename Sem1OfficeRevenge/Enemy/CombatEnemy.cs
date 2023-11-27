@@ -17,7 +17,7 @@ namespace Sem1OfficeRevenge
 
         public CombatEnemy()
         {
-                SetObjectAnimation(AnimNames.PlayerRifleReload);
+                SetObjectAnimation(AnimNames.PlayerRifleIdle);
 
 
         }

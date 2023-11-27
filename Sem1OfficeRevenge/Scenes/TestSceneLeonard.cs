@@ -12,6 +12,7 @@ namespace Sem1OfficeRevenge
     public class TestSceneLeonard : Scene
     {
         CombatEnemy comEnm;
+        Player player;
         bool pressed;
         public TestSceneLeonard()
         {
@@ -21,7 +22,8 @@ namespace Sem1OfficeRevenge
         public override void Initialize()
         {
             comEnm = new CombatEnemy();
-            Global.currentScene.Instantiate(comEnm);
+            player = new Player(new Vector2(100,100));
+            
         }
 
         public override void DrawInWorld()

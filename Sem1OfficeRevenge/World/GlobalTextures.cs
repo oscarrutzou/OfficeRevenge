@@ -21,10 +21,10 @@ namespace Sem1OfficeRevenge
         
         public static void LoadContent()
         {
-            textures = new Dictionary<TextureNames, Texture2D>
-            {
-                {TextureNames.GuiButtonTest, Global.world.Content.Load<Texture2D>("GUI\\TestBtn") },
-            };
+            //textures = new Dictionary<TextureNames, Texture2D>
+            //{
+            //    {TextureNames.GuiButtonTest, Global.world.Content.Load<Texture2D>("GUI\\TestBtn") },
+            //};
 
             //defaultFont = Global.world.Content.Load<SpriteFont>("Fonts\\Friday13SH");
             //defaultFont = Global.world.Content.Load<SpriteFont>("Fonts\\Friday13v12");

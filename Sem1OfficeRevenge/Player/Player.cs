@@ -18,9 +18,8 @@ namespace Sem1OfficeRevenge
         private bool hasAttacked;
         
 
-        public Player(Texture2D texture, Vector2 position)
+        public Player(Vector2 position)
         {
-            this.texture = texture;
             this.position = position;
             SetObjectAnimation(AnimNames.PlayerRifleMove);
             

@@ -31,7 +31,7 @@ namespace Sem1OfficeRevenge
             Global.graphics.PreferredBackBufferHeight = 1080;
             Global.graphics.ApplyChanges();
 
-            startRoom = new Room(GlobalTextures.textures[TextureNames.TileMap1]);
+            //startRoom = new Room(GlobalTextures.textures[TextureNames.TileMap1]);
             rooms.Add(startRoom);
             Global.currentScene.Instantiate(startRoom);
         }
