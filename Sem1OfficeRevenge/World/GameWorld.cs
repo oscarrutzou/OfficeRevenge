@@ -9,7 +9,6 @@ namespace Sem1OfficeRevenge
     public class GameWorld : Game
     {
         private Dictionary<Scenes, Scene> scenes = new Dictionary<Scenes, Scene>();
-        private int activeSceneIndex;
         public Camera camera;
         public GameWorld()
         {

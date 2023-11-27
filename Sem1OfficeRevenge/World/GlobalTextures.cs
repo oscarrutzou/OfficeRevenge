@@ -28,8 +28,8 @@ namespace Sem1OfficeRevenge
 
             //defaultFont = Global.world.Content.Load<SpriteFont>("Fonts\\Friday13SH");
             //defaultFont = Global.world.Content.Load<SpriteFont>("Fonts\\Friday13v12");
-            defaultFont = Global.world.Content.Load<SpriteFont>("Fonts\\SlencoBlack");
-            //defaultFont = Global.world.Content.Load<SpriteFont>("Fonts\\CrunchyFont");
+            //defaultFont = Global.world.Content.Load<SpriteFont>("Fonts\\SlencoBlack");
+            defaultFont = Global.world.Content.Load<SpriteFont>("Fonts\\CrunchyFont");
             //crunchyFont = Global.world.Content.Load<SpriteFont>("Fonts\\CrunchyFont");
         }
     }
