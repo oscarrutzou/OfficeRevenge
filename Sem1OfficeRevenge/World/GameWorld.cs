@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using SharpDX.Direct3D9;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 
@@ -10,6 +12,7 @@ namespace Sem1OfficeRevenge
     {
         private Dictionary<Scenes, Scene> scenes = new Dictionary<Scenes, Scene>();
         public Camera camera;
+
         public GameWorld()
         {
             Global.world = this;
@@ -25,14 +28,15 @@ namespace Sem1OfficeRevenge
             WindowedScreen();
             GlobalTextures.LoadContent();
             GlobalAnimations.LoadLoadingScreenIcon();
-            GlobalAnimations.LoadContentTestScenes();
+            //GlobalAnimations.LoadContentTestScenes();
 
             //camera = new Camera(new Vector2(Global.graphics.PreferredBackBufferWidth / 2, Global.graphics.PreferredBackBufferHeight / 2));
             camera = new Camera(Vector2.Zero);
 
-            
+
+
             GenerateScenes();
-            ChangeScene(Scenes.TestLeonard);
+            ChangeScene(Scenes.MainMenu);
             
 
             base.Initialize();
@@ -108,6 +112,19 @@ namespace Sem1OfficeRevenge
             Global.graphics.ApplyChanges();
         }
 
+        public event EventHandler<ResolutionChangedEventArgs> OnResolutionChanged;
+
+        public void ResolutionSize(int width, int height)
+        {
+            Global.graphics.HardwareModeSwitch = true;
+            Global.graphics.PreferredBackBufferWidth = width;
+            Global.graphics.PreferredBackBufferHeight = height;
+            Global.graphics.IsFullScreen = false;
+            Global.graphics.ApplyChanges();
+
+            OnResolutionChanged?.Invoke(this, new ResolutionChangedEventArgs { Width = width, Height = height });
+        }
+
         public void Fullscreen()
         {
             Global.graphics.HardwareModeSwitch = false;
@@ -115,6 +132,11 @@ namespace Sem1OfficeRevenge
             Global.graphics.PreferredBackBufferHeight = GraphicsDevice.DisplayMode.Height;
             Global.graphics.IsFullScreen = true;
             Global.graphics.ApplyChanges();
+
+            OnResolutionChanged?.Invoke(this, new ResolutionChangedEventArgs { 
+                                        Width = GraphicsDevice.DisplayMode.Width, 
+                                        Height = GraphicsDevice.DisplayMode.Height });
+            
         }
 
     }

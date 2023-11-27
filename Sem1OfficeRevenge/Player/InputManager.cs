@@ -31,6 +31,7 @@ namespace Sem1OfficeRevenge
             {
                 Global.world.Exit();
             }
+
             PlayerInput();
 
             if (mouseState.LeftButton == ButtonState.Pressed && previousMouseState.LeftButton != ButtonState.Pressed)

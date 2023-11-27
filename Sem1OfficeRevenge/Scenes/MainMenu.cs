@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Sem1OfficeRevenge
 {
@@ -7,34 +8,77 @@ namespace Sem1OfficeRevenge
     {
 
         private Button playBtn;
+        private Vector2 playBtnPos;
         private Button settingsBtn;
+        private Vector2 settingsBtnPos;
         private Button quitBtn;
+        private Vector2 quitBtnPos;
+
         private bool showSettings;
 
         private Button musicBtn;
+        private Vector2 musicBtnPos;
         private Button resolutionBtn;
+        private Vector2 resolutionBtnPos;
         private Button backBtn;
+        private Vector2 backBtnPos;
 
         public override void Initialize()
         {
             //Global.world.Fullscreen();
             InitMainMenu();
             InitSettingsMenu();
+            Global.world.OnResolutionChanged += WorldOnResolutionChanged;
+            WorldOnResolutionChanged(this, new ResolutionChangedEventArgs { Width = Global.graphics.PreferredBackBufferWidth, Height = Global.graphics.PreferredBackBufferHeight });
         }
         
+        private int index = 1;
+
+        //Lav sort skærm, ændre pos, fade ud til normal skærm. 
+
+        private void ChangeResolution()
+        {
+            switch (index)
+            {
+                case 0:
+                    Global.world.ResolutionSize(1280, 720);
+                    break;
+                case 1:
+                    Global.world.ResolutionSize(1920, 1080);
+                    break;
+                //case 2:
+                //    Global.world.ResolutionSize(2560, 1440);
+                //    break;
+                case 2:
+                    Global.world.Fullscreen();
+                    break;
+            }
+            index++;
+            if (index == 3) index = 0;
+        }
+
+        private void WorldOnResolutionChanged(object sender, ResolutionChangedEventArgs e)
+        {
+            playBtn.position = Global.world.camera.Center + new Vector2(0, -100);
+            settingsBtn.position = Global.world.camera.Center;
+            quitBtn.position = Global.world.camera.Center + new Vector2(0, 100);
+
+            resolutionBtn.position = Global.world.camera.Center + new Vector2(0, -100);
+            musicBtn.position = Global.world.camera.Center;
+            backBtn.position = Global.world.camera.Center + new Vector2(0, 200);
+        }
         private void InitMainMenu()
         {
-            playBtn = new Button(Global.world.camera.Center + new Vector2(0, -100),
+            playBtn = new Button(
                                  "Start Game",
                                  true,
                                  PlayGame);
 
-            settingsBtn = new Button(Global.world.camera.Center,
+            settingsBtn = new Button(
                                  "Settings",
                                  true,
                                  Settings);
-
-            quitBtn = new Button(Global.world.camera.Center + new Vector2(0, 100),
+            quitBtn = new Button(
                                  "Quit",
                                  true,
                                  QuitGame);
@@ -46,19 +90,19 @@ namespace Sem1OfficeRevenge
 
         private void InitSettingsMenu()
         {
-            resolutionBtn = new Button(Global.world.camera.Center + new Vector2(0, -100),
+            resolutionBtn = new Button(
                                  "Resolution",
                                  true,
                                  ChangeResolution);
             resolutionBtn.isVisible = false;
 
-            musicBtn = new Button(Global.world.camera.Center,
+            musicBtn = new Button(
                                  "Music",
                                  true,
                                  ChangeMusic);
             musicBtn.isVisible = false;
 
-            backBtn = new Button(Global.world.camera.Center + new Vector2(0, 200),
+            backBtn = new Button(
                                  "Back",
                                  true,
                                  Settings);
@@ -88,10 +132,6 @@ namespace Sem1OfficeRevenge
             }
         }
 
-        private void ChangeResolution()
-        {
-
-        }
 
         private void ChangeMusic() 
         { 
