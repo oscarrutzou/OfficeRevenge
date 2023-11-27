@@ -26,7 +26,7 @@ namespace Sem1OfficeRevenge
             player = new Player(texture, position);
             Global.currentScene.Instantiate(player);
             Global.player = player;
-            player.UseCenterOrigin = true;
+            player.CenterOrigin = true;
         }
 
         public override void DrawInWorld()

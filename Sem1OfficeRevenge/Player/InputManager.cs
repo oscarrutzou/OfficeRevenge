@@ -31,10 +31,13 @@ namespace Sem1OfficeRevenge
             {
                 Global.world.Exit();
             }
-
             PlayerInput();
 
-            
+            if (mouseState.LeftButton == ButtonState.Pressed && previousMouseState.LeftButton != ButtonState.Pressed)
+            {
+                CheckButtons();
+            }
+
 
             previousMouseState = mouseState;
 
@@ -67,6 +70,28 @@ namespace Sem1OfficeRevenge
 
             }
         }
+
+
+        private static void CheckButtons()
+        {
+            if (Global.currentSceneData.guis != null)
+            {
+                foreach (Gui gui in Global.currentSceneData.guis)
+                {
+                    if (gui is Button button)
+                    {
+                        if (button.IsMouseOver() && button.isVisible)
+                        {
+                            button.OnClick();
+                            return;  // Return early if a button was clicked
+                        }
+                    }
+
+                }
+            }
+        }
+
+       
 
         /// <summary>
         /// Translates the mouse's position into world space coordinates.

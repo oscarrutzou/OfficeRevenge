@@ -1,9 +1,33 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 using System.Collections.Generic;
 
 namespace Sem1OfficeRevenge
 {
+    public enum Scenes
+    {
+        MainMenu,
+        LoadingScreen,
+        Level,
+        EndMenu,
+        TestJasper,
+        TestLeonard,
+        TestMarc,
+        TestOscar,
+    }
+
+    public enum LayerDepth
+    {
+        Background,
+        InteractableObjects,
+        Enemies,
+        Player,
+        ScreenOverLay,
+        GuiObjects,
+        GuiText
+    }
+
     public abstract class Scene
     {
         // We have a data stored on each scene, to make it easy to add and remove gameObjects
@@ -34,6 +58,7 @@ namespace Sem1OfficeRevenge
             // Call update on every GameObject in the active scene.
             foreach (GameObject gameObject in Global.currentSceneData.gameObjects)
             {
+                gameObject.animation?.AnimationUpdate();
                 gameObject.Update();
             }
         }
@@ -116,6 +141,61 @@ namespace Sem1OfficeRevenge
                 }
             }
         }
+
+        public void SetObjectLayerDepth(GameObject gameObject, LayerDepth layer)
+        {
+            switch (layer)
+            {
+                case LayerDepth.Background:
+                    gameObject.layerDepth = 0.1f;
+                    break;
+                case LayerDepth.InteractableObjects:
+                    gameObject.layerDepth = 0.2f;
+                    break;
+                case LayerDepth.Enemies:
+                    gameObject.layerDepth = 0.3f;
+                    break;
+                case LayerDepth.Player:
+                    gameObject.layerDepth = 0.4f;
+                    break;
+                case LayerDepth.ScreenOverLay:
+                    gameObject.layerDepth = 0.8f;
+                    break;
+                case LayerDepth.GuiObjects:
+                    gameObject.layerDepth = 0.9f;
+                    break;
+                case LayerDepth.GuiText:
+                    gameObject.layerDepth = 1f;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(layer), layer, null);
+            }
+        }
+
+        public float GetObjectLayerDepth(LayerDepth layer)
+        {
+            switch (layer)
+            {
+                case LayerDepth.Background:
+                    return 0.1f;
+                case LayerDepth.InteractableObjects:
+                    return 0.2f;
+                case LayerDepth.Enemies:
+                    return 0.3f;
+                case LayerDepth.Player:
+                    return 0.4f;
+                case LayerDepth.ScreenOverLay:
+                    return 0.8f;
+                case LayerDepth.GuiObjects:
+                    return 0.9f;
+                case LayerDepth.GuiText:
+                    return 1f;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(layer), layer, null);
+            }
+        }
+
+
 
     }
 }
