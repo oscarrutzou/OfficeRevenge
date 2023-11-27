@@ -12,6 +12,11 @@ namespace Sem1OfficeRevenge
         //private float speed; Dette variable er også i gameobjects
         public bool dead;
 
+        public GenericEnemy()
+        {
+            Global.currentScene.SetObjectLayerDepth(this, LayerDepth.Enemies);
+        }
+
         //Skal vi fjernne denne så det bare er update?
         public void EnemyUpdate() { }
 

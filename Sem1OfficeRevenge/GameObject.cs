@@ -73,6 +73,7 @@ namespace Sem1OfficeRevenge
             if (!isVisible) return;
 
             Texture2D drawTexture = texture ?? animation?.frames[animation.currentFrame];
+            //If the bool is true, choose the option on the left, if not then it chooeses the right
             Vector2 origin = CenterOrigin ? new Vector2(drawTexture.Width / 2, drawTexture.Height / 2) : Vector2.Zero;
 
             if (animation != null)
