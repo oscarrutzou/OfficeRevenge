@@ -79,7 +79,7 @@ namespace Sem1OfficeRevenge
             progress += 1f / totalAnimations; // Update the progress after each animation is loaded
         }
 
-        public static Animation SetObjAnimation(AnimNames name)
+        public static Animation SetAnimation(AnimNames name)
         {
             return new Animation(animations[name]);
         }

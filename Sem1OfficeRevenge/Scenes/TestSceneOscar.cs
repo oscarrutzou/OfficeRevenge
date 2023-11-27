@@ -7,7 +7,6 @@ namespace Sem1OfficeRevenge
     public class TestSceneOscar : Scene
     {
         //Button newBtn;
-        TestObj testObj;
         public TestSceneOscar()
         {
             

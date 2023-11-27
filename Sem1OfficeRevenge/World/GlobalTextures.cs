@@ -9,7 +9,11 @@ namespace Sem1OfficeRevenge
     {
         //Gui
         GuiButtonTest,
-        
+        GuiSliderBase,
+        GuiSliderOver,
+        GuiSliderHandle,
+        Pixel,
+
     }
 
     public static class GlobalTextures
@@ -23,6 +27,10 @@ namespace Sem1OfficeRevenge
             textures = new Dictionary<TextureNames, Texture2D>
             {
                 {TextureNames.GuiButtonTest, Global.world.Content.Load<Texture2D>("GUI\\TestBtn") },
+                {TextureNames.GuiSliderBase, Global.world.Content.Load<Texture2D>("GUI\\Slider_frame") },
+                {TextureNames.GuiSliderOver, Global.world.Content.Load<Texture2D>("GUI\\Slider_frame_over") },
+                {TextureNames.GuiSliderHandle, Global.world.Content.Load<Texture2D>("GUI\\Slider_Handle") },
+                {TextureNames.Pixel, Global.world.Content.Load<Texture2D>("GUI\\Pixel") },
             };
 
             //defaultFont = Global.world.Content.Load<SpriteFont>("Fonts\\Arial");

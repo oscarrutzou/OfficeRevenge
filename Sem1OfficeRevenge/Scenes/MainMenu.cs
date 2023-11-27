@@ -1,75 +1,40 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using static System.Net.Mime.MediaTypeNames;
+using Microsoft.Xna.Framework.Media;
 
 namespace Sem1OfficeRevenge
 {
     public class MainMenu : Scene
     {
-
+        #region Variables
         private Button playBtn;
-        private Vector2 playBtnPos;
         private Button settingsBtn;
-        private Vector2 settingsBtnPos;
         private Button quitBtn;
-        private Vector2 quitBtnPos;
 
         private bool showSettings;
 
-        private Button musicBtn;
-        private Vector2 musicBtnPos;
+        private MusicSlider musicSlider;
         private Button resolutionBtn;
-        private Vector2 resolutionBtnPos;
         private Button backBtn;
-        private Vector2 backBtnPos;
+
+        private int resolutionIndex = 0;
+        private bool firstStartChanged;
+        private BlackScreenFadeOut fadeOut;
+        #endregion
 
         public override void Initialize()
         {
             //Global.world.Fullscreen();
             InitMainMenu();
             InitSettingsMenu();
-            Global.world.OnResolutionChanged += WorldOnResolutionChanged;
-            WorldOnResolutionChanged(this, new ResolutionChangedEventArgs { Width = Global.graphics.PreferredBackBufferWidth, Height = Global.graphics.PreferredBackBufferHeight });
 
-
-        }
-        
-        private int index = 1;
-
-        //Lav sort skærm, ændre pos, fade ud til normal skærm. 
-
-        private void ChangeResolution()
-        {
-            switch (index)
-            {
-                case 0:
-                    Global.world.ResolutionSize(1280, 720);
-                    break;
-                case 1:
-                    Global.world.ResolutionSize(1920, 1080);
-                    break;
-                //case 2:
-                //    Global.world.ResolutionSize(2560, 1440);
-                //    break;
-                case 2:
-                    Global.world.Fullscreen();
-                    break;
-            }
-            index++;
-            if (index == 3) index = 0;
+            Global.world.OnResolutionChanged += DrawBlackScreenOnResolutionChanged;
+            WorldOnResolutionChanged();
         }
 
-        private void WorldOnResolutionChanged(object sender, ResolutionChangedEventArgs e)
-        {
-            playBtn.position = Global.world.worldCamera.Center + new Vector2(0, -100);
-            settingsBtn.position = Global.world.worldCamera.Center;
-            quitBtn.position = Global.world.worldCamera.Center + new Vector2(0, 100);
-
-            resolutionBtn.position = Global.world.worldCamera.Center + new Vector2(0, -100);
-            musicBtn.position = Global.world.worldCamera.Center;
-            backBtn.position = Global.world.worldCamera.Center + new Vector2(0, 200);
-        }
+        #region Main Menu
         private void InitMainMenu()
         {
             playBtn = new Button(
@@ -90,7 +55,18 @@ namespace Sem1OfficeRevenge
             Global.currentScene.Instantiate(settingsBtn);
             Global.currentScene.Instantiate(quitBtn);
         }
+        private void PlayGame()
+        {
+            Global.world.ChangeScene(Scenes.LoadingScreen);
+        }
+        private void QuitGame()
+        {
+            Global.world.Exit();
+        }
 
+        #endregion
+
+        #region Setting Menu
         private void InitSettingsMenu()
         {
             resolutionBtn = new Button(
@@ -99,11 +75,9 @@ namespace Sem1OfficeRevenge
                                  ChangeResolution);
             resolutionBtn.isVisible = false;
 
-            musicBtn = new Button(
-                                 "Music",
-                                 true,
-                                 ChangeMusic);
-            musicBtn.isVisible = false;
+
+            musicSlider = new MusicSlider(Global.world.worldCamera.Center - new Vector2(GlobalTextures.textures[TextureNames.GuiSliderBase].Width / 2, GlobalTextures.textures[TextureNames.GuiSliderBase].Height / 2));
+            musicSlider.isVisible = false;
 
             backBtn = new Button(
                                  "Back",
@@ -112,15 +86,9 @@ namespace Sem1OfficeRevenge
             backBtn.isVisible = false;
 
             Global.currentScene.Instantiate(resolutionBtn);
-            Global.currentScene.Instantiate(musicBtn);
+            Global.currentScene.Instantiate(musicSlider);
             Global.currentScene.Instantiate(backBtn);
         }
-
-        private void PlayGame()
-        {
-            Global.world.ChangeScene(Scenes.LoadingScreen);
-        }
-
         private void Settings()
         {
             if (!showSettings)
@@ -135,12 +103,6 @@ namespace Sem1OfficeRevenge
             }
         }
 
-
-        private void ChangeMusic() 
-        { 
-        
-        }
-
         private void DrawSettingsMenu()
         {
             playBtn.isVisible = false;
@@ -148,7 +110,7 @@ namespace Sem1OfficeRevenge
             quitBtn.isVisible = false;
 
             resolutionBtn.isVisible = true;
-            musicBtn.isVisible = true;
+            musicSlider.isVisible = true;
             backBtn.isVisible = true;
         }
 
@@ -159,26 +121,86 @@ namespace Sem1OfficeRevenge
             quitBtn.isVisible = true;
 
             resolutionBtn.isVisible = false;
-            musicBtn.isVisible = false;
+            musicSlider.isVisible = false;
             backBtn.isVisible = false;
         }
+        #endregion
 
-        private void QuitGame()
+        #region Setting Resolution
+        private async void DrawBlackScreenOnResolutionChanged(object sender, ResolutionChangedEventArgs e)
         {
-            Global.world.Exit();
-        }
+            if (fadeOut != null) fadeOut.isRemoved = true;
 
-        public override void DrawOnScreen()
+            fadeOut = new BlackScreenFadeOut();
+            Global.currentScene.Instantiate(fadeOut);
+
+            await Task.Delay((int)fadeOut.fadeInTime * 1000);
+
+            WorldOnResolutionChanged();
+        }
+        private void WorldOnResolutionChanged()
+        {
+            playBtn.position = Global.world.worldCamera.Center + new Vector2(0, -100);
+            settingsBtn.position = Global.world.worldCamera.Center;
+            quitBtn.position = Global.world.worldCamera.Center + new Vector2(0, 100);
+
+            resolutionBtn.position = Global.world.worldCamera.Center + new Vector2(0, -100);
+            musicSlider.position = Global.world.worldCamera.Center;
+            musicSlider.ChangeSliderRectangle(Global.world.worldCamera.Center - new Vector2(GlobalTextures.textures[TextureNames.GuiSliderBase].Width / 2, GlobalTextures.textures[TextureNames.GuiSliderBase].Height / 2));
+            backBtn.position = Global.world.worldCamera.Center + new Vector2(0, 100);
+
+        }
+        private void ChangeResolution()
+        {
+            resolutionIndex++;
+            if (resolutionIndex == 3) resolutionIndex = 0;
+
+            switch (resolutionIndex)
+            {
+                case 0:
+                    Global.world.ResolutionSize(1280, 720);
+                    break;
+                case 1:
+                    Global.world.ResolutionSize(1920, 1080);
+                    break;
+                //case 2:
+                //    Global.world.ResolutionSize(2560, 1440);
+                //    break;
+                case 2:
+                    Global.world.Fullscreen();
+                    break;
+            }
+         
+            
+        }
+        #endregion
+
+        #region Setting Text
+        public override void  DrawOnScreen()
         {
             base.DrawOnScreen();
-            DebugText();
+            DrawResolutionText();
+            DrawMusicText();
         }
 
-        private void DebugText()
+        private void DrawResolutionText()
         {
+            if (!resolutionBtn.isVisible) return;
+
+            //float volume = (float)Math.Round(MediaPlayer.Volume * 100, 0);
+            string text;
+            if (resolutionIndex == 2)
+            {
+                text = "Fullscreen";
+            }
+            else
+            {
+                text = $"Resolution {Global.graphics.PreferredBackBufferWidth}x{Global.graphics.PreferredBackBufferHeight}";
+            }
+
             Global.spriteBatch.DrawString(GlobalTextures.defaultFont,
-                                  $"Ui mouse pos: {InputManager.mousePositionOnScreen} + in world {InputManager.mousePositionInWorld}",
-                                  Vector2.One * 20,
+                                  text,
+                                  resolutionBtn.position + new Vector2(-170, -70),
                                   Color.Black,
                                   0,
                                   Vector2.Zero,
@@ -186,5 +208,24 @@ namespace Sem1OfficeRevenge
                                   SpriteEffects.None,
                                   Global.currentScene.GetObjectLayerDepth(LayerDepth.GuiText));
         }
+
+        private void DrawMusicText()
+        {
+            if (!musicSlider.isVisible) return;
+
+            float volume = (float)Math.Round(MediaPlayer.Volume * 100, 0);
+            string text = $"Music volume {volume}%";
+
+            Global.spriteBatch.DrawString(GlobalTextures.defaultFont,
+                                  text,
+                                  musicSlider.position + new Vector2(-170, -50),
+                                  Color.Black,
+                                  0,
+                                  Vector2.Zero,
+                                  1,
+                                  SpriteEffects.None,
+                                  Global.currentScene.GetObjectLayerDepth(LayerDepth.GuiText));
+        }
+        #endregion
     }
 }

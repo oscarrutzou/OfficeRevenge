@@ -21,11 +21,12 @@ namespace Sem1OfficeRevenge
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
             Window.Title = "Office Revenge!";
-            
         }
 
         protected override void Initialize()
         {
+            Global.spriteBatch = new SpriteBatch(GraphicsDevice);
+
             WindowedScreen();
             GlobalTextures.LoadContent();
             GlobalAnimations.LoadLoadingScreenIcon();
@@ -34,20 +35,10 @@ namespace Sem1OfficeRevenge
             worldCamera = new Camera(new Vector2(Global.graphics.PreferredBackBufferWidth / 2, Global.graphics.PreferredBackBufferHeight / 2));
             uiCamera = new Camera(Vector2.Zero);
 
-
-
             GenerateScenes();
             ChangeScene(Scenes.MainMenu);
             
-
             base.Initialize();
-        }
-
-
-
-        protected override void LoadContent()
-        {
-            Global.spriteBatch = new SpriteBatch(GraphicsDevice);
         }
 
         protected override void Update(GameTime gameTime)
@@ -79,6 +70,7 @@ namespace Sem1OfficeRevenge
             base.Draw(gameTime);
         }
 
+        #region Scene and resolution management
         private void GenerateScenes()
         {
             scenes[Scenes.MainMenu] = new MainMenu();
@@ -139,6 +131,9 @@ namespace Sem1OfficeRevenge
                                         Height = GraphicsDevice.DisplayMode.Height });
             
         }
+
+
+        #endregion
 
     }
 }
