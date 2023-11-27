@@ -37,7 +37,7 @@ public class LoadingScene : Scene
     {
 
         Vector2 scale = new Vector2(0.3f, 0.3f);
-        Vector2 position = Global.world.camera.BottomRight + new Vector2(-50, -50);
+        Vector2 position = Global.world.worldCamera.BottomRight + new Vector2(-50, -50);
         loadingIcon = new Icon(scale, 
                                position,
                                GlobalAnimations.SetObjAnimation(AnimNames.GuiLoadingScreenIcon));
@@ -60,7 +60,7 @@ public class LoadingScene : Scene
         Vector2 textSize = GlobalTextures.defaultFont.MeasureString(text);
 
         // Calculate the position to center the text
-        loadingTextPos = Global.world.camera.BottomCenter + new Vector2(0, -50) - textSize / 2;
+        loadingTextPos = Global.world.worldCamera.BottomCenter + new Vector2(0, -50) - textSize / 2;
 
         Global.spriteBatch.DrawString(GlobalTextures.defaultFont,
                               text,

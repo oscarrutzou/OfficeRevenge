@@ -11,7 +11,8 @@ namespace Sem1OfficeRevenge
     public class GameWorld : Game
     {
         private Dictionary<Scenes, Scene> scenes = new Dictionary<Scenes, Scene>();
-        public Camera camera;
+        public Camera worldCamera;
+        public Camera uiCamera;
 
         public GameWorld()
         {
@@ -30,8 +31,8 @@ namespace Sem1OfficeRevenge
             GlobalAnimations.LoadLoadingScreenIcon();
             //GlobalAnimations.LoadContentTestScenes();
 
-            //camera = new Camera(new Vector2(Global.graphics.PreferredBackBufferWidth / 2, Global.graphics.PreferredBackBufferHeight / 2));
-            camera = new Camera(Vector2.Zero);
+            worldCamera = new Camera(new Vector2(Global.graphics.PreferredBackBufferWidth / 2, Global.graphics.PreferredBackBufferHeight / 2));
+            uiCamera = new Camera(Vector2.Zero);
 
 
 
@@ -59,7 +60,7 @@ namespace Sem1OfficeRevenge
 
             if (Global.player != null)
             {
-                camera.FollowPlayerMove(Global.player.position);
+                worldCamera.FollowPlayerMove(Global.player.position);
             }
 
             base.Update(gameTime);
@@ -67,11 +68,11 @@ namespace Sem1OfficeRevenge
 
         protected override void Draw(GameTime gameTime)
         {
-            Global.spriteBatch.Begin(sortMode: SpriteSortMode.FrontToBack, transformMatrix: Global.world.camera.GetMatrix());
+            Global.spriteBatch.Begin(sortMode: SpriteSortMode.FrontToBack, transformMatrix: worldCamera.GetMatrix());
             Global.currentScene.DrawInWorld();
             Global.spriteBatch.End();
 
-            Global.spriteBatch.Begin(sortMode: SpriteSortMode.FrontToBack);
+            Global.spriteBatch.Begin(sortMode: SpriteSortMode.FrontToBack, transformMatrix: uiCamera.GetMatrix());
             Global.currentScene.DrawOnScreen();
             Global.spriteBatch.End();
 

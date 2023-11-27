@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Sem1OfficeRevenge
 {
@@ -30,6 +31,8 @@ namespace Sem1OfficeRevenge
             InitSettingsMenu();
             Global.world.OnResolutionChanged += WorldOnResolutionChanged;
             WorldOnResolutionChanged(this, new ResolutionChangedEventArgs { Width = Global.graphics.PreferredBackBufferWidth, Height = Global.graphics.PreferredBackBufferHeight });
+
+
         }
         
         private int index = 1;
@@ -59,13 +62,13 @@ namespace Sem1OfficeRevenge
 
         private void WorldOnResolutionChanged(object sender, ResolutionChangedEventArgs e)
         {
-            playBtn.position = Global.world.camera.Center + new Vector2(0, -100);
-            settingsBtn.position = Global.world.camera.Center;
-            quitBtn.position = Global.world.camera.Center + new Vector2(0, 100);
+            playBtn.position = Global.world.worldCamera.Center + new Vector2(0, -100);
+            settingsBtn.position = Global.world.worldCamera.Center;
+            quitBtn.position = Global.world.worldCamera.Center + new Vector2(0, 100);
 
-            resolutionBtn.position = Global.world.camera.Center + new Vector2(0, -100);
-            musicBtn.position = Global.world.camera.Center;
-            backBtn.position = Global.world.camera.Center + new Vector2(0, 200);
+            resolutionBtn.position = Global.world.worldCamera.Center + new Vector2(0, -100);
+            musicBtn.position = Global.world.worldCamera.Center;
+            backBtn.position = Global.world.worldCamera.Center + new Vector2(0, 200);
         }
         private void InitMainMenu()
         {
@@ -165,5 +168,23 @@ namespace Sem1OfficeRevenge
             Global.world.Exit();
         }
 
+        public override void DrawOnScreen()
+        {
+            base.DrawOnScreen();
+            DebugText();
+        }
+
+        private void DebugText()
+        {
+            Global.spriteBatch.DrawString(GlobalTextures.defaultFont,
+                                  $"Ui mouse pos: {InputManager.mousePositionOnScreen} + in world {InputManager.mousePositionInWorld}",
+                                  Vector2.One * 20,
+                                  Color.Black,
+                                  0,
+                                  Vector2.Zero,
+                                  1,
+                                  SpriteEffects.None,
+                                  Global.currentScene.GetObjectLayerDepth(LayerDepth.GuiText));
+        }
     }
 }
