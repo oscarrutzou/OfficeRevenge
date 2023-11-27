@@ -33,16 +33,6 @@ namespace Sem1OfficeRevenge
         public override void Update()
         {
             ScoreManager.UpdateScore();
-            if (Keyboard.GetState().IsKeyDown(Keys.K))
-            {
-                
-                
-            }
-
-            if (Keyboard.GetState().IsKeyDown(Keys.I))
-            {
-                ScoreManager.killCount++;
-            }
             comEnm.Update();
             base.Update();
         }

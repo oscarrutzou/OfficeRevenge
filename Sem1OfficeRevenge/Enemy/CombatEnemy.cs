@@ -24,12 +24,24 @@ namespace Sem1OfficeRevenge
 
         private void Attack()
         {
+            if (dead) return; 
             
+
+
         }
 
         public override void Update() 
         {
-            if (isAttacking) { Attack(); }
+            if (dead) return;
+            if (Math.Abs(Global.player.position.X - position.X) < 5 && Math.Abs(Global.player.position.Y - position.Y) < 5 && isAttacking == false)
+            {
+                isAttacking = true;
+
+            }
+            else if (Math.Abs(Global.player.position.X - position.X) > 7 && Math.Abs(Global.player.position.Y - position.Y) > 7)
+            {
+                isAttacking = false;
+            }
             
             
 
