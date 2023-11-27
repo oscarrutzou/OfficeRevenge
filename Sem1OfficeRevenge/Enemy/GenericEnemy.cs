@@ -15,6 +15,12 @@ namespace Sem1OfficeRevenge
         public bool dead;
         
 
+        public GenericEnemy()
+        {
+            Global.currentScene.SetObjectLayerDepth(this, LayerDepth.Enemies);
+        }
+
+        
 
         public override void Update()
         {

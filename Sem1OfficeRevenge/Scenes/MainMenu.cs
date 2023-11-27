@@ -11,6 +11,8 @@ namespace Sem1OfficeRevenge
         private Button quitBtn;
         private bool showSettings;
 
+        private Button musicBtn;
+        private Button resolutionBtn;
         private Button backBtn;
 
         public override void Initialize()
@@ -44,14 +46,27 @@ namespace Sem1OfficeRevenge
 
         private void InitSettingsMenu()
         {
+            resolutionBtn = new Button(Global.world.camera.Center + new Vector2(0, -100),
+                                 "Resolution",
+                                 true,
+                                 ChangeResolution);
+            resolutionBtn.isVisible = false;
+
+            musicBtn = new Button(Global.world.camera.Center,
+                                 "Music",
+                                 true,
+                                 ChangeMusic);
+            musicBtn.isVisible = false;
+
             backBtn = new Button(Global.world.camera.Center + new Vector2(0, 200),
                                  "Back",
                                  true,
                                  Settings);
             backBtn.isVisible = false;
 
+            Global.currentScene.Instantiate(resolutionBtn);
+            Global.currentScene.Instantiate(musicBtn);
             Global.currentScene.Instantiate(backBtn);
-
         }
 
         private void PlayGame()
@@ -73,12 +88,24 @@ namespace Sem1OfficeRevenge
             }
         }
 
+        private void ChangeResolution()
+        {
+
+        }
+
+        private void ChangeMusic() 
+        { 
+        
+        }
+
         private void DrawSettingsMenu()
         {
             playBtn.isVisible = false;
             settingsBtn.isVisible = false;
             quitBtn.isVisible = false;
 
+            resolutionBtn.isVisible = true;
+            musicBtn.isVisible = true;
             backBtn.isVisible = true;
         }
 
@@ -88,6 +115,8 @@ namespace Sem1OfficeRevenge
             settingsBtn.isVisible = true;
             quitBtn.isVisible = true;
 
+            resolutionBtn.isVisible = false;
+            musicBtn.isVisible = false;
             backBtn.isVisible = false;
         }
 

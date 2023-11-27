@@ -37,7 +37,6 @@ namespace Sem1OfficeRevenge
             get { return position + new Vector2(Global.graphics.PreferredBackBufferWidth, 0); }
         }
 
-
         public Vector2 Center
         {
             get { return position + new Vector2(Global.graphics.PreferredBackBufferWidth / 2, Global.graphics.PreferredBackBufferHeight / 2); }

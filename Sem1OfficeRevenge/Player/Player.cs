@@ -22,7 +22,7 @@ namespace Sem1OfficeRevenge
         {
             this.position = position;
             SetObjectAnimation(AnimNames.PlayerRifleMove);
-            
+            Global.currentScene.SetObjectLayerDepth(this, LayerDepth.Player);
         }
 
         public override void Update()
