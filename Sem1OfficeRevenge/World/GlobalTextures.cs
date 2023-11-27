@@ -12,6 +12,8 @@ namespace Sem1OfficeRevenge
         TileMap1,
         TileMap2,
         TileMap3,
+        GuiButtonTest,
+        
     }
 
     public static class GlobalTextures
@@ -19,6 +21,7 @@ namespace Sem1OfficeRevenge
         public static Dictionary<TextureNames, Texture2D> textures;
 
         public static SpriteFont defaultFont;
+        //public static SpriteFont crunchyFont;
         
         public static void LoadContent()
         {
@@ -28,10 +31,15 @@ namespace Sem1OfficeRevenge
                 {TextureNames.TileMap1, Global.world.Content.Load<Texture2D>("Rooms\\TempLobby1") },
                 {TextureNames.TileMap2, Global.world.Content.Load<Texture2D>("Rooms\\room2") },
                 {TextureNames.TileMap3, Global.world.Content.Load<Texture2D>("Rooms\\room3") },
+                {TextureNames.GuiButtonTest, Global.world.Content.Load<Texture2D>("GUI\\TestBtn") },
 
             };
 
-            defaultFont = Global.world.Content.Load<SpriteFont>("Fonts\\Arial");
+            //defaultFont = Global.world.Content.Load<SpriteFont>("Fonts\\Friday13SH");
+            //defaultFont = Global.world.Content.Load<SpriteFont>("Fonts\\Friday13v12");
+            defaultFont = Global.world.Content.Load<SpriteFont>("Fonts\\SlencoBlack");
+            //defaultFont = Global.world.Content.Load<SpriteFont>("Fonts\\CrunchyFont");
+            //crunchyFont = Global.world.Content.Load<SpriteFont>("Fonts\\CrunchyFont");
         }
     }
 }

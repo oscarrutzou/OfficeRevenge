@@ -27,7 +27,7 @@ namespace Sem1OfficeRevenge
             position = playerPos;
         }
 
-        public Vector2 TopMiddle
+        public Vector2 TopCenter
         {
             get { return position + new Vector2(Global.graphics.PreferredBackBufferWidth / 2, 0); }
         }
@@ -37,10 +37,9 @@ namespace Sem1OfficeRevenge
             get { return position + new Vector2(Global.graphics.PreferredBackBufferWidth, 0); }
         }
 
-
         public Vector2 Center
         {
-            get { return position + new Vector2(Global.graphics.PreferredBackBufferWidth / 2, Global.graphics.PreferredBackBufferWidth / 2); }
+            get { return position + new Vector2(Global.graphics.PreferredBackBufferWidth / 2, Global.graphics.PreferredBackBufferHeight / 2); }
         }
 
         public Vector2 BottomLeft
@@ -48,7 +47,7 @@ namespace Sem1OfficeRevenge
             get { return position + new Vector2(0, Global.graphics.PreferredBackBufferHeight); }
         }
 
-        public Vector2 BottomMiddle
+        public Vector2 BottomCenter
         {
             get { return position + new Vector2(Global.graphics.PreferredBackBufferWidth / 2, Global.graphics.PreferredBackBufferHeight); }
         }

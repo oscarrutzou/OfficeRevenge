@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Sem1OfficeRevenge
 {
+    
     public class SceneData
     {
         public int score;
