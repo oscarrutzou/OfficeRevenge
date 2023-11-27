@@ -24,11 +24,12 @@ public class LoadingScene : Scene
         await GlobalAnimations.LoadContent();
     }
 
-    private void OnContentLoaded()
+    private async void OnContentLoaded()
     {
         // Switch to the main menu when the content is loaded
-        //Global.world.ChangeScene(Scenes.TestOscar);
-        //isLoading = false;
+        await Task.Delay(1000);
+        isLoading = false;
+        Global.world.ChangeScene(Scenes.TestOscar);
     }
 
 
