@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,8 +15,7 @@ namespace Sem1OfficeRevenge
         //public List<Room> rooms = new List<Room>();
 
         LevelGeneration lvlGen;
-        Room startRoom;
-        private List<Room> rooms = new List<Room>();
+        public bool isDown = false;
 
         public TestSceneJasper()
         {
@@ -24,25 +24,26 @@ namespace Sem1OfficeRevenge
 
         public override void Initialize()
         {
-            // lvlGen.GenerateLevel();
+            lvlGen = new LevelGeneration();
+            lvlGen.GenerateWorld();
             
             Global.graphics.IsFullScreen = false;
             Global.graphics.PreferredBackBufferWidth = 1920;
             Global.graphics.PreferredBackBufferHeight = 1080;
             Global.graphics.ApplyChanges();
 
-            startRoom = new Room(GlobalTextures.textures[TextureNames.TileMap1]);
-            rooms.Add(startRoom);
-            Global.currentScene.Instantiate(startRoom);
+            //startRoom = new Room(GlobalTextures.textures[TextureNames.TileMap1], MathHelper.PiOver2);
+            //rooms.Add(startRoom);
+            //Global.currentScene.Instantiate(startRoom);
         }
 
         public override void DrawInWorld()
         {
 
-            foreach (Room room in rooms)
-            {
-                room.Draw();
-            }
+            //foreach (Room room in rooms)
+            //{
+            //    room.Draw();
+            //}
 
             base.DrawInWorld();
             
@@ -50,6 +51,15 @@ namespace Sem1OfficeRevenge
 
         public override void Update()
         {
+            KeyboardState state = Keyboard.GetState();
+
+            //check if key is pressed
+            if (state.IsKeyDown(Keys.Space))
+            {
+                lvlGen.RemoveRooms();
+                lvlGen.GenerateWorld();
+            }
+           
 
             base.Update();
         }

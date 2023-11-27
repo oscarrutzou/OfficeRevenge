@@ -10,6 +10,8 @@ namespace Sem1OfficeRevenge
         //Gui
         GuiButtonBasicBlue,
         TileMap1,
+        TileMap2,
+        TileMap3,
     }
 
     public static class GlobalTextures
@@ -24,6 +26,9 @@ namespace Sem1OfficeRevenge
             {
                 {TextureNames.GuiButtonBasicBlue, Global.world.Content.Load<Texture2D>("PlaceHolder\\buttonBlue") },
                 {TextureNames.TileMap1, Global.world.Content.Load<Texture2D>("Rooms\\TempLobby1") },
+                {TextureNames.TileMap2, Global.world.Content.Load<Texture2D>("Rooms\\room2") },
+                {TextureNames.TileMap3, Global.world.Content.Load<Texture2D>("Rooms\\room3") },
+
             };
 
             defaultFont = Global.world.Content.Load<SpriteFont>("Fonts\\Arial");
