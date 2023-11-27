@@ -25,14 +25,14 @@ namespace Sem1OfficeRevenge
             WindowedScreen();
             GlobalTextures.LoadContent();
             GlobalAnimations.LoadLoadingScreenIcon();
-            //GlobalAnimations.LoadContent();
+            GlobalAnimations.LoadContentTestScenes();
 
             //camera = new Camera(new Vector2(Global.graphics.PreferredBackBufferWidth / 2, Global.graphics.PreferredBackBufferHeight / 2));
             camera = new Camera(Vector2.Zero);
 
             
             GenerateScenes();
-            ChangeScene(Scenes.TestMarc);
+            ChangeScene(Scenes.TestLeonard);
             
 
             base.Initialize();
