@@ -27,20 +27,6 @@
 /processorParam:TextureFormat=Compressed
 /build:Fonts/CrunchyFont.spritefont
 
-#begin Fonts/Friday13SH.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:Fonts/Friday13SH.spritefont
-
-#begin Fonts/Friday13v12.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:Fonts/Friday13v12.spritefont
-
 #begin Fonts/SlencoBlack.spritefont
 /importer:FontDescriptionImporter
 /processor:FontDescriptionProcessor
