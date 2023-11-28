@@ -12,6 +12,8 @@ namespace Sem1OfficeRevenge
         TileMap1,
         TileMap2,
         TileMap3,
+        TileMap4,
+        TileMap5,
         GuiButtonTest,
         
     }
@@ -27,10 +29,12 @@ namespace Sem1OfficeRevenge
         {
             textures = new Dictionary<TextureNames, Texture2D>
             {
-                {TextureNames.GuiButtonBasicBlue, Global.world.Content.Load<Texture2D>("PlaceHolder\\buttonBlue") },
                 {TextureNames.TileMap1, Global.world.Content.Load<Texture2D>("Rooms\\TempLobby1") },
                 {TextureNames.TileMap2, Global.world.Content.Load<Texture2D>("Rooms\\room2") },
                 {TextureNames.TileMap3, Global.world.Content.Load<Texture2D>("Rooms\\room3") },
+                {TextureNames.TileMap4, Global.world.Content.Load<Texture2D>("Rooms\\room4p") },
+                {TextureNames.TileMap5, Global.world.Content.Load<Texture2D>("Rooms\\room5") },
+
                 {TextureNames.GuiButtonTest, Global.world.Content.Load<Texture2D>("GUI\\TestBtn") },
 
             };

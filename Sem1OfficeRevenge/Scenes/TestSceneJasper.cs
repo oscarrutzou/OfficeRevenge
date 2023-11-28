@@ -14,6 +14,10 @@ namespace Sem1OfficeRevenge
         //public List<Texture2D> maps = new List<Texture2D>();
         //public List<Room> rooms = new List<Room>();
 
+        private Player player;
+        private Texture2D texture;
+        private Vector2 position;
+
         LevelGeneration lvlGen;
         public bool isDown = false;
 
@@ -32,6 +36,11 @@ namespace Sem1OfficeRevenge
             Global.graphics.PreferredBackBufferHeight = 1080;
             Global.graphics.ApplyChanges();
 
+            player = new Player();
+            Global.currentScene.Instantiate(player);
+            Global.player = player;
+            player.CenterOrigin = true;
+
             //startRoom = new Room(GlobalTextures.textures[TextureNames.TileMap1], MathHelper.PiOver2);
             //rooms.Add(startRoom);
             //Global.currentScene.Instantiate(startRoom);
@@ -39,11 +48,6 @@ namespace Sem1OfficeRevenge
 
         public override void DrawInWorld()
         {
-
-            //foreach (Room room in rooms)
-            //{
-            //    room.Draw();
-            //}
 
             base.DrawInWorld();
             

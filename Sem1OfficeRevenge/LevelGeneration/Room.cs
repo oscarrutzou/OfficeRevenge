@@ -22,8 +22,9 @@ namespace Sem1OfficeRevenge
         public Room(Texture2D Map, float rotation)
         {
             this.texture = Map;
-            UseCenterOrigin = true;
-            this.rotation = rotation; 
+            CenterOrigin = true;
+            this.rotation = rotation;
+            this.scale = new Vector2(1f, 1f);
 
         }
         
