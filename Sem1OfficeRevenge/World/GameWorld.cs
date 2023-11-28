@@ -109,6 +109,7 @@ namespace Sem1OfficeRevenge
             scenes[Scenes.TestLeonard] = new TestSceneLeonard();
             scenes[Scenes.TestMarc] = new TestSceneMarc();
             scenes[Scenes.TestOscar] = new TestSceneOscar();
+            scenes[Scenes.TestBaseScene] = new TestBaseScene();
             
         }
 

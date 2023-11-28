@@ -15,6 +15,7 @@ namespace Sem1OfficeRevenge
         TestLeonard,
         TestMarc,
         TestOscar,
+        TestBaseScene,
     }
 
     public enum LayerDepth

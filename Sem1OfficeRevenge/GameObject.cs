@@ -71,10 +71,9 @@ namespace Sem1OfficeRevenge
         public virtual void Draw()
         {
             if (!isVisible) return;
-
             Texture2D drawTexture = texture ?? animation?.frames[animation.currentFrame];
 
-            //If the bool is true, choose the option on the left, if not then it chooeses the right
+            //If the bool is true, choose the option on the left, if not then it chooses the right
             Vector2 origin = centerOrigin ? new Vector2(drawTexture.Width / 2, drawTexture.Height / 2) : Vector2.Zero;
 
             if (animation != null && texture != null)
@@ -85,7 +84,7 @@ namespace Sem1OfficeRevenge
             if (animation != null)
             {
                 // Draw animation
-                Global.spriteBatch.Draw(drawTexture, position, null, Color.White, rotation, origin, scale, SpriteEffects.None, layerDepth);
+                Global.spriteBatch.Draw(drawTexture, position, null, color, rotation, origin, scale, SpriteEffects.None, layerDepth);
             }
             else if (texture != null)
             {
@@ -93,9 +92,8 @@ namespace Sem1OfficeRevenge
                 Global.spriteBatch.Draw(texture, position, null, color, rotation, origin, scale, SpriteEffects.None, layerDepth);
             }
 
-            DrawDebugCollisionBox();
+            //DrawDebugCollisionBox();
         }
-
 
         public void SetObjectAnimation(AnimNames animationName) => animation = GlobalAnimations.SetAnimation(animationName);
 
@@ -178,8 +176,11 @@ namespace Sem1OfficeRevenge
         }
         #endregion
 
+        public virtual void LerpTowardsTarget(float target, float origin, float timer, float speed)
+        {
+            if (rotation == target) return;
+            rotation = MathHelper.Lerp(origin, target, timer);
 
+        }
     }
-
-
 }

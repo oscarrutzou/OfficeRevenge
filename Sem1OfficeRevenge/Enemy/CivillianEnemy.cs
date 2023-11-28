@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Sem1OfficeRevenge.Content.UI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,16 +25,18 @@ namespace Sem1OfficeRevenge
         public CivillianEnemy()
         {
             SetObjectAnimation(AnimNames.PlayerRifleMove);
-            CenterOrigin = true;
+            centerOrigin = true;
+            layerDepth = Global.currentScene.GetObjectLayerDepth(LayerDepth.Enemies);
         }
 
         public override void Update()
         {
+            if (dead) return;
             timer += (float)Global.gameTime.ElapsedGameTime.TotalSeconds;
             Vector2 dir = lookPoint - position;
             rotTarget = (float)Math.Atan2(-dir.Y, -dir.X) + MathHelper.Pi;
-            LerpTowardsTarget(rotTarget, rotOrigin, timer, 100);
-            if (Math.Abs(Global.player.position.X - position.X) < rnd.Next(600, 850) && Math.Abs(Global.player.position.Y - position.Y) < rnd.Next(600, 850))
+            LerpTowardsTarget(rotTarget, rotOrigin, 1, 1);
+            if (Math.Abs(Global.player.position.X - position.X) < rnd.Next(850, 1250) && Math.Abs(Global.player.position.Y - position.Y) < rnd.Next(850, 1250))
             {
                 if (!fleeing)
                 {
@@ -55,6 +58,22 @@ namespace Sem1OfficeRevenge
             {
                 
                 fleeing = false;
+            }
+
+            if (Global.player.bullets.Count > 0)
+            {
+                foreach (Bullet bullet in Global.player.bullets)
+                {
+                    if (Vector2.Distance(position, bullet.position) < 50)
+                    {
+                        bullet.isRemoved = true;
+                        dead = true;
+                        ScoreManager.killCount++;
+                        color = Color.DarkRed;
+                        animation.frameRate = 0;
+                        
+                    }
+                }
             }
         }
 
@@ -122,7 +141,7 @@ namespace Sem1OfficeRevenge
 
         public override void Draw()
         {
-
+            base.Draw();
         }
     }
 }

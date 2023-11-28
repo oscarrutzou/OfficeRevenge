@@ -19,23 +19,38 @@ namespace Sem1OfficeRevenge
         private Vector2 origin;
         private Vector2 center;
 
+        //private List<CivillianEnemy> CivEnemies = new List<CivillianEnemy>();
+        //private CivillianEnemy civEnm;
+
         public Room(Texture2D Map, float rotation)
         {
             this.texture = Map;
-            CenterOrigin = true;
+            centerOrigin = true;
             this.rotation = rotation;
-            this.scale = new Vector2(1f, 1f);
+            this.scale = new Vector2(5f, 5f);
+
+            layerDepth = Global.currentScene.GetObjectLayerDepth(LayerDepth.Background);
+
 
         }
         
         public override void Update()
         {
-            
+            //foreach (CivillianEnemy civ in CivEnemies)
+            //{
+            //    civ.Update();
+            //}
         }
 
         public override void Draw()
         {
+            //foreach (CivillianEnemy civ in CivEnemies)
+            //{
+            //    civ.Draw();
+            //}
+
             base.Draw();
+            
         }
 
     }

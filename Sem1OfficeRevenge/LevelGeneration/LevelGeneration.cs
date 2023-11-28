@@ -13,6 +13,9 @@ namespace Sem1OfficeRevenge
     {
         private List<Room> rooms = new List<Room>();
         private List<Texture2D> textures = new List<Texture2D>();
+        private List<CivillianEnemy> CivEnemies = new List<CivillianEnemy>();
+        private CivillianEnemy civEnm;
+
         Room lobbyRoom;
 
         private float randomRotation;
@@ -60,6 +63,17 @@ namespace Sem1OfficeRevenge
                     MoveRoom(room, randomRotation);
                 }
             }
+
+            foreach (Room room in rooms)
+            {
+                for (int i = 0; i < rnd.Next(3, 8); i++)
+                {
+                    CivEnemies.Add(new CivillianEnemy());
+                    Global.currentScene.Instantiate(CivEnemies[CivEnemies.Count - 1]);
+                    CivEnemies[CivEnemies.Count - 1].position = new Vector2(room.position.X + rnd.Next(-450, 451), room.position.Y + rnd.Next(-450, 451));
+                }
+            }
+
         }
 
         public void RemoveRooms()
@@ -176,25 +190,25 @@ namespace Sem1OfficeRevenge
 
         private void MoveUp(Room tempRoom)
         {
-            tempRoom.position.Y -= tempRoom.texture.Height * 1;
+            tempRoom.position.Y -= tempRoom.texture.Height * 5;
             previousRoom = tempRoom;
         }
 
         private void MoveDown(Room tempRoom) 
         { 
-           tempRoom.position.Y += tempRoom.texture.Height * 1; 
+           tempRoom.position.Y += tempRoom.texture.Height * 5; 
            previousRoom = tempRoom; 
         }
 
         private void MoveLeft(Room tempRoom)
         {
-            tempRoom.position.X -= tempRoom.texture.Width * 1; 
+            tempRoom.position.X -= tempRoom.texture.Width * 5; 
             previousRoom = tempRoom; 
         }
 
         private void MoveRight(Room tempRoom)
         {
-            tempRoom.position.X += tempRoom.texture.Width * 1; 
+            tempRoom.position.X += tempRoom.texture.Width * 5; 
             previousRoom = tempRoom; 
         }
 

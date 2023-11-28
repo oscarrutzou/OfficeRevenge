@@ -18,10 +18,11 @@ namespace Sem1OfficeRevenge
         private bool hasAttacked;
         int bulletSpeed = 300;
         int bulletDmg = 10;
+        public List<Bullet> bullets = new List<Bullet>();
 
         public Player()
         {
-            CenterOrigin = true;
+            centerOrigin = true;
             position.X = Global.graphics.PreferredBackBufferWidth/2;
             position.Y = Global.graphics.PreferredBackBufferHeight/2;
             SetObjectAnimation(AnimNames.PlayerRifleMove);
@@ -57,6 +58,7 @@ namespace Sem1OfficeRevenge
             //};
             //Bullet bullet = new Bullet(bd);
             Bullet bullet = new Bullet(new Vector2(0, 50), bulletSpeed, bulletDmg);
+            bullets.Add(bullet);
 
             Global.currentScene.Instantiate(bullet);
         }

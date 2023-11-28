@@ -39,7 +39,7 @@ namespace Sem1OfficeRevenge
             player = new Player();
             Global.currentScene.Instantiate(player);
             Global.player = player;
-            player.CenterOrigin = true;
+            player.centerOrigin = true;
 
             //startRoom = new Room(GlobalTextures.textures[TextureNames.TileMap1], MathHelper.PiOver2);
             //rooms.Add(startRoom);

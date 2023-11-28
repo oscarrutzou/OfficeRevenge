@@ -14,6 +14,7 @@ namespace Sem1OfficeRevenge
         public float lifespan { get; private set; } //Brug timeren i stedet for til at finde at lave en life time.
         private int bulletDmg;
         public float totalSecondsTimer;
+   
 
         public Bullet(Vector2 offSet)
         {
@@ -22,8 +23,10 @@ namespace Sem1OfficeRevenge
             SetCorrectBulletPositionWithOffset(offSet);
             rotation = Global.player.rotation;
             direction = new((float)Math.Cos(Global.player.rotation), (float)Math.Sin(Global.player.rotation));
-            speed = 100;
+            speed = 1000;
             lifespan = 2;
+            layerDepth = Global.currentScene.GetObjectLayerDepth(LayerDepth.Enemies);
+            scale = new Vector2(0.2f, 0.2f);
         }
 
         public Bullet(Vector2 offSet, int speed, int bulletDmg)
@@ -34,12 +37,20 @@ namespace Sem1OfficeRevenge
             rotation = Global.player.rotation;
             direction = new((float)Math.Cos(Global.player.rotation), (float)Math.Sin(Global.player.rotation));
             this.speed = speed;
+
+            //slet det her oscar :D
+            this.speed = 1000;
+            scale = new Vector2(0.2f, 0.2f);
+            //slet det her oscar :D
+
             this.bulletDmg = bulletDmg;
             lifespan = 2;
+            layerDepth = Global.currentScene.GetObjectLayerDepth(LayerDepth.Enemies);
         }
 
         public override void Update()
         {
+            if (isRemoved) return;
             totalSecondsTimer = (float)Global.gameTime.ElapsedGameTime.TotalSeconds;
             position += direction * speed * totalSecondsTimer;
 

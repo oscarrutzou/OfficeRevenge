@@ -20,7 +20,7 @@ namespace Sem1OfficeRevenge
         public override void Initialize()
         {
 
-            Global.player = new Player(Vector2.Zero);
+            Global.player = new Player();
             Global.player.centerOrigin = true;
             Global.currentScene.Instantiate(Global.player);
 
