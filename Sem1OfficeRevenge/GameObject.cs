@@ -181,6 +181,14 @@ namespace Sem1OfficeRevenge
             rotation = (float)Math.Atan2(-dir.Y, -dir.X) + MathHelper.Pi;
         }
 
+
+        public virtual void LerpTowardsTarget(float target, float origin, float timer, float speed)
+        {
+            if (rotation == target) return;
+            rotation = MathHelper.Lerp(origin, target, timer);
+            
+        }
+
         public void SetObjectAnimation(AnimNames animationName)
         {
             animation = GlobalAnimations.SetObjAnimation(animationName);

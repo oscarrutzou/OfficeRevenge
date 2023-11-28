@@ -24,7 +24,10 @@ namespace Sem1OfficeRevenge
         {
             //comEnm = new CombatEnemy();
             player = new Player();
+            Global.currentScene.Instantiate(player);
+
             civEnm = new CivillianEnemy();
+            Global.currentScene.Instantiate(civEnm);
             Global.player = player;
             
         }
@@ -33,14 +36,14 @@ namespace Sem1OfficeRevenge
         {
             ScoreManager.Draw(new Vector2(10, 10));
             player.Draw();
-            //comEnm.Draw();
+            civEnm.Draw();
             base.DrawInWorld();
         }
 
         public override void Update()
         {
             ScoreManager.UpdateScore();
-            //comEnm.Update();
+            civEnm.Update();
             base.Update();
         }
     }
