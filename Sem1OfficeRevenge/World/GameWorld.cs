@@ -11,6 +11,7 @@ namespace Sem1OfficeRevenge
         public Dictionary<Scenes, Scene> scenes = new Dictionary<Scenes, Scene>();
         public Camera worldCamera { get; private set; }
         public Camera uiCamera { get; private set; }
+        public BlackScreenFadeInOut blackScreenFadeInOut;
 
         public GameWorld()
         {
@@ -28,14 +29,16 @@ namespace Sem1OfficeRevenge
             WindowedScreen();
             GlobalTextures.LoadContent();
             GlobalAnimations.LoadLoadingScreenIcon();
-            GlobalAnimations.LoadContentTestScenes();
+            //GlobalAnimations.LoadContentTestScenes();
 
             worldCamera = new Camera(new Vector2(Global.graphics.PreferredBackBufferWidth / 2, Global.graphics.PreferredBackBufferHeight / 2));
             uiCamera = new Camera(Vector2.Zero);
 
             GenerateScenes();
-            ChangeScene(Scenes.TestMarc);
-            
+            ChangeScene(Scenes.MainMenu);
+
+            blackScreenFadeInOut = new BlackScreenFadeInOut();
+
             base.Initialize();
         }
 
@@ -58,6 +61,7 @@ namespace Sem1OfficeRevenge
             //{
             //    worldCamera.FollowPlayerMove(Global.player.position);
             //}
+            blackScreenFadeInOut?.Update();
 
             base.Update(gameTime);
         }
@@ -77,12 +81,10 @@ namespace Sem1OfficeRevenge
 
             Global.spriteBatch.Begin(
                 sortMode: SpriteSortMode.FrontToBack,
-                BlendState.AlphaBlend,
-                SamplerState.PointClamp,
-                DepthStencilState.None,
-                RasterizerState.CullCounterClockwise,
                 transformMatrix: uiCamera.GetMatrix());
             Global.currentScene.DrawOnScreen();
+            blackScreenFadeInOut?.Draw();
+
             Global.spriteBatch.End();
 
             base.Draw(gameTime);
@@ -100,20 +102,48 @@ namespace Sem1OfficeRevenge
             
         }
 
+
         public void ChangeScene(Scenes scene)
         {
-            if (Global.currentSceneData != null)
+            if (Global.currentSceneData != null && Global.currentScene != null)
             {
                 foreach (GameObject gameObject in Global.currentSceneData.gameObjects)
                 {
                     gameObject.isRemoved = true;
                 }
-            }
 
-            Global.currentScene = scenes[scene];
-            Global.currentScene.BlackOverLayFadeIn();
-            Global.currentScene.Initialize();
+                if (Global.currentScene == Global.world.scenes[Scenes.MainMenu])
+                {
+                    Global.currentScene = scenes[scene];
+                    Global.currentScene.Initialize();
+                    return;
+                }
+
+                //Global.currentScene.Initialize();
+
+                // Start the fade-in transition
+                blackScreenFadeInOut.StartFadeIn();
+
+                // Wait for the fade-in transition to complete
+                blackScreenFadeInOut.onFadeToBlackDone += (sender, e) =>
+                {
+                    // Change the scene
+                    Global.currentScene = scenes[scene];
+                    Global.currentScene.Initialize();
+
+                    // Keep the screen black
+                    blackScreenFadeInOut.StopAnimation();
+                };
+            }
+            else
+            {
+                // Change the scene
+                Global.currentScene = scenes[scene];
+                Global.currentScene.Initialize();
+            }
         }
+
+
 
         private void WindowedScreen()
         {

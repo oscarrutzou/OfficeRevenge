@@ -8,16 +8,19 @@ namespace Sem1OfficeRevenge
 {
     public class BlackScreenFadeInOut: Gui
     {
-        public float fadeInTime = 0.5f;
+        public float fadeInTime = 1f;
         public float fadeOutTime = 2f;
         private float timer;
         private float fadeAlpha = 0f; // Start with a transparent screen
         private Rectangle blackScreenSize;
+        public bool beginAnimation = false;
         private bool isFadingIn = true; // Start with the fade-in effect
+        public EventHandler<EventArgs> onFadeToBlackDone;
         public BlackScreenFadeInOut()
         {
             position = Vector2.Zero;
             blackScreenSize = new Rectangle(0, 0, Global.graphics.PreferredBackBufferWidth, Global.graphics.PreferredBackBufferHeight);
+            texture = GlobalTextures.textures[TextureNames.Pixel];
         }
 
         public override void Draw()
@@ -34,9 +37,31 @@ namespace Sem1OfficeRevenge
                         Global.currentScene.GetObjectLayerDepth(LayerDepth.FullOverlay));
         }
 
+        public void StartFadeIn()
+        {
+            beginAnimation = true;
+            isFadingIn = true;
+            timer = 0f;
+        }
+
+        public void StartFadeOut()
+        {
+            beginAnimation = true;
+            isFadingIn = false;
+            timer = 0f;
+        }
+
+        public void StopAnimation()
+        {
+            beginAnimation = false;
+        }
+
         public override void Update()
         {
             base.Update();
+
+            if (!beginAnimation) return;
+
             // Update the timer
             timer += (float)Global.gameTime.ElapsedGameTime.TotalSeconds;
 
@@ -50,6 +75,7 @@ namespace Sem1OfficeRevenge
                 {
                     isFadingIn = false;
                     timer = 0f; // Reset the timer
+                    onFadeToBlackDone?.Invoke(this, EventArgs.Empty);
                 }
             }
             else
@@ -61,6 +87,11 @@ namespace Sem1OfficeRevenge
 
             // Clamp the alpha value between 0 and 1
             fadeAlpha = MathHelper.Clamp(fadeAlpha, 0f, 1f);
+
+            if (fadeAlpha >= 1f && !isFadingIn)
+            {
+                //isRemoved = true;
+            }
         }
     }
 }

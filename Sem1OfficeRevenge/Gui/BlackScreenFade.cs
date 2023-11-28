@@ -6,7 +6,7 @@ using System;
 
 namespace Sem1OfficeRevenge
 {
-    public class BlackScreenFade: Gui
+    public class BlackScreenFade
     {
         public float fadeTime = 0.5f;
         private float timer;
@@ -16,12 +16,14 @@ namespace Sem1OfficeRevenge
         private float fadeFrom = 0f;
         private float fadeTo = 1f;
         private bool deleteAfterAnim;
+        private Vector2 position = Vector2.Zero;
+        public bool isVisible;
+        private bool isRemoved;
         public BlackScreenFade(float fadeTime, float fadeFrom, float fadeTo)
         {
             this.fadeFrom = fadeFrom;
             this.fadeTo = fadeTo;
             this.fadeTime = fadeTime;
-            position = Vector2.Zero;
             blackScreenSize = new Rectangle(0, 0, Global.graphics.PreferredBackBufferWidth, Global.graphics.PreferredBackBufferHeight);
         }
 
@@ -31,28 +33,24 @@ namespace Sem1OfficeRevenge
             this.fadeTo = fadeTo;
             this.fadeTime = fadeTime;
             this.deleteAfterAnim = deleteAfterAnim;
-            position = Vector2.Zero;
             blackScreenSize = new Rectangle(0, 0, Global.graphics.PreferredBackBufferWidth, Global.graphics.PreferredBackBufferHeight);
         }
 
-        public override void Draw()
+        public void Draw()
         {
-            base.Draw();
             Global.spriteBatch.Draw(GlobalTextures.textures[TextureNames.Pixel],
                         position,
                         blackScreenSize,
                         new Color(Color.Black, fadeAlpha),
-                        rotation,
+                        0,
                         Vector2.Zero,
-                        scale,
+                        1f,
                         SpriteEffects.None,
                         Global.currentScene.GetObjectLayerDepth(LayerDepth.FullOverlay));
         }
 
-        public override void Update()
+        public void Update()
         {
-            base.Update();
-
             if (!shouldFade) return;
 
             // Update the timer

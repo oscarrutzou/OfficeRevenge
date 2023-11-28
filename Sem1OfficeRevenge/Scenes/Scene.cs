@@ -43,13 +43,13 @@ namespace Sem1OfficeRevenge
 
         public void BlackOverLayFadeIn()
         {
-            if (Global.currentScene == Global.world.scenes[Scenes.MainMenu] || Global.currentScene == Global.world.scenes[Scenes.LoadingScreen]) return;
+            //if (Global.currentScene == Global.world.scenes[Scenes.MainMenu] || Global.currentScene == Global.world.scenes[Scenes.LoadingScreen]) return;
 
-            float fadeOutTimeSec = 1f;
-            BlackScreenFade fadeInObj = new BlackScreenFade(fadeOutTimeSec, 1, 0, true);
-            Global.currentScene.Instantiate(fadeInObj);
+            //float fadeOutTimeSec = 1f;
+            //BlackScreenFade fadeInObj = new BlackScreenFade(fadeOutTimeSec, 1, 0, true);
+            //Global.currentScene.Instantiate(fadeInObj);
         }
-
+        private bool hasFadeOut;
         /// <summary>
         /// The base update on the scene handles all the gameobjects and calls Update on them all. 
         /// </summary>
@@ -69,6 +69,15 @@ namespace Sem1OfficeRevenge
             {
                 gameObject.animation?.AnimationUpdate();
                 gameObject.Update();
+            }
+
+            if (!hasFadeOut)
+            {
+                if (Global.currentScene == Global.world.scenes[Scenes.MainMenu]
+                    || Global.currentScene == Global.world.scenes[Scenes.LoadingScreen]) return;
+
+                Global.world.blackScreenFadeInOut?.StartFadeOut();
+                hasFadeOut = true;
             }
         }
 

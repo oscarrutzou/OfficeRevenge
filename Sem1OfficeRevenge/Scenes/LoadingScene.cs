@@ -9,31 +9,20 @@ public class LoadingScene : Scene
     private bool isLoading = false;
     private Icon loadingIcon;
     private Vector2 loadingTextPos;
-    private BlackScreenFade fadeInObj;
-    private int fadeInTimeInMilisec = 500;
+
     public override async void Initialize()
     {
         isLoading = true;
         InitLoadingIcon();
-        InitBlackOverLayFade();
+        SceneData sc = Global.currentSceneData;
         await Task.Run(() => LoadContent());
-        OnContentLoaded();
+        isLoading = false;
+        Global.world.ChangeScene(Scenes.TestMarc);
     }
 
     private async Task LoadContent()
     {
         await GlobalAnimations.LoadContent();
-    }
-
-    private async void OnContentLoaded()
-    {
-        // Switch to the main menu when the content is loaded after a delay
-
-        fadeInObj.isVisible = true;
-        fadeInObj.shouldFade = true;
-        await Task.Delay(fadeInTimeInMilisec);
-        isLoading = false;
-        Global.world.ChangeScene(Scenes.TestOscar);
     }
 
     private void InitLoadingIcon()
@@ -47,14 +36,6 @@ public class LoadingScene : Scene
         loadingIcon.animation.frameRate = 3;
 
         Global.currentScene.Instantiate(loadingIcon);
-    }
-    private void InitBlackOverLayFade()
-    {
-        float fadeInInSec = (float)fadeInTimeInMilisec / 1000;
-        fadeInObj = new BlackScreenFade(fadeInInSec, 0, 1);
-        Global.currentScene.Instantiate(fadeInObj);
-        fadeInObj.isVisible = false;
-        fadeInObj.shouldFade = false;
     }
 
     public override void DrawOnScreen()
@@ -80,9 +61,5 @@ public class LoadingScene : Scene
                               1,
                               SpriteEffects.None,
                               Global.currentScene.GetObjectLayerDepth(LayerDepth.GuiText));
-        //if (hasInitIcon) return;
-
-        //InitLoadingIcon();
-
     }
 }
