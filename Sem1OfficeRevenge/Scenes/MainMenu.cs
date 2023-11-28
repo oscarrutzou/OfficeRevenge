@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Media;
+using SharpDX.Direct3D9;
 
 namespace Sem1OfficeRevenge
 {
@@ -20,7 +21,7 @@ namespace Sem1OfficeRevenge
         private Button backBtn;
 
         private int resolutionIndex = 0;
-        private BlackScreenFadeInOut fadeOut;
+        private BlackScreenFadeInOut fadeInOutObj;
         #endregion
 
         public override void Initialize()
@@ -29,7 +30,9 @@ namespace Sem1OfficeRevenge
             InitMainMenu();
             InitSettingsMenu();
 
-            Global.world.OnResolutionChanged += DrawBlackScreenOnResolutionChanged;
+            //Global.world.OnResolutionChanged += DrawBlackScreenOnResolutionChanged;
+
+
             WorldOnResolutionChanged();
         }
 
@@ -84,6 +87,11 @@ namespace Sem1OfficeRevenge
                                  Settings);
             backBtn.isVisible = false;
 
+            fadeInOutObj = new BlackScreenFadeInOut();
+            fadeInOutObj.fadeInTime = 1f;
+            fadeInOutObj.fadeOutTime = 1f;
+
+            Global.currentScene.Instantiate(fadeInOutObj);
             Global.currentScene.Instantiate(resolutionBtn);
             Global.currentScene.Instantiate(musicSlider);
             Global.currentScene.Instantiate(backBtn);
@@ -126,17 +134,7 @@ namespace Sem1OfficeRevenge
         #endregion
 
         #region Setting Resolution
-        private async void DrawBlackScreenOnResolutionChanged(object sender, ResolutionChangedEventArgs e)
-        {
-            if (fadeOut != null) fadeOut.isRemoved = true;
 
-            fadeOut = new BlackScreenFadeInOut();
-            Global.currentScene.Instantiate(fadeOut);
-            
-            await Task.Delay((int)fadeOut.fadeInTime * 1000);
-
-            WorldOnResolutionChanged();
-        }
         private void WorldOnResolutionChanged()
         {
             playBtn.position = Global.world.worldCamera.Center + new Vector2(0, -100);
@@ -148,13 +146,30 @@ namespace Sem1OfficeRevenge
             musicSlider.ChangeSliderRectangle(Global.world.worldCamera.Center - new Vector2(GlobalTextures.textures[TextureNames.GuiSliderBase].Width / 2, GlobalTextures.textures[TextureNames.GuiSliderBase].Height / 2));
             backBtn.position = Global.world.worldCamera.Center + new Vector2(0, 100);
 
-        }
-        private void ChangeResolution()
-        {
             
-            resolutionIndex++;
-            if (Global.graphics.IsFullScreen) resolutionIndex = 0;
+        }
+        private bool isChangingResolution = false;
 
+        private async void ChangeResolution()
+        {
+            // If a resolution change is already in progress, do nothing
+            if (isChangingResolution) return;
+
+            // Indicate that a resolution change is in progress
+            isChangingResolution = true;
+
+            resolutionIndex++;
+            if (Global.graphics.IsFullScreen) 
+                resolutionIndex = 0;
+
+
+            // Start the fade-in transition
+            fadeInOutObj.StartFadeIn();
+
+            // Wait for the fade-in transition to complete
+            await Task.Delay((int)fadeInOutObj.fadeInTime * 1000);
+
+            // Change the resolution
             switch (resolutionIndex)
             {
                 case 0:
@@ -163,16 +178,19 @@ namespace Sem1OfficeRevenge
                 case 1:
                     Global.world.ResolutionSize(1920, 1080);
                     break;
-                //case 2:
-                //    Global.world.ResolutionSize(2560, 1440);
-                //    break;
                 case 2:
                     Global.world.Fullscreen();
                     break;
             }
-         
-            
+
+            // Update the button positions
+            WorldOnResolutionChanged();
+
+            // Start the fade-out transition
+            fadeInOutObj.StartFadeOut();
+            isChangingResolution = false;
         }
+
         #endregion
 
         #region Setting Text
@@ -189,7 +207,7 @@ namespace Sem1OfficeRevenge
 
             //float volume = (float)Math.Round(MediaPlayer.Volume * 100, 0);
             string text;
-            if (resolutionIndex == 2)
+            if (Global.graphics.IsFullScreen)
             {
                 text = "Fullscreen";
             }

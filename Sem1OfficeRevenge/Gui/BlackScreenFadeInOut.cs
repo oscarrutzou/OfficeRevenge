@@ -16,6 +16,7 @@ namespace Sem1OfficeRevenge
         public bool beginAnimation = false;
         private bool isFadingIn = true; // Start with the fade-in effect
         public EventHandler<EventArgs> onFadeToBlackDone;
+        public EventHandler<EventArgs> onFadeFromBlackDone;
         public BlackScreenFadeInOut()
         {
             position = Vector2.Zero;
@@ -83,15 +84,16 @@ namespace Sem1OfficeRevenge
                 // Calculate the new alpha value for the fade-out effect
                 fadeAlpha = MathHelper.Lerp(1f, 0f, timer / fadeOutTime);
 
+                if (fadeAlpha <= 0f)
+                {
+                    onFadeFromBlackDone?.Invoke(this, EventArgs.Empty);
+                }
             }
 
             // Clamp the alpha value between 0 and 1
             fadeAlpha = MathHelper.Clamp(fadeAlpha, 0f, 1f);
 
-            if (fadeAlpha >= 1f && !isFadingIn)
-            {
-                //isRemoved = true;
-            }
+
         }
     }
 }
