@@ -26,13 +26,13 @@ namespace Sem1OfficeRevenge
             GlobalTextures.LoadContent();
             GlobalAnimations.LoadLoadingScreenIcon();
             GlobalAnimations.LoadContentTestScenes();
-
+            
             //camera = new Camera(new Vector2(Global.graphics.PreferredBackBufferWidth / 2, Global.graphics.PreferredBackBufferHeight / 2));
             camera = new Camera(Vector2.Zero);
 
             
             GenerateScenes();
-            ChangeScene(Scenes.TestLeonard);
+            ChangeScene(Scenes.TestMarc);
             
 
             base.Initialize();
@@ -42,7 +42,7 @@ namespace Sem1OfficeRevenge
 
         protected override void LoadContent()
         {
-            Global.spriteBatch = new SpriteBatch(GraphicsDevice);
+            Global.spriteBatch = new SpriteBatch(GraphicsDevice);            
         }
 
         protected override void Update(GameTime gameTime)
@@ -50,12 +50,12 @@ namespace Sem1OfficeRevenge
             Global.gameTime = gameTime;
 
             InputManager.HandleInput();
-
+            
             Global.currentScene.Update();
 
             if (Global.player != null)
             {
-                camera.FollowPlayerMove(Global.player.position);
+                //camera.FollowPlayerMove(Global.player.position);
             }
 
             base.Update(gameTime);
@@ -64,11 +64,11 @@ namespace Sem1OfficeRevenge
         protected override void Draw(GameTime gameTime)
         {
             Global.spriteBatch.Begin(sortMode: SpriteSortMode.FrontToBack, transformMatrix: Global.world.camera.GetMatrix());
-            Global.currentScene.DrawInWorld();
+            Global.currentScene.DrawInWorld();            
             Global.spriteBatch.End();
 
             Global.spriteBatch.Begin(sortMode: SpriteSortMode.FrontToBack);
-            Global.currentScene.DrawOnScreen();
+            Global.currentScene.DrawOnScreen();            
             Global.spriteBatch.End();
 
             base.Draw(gameTime);

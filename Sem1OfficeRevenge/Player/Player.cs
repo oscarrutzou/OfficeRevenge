@@ -18,9 +18,9 @@ namespace Sem1OfficeRevenge
         private bool hasAttacked;
         
 
-        public Player(Texture2D texture, Vector2 position)
+        public Player(Vector2 position)
         {
-            this.texture = texture;
+            
             this.position = position;
             SetObjectAnimation(AnimNames.PlayerRifleMove);
             Global.currentScene.SetObjectLayerDepth(this, LayerDepth.Player);
@@ -28,6 +28,10 @@ namespace Sem1OfficeRevenge
 
         public override void Update()
         {
+            if (InputManager.mouseClicked)
+            {
+                Fire();
+            }
             base.Update();
         }
 
@@ -39,6 +43,19 @@ namespace Sem1OfficeRevenge
         private void Movement()
         {
 
+        }
+
+        private void Fire()
+        {
+            BulletData bd = new();
+            {
+                bd.position = position;
+                bd.rotation = rotation;
+               
+            };
+            Bullet bullet = new Bullet(bd);
+
+            Global.currentScene.Instantiate(bullet);
         }
     }
 }

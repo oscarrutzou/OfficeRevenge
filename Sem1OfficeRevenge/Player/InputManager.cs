@@ -14,7 +14,7 @@ namespace Sem1OfficeRevenge
         public static MouseState previousMouseState;
 
         public static Vector2 mousePositionOnScreen;
-        
+        public static bool mouseClicked;
         
         /// <summary>
         /// Gets called in GameWorld, at the start of the update
@@ -58,7 +58,6 @@ namespace Sem1OfficeRevenge
                 {
                     Global.player.position.X += Global.player.playerSpeed;
                 }
-
                 if (keyboardState.IsKeyDown(Keys.W))
                 {
                     Global.player.position.Y -= Global.player.playerSpeed;
@@ -68,6 +67,8 @@ namespace Sem1OfficeRevenge
                     Global.player.position.Y += Global.player.playerSpeed;
                 }
 
+                mouseClicked = (Mouse.GetState().LeftButton == ButtonState.Pressed) && (previousMouseState.LeftButton == ButtonState.Released);
+                previousMouseState = Mouse.GetState();
             }
         }
 

@@ -23,19 +23,22 @@ namespace Sem1OfficeRevenge
         public override void Initialize()
         {
             position = new Vector2(100, 100);
-            player = new Player(texture, position);
+            player = new Player(position);
             Global.currentScene.Instantiate(player);
             Global.player = player;
             player.CenterOrigin = true;
+            
         }
 
         public override void DrawInWorld()
         {
+            
             base.DrawInWorld();
         }
 
         public override void Update()
         {
+            
             base.Update();
             //if (InputManager.keyboardState.IsKeyDown(Keys.A))
             //{
@@ -51,6 +54,7 @@ namespace Sem1OfficeRevenge
             //{
             //    testObj.SetPlayerAnimation(AnimNames.PlayerRifleShoot);
             //}
+            
         }
     }
 }
