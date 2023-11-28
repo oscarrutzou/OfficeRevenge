@@ -18,12 +18,13 @@ namespace Sem1OfficeRevenge
 
     public static class GlobalTextures
     {
-        public static Dictionary<TextureNames, Texture2D> textures;
+        //public static Dictionary<TextureNames, Texture2D> textures;
+        public static Dictionary<TextureNames, Texture2D> textures { get; private set; }
+        public static SpriteFont defaultFont { get; private set; }
 
-        public static SpriteFont defaultFont;
-        
         public static void LoadContent()
         {
+            
             textures = new Dictionary<TextureNames, Texture2D>
             {
                 {TextureNames.GuiButtonTest, Global.world.Content.Load<Texture2D>("GUI\\TestBtn") },

@@ -15,18 +15,17 @@ namespace Sem1OfficeRevenge
 
         private bool showSettings;
 
-        private MusicSlider musicSlider;
+        private SoundSlider musicSlider;
         private Button resolutionBtn;
         private Button backBtn;
 
         private int resolutionIndex = 0;
-        private bool firstStartChanged;
-        private BlackScreenFadeOut fadeOut;
+        private BlackScreenFadeInOut fadeOut;
         #endregion
 
         public override void Initialize()
         {
-            //Global.world.Fullscreen();
+            Global.world.Fullscreen();
             InitMainMenu();
             InitSettingsMenu();
 
@@ -76,7 +75,7 @@ namespace Sem1OfficeRevenge
             resolutionBtn.isVisible = false;
 
 
-            musicSlider = new MusicSlider(Global.world.worldCamera.Center - new Vector2(GlobalTextures.textures[TextureNames.GuiSliderBase].Width / 2, GlobalTextures.textures[TextureNames.GuiSliderBase].Height / 2));
+            musicSlider = new SoundSlider(Global.world.worldCamera.Center - new Vector2(GlobalTextures.textures[TextureNames.GuiSliderBase].Width / 2, GlobalTextures.textures[TextureNames.GuiSliderBase].Height / 2));
             musicSlider.isVisible = false;
 
             backBtn = new Button(
@@ -131,9 +130,9 @@ namespace Sem1OfficeRevenge
         {
             if (fadeOut != null) fadeOut.isRemoved = true;
 
-            fadeOut = new BlackScreenFadeOut();
+            fadeOut = new BlackScreenFadeInOut();
             Global.currentScene.Instantiate(fadeOut);
-
+            
             await Task.Delay((int)fadeOut.fadeInTime * 1000);
 
             WorldOnResolutionChanged();
@@ -152,8 +151,9 @@ namespace Sem1OfficeRevenge
         }
         private void ChangeResolution()
         {
+            
             resolutionIndex++;
-            if (resolutionIndex == 3) resolutionIndex = 0;
+            if (Global.graphics.IsFullScreen) resolutionIndex = 0;
 
             switch (resolutionIndex)
             {

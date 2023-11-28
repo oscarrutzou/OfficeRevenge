@@ -15,7 +15,7 @@ namespace Sem1OfficeRevenge
             this.scale = scale;
             this.position = position;
             this.texture = texture;
-            CenterOrigin = true;
+            centerOrigin = true;
         }
 
         public Icon(Vector2 scale, Vector2 position, Animation animation)
@@ -23,7 +23,7 @@ namespace Sem1OfficeRevenge
             this.scale = scale;
             this.position = position;
             this.animation = animation;
-            CenterOrigin = true;
+            centerOrigin = true;
         }
     }
 }

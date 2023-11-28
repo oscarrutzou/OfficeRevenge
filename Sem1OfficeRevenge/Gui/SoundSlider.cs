@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework.Media;
 
 namespace Sem1OfficeRevenge
 {
-    public class MusicSlider : Gui
+    public class SoundSlider : Gui
     {
         private int sliderBarLength = 338;
         private int sliderBarHeight = 24;
@@ -32,9 +32,9 @@ namespace Sem1OfficeRevenge
                 }
             }
         }
-        public MusicSlider(Vector2 position)
+        public SoundSlider(Vector2 position)
         {
-            CenterOrigin = true;
+            centerOrigin = true;
             this.position = position;
             ChangeSliderRectangle(position);
             texture = GlobalTextures.textures[TextureNames.GuiSliderBase];

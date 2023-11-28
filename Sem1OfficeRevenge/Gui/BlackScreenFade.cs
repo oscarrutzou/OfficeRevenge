@@ -6,16 +6,31 @@ using System;
 
 namespace Sem1OfficeRevenge
 {
-    public class BlackScreenFadeOut: Gui
+    public class BlackScreenFade: Gui
     {
-        public float fadeInTime = 0.5f;
-        public float fadeOutTime = 2f;
+        public float fadeTime = 0.5f;
         private float timer;
         private float fadeAlpha = 0f; // Start with a transparent screen
         private Rectangle blackScreenSize;
-        private bool isFadingIn = true; // Start with the fade-in effect
-        public BlackScreenFadeOut()
+        public bool shouldFade = true;
+        private float fadeFrom = 0f;
+        private float fadeTo = 1f;
+        private bool deleteAfterAnim;
+        public BlackScreenFade(float fadeTime, float fadeFrom, float fadeTo)
         {
+            this.fadeFrom = fadeFrom;
+            this.fadeTo = fadeTo;
+            this.fadeTime = fadeTime;
+            position = Vector2.Zero;
+            blackScreenSize = new Rectangle(0, 0, Global.graphics.PreferredBackBufferWidth, Global.graphics.PreferredBackBufferHeight);
+        }
+
+        public BlackScreenFade(float fadeTime, float fadeFrom, float fadeTo, bool deleteAfterAnim)
+        {
+            this.fadeFrom = fadeFrom;
+            this.fadeTo = fadeTo;
+            this.fadeTime = fadeTime;
+            this.deleteAfterAnim = deleteAfterAnim;
             position = Vector2.Zero;
             blackScreenSize = new Rectangle(0, 0, Global.graphics.PreferredBackBufferWidth, Global.graphics.PreferredBackBufferHeight);
         }
@@ -37,31 +52,21 @@ namespace Sem1OfficeRevenge
         public override void Update()
         {
             base.Update();
+
+            if (!shouldFade) return;
+
             // Update the timer
             timer += (float)Global.gameTime.ElapsedGameTime.TotalSeconds;
 
-            if (isFadingIn)
-            {
-                // Calculate the new alpha value for the fade-in effect
-                fadeAlpha = MathHelper.Lerp(0f, 1f, timer / fadeInTime);
-
-                // If the screen is fully opaque, switch to the fade-out effect
-                if (fadeAlpha >= 1f)
-                {
-                    isFadingIn = false;
-                    timer = 0f; // Reset the timer
-                }
-            }
-            else
-            {
-                // Calculate the new alpha value for the fade-out effect
-                fadeAlpha = MathHelper.Lerp(1f, 0f, timer / fadeOutTime);
-
-            }
+            fadeAlpha = MathHelper.Lerp(fadeFrom, fadeTo, timer / fadeTime);
 
             // Clamp the alpha value between 0 and 1
             fadeAlpha = MathHelper.Clamp(fadeAlpha, 0f, 1f);
 
+            if (deleteAfterAnim && fadeAlpha == fadeTo)
+            {
+                isRemoved = true;
+            }
         }
     }
 }

@@ -9,11 +9,13 @@ public class LoadingScene : Scene
     private bool isLoading = false;
     private Icon loadingIcon;
     private Vector2 loadingTextPos;
-    private bool hasInitIcon;
+    private BlackScreenFade fadeInObj;
+    private int fadeInTimeInMilisec = 500;
     public override async void Initialize()
     {
         isLoading = true;
         InitLoadingIcon();
+        InitBlackOverLayFadeIn();
         await Task.Run(() => LoadContent());
         OnContentLoaded();
     }
@@ -26,9 +28,12 @@ public class LoadingScene : Scene
     private async void OnContentLoaded()
     {
         // Switch to the main menu when the content is loaded after a delay
-        await Task.Delay(500);
+
+        fadeInObj.isVisible = true;
+        fadeInObj.shouldFade = true;
+        await Task.Delay(fadeInTimeInMilisec);
         isLoading = false;
-        Global.world.ChangeScene(Scenes.TestMarc);
+        Global.world.ChangeScene(Scenes.TestOscar);
     }
 
     private void InitLoadingIcon()
@@ -42,6 +47,14 @@ public class LoadingScene : Scene
         loadingIcon.animation.frameRate = 3;
 
         Global.currentScene.Instantiate(loadingIcon);
+    }
+    private void InitBlackOverLayFadeIn()
+    {
+        float fadeInInSec = (float)fadeInTimeInMilisec / 1000;
+        fadeInObj = new BlackScreenFade(fadeInInSec, 0, 1);
+        Global.currentScene.Instantiate(fadeInObj);
+        fadeInObj.isVisible = false;
+        fadeInObj.shouldFade = false;
     }
 
     public override void DrawOnScreen()

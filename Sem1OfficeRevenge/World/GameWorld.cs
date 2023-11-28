@@ -1,18 +1,16 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using SharpDX.Direct3D9;
+//using SharpDX.Direct3D9;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 
 namespace Sem1OfficeRevenge
 {
     public class GameWorld : Game
     {
         private Dictionary<Scenes, Scene> scenes = new Dictionary<Scenes, Scene>();
-        public Camera worldCamera;
-        public Camera uiCamera;
+        public Camera worldCamera { get; private set; }
+        public Camera uiCamera { get; private set; }
 
         public GameWorld()
         {
@@ -59,11 +57,24 @@ namespace Sem1OfficeRevenge
 
         protected override void Draw(GameTime gameTime)
         {
-            Global.spriteBatch.Begin(sortMode: SpriteSortMode.FrontToBack, transformMatrix: worldCamera.GetMatrix());
+            Global.spriteBatch.Begin(
+                sortMode: SpriteSortMode.FrontToBack,
+                BlendState.AlphaBlend,
+                SamplerState.PointClamp,
+                DepthStencilState.None,
+                RasterizerState.CullCounterClockwise,
+                transformMatrix: worldCamera.GetMatrix());
+
             Global.currentScene.DrawInWorld();
             Global.spriteBatch.End();
 
-            Global.spriteBatch.Begin(sortMode: SpriteSortMode.FrontToBack, transformMatrix: uiCamera.GetMatrix());
+            Global.spriteBatch.Begin(
+                sortMode: SpriteSortMode.FrontToBack,
+                BlendState.AlphaBlend,
+                SamplerState.PointClamp,
+                DepthStencilState.None,
+                RasterizerState.CullCounterClockwise,
+                transformMatrix: uiCamera.GetMatrix());
             Global.currentScene.DrawOnScreen();
             Global.spriteBatch.End();
 

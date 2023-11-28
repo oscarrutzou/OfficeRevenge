@@ -19,7 +19,7 @@ namespace Sem1OfficeRevenge
 
         public Texture2D texture;
         
-        public bool CenterOrigin;
+        public bool centerOrigin;
         public float layerDepth; //How object gets drawn
         public Color color = Color.White;
 
@@ -47,7 +47,7 @@ namespace Sem1OfficeRevenge
                 int width = collisionBoxWidth > 0 ? collisionBoxWidth : drawTexture.Width;
                 int height = collisionBoxHeight > 0 ? collisionBoxHeight : drawTexture.Height;
 
-                Vector2 origin = CenterOrigin ? new Vector2(width / 2, height / 2) : Vector2.Zero;
+                Vector2 origin = centerOrigin ? new Vector2(width / 2, height / 2) : Vector2.Zero;
 
                 return new Rectangle(
                     (int)(position.X + offset.X - origin.X * scale.X),
@@ -73,7 +73,7 @@ namespace Sem1OfficeRevenge
             Texture2D drawTexture = texture ?? animation?.frames[animation.currentFrame];
 
             //If the bool is true, choose the option on the left, if not then it chooeses the right
-            Vector2 origin = CenterOrigin ? new Vector2(drawTexture.Width / 2, drawTexture.Height / 2) : Vector2.Zero;
+            Vector2 origin = centerOrigin ? new Vector2(drawTexture.Width / 2, drawTexture.Height / 2) : Vector2.Zero;
 
             if (animation != null && texture != null)
             {
@@ -90,6 +90,8 @@ namespace Sem1OfficeRevenge
                 // Draw static texture
                 Global.spriteBatch.Draw(texture, position, null, color, rotation, origin, scale, SpriteEffects.None, layerDepth);
             }
+
+            //DrawDebugCollisionBox();
         }
 
 
