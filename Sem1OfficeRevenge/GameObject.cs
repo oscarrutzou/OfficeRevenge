@@ -91,7 +91,7 @@ namespace Sem1OfficeRevenge
                 Global.spriteBatch.Draw(texture, position, null, color, rotation, origin, scale, SpriteEffects.None, layerDepth);
             }
 
-            //DrawDebugCollisionBox();
+            DrawDebugCollisionBox();
         }
 
 
@@ -147,6 +147,8 @@ namespace Sem1OfficeRevenge
             Vector2 dir = target - position;
             rotation = (float)Math.Atan2(-dir.Y, -dir.X) + MathHelper.Pi;
         }
+
+
         #endregion
 
         #region DebugCollsionBox

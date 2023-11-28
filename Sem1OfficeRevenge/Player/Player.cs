@@ -53,7 +53,8 @@ namespace Sem1OfficeRevenge
                 bd.rotation = rotation;
                
             };
-            Bullet bullet = new Bullet(bd);
+            //Bullet bullet = new Bullet(bd);
+            Bullet bullet = new Bullet();
 
             Global.currentScene.Instantiate(bullet);
         }

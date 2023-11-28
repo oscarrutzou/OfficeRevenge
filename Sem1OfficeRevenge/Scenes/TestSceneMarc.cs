@@ -31,13 +31,6 @@ namespace Sem1OfficeRevenge
 
         }
 
-
-        public override void DrawInWorld()
-        {
-            
-            base.DrawInWorld();
-        }
-        bool init;
         public override void Update()
         {
             
@@ -52,12 +45,12 @@ namespace Sem1OfficeRevenge
             //Global.world.blackScreenFadeInOut?.StartFadeOut();
             //}
 
-            if (InputManager.keyboardState.IsKeyDown(Keys.W))
-            {
-                player.SetObjectAnimation(AnimNames.PlayerRifleMove);
+            //if (InputManager.keyboardState.IsKeyDown(Keys.W))
+            //{
+            //    player.SetObjectAnimation(AnimNames.PlayerRifleMove);
                 
 
-            }
+            //}
 
             //if (InputManager.keyboardState.IsKeyDown(Keys.D))
             //{
