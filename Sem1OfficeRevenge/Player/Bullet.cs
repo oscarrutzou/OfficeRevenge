@@ -11,41 +11,64 @@ namespace Sem1OfficeRevenge
 {
     public class Bullet : GameObject
     {
-        public float lifespan { get; private set; }
-        public float TotalSeconds;
-        public Bullet()
+        public float lifespan { get; private set; } //Brug timeren i stedet for til at finde at lave en life time.
+        private int bulletDmg;
+        public float totalSecondsTimer;
+
+        public Bullet(Vector2 offSet)
         {
             texture = GlobalTextures.textures[TextureNames.Bullet];
             centerOrigin = true;
-            SetCorrectBulletPosition();
+            SetCorrectBulletPositionWithOffset(offSet);
             rotation = Global.player.rotation;
             direction = new((float)Math.Cos(Global.player.rotation), (float)Math.Sin(Global.player.rotation));
             speed = 100;
             lifespan = 2;
         }
 
-        public Bullet(BulletData data)
+        public Bullet(Vector2 offSet, int speed, int bulletDmg)
         {
             texture = GlobalTextures.textures[TextureNames.Bullet];
-            speed = 100;
-            rotation = data.rotation;
-            direction = new((float)Math.Cos(rotation), (float)Math.Sin(rotation));
+            centerOrigin = true;
+            SetCorrectBulletPositionWithOffset(offSet);
+            rotation = Global.player.rotation;
+            direction = new((float)Math.Cos(Global.player.rotation), (float)Math.Sin(Global.player.rotation));
+            this.speed = speed;
+            this.bulletDmg = bulletDmg;
             lifespan = 2;
-            position = data.position;
         }
-
 
         public override void Update()
         {
-            TotalSeconds = (float)Global.gameTime.ElapsedGameTime.TotalSeconds;
-            position += direction * speed * TotalSeconds;
+            totalSecondsTimer = (float)Global.gameTime.ElapsedGameTime.TotalSeconds;
+            position += direction * speed * totalSecondsTimer;
+
+            CheckCollisionBox();
         }
 
-        public Vector2 SetCorrectBulletPosition()
+        public override void CheckCollisionBox()
+        {
+            foreach (GameObject test in Global.currentSceneData.defults) //Ændre til at kigge i enemies i currentSceneData
+            {
+                if (test is TestObjectCollide) //Fjern dette if, da vi allerede kigger igennem kun enemies. 
+                {
+                    if (Collision.IsCollidingBox(this, test))
+                    {
+                        isRemoved = true; //Fjerner bullet
+                        test.isRemoved = true; //Her skal den dmg enemy med variablet "bulletDmg"
+                        //Spil hit lyd måske?
+                    }
+                }
+            }
+
+            //Efter lav det samme foreach bare med en med væggene. 
+        }
+
+        public Vector2 SetCorrectBulletPositionWithOffset(Vector2 playerGunOffset)
         {
             Texture2D playerTexture = Global.player.animation.frames[Global.player.animation.currentFrame];
             // Offset from the center of the tower to the right side of the tower sprite
-            Vector2 offset = new Vector2(playerTexture.Width / 2, 0);
+            Vector2 offset = new Vector2(playerTexture.Width / 2, 0) + playerGunOffset;
 
             // Add half the height of the projectile sprite to the offset
             offset.X += texture.Height / 2; //Should use the width when it has a proper texture that faces right
@@ -61,17 +84,6 @@ namespace Sem1OfficeRevenge
             position = Global.player.position + rotatedOffset;
 
             return position;
-        }
-
-        public override void OnCollisionBox()
-        {
-            foreach (Bullet bullet in Global.currentSceneData.bullets)
-            {
-                if (Intersects(bullet))
-                {
-                    bullet.isRemoved = true;
-                }
-            }
         }
     }
 }

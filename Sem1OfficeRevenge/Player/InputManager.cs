@@ -36,10 +36,13 @@ namespace Sem1OfficeRevenge
 
             PlayerInput();
 
-            if (mouseState.LeftButton == ButtonState.Pressed && previousMouseState.LeftButton != ButtonState.Pressed)
+            if (mouseState.LeftButton == ButtonState.Pressed && previousMouseState.LeftButton == ButtonState.Released)
             {
                 CheckButtons();
+
             }
+
+            mouseClicked = (Mouse.GetState().LeftButton == ButtonState.Pressed) && (previousMouseState.LeftButton == ButtonState.Released);
 
 
             previousMouseState = mouseState;
@@ -50,8 +53,14 @@ namespace Sem1OfficeRevenge
         public static void PlayerInput()
         {
             if (Global.player != null)
-            { 
-                Global.player.RotateTowardsTarget(mousePositionInWorld);
+            {
+                Vector2 dir = mousePositionInWorld - Global.player.position;
+                dir.Normalize();
+
+                // Calculate the offset vector perpendicular to the direction vector
+                Vector2 offset = new Vector2(-dir.Y, dir.X) * -50; // 50 is the offset distance
+
+                Global.player.RotateTowardsTargetWithOffset(mousePositionInWorld, offset);
 
                 if (keyboardState.IsKeyDown(Keys.A))
                 {
@@ -70,8 +79,6 @@ namespace Sem1OfficeRevenge
                     Global.player.position.Y += Global.player.playerSpeed;
                 }
 
-                mouseClicked = (Mouse.GetState().LeftButton == ButtonState.Pressed) && (previousMouseState.LeftButton == ButtonState.Released);
-                previousMouseState = Mouse.GetState();
             }
         }
 

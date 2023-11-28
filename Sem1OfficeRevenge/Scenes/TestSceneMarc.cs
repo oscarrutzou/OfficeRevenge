@@ -11,10 +11,7 @@ namespace Sem1OfficeRevenge
 {
     public class TestSceneMarc : Scene
     {
-        private Player player;
-        private Texture2D texture;
-        private Vector2 position;
-        
+
         public TestSceneMarc()
         {
             
@@ -23,11 +20,12 @@ namespace Sem1OfficeRevenge
         public override void Initialize()
         {
 
-            position = new Vector2(100, 100);
-            player = new Player(position);
-            Global.currentScene.Instantiate(player);
-            Global.player = player;
-            player.centerOrigin = true;
+            Global.player = new Player(Vector2.Zero);
+            Global.player.centerOrigin = true;
+            Global.currentScene.Instantiate(Global.player);
+
+            TestObjectCollide testObj = new TestObjectCollide(new Vector2(400,200));
+            Global.currentScene.Instantiate(testObj);
 
         }
 

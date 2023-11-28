@@ -111,35 +111,7 @@ namespace Sem1OfficeRevenge
             this.offset = offset;
         }
 
-        public bool Intersects(GameObject other)
-        {
-            // Get the corners of the rectangle
-            Vector2[] corners = new Vector2[4];
-            corners[0] = new Vector2(collisionBox.Left, collisionBox.Top);
-            corners[1] = new Vector2(collisionBox.Right, collisionBox.Top);
-            corners[2] = new Vector2(collisionBox.Right, collisionBox.Bottom);
-            corners[3] = new Vector2(collisionBox.Left, collisionBox.Bottom);
-
-            // Rotate the corners around the center of the rectangle
-            Vector2 origin = new Vector2(collisionBox.Center.X, collisionBox.Center.Y);
-            for (int i = 0; i < 4; i++)
-            {
-                Vector2 dir = corners[i] - origin;
-                dir = Vector2.Transform(dir, Matrix.CreateRotationZ(rotation));
-                corners[i] = dir + origin;
-            }
-
-            // Check if any of the corners are inside the other rectangle
-            foreach (Vector2 corner in corners)
-            {
-                if (other.collisionBox.Contains(corner))
-                    return true;
-            }
-
-            return false;
-        }
-
-        public virtual void OnCollisionBox() { } // This don't need to have anything in it, in this GameObject script
+        public virtual void CheckCollisionBox() { } // This don't need to have anything in it, in this GameObject script
         public void RotateTowardsTarget(Vector2 target)
         {
             if (position == target) return;
@@ -147,8 +119,21 @@ namespace Sem1OfficeRevenge
             Vector2 dir = target - position;
             rotation = (float)Math.Atan2(-dir.Y, -dir.X) + MathHelper.Pi;
         }
+        public void RotateTowardsTargetWithOffset(Vector2 target, Vector2 offset)
+        {
+            // Add the offset to the target
+            Vector2 targetWithOffset = target + offset;
 
+            if (position == targetWithOffset) return;
 
+            Vector2 dir = targetWithOffset - position;
+
+            // Only update the rotation if the distance is greater than a certain threshold
+            if (dir.Length() > 40) //In px
+            {
+                rotation = (float)Math.Atan2(-dir.Y, -dir.X) + MathHelper.Pi;
+            }
+        }
         #endregion
 
         #region DebugCollsionBox

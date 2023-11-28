@@ -21,10 +21,10 @@ namespace Sem1OfficeRevenge
             this.origin = origin;
         }
 
-        public void FollowPlayerMove(Vector2 playerPos)
+        public void FollowPlayerMove()
         {
             // Update the camera's position so it follows the player
-            position = playerPos;
+            position = Global.player.position;
         }
 
         public Vector2 TopCenter
