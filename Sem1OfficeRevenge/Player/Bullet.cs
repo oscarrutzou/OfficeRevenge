@@ -15,7 +15,7 @@ namespace Sem1OfficeRevenge
         public Bullet(BulletData data)
         {
             texture = GlobalTextures.textures[TextureNames.Bullet];
-            speed = 2000;
+            speed = 100;
             rotation = data.rotation;
             direction = new((float)Math.Cos(rotation), (float)Math.Sin(rotation));
             lifespan = 2;
@@ -31,7 +31,8 @@ namespace Sem1OfficeRevenge
 
         public void SetCorrectBulletPosition()
         {
-
+            
         }
+
     }
 }

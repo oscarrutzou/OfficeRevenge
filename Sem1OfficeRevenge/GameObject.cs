@@ -90,6 +90,7 @@ namespace Sem1OfficeRevenge
                 // Draw static texture
                 Global.spriteBatch.Draw(texture, position, null, color, rotation, origin, scale, SpriteEffects.None, layerDepth);
             }
+            DrawDebugCollisionBox();
         }
 
 

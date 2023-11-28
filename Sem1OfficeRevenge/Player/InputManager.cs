@@ -51,7 +51,7 @@ namespace Sem1OfficeRevenge
         {
             if (Global.player != null)
             { 
-                Global.player.RotateTowardsTarget(mousePositionOnScreen);
+                Global.player.RotateTowardsTarget(mousePositionInWorld);
 
                 if (keyboardState.IsKeyDown(Keys.A))
                 {

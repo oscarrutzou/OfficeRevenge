@@ -57,5 +57,6 @@ namespace Sem1OfficeRevenge
 
             Global.currentScene.Instantiate(bullet);
         }
+        
     }
 }

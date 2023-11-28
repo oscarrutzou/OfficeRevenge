@@ -30,7 +30,7 @@ namespace Sem1OfficeRevenge
             WindowedScreen();
             GlobalTextures.LoadContent();
             GlobalAnimations.LoadLoadingScreenIcon();
-            //GlobalAnimations.LoadContentTestScenes();
+            GlobalAnimations.LoadContentTestScenes();
 
             worldCamera = new Camera(new Vector2(Global.graphics.PreferredBackBufferWidth / 2, Global.graphics.PreferredBackBufferHeight / 2));
             uiCamera = new Camera(Vector2.Zero);
@@ -56,10 +56,10 @@ namespace Sem1OfficeRevenge
             
             Global.currentScene.Update();
 
-            if (Global.player != null)
-            {
-                worldCamera.FollowPlayerMove(Global.player.position);
-            }
+            //if (Global.player != null)
+            //{
+            //    worldCamera.FollowPlayerMove(Global.player.position);
+            //}
 
             base.Update(gameTime);
         }
