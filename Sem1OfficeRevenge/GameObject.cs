@@ -140,7 +140,7 @@ namespace Sem1OfficeRevenge
         }
 
         public virtual void OnCollisionBox() { } // This don't need to have anything in it, in this GameObject script
-        public virtual void RotateTowardsTarget(Vector2 target)
+        public void RotateTowardsTarget(Vector2 target)
         {
             if (position == target) return;
 

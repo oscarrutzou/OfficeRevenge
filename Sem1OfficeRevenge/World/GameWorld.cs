@@ -8,7 +8,7 @@ namespace Sem1OfficeRevenge
 {
     public class GameWorld : Game
     {
-        private Dictionary<Scenes, Scene> scenes = new Dictionary<Scenes, Scene>();
+        public Dictionary<Scenes, Scene> scenes = new Dictionary<Scenes, Scene>();
         public Camera worldCamera { get; private set; }
         public Camera uiCamera { get; private set; }
 
@@ -104,6 +104,7 @@ namespace Sem1OfficeRevenge
             }
 
             Global.currentScene = scenes[scene];
+            Global.currentScene.BlackOverLayFadeIn();
             Global.currentScene.Initialize();
         }
 

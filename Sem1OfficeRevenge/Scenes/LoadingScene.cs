@@ -15,7 +15,7 @@ public class LoadingScene : Scene
     {
         isLoading = true;
         InitLoadingIcon();
-        InitBlackOverLayFadeIn();
+        InitBlackOverLayFade();
         await Task.Run(() => LoadContent());
         OnContentLoaded();
     }
@@ -48,7 +48,7 @@ public class LoadingScene : Scene
 
         Global.currentScene.Instantiate(loadingIcon);
     }
-    private void InitBlackOverLayFadeIn()
+    private void InitBlackOverLayFade()
     {
         float fadeInInSec = (float)fadeInTimeInMilisec / 1000;
         fadeInObj = new BlackScreenFade(fadeInInSec, 0, 1);

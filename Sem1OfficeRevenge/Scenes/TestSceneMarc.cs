@@ -29,6 +29,7 @@ namespace Sem1OfficeRevenge
             player.centerOrigin = true;
         }
 
+
         public override void DrawInWorld()
         {
             base.DrawInWorld();
