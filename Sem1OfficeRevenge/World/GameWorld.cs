@@ -1,8 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-//using SharpDX.Direct3D9;
-//using SharpDX.Direct3D9;
-using System;
+using Microsoft.Xna.Framework.Input;
+using Sem1OfficeRevenge.World;
 using System.Collections.Generic;
 
 namespace Sem1OfficeRevenge
@@ -32,6 +31,7 @@ namespace Sem1OfficeRevenge
 
             ResolutionSize(1280, 720);
             GlobalTextures.LoadContent();
+            GlobalSound.LoadContent();
             GlobalAnimations.LoadLoadingScreenIcon();
             //GlobalAnimations.LoadContentTestScenes();
 
@@ -55,9 +55,13 @@ namespace Sem1OfficeRevenge
         {
             Global.gameTime = gameTime;
 
+            GlobalSound.music();
+
             InputManager.HandleInput();
             
             Global.currentScene.Update();
+
+
 
             if (Global.player != null)
             {
