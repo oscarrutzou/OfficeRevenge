@@ -16,7 +16,8 @@ namespace Sem1OfficeRevenge
         public Vector2 origin;
         public float playerSpeed = 10f;
         private bool hasAttacked;
-        
+        int bulletSpeed = 300;
+        int bulletDmg = 10;
 
         public Player()
         {
@@ -29,6 +30,10 @@ namespace Sem1OfficeRevenge
 
         public override void Update()
         {
+            if (InputManager.mouseClicked)
+            {
+                Fire();
+            }
             base.Update();
         }
 
@@ -41,5 +46,20 @@ namespace Sem1OfficeRevenge
         {
 
         }
+
+        private void Fire()
+        {
+            //BulletData bd = new();
+            //{
+            //    bd.position = position;
+            //    bd.rotation = rotation;
+
+            //};
+            //Bullet bullet = new Bullet(bd);
+            Bullet bullet = new Bullet(new Vector2(0, 50), bulletSpeed, bulletDmg);
+
+            Global.currentScene.Instantiate(bullet);
+        }
+        
     }
 }

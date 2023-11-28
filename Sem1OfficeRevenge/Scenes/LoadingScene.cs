@@ -7,16 +7,17 @@ using Microsoft.Xna.Framework.Graphics;
 public class LoadingScene : Scene
 {
     private bool isLoading = false;
-    //private float progress = 0f;
     private Icon loadingIcon;
     private Vector2 loadingTextPos;
-    private bool hasInitIcon;
+
     public override async void Initialize()
     {
         isLoading = true;
         InitLoadingIcon();
+        SceneData sc = Global.currentSceneData;
         await Task.Run(() => LoadContent());
-        OnContentLoaded();
+        isLoading = false;
+        Global.world.ChangeScene(Scenes.TestMarc);
     }
 
     private async Task LoadContent()
@@ -24,28 +25,17 @@ public class LoadingScene : Scene
         await GlobalAnimations.LoadContent();
     }
 
-    private async void OnContentLoaded()
-    {
-        // Switch to the main menu when the content is loaded
-        await Task.Delay(1000);
-        isLoading = false;
-        Global.world.ChangeScene(Scenes.TestOscar);
-    }
-
-
     private void InitLoadingIcon()
     {
-
         Vector2 scale = new Vector2(0.3f, 0.3f);
-        Vector2 position = Global.world.camera.BottomRight + new Vector2(-50, -50);
+        Vector2 position = Global.world.worldCamera.BottomRight + new Vector2(-50, -50);
         loadingIcon = new Icon(scale, 
                                position,
-                               GlobalAnimations.SetObjAnimation(AnimNames.GuiLoadingScreenIcon));
+                               GlobalAnimations.SetAnimation(AnimNames.GuiLoadingScreenIcon));
         
         loadingIcon.animation.frameRate = 3;
 
         Global.currentScene.Instantiate(loadingIcon);
-        //hasInitIcon = true;
     }
 
     public override void DrawOnScreen()
@@ -60,7 +50,7 @@ public class LoadingScene : Scene
         Vector2 textSize = GlobalTextures.defaultFont.MeasureString(text);
 
         // Calculate the position to center the text
-        loadingTextPos = Global.world.camera.BottomCenter + new Vector2(0, -50) - textSize / 2;
+        loadingTextPos = Global.world.worldCamera.BottomCenter + new Vector2(0, -50) - textSize / 2;
 
         Global.spriteBatch.DrawString(GlobalTextures.defaultFont,
                               text,
@@ -71,9 +61,5 @@ public class LoadingScene : Scene
                               1,
                               SpriteEffects.None,
                               Global.currentScene.GetObjectLayerDepth(LayerDepth.GuiText));
-        //if (hasInitIcon) return;
-
-        //InitLoadingIcon();
-
     }
 }

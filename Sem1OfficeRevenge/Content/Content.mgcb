@@ -13,6 +13,18 @@
 
 #---------------------------------- Content ---------------------------------#
 
+#begin Bullet/Bullet.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Bullet/Bullet.png
+
 #begin Fonts/Arial.spritefont
 /importer:FontDescriptionImporter
 /processor:FontDescriptionProcessor
@@ -80,7 +92,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:GUI/Icons/icon_timeglass_0.png
+/build:GUI/Icons/icon_timeglass_0.png;GUI/Icons/icon_timeglass_1.png
 
 #begin GUI/Icons/icon_timeglass_1.png
 /importer:TextureImporter
@@ -92,7 +104,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:GUI/Icons/icon_timeglass_1.png
+/build:GUI/Icons/icon_timeglass_1.png;GUI/Icons/icon_timeglass_2.png
 
 #begin GUI/Icons/icon_timeglass_2.png
 /importer:TextureImporter
@@ -104,7 +116,67 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:GUI/Icons/icon_timeglass_2.png
+/build:GUI/Icons/icon_timeglass_2.png;GUI/Icons/icon_timeglass_0.png
+
+#begin GUI/Pixel.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:GUI/Pixel.png
+
+#begin GUI/Slider_frame_over.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:GUI/Slider_frame_over.png
+
+#begin GUI/Slider_frame.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:GUI/Slider_frame.png
+
+#begin GUI/Slider_Handle.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:GUI/Slider_Handle.png
+
+#begin GUI/TestBtn.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:GUI/TestBtn.png
 
 #begin PlaceHolder/buttonBlue.png
 /importer:TextureImporter
@@ -5157,16 +5229,4 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Player/Top_Down_Survivor/shotgun/shoot/survivor-shoot_shotgun_2.png
-
-#begin Rooms/TempLobby1.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Rooms/TempLobby1.png
 

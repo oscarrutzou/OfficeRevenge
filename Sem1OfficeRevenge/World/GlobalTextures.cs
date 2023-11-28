@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using SharpDX.Direct3D9;
 using System.Collections.Generic;
 
 
@@ -15,18 +16,26 @@ namespace Sem1OfficeRevenge
         TileMap4,
         TileMap5,
         GuiButtonTest,
+        GuiSliderBase,
+        GuiSliderOver,
+        GuiSliderHandle,
+        Pixel,
+
+
+        //test
+        Bullet,
         
     }
 
     public static class GlobalTextures
     {
-        public static Dictionary<TextureNames, Texture2D> textures;
+        //public static Dictionary<TextureNames, Texture2D> textures;
+        public static Dictionary<TextureNames, Texture2D> textures { get; private set; }
+        public static SpriteFont defaultFont { get; private set; }
 
-        public static SpriteFont defaultFont;
-        //public static SpriteFont crunchyFont;
-        
         public static void LoadContent()
         {
+            
             textures = new Dictionary<TextureNames, Texture2D>
             {
                 {TextureNames.TileMap1, Global.world.Content.Load<Texture2D>("Rooms\\TempLobby1") },
@@ -36,14 +45,20 @@ namespace Sem1OfficeRevenge
                 {TextureNames.TileMap5, Global.world.Content.Load<Texture2D>("Rooms\\room5") },
 
                 {TextureNames.GuiButtonTest, Global.world.Content.Load<Texture2D>("GUI\\TestBtn") },
-
+                {TextureNames.GuiSliderBase, Global.world.Content.Load<Texture2D>("GUI\\Slider_frame") },
+                {TextureNames.GuiSliderOver, Global.world.Content.Load<Texture2D>("GUI\\Slider_frame_over") },
+                {TextureNames.GuiSliderHandle, Global.world.Content.Load<Texture2D>("GUI\\Slider_Handle") },
+                {TextureNames.Pixel, Global.world.Content.Load<Texture2D>("GUI\\Pixel") },
+                {TextureNames.Bullet, Global.world.Content.Load<Texture2D>("Bullet\\Bullet") }
             };
 
+            //defaultFont = Global.world.Content.Load<SpriteFont>("Fonts\\Arial");
+            
+            
             //defaultFont = Global.world.Content.Load<SpriteFont>("Fonts\\Friday13SH");
             //defaultFont = Global.world.Content.Load<SpriteFont>("Fonts\\Friday13v12");
             defaultFont = Global.world.Content.Load<SpriteFont>("Fonts\\SlencoBlack");
-            //defaultFont = Global.world.Content.Load<SpriteFont>("Fonts\\CrunchyFont");
-            //crunchyFont = Global.world.Content.Load<SpriteFont>("Fonts\\CrunchyFont");
+
         }
     }
 }

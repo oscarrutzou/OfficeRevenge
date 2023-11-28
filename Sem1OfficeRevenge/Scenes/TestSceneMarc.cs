@@ -11,10 +11,7 @@ namespace Sem1OfficeRevenge
 {
     public class TestSceneMarc : Scene
     {
-        private Player player;
-        private Texture2D texture;
-        private Vector2 position;
-        
+
         public TestSceneMarc()
         {
             
@@ -22,35 +19,42 @@ namespace Sem1OfficeRevenge
 
         public override void Initialize()
         {
-            position = new Vector2(100, 100);
-            player = new Player();
-            Global.currentScene.Instantiate(player);
-            Global.player = player;
-            player.CenterOrigin = true;
-        }
 
-        public override void DrawInWorld()
-        {
-            base.DrawInWorld();
+            Global.player = new Player(Vector2.Zero);
+            Global.player.centerOrigin = true;
+            Global.currentScene.Instantiate(Global.player);
+
+            TestObjectCollide testObj = new TestObjectCollide(new Vector2(400,200));
+            Global.currentScene.Instantiate(testObj);
+
         }
 
         public override void Update()
         {
+            
             base.Update();
             //if (InputManager.keyboardState.IsKeyDown(Keys.A))
             //{
             //    testObj.SetPlayerAnimation(AnimNames.PlayerRifleIdle);
             //}
+            //if (!init)
+            //{
+            //    init = true;
+            //Global.world.blackScreenFadeInOut?.StartFadeOut();
+            //}
 
-            if (InputManager.keyboardState.IsKeyDown(Keys.W))
-            {
-                player.SetObjectAnimation(AnimNames.PlayerRifleMove);
-            }
+            //if (InputManager.keyboardState.IsKeyDown(Keys.W))
+            //{
+            //    player.SetObjectAnimation(AnimNames.PlayerRifleMove);
+                
+
+            //}
 
             //if (InputManager.keyboardState.IsKeyDown(Keys.D))
             //{
             //    testObj.SetPlayerAnimation(AnimNames.PlayerRifleShoot);
             //}
+
         }
     }
 }

@@ -21,8 +21,10 @@ namespace Sem1OfficeRevenge
             this.texture = texture;
             this.onClick = onClick;
             this.invokeActionOnFullScale = invokeActionOnFullScale;
-            CenterOrigin = true;
+            centerOrigin = true;
         }
+
+
 
         public Button(Vector2 position, string text, bool invokeActionOnFullScale, Action onClick)
         {
@@ -31,7 +33,17 @@ namespace Sem1OfficeRevenge
             texture = GlobalTextures.textures[TextureNames.GuiButtonTest];
             this.invokeActionOnFullScale = invokeActionOnFullScale;
             this.onClick = onClick;
-            CenterOrigin = true;
+            centerOrigin = true;
+        }
+
+        public Button(string text, bool invokeActionOnFullScale, Action onClick)
+        {
+            this.position = Vector2.Zero;
+            this.text = text;
+            texture = GlobalTextures.textures[TextureNames.GuiButtonTest];
+            this.invokeActionOnFullScale = invokeActionOnFullScale;
+            this.onClick = onClick;
+            centerOrigin = true;
         }
 
 

@@ -46,6 +46,7 @@ namespace Sem1OfficeRevenge
             //Global.currentScene.Instantiate(startRoom);
         }
 
+
         public override void DrawInWorld()
         {
 

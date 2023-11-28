@@ -1,15 +1,19 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
+//using SharpDX.Direct3D9;
+//using SharpDX.Direct3D9;
+using System;
 using System.Collections.Generic;
-using System.Drawing;
 
 namespace Sem1OfficeRevenge
 {
     public class GameWorld : Game
     {
-        private Dictionary<Scenes, Scene> scenes = new Dictionary<Scenes, Scene>();
-        public Camera camera;
+        public Dictionary<Scenes, Scene> scenes = new Dictionary<Scenes, Scene>();
+        public Camera worldCamera { get; private set; }
+        public Camera uiCamera { get; private set; }
+        public BlackScreenFadeInOut blackScreenFadeInOut;
+
         public GameWorld()
         {
             Global.world = this;
@@ -17,23 +21,25 @@ namespace Sem1OfficeRevenge
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
             Window.Title = "Office Revenge!";
-            
         }
 
         protected override void Initialize()
         {
-            WindowedScreen();
+            Global.spriteBatch = new SpriteBatch(GraphicsDevice);
+
+            worldCamera = new Camera(new Vector2(Global.graphics.PreferredBackBufferWidth / 2, Global.graphics.PreferredBackBufferHeight / 2));
+            uiCamera = new Camera(Vector2.Zero);
+
+            ResolutionSize(1280, 720);
             GlobalTextures.LoadContent();
             GlobalAnimations.LoadLoadingScreenIcon();
-            GlobalAnimations.LoadContentTestScenes();
+            //GlobalAnimations.LoadContentTestScenes();
 
-            camera = new Camera(new Vector2(Global.graphics.PreferredBackBufferWidth / 2, Global.graphics.PreferredBackBufferHeight / 2));
-            //camera = new Camera(Vector2.Zero);
 
-            
             GenerateScenes();
-            ChangeScene(Scenes.TestLeonard);
-            
+            ChangeScene(Scenes.MainMenu);
+
+            blackScreenFadeInOut = new BlackScreenFadeInOut();
 
             base.Initialize();
         }
@@ -42,7 +48,7 @@ namespace Sem1OfficeRevenge
 
         protected override void LoadContent()
         {
-            Global.spriteBatch = new SpriteBatch(GraphicsDevice);
+            Global.spriteBatch = new SpriteBatch(GraphicsDevice);            
         }
 
         protected override void Update(GameTime gameTime)
@@ -50,30 +56,47 @@ namespace Sem1OfficeRevenge
             Global.gameTime = gameTime;
 
             InputManager.HandleInput();
-
+            
             Global.currentScene.Update();
 
             if (Global.player != null)
             {
-                camera.FollowPlayerMove(Global.player.position);
+                worldCamera.FollowPlayerMove();
             }
+            blackScreenFadeInOut?.Update();
 
             base.Update(gameTime);
         }
 
         protected override void Draw(GameTime gameTime)
         {
-            Global.spriteBatch.Begin(sortMode: SpriteSortMode.FrontToBack, transformMatrix: Global.world.camera.GetMatrix());
+            Global.spriteBatch.Begin(
+                sortMode: SpriteSortMode.FrontToBack,
+                BlendState.AlphaBlend,
+                SamplerState.PointClamp,
+                DepthStencilState.None,
+                RasterizerState.CullCounterClockwise,
+                transformMatrix: worldCamera.GetMatrix());
+
             Global.currentScene.DrawInWorld();
             Global.spriteBatch.End();
 
-            Global.spriteBatch.Begin(sortMode: SpriteSortMode.FrontToBack);
+            Global.spriteBatch.Begin(
+                sortMode: SpriteSortMode.FrontToBack,
+                BlendState.AlphaBlend,
+                SamplerState.PointClamp,
+                DepthStencilState.None,
+                RasterizerState.CullCounterClockwise,
+                transformMatrix: uiCamera.GetMatrix());
             Global.currentScene.DrawOnScreen();
+            blackScreenFadeInOut?.Draw();
+
             Global.spriteBatch.End();
 
             base.Draw(gameTime);
         }
 
+        #region Scene and resolution management
         private void GenerateScenes()
         {
             scenes[Scenes.MainMenu] = new MainMenu();
@@ -85,27 +108,56 @@ namespace Sem1OfficeRevenge
             
         }
 
+
         public void ChangeScene(Scenes scene)
         {
-            if (Global.currentSceneData != null)
+            if (Global.currentSceneData != null && Global.currentScene != null)
             {
                 foreach (GameObject gameObject in Global.currentSceneData.gameObjects)
                 {
                     gameObject.isRemoved = true;
                 }
-            }
 
-            Global.currentScene = scenes[scene];
-            Global.currentScene.Initialize();
+                if (Global.currentScene == Global.world.scenes[Scenes.MainMenu])
+                {
+                    Global.currentScene = scenes[scene];
+                    Global.currentScene.Initialize();
+                    return;
+                }
+
+                //Global.currentScene.Initialize();
+
+                // Start the fade-in transition
+                blackScreenFadeInOut.StartFadeIn();
+
+                // Wait for the fade-in transition to complete
+                blackScreenFadeInOut.onFadeToBlackDone += (sender, e) =>
+                {
+                    // Change the scene
+                    Global.currentScene = scenes[scene];
+                    Global.currentScene.Initialize();
+
+                    // Keep the screen black
+                    blackScreenFadeInOut.StopAnimation();
+                };
+            }
+            else
+            {
+                // Change the scene
+                Global.currentScene = scenes[scene];
+                Global.currentScene.Initialize();
+            }
         }
 
-        private void WindowedScreen()
+        public void ResolutionSize(int width, int height)
         {
             Global.graphics.HardwareModeSwitch = true;
-            Global.graphics.PreferredBackBufferWidth = 1280;
-            Global.graphics.PreferredBackBufferHeight = 720;
+            Global.graphics.PreferredBackBufferWidth = width;
+            Global.graphics.PreferredBackBufferHeight = height;
             Global.graphics.IsFullScreen = false;
             Global.graphics.ApplyChanges();
+
+            worldCamera.origin = new Vector2(width / 2, height / 2);
         }
 
         public void Fullscreen()
@@ -115,7 +167,12 @@ namespace Sem1OfficeRevenge
             Global.graphics.PreferredBackBufferHeight = GraphicsDevice.DisplayMode.Height;
             Global.graphics.IsFullScreen = true;
             Global.graphics.ApplyChanges();
+
+            worldCamera.origin = new Vector2(Global.graphics.PreferredBackBufferWidth / 2, Global.graphics.PreferredBackBufferHeight / 2);
         }
+
+
+        #endregion
 
     }
 }
