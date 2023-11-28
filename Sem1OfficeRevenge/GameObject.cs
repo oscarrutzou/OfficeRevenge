@@ -16,7 +16,7 @@ namespace Sem1OfficeRevenge
         public Vector2 scale = new Vector2(1,1);
         public float speed;
         public Vector2 direction;
-
+        
         public Texture2D texture;
         
         public bool centerOrigin;

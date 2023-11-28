@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using SharpDX.Direct3D9;
 using System.Collections.Generic;
 
 
@@ -14,6 +15,10 @@ namespace Sem1OfficeRevenge
         GuiSliderHandle,
         Pixel,
 
+
+        //test
+        Bullet,
+        
     }
 
     public static class GlobalTextures
@@ -32,9 +37,14 @@ namespace Sem1OfficeRevenge
                 {TextureNames.GuiSliderOver, Global.world.Content.Load<Texture2D>("GUI\\Slider_frame_over") },
                 {TextureNames.GuiSliderHandle, Global.world.Content.Load<Texture2D>("GUI\\Slider_Handle") },
                 {TextureNames.Pixel, Global.world.Content.Load<Texture2D>("GUI\\Pixel") },
+                {TextureNames.Bullet, Global.world.Content.Load<Texture2D>("Bullet\\Bullet") }
             };
 
             //defaultFont = Global.world.Content.Load<SpriteFont>("Fonts\\Arial");
+            
+            
+            //defaultFont = Global.world.Content.Load<SpriteFont>("Fonts\\Friday13SH");
+            //defaultFont = Global.world.Content.Load<SpriteFont>("Fonts\\Friday13v12");
             defaultFont = Global.world.Content.Load<SpriteFont>("Fonts\\SlencoBlack");
 
         }

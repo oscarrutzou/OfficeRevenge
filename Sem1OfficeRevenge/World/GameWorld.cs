@@ -28,15 +28,22 @@ namespace Sem1OfficeRevenge
             WindowedScreen();
             GlobalTextures.LoadContent();
             GlobalAnimations.LoadLoadingScreenIcon();
-            //GlobalAnimations.LoadContentTestScenes();
+            GlobalAnimations.LoadContentTestScenes();
 
             worldCamera = new Camera(new Vector2(Global.graphics.PreferredBackBufferWidth / 2, Global.graphics.PreferredBackBufferHeight / 2));
             uiCamera = new Camera(Vector2.Zero);
 
             GenerateScenes();
-            ChangeScene(Scenes.MainMenu);
+            ChangeScene(Scenes.TestMarc);
             
             base.Initialize();
+        }
+
+
+
+        protected override void LoadContent()
+        {
+            Global.spriteBatch = new SpriteBatch(GraphicsDevice);            
         }
 
         protected override void Update(GameTime gameTime)
@@ -44,13 +51,13 @@ namespace Sem1OfficeRevenge
             Global.gameTime = gameTime;
 
             InputManager.HandleInput();
-
+            
             Global.currentScene.Update();
 
-            if (Global.player != null)
-            {
-                worldCamera.FollowPlayerMove(Global.player.position);
-            }
+            //if (Global.player != null)
+            //{
+            //    worldCamera.FollowPlayerMove(Global.player.position);
+            //}
 
             base.Update(gameTime);
         }
