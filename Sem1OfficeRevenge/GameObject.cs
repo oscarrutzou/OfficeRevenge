@@ -30,16 +30,16 @@ namespace Sem1OfficeRevenge
         private int collisionBoxHeight;
         private Vector2 offset;
         
-        public bool isVisible = true;
+        //public bool isVisible = true;
         public bool isRemoved;
-
+        public virtual bool isVisible { get; set; }
         public Rectangle collisionBox
         {
             get
             {
                 // Try to get the width and height of the texture or the current frame of the animation.
                 Texture2D drawTexture = texture ?? animation?.frames[animation.currentFrame];
-                if (drawTexture == null)
+                if (drawTexture is null)
                 {
                     throw new InvalidOperationException("GameObject must have a valid texture or animation.");
                 }
@@ -61,20 +61,24 @@ namespace Sem1OfficeRevenge
         public GameObject()
         {
             Global.currentScene.SetObjectLayerDepth(this, LayerDepth.Background);
+            isVisible = true;
         }
 
-        public virtual void Update()
-        {
-
-        }
+        public virtual void Update(){}
 
         public virtual void Draw()
         {
             if (!isVisible) return;
 
             Texture2D drawTexture = texture ?? animation?.frames[animation.currentFrame];
+
             //If the bool is true, choose the option on the left, if not then it chooeses the right
             Vector2 origin = CenterOrigin ? new Vector2(drawTexture.Width / 2, drawTexture.Height / 2) : Vector2.Zero;
+
+            if (animation != null && texture != null)
+            {
+                throw new Exception("You should only have either a animation or texture loaded. Set the other variable to null");
+            }
 
             if (animation != null)
             {
@@ -88,45 +92,10 @@ namespace Sem1OfficeRevenge
             }
         }
 
-        internal void DrawDebugCollisionBox()
-        {
-            // Draw debug collision box
-            Texture2D pixel = new Texture2D(Global.graphics.GraphicsDevice, 1, 1);
-            pixel.SetData(new[] { Color.White });
 
-            // Get the corners of the rectangle
-            Vector2[] corners = new Vector2[4];
-            corners[0] = new Vector2(collisionBox.Left, collisionBox.Top);
-            corners[1] = new Vector2(collisionBox.Right, collisionBox.Top);
-            corners[2] = new Vector2(collisionBox.Right, collisionBox.Bottom);
-            corners[3] = new Vector2(collisionBox.Left, collisionBox.Bottom);
+        public void SetObjectAnimation(AnimNames animationName) => animation = GlobalAnimations.SetAnimation(animationName);
 
-            // Rotate the corners around the center of the rectangle
-            Vector2 origin = new Vector2(collisionBox.Center.X, collisionBox.Center.Y);
-            for (int i = 0; i < 4; i++)
-            {
-                Vector2 dir = corners[i] - origin;
-                dir = Vector2.Transform(dir, Matrix.CreateRotationZ(rotation));
-                corners[i] = dir + origin;
-            }
-
-            // Draw the rotated rectangle
-            for (int i = 0; i < 4; i++)
-            {
-                Vector2 start = corners[i];
-                Vector2 end = corners[(i + 1) % 4];
-                DrawLine(pixel, start, end, Color.Red);
-            }
-        }
-
-        private void DrawLine(Texture2D pixel, Vector2 start, Vector2 end, Color color)
-        {
-            float length = Vector2.Distance(start, end);
-            float angle = (float)Math.Atan2(end.Y - start.Y, end.X - start.X);
-            Global.spriteBatch.Draw(pixel, start, null, color, angle, Vector2.Zero, new Vector2(length, 1), SpriteEffects.None, 0);
-        }
-
-
+        #region CollsionBox
         public void SetCollisionBox(int width, int height)
         {
             collisionBoxWidth = width;
@@ -168,9 +137,7 @@ namespace Sem1OfficeRevenge
             return false;
         }
 
-
         public virtual void OnCollisionBox() { } // This don't need to have anything in it, in this GameObject script
-
         public virtual void RotateTowardsTarget(Vector2 target)
         {
             if (position == target) return;
@@ -178,12 +145,47 @@ namespace Sem1OfficeRevenge
             Vector2 dir = target - position;
             rotation = (float)Math.Atan2(-dir.Y, -dir.X) + MathHelper.Pi;
         }
+        #endregion
 
-        public void SetObjectAnimation(AnimNames animationName)
+        #region DebugCollsionBox
+        internal void DrawDebugCollisionBox()
         {
-            animation = GlobalAnimations.SetObjAnimation(animationName);
+            // Draw debug collision box
+            Texture2D pixel = new Texture2D(Global.graphics.GraphicsDevice, 1, 1);
+            pixel.SetData(new[] { Color.White });
+
+            // Get the corners of the rectangle
+            Vector2[] corners = new Vector2[4];
+            corners[0] = new Vector2(collisionBox.Left, collisionBox.Top);
+            corners[1] = new Vector2(collisionBox.Right, collisionBox.Top);
+            corners[2] = new Vector2(collisionBox.Right, collisionBox.Bottom);
+            corners[3] = new Vector2(collisionBox.Left, collisionBox.Bottom);
+
+            // Rotate the corners around the center of the rectangle
+            Vector2 origin = new Vector2(collisionBox.Center.X, collisionBox.Center.Y);
+            for (int i = 0; i < 4; i++)
+            {
+                Vector2 dir = corners[i] - origin;
+                dir = Vector2.Transform(dir, Matrix.CreateRotationZ(rotation));
+                corners[i] = dir + origin;
+            }
+
+            // Draw the rotated rectangle
+            for (int i = 0; i < 4; i++)
+            {
+                Vector2 start = corners[i];
+                Vector2 end = corners[(i + 1) % 4];
+                DrawLine(pixel, start, end, Color.Red);
+            }
         }
 
+        private void DrawLine(Texture2D pixel, Vector2 start, Vector2 end, Color color)
+        {
+            float length = Vector2.Distance(start, end);
+            float angle = (float)Math.Atan2(end.Y - start.Y, end.X - start.X);
+            Global.spriteBatch.Draw(pixel, start, null, color, angle, Vector2.Zero, new Vector2(length, 1), SpriteEffects.None, 0);
+        }
+        #endregion
 
 
     }

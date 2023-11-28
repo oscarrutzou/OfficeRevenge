@@ -13,6 +13,7 @@ namespace Sem1OfficeRevenge
         // Prevents multiple click when clicking a button
         public static MouseState previousMouseState;
 
+        public static Vector2 mousePositionInWorld;
         public static Vector2 mousePositionOnScreen;
         public static bool mouseClicked;
         
@@ -25,12 +26,14 @@ namespace Sem1OfficeRevenge
             mouseState = Mouse.GetState();
             
             //Sets the mouse position
-            mousePositionOnScreen = GetMousePositionInWorld();
+            mousePositionOnScreen = GetMousePositionOnUI();
+            mousePositionInWorld = GetMousePositionInWorld();
 
             if (keyboardState.IsKeyDown(Keys.Escape))
             {
                 Global.world.Exit();
             }
+
             PlayerInput();
 
             if (mouseState.LeftButton == ButtonState.Pressed && previousMouseState.LeftButton != ButtonState.Pressed)
@@ -101,10 +104,18 @@ namespace Sem1OfficeRevenge
         private static Vector2 GetMousePositionInWorld()
         {
             Vector2 pos = new Vector2(mouseState.X, mouseState.Y);
-            Matrix invMatrix = Matrix.Invert(Global.world.camera.GetMatrix());
+            Matrix invMatrix = Matrix.Invert(Global.world.worldCamera.GetMatrix());
 
             return Vector2.Transform(pos, invMatrix);
         }
+
+        private static Vector2 GetMousePositionOnUI()
+        {
+            Vector2 pos = new Vector2(mouseState.X, mouseState.Y);
+            Matrix invMatrix = Matrix.Invert(Global.world.uiCamera.GetMatrix());
+            return Vector2.Transform(pos, invMatrix);
+        }
+
 
     }
 }

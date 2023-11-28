@@ -25,7 +25,8 @@ namespace Sem1OfficeRevenge
         Player,
         ScreenOverLay,
         GuiObjects,
-        GuiText
+        GuiText,
+        FullOverlay
     }
 
     public abstract class Scene
@@ -42,7 +43,6 @@ namespace Sem1OfficeRevenge
 
         /// <summary>
         /// The base update on the scene handles all the gameobjects and calls Update on them all. 
-        /// Very importnant that you call base.Update on a new scene, or nothing would work
         /// </summary>
         public virtual void Update() 
         {
@@ -73,7 +73,6 @@ namespace Sem1OfficeRevenge
                 gameObject.Draw();
             }
         }
-
         public virtual void DrawOnScreen()
         {
             foreach (GameObject guiGameObject in Global.currentSceneData.guis)
@@ -83,65 +82,9 @@ namespace Sem1OfficeRevenge
         }
 
 
+        #region Instantiate and Object LayerDepths
         public void Instantiate(GameObject gameObject) => Global.currentSceneData.gameObjectsToAdd.Add(gameObject);
         public void Instantiate(GameObject[] gameObjects) => Global.currentSceneData.gameObjectsToAdd.AddRange(gameObjects);
-
-
-        /// <summary>
-        /// If the list has the bool "isRemoved" then it removes it from the list
-        /// </summary>
-        private void RemoveObjectsFromList()
-        {
-            Global.currentSceneData.enemies.RemoveAll(enemy => enemy.isRemoved);
-            Global.currentSceneData.bullets.RemoveAll(bullet => bullet.isRemoved);
-            Global.currentSceneData.guis.RemoveAll(gui => gui.isRemoved);
-            Global.currentSceneData.testObj.RemoveAll(testObj => testObj.isRemoved);
-            Global.currentSceneData.defults.RemoveAll(defultsObj => defultsObj.isRemoved);
-        }
-
-        /// <summary>
-        /// Add all lists to the the gameObjects list that contains all gameObjects on the scene
-        /// </summary>
-        private void AddObjectsToList()
-        {
-            Global.currentSceneData.gameObjects.AddRange(Global.currentSceneData.enemies);
-            Global.currentSceneData.gameObjects.AddRange(Global.currentSceneData.bullets);
-            Global.currentSceneData.gameObjects.AddRange(Global.currentSceneData.guis);
-            Global.currentSceneData.gameObjects.AddRange(Global.currentSceneData.testObj);
-            Global.currentSceneData.gameObjects.AddRange(Global.currentSceneData.defults);
-        }
-
-        /// <summary>
-        /// Sorts the gameObjects and adds them to the correct lists
-        /// </summary>
-        /// <param name="gameObjectsToAdd"></param>
-        private void SortIntoCategories(List<GameObject> gameObjectsToAdd)
-        {
-            foreach (GameObject obj in gameObjectsToAdd)
-            {
-                switch (obj)
-                {
-                    case GenericEnemy:
-                        Global.currentSceneData.enemies.Add((GenericEnemy)obj);
-                        break;
-                    case Bullet:
-                        Global.currentSceneData.bullets.Add((Bullet)obj);
-                        break;
-                    case Gui:
-                        Global.currentSceneData.guis.Add((Gui)obj);
-                        break;
-                    case TestObj:
-                        Global.currentSceneData.testObj.Add((TestObj)obj);
-                        break;
-
-                    default:
-                        Global.currentSceneData.defults.Add(obj);
-                        break;
-
-                }
-            }
-        }
-
         public void SetObjectLayerDepth(GameObject gameObject, LayerDepth layer)
         {
             switch (layer)
@@ -165,13 +108,15 @@ namespace Sem1OfficeRevenge
                     gameObject.layerDepth = 0.9f;
                     break;
                 case LayerDepth.GuiText:
+                    gameObject.layerDepth = 0.99f;
+                    break;
+                case LayerDepth.FullOverlay:
                     gameObject.layerDepth = 1f;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(layer), layer, null);
             }
         }
-
         public float GetObjectLayerDepth(LayerDepth layer)
         {
             switch (layer)
@@ -189,12 +134,66 @@ namespace Sem1OfficeRevenge
                 case LayerDepth.GuiObjects:
                     return 0.9f;
                 case LayerDepth.GuiText:
+                    return 0.99f;
+                case LayerDepth.FullOverlay:
                     return 1f;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(layer), layer, null);
             }
         }
+        #endregion
 
+        #region Sort Objects
+        /// <summary>
+        /// If the list has the bool "isRemoved" then it removes it from the list
+        /// </summary>
+        private void RemoveObjectsFromList()
+        {
+            Global.currentSceneData.enemies.RemoveAll(enemy => enemy.isRemoved);
+            Global.currentSceneData.bullets.RemoveAll(bullet => bullet.isRemoved);
+            Global.currentSceneData.guis.RemoveAll(gui => gui.isRemoved);
+            Global.currentSceneData.defults.RemoveAll(defultsObj => defultsObj.isRemoved);
+        }
+
+        /// <summary>
+        /// Add all lists to the the gameObjects list that contains all gameObjects on the scene
+        /// </summary>
+        private void AddObjectsToList()
+        {
+            Global.currentSceneData.gameObjects.AddRange(Global.currentSceneData.enemies);
+            Global.currentSceneData.gameObjects.AddRange(Global.currentSceneData.bullets);
+            Global.currentSceneData.gameObjects.AddRange(Global.currentSceneData.guis);
+            Global.currentSceneData.gameObjects.AddRange(Global.currentSceneData.defults);
+        }
+
+        /// <summary>
+        /// Sorts the gameObjects and adds them to the correct lists
+        /// </summary>
+        /// <param name="gameObjectsToAdd"></param>
+        private void SortIntoCategories(List<GameObject> gameObjectsToAdd)
+        {
+            foreach (GameObject obj in gameObjectsToAdd)
+            {
+                switch (obj)
+                {
+                    case GenericEnemy:
+                        Global.currentSceneData.enemies.Add((GenericEnemy)obj);
+                        break;
+                    case Bullet:
+                        Global.currentSceneData.bullets.Add((Bullet)obj);
+                        break;
+                    case Gui:
+                        Global.currentSceneData.guis.Add((Gui)obj);
+                        break;
+
+                    default:
+                        Global.currentSceneData.defults.Add(obj);
+                        break;
+
+                }
+            }
+        }
+        #endregion
 
 
     }

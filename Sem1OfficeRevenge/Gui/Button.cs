@@ -24,9 +24,21 @@ namespace Sem1OfficeRevenge
             CenterOrigin = true;
         }
 
+
+
         public Button(Vector2 position, string text, bool invokeActionOnFullScale, Action onClick)
         {
             this.position = position;
+            this.text = text;
+            texture = GlobalTextures.textures[TextureNames.GuiButtonTest];
+            this.invokeActionOnFullScale = invokeActionOnFullScale;
+            this.onClick = onClick;
+            CenterOrigin = true;
+        }
+
+        public Button(string text, bool invokeActionOnFullScale, Action onClick)
+        {
+            this.position = Vector2.Zero;
             this.text = text;
             texture = GlobalTextures.textures[TextureNames.GuiButtonTest];
             this.invokeActionOnFullScale = invokeActionOnFullScale;

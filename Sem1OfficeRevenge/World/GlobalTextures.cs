@@ -10,6 +10,11 @@ namespace Sem1OfficeRevenge
     {
         //Gui
         GuiButtonTest,
+        GuiSliderBase,
+        GuiSliderOver,
+        GuiSliderHandle,
+        Pixel,
+
 
         //test
         Bullet,
@@ -21,21 +26,26 @@ namespace Sem1OfficeRevenge
         public static Dictionary<TextureNames, Texture2D> textures;
 
         public static SpriteFont defaultFont;
-        //public static SpriteFont crunchyFont;
         
         public static void LoadContent()
         {
             textures = new Dictionary<TextureNames, Texture2D>
             {
                 {TextureNames.GuiButtonTest, Global.world.Content.Load<Texture2D>("GUI\\TestBtn") },
+                {TextureNames.GuiSliderBase, Global.world.Content.Load<Texture2D>("GUI\\Slider_frame") },
+                {TextureNames.GuiSliderOver, Global.world.Content.Load<Texture2D>("GUI\\Slider_frame_over") },
+                {TextureNames.GuiSliderHandle, Global.world.Content.Load<Texture2D>("GUI\\Slider_Handle") },
+                {TextureNames.Pixel, Global.world.Content.Load<Texture2D>("GUI\\Pixel") },
+            };
+
+            //defaultFont = Global.world.Content.Load<SpriteFont>("Fonts\\Arial");
                 {TextureNames.Bullet, Global.world.Content.Load<Texture2D>("Bullet\\Bullet") }
             };
             
             //defaultFont = Global.world.Content.Load<SpriteFont>("Fonts\\Friday13SH");
             //defaultFont = Global.world.Content.Load<SpriteFont>("Fonts\\Friday13v12");
             defaultFont = Global.world.Content.Load<SpriteFont>("Fonts\\SlencoBlack");
-            //defaultFont = Global.world.Content.Load<SpriteFont>("Fonts\\CrunchyFont");
-            //crunchyFont = Global.world.Content.Load<SpriteFont>("Fonts\\CrunchyFont");
+
         }
     }
 }
