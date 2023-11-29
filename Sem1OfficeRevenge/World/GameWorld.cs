@@ -123,7 +123,7 @@ namespace Sem1OfficeRevenge
                     gameObject.isRemoved = true;
                 }
 
-                if (Global.currentScene == Global.world.scenes[Scenes.MainMenu])
+                if (Global.currentScene == Global.world.scenes[Scenes.MainMenu] || scenes[scene] == Global.world.scenes[Scenes.MainMenu])
                 {
                     Global.currentScene = scenes[scene];
                     Global.currentScene.Initialize();
