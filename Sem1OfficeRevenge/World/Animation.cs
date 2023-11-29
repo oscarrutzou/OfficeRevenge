@@ -37,7 +37,7 @@ namespace Sem1OfficeRevenge
 
         private void CheckAnimationDone()
         {
-            if (currentFrame == frames.Count)
+            if (currentFrame == frames.Count -1)
             {
                 onAnimationDone?.Invoke();
             }

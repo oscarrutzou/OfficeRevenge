@@ -95,7 +95,11 @@ namespace Sem1OfficeRevenge
             //DrawDebugCollisionBox();
         }
 
-        public void SetObjectAnimation(AnimNames animationName) => animation = GlobalAnimations.SetAnimation(animationName);
+        public void SetObjectAnimation(AnimNames animationName)
+        {
+            //if (animation != null) animation = null;
+            animation = GlobalAnimations.SetAnimation(animationName);
+        }
 
         #region CollsionBox
         public void SetCollisionBox(int width, int height)

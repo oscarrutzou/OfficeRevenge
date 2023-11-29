@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Sem1OfficeRevenge.World;
 using System;
+using System.Diagnostics.Eventing.Reader;
 using System.Reflection.Metadata;
 
 namespace Sem1OfficeRevenge
@@ -17,6 +18,7 @@ namespace Sem1OfficeRevenge
         public static Vector2 mousePositionInWorld;
         public static Vector2 mousePositionOnScreen;
         public static bool mouseClicked;
+        public static bool keyPressed;
         
         /// <summary>
         /// Gets called in GameWorld, at the start of the update
@@ -43,9 +45,17 @@ namespace Sem1OfficeRevenge
 
             }
 
+            if (Keyboard.GetState().IsKeyDown(Keys.W) || Keyboard.GetState().IsKeyDown(Keys.A) || Keyboard.GetState().IsKeyDown(Keys.S) || Keyboard.GetState().IsKeyDown(Keys.D))
+            {
+                keyPressed = true;
+            }
+            else
+            {
+                keyPressed = false;
+            }
+
             mouseClicked = (Mouse.GetState().LeftButton == ButtonState.Pressed) && (previousMouseState.LeftButton == ButtonState.Released);
-
-
+            
             previousMouseState = mouseState;
 
 
@@ -73,7 +83,7 @@ namespace Sem1OfficeRevenge
                 }
                 if (keyboardState.IsKeyDown(Keys.W))
                 {
-                    Global.player.position.Y -= Global.player.playerSpeed;
+                    Global.player.position.Y -= Global.player.playerSpeed;                    
                 }
                 if (keyboardState.IsKeyDown(Keys.S))
                 {

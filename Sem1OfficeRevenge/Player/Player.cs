@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using Sem1OfficeRevenge.World;
 using System;
 using System.Collections.Generic;
@@ -26,8 +27,10 @@ namespace Sem1OfficeRevenge
             centerOrigin = true;
             position.X = Global.graphics.PreferredBackBufferWidth/2;
             position.Y = Global.graphics.PreferredBackBufferHeight/2;
-            SetObjectAnimation(AnimNames.PlayerRifleMove);
+            SetObjectAnimation(AnimNames.PlayerRifleIdle);
             Global.currentScene.SetObjectLayerDepth(this, LayerDepth.Player);
+
+
         }
 
         public override void Update()
@@ -35,9 +38,26 @@ namespace Sem1OfficeRevenge
             if (InputManager.mouseClicked)
             {
                 Fire();
+                SetObjectAnimation(AnimNames.PlayerRifleShoot);
+                animation.onAnimationDone += () => { SetObjectAnimation(AnimNames.PlayerRifleIdle); };
+
             }
+            //if (InputManager.keyPressed == true)
+            //{
+            //    SetObjectAnimation(AnimNames.PlayerRifleMove);
+
+            //}
+
+            //else if (InputManager.keyPressed == false)
+            //{
+            //    SetObjectAnimation(AnimNames.PlayerRifleIdle);
+            //    animation.onAnimationDone += () => { };
+
+            //}
             base.Update();
         }
+
+       
 
         public override void Draw()
         {
@@ -50,18 +70,12 @@ namespace Sem1OfficeRevenge
         }
 
         private void Fire()
-        {
-            //BulletData bd = new();
-            //{
-            //    bd.position = position;
-            //    bd.rotation = rotation;
-
-            //};
-            //Bullet bullet = new Bullet(bd);
+        {            
             Bullet bullet = new Bullet(new Vector2(0, 50), bulletSpeed, bulletDmg);
             bullets.Add(bullet);
             GlobalSound.sounds[SoundNames.Shot].Play();
             Global.currentScene.Instantiate(bullet);
+            
         }
         
     }

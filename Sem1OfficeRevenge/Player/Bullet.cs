@@ -16,18 +16,7 @@ namespace Sem1OfficeRevenge
         public float totalSecondsTimer;
    
 
-        public Bullet(Vector2 offSet)
-        {
-            texture = GlobalTextures.textures[TextureNames.Bullet];
-            centerOrigin = true;
-            SetCorrectBulletPositionWithOffset(offSet);
-            rotation = Global.player.rotation;
-            direction = new((float)Math.Cos(Global.player.rotation), (float)Math.Sin(Global.player.rotation));
-            speed = 1000;
-            lifespan = 2;
-            layerDepth = Global.currentScene.GetObjectLayerDepth(LayerDepth.Enemies);
-            scale = new Vector2(0.2f, 0.2f);
-        }
+       
 
         public Bullet(Vector2 offSet, int speed, int bulletDmg)
         {
@@ -40,7 +29,7 @@ namespace Sem1OfficeRevenge
 
             //slet det her oscar :D
             this.speed = 1000;
-            scale = new Vector2(0.2f, 0.2f);
+            scale = new Vector2(0.07f, 0.07f);
             //slet det her oscar :D
 
             this.bulletDmg = bulletDmg;
