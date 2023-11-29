@@ -81,8 +81,6 @@ namespace Sem1OfficeRevenge
             base.Draw();
             if (!isVisible) return;
 
-
-
             // Draw the filled rectangle (colored area)
             float musicWidth = MediaPlayer.Volume * sliderRectangle.Width;
             Rectangle musicFill = new Rectangle(sliderRectangle.X, sliderRectangle.Y, (int)musicWidth, sliderRectangle.Height);

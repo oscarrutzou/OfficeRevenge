@@ -26,7 +26,11 @@ namespace Sem1OfficeRevenge
 
         public override void Initialize()
         {
-            Global.world.Fullscreen();
+            // Reset uiCamera's position and origin
+            Global.world.uiCamera.position = Vector2.Zero;
+            Global.world.uiCamera.origin = Vector2.Zero;
+
+            //Global.world.Fullscreen();
             InitMainMenu();
             InitSettingsMenu();
 
@@ -78,7 +82,7 @@ namespace Sem1OfficeRevenge
             resolutionBtn.isVisible = false;
 
 
-            musicSlider = new SoundSlider(Global.world.worldCamera.Center - new Vector2(GlobalTextures.textures[TextureNames.GuiSliderBase].Width / 2, GlobalTextures.textures[TextureNames.GuiSliderBase].Height / 2));
+            musicSlider = new SoundSlider(Global.world.uiCamera.Center - new Vector2(GlobalTextures.textures[TextureNames.GuiSliderBase].Width / 2, GlobalTextures.textures[TextureNames.GuiSliderBase].Height / 2));
             musicSlider.isVisible = false;
 
             backBtn = new Button(
@@ -90,7 +94,6 @@ namespace Sem1OfficeRevenge
             fadeInOutObj = new BlackScreenFadeInOut();
             fadeInOutObj.fadeInTime = 1f;
             fadeInOutObj.fadeOutTime = 1f;
-
             Global.currentScene.Instantiate(fadeInOutObj);
             Global.currentScene.Instantiate(resolutionBtn);
             Global.currentScene.Instantiate(musicSlider);
@@ -137,14 +140,14 @@ namespace Sem1OfficeRevenge
 
         private void WorldOnResolutionChanged()
         {
-            playBtn.position = Global.world.worldCamera.Center + new Vector2(0, -100);
-            settingsBtn.position = Global.world.worldCamera.Center;
-            quitBtn.position = Global.world.worldCamera.Center + new Vector2(0, 100);
+            playBtn.position = Global.world.uiCamera.Center + new Vector2(0, -100);
+            settingsBtn.position = Global.world.uiCamera.Center;
+            quitBtn.position = Global.world.uiCamera.Center + new Vector2(0, 100);
 
-            resolutionBtn.position = Global.world.worldCamera.Center + new Vector2(0, -100);
-            musicSlider.position = Global.world.worldCamera.Center;
-            musicSlider.ChangeSliderRectangle(Global.world.worldCamera.Center - new Vector2(GlobalTextures.textures[TextureNames.GuiSliderBase].Width / 2, GlobalTextures.textures[TextureNames.GuiSliderBase].Height / 2));
-            backBtn.position = Global.world.worldCamera.Center + new Vector2(0, 100);
+            resolutionBtn.position = Global.world.uiCamera.Center + new Vector2(0, -100);
+            musicSlider.position = Global.world.uiCamera.Center;
+            musicSlider.ChangeSliderRectangle(Global.world.uiCamera.Center - new Vector2(GlobalTextures.textures[TextureNames.GuiSliderBase].Width / 2, GlobalTextures.textures[TextureNames.GuiSliderBase].Height / 2));
+            backBtn.position = Global.world.uiCamera.Center + new Vector2(0, 100);
 
             
         }
@@ -196,6 +199,8 @@ namespace Sem1OfficeRevenge
         #region Setting Text
         public override void  DrawOnScreen()
         {
+            SceneData dt = Global.currentSceneData;
+
             base.DrawOnScreen();
             DrawResolutionText();
             DrawMusicText();

@@ -13,6 +13,7 @@ namespace Sem1OfficeRevenge
         public Vector2 origin;
         private float zoom;                // The zoom level of the camera.
         private Matrix transformMatrix;    // A transformation matrix used for rendering.
+        public bool FollowPlayer { get; set; }
 
         public Camera(Vector2 origin)
         {
@@ -59,6 +60,12 @@ namespace Sem1OfficeRevenge
 
         public Matrix GetMatrix()
         {
+
+            if (FollowPlayer && Global.player != null)
+            {
+                position = Global.player.position;
+            }
+
             // Create a transformation matrix that represents the camera's view.
             // This matrix is used to adjust rendering based on the camera's position and zoom level.
 

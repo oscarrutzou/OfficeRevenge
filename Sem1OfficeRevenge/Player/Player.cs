@@ -24,8 +24,8 @@ namespace Sem1OfficeRevenge
         public Player()
         {
             centerOrigin = true;
-            position.X = Global.graphics.PreferredBackBufferWidth/2;
-            position.Y = Global.graphics.PreferredBackBufferHeight/2;
+            Global.player = this;
+            position = Global.world.playerCamera.position;
             SetObjectAnimation(AnimNames.PlayerRifleMove);
             Global.currentScene.SetObjectLayerDepth(this, LayerDepth.Player);
         }

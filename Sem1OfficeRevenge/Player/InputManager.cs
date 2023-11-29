@@ -74,10 +74,16 @@ namespace Sem1OfficeRevenge
                 if (keyboardState.IsKeyDown(Keys.W))
                 {
                     Global.player.position.Y -= Global.player.playerSpeed;
+ 
                 }
                 if (keyboardState.IsKeyDown(Keys.S))
                 {
                     Global.player.position.Y += Global.player.playerSpeed;
+                }
+
+                if (keyboardState.IsKeyDown(Keys.R))
+                {
+                    Global.world.ChangeScene(Scenes.MainMenu);
                 }
 
             }
@@ -112,7 +118,7 @@ namespace Sem1OfficeRevenge
         private static Vector2 GetMousePositionInWorld()
         {
             Vector2 pos = new Vector2(mouseState.X, mouseState.Y);
-            Matrix invMatrix = Matrix.Invert(Global.world.worldCamera.GetMatrix());
+            Matrix invMatrix = Matrix.Invert(Global.world.playerCamera.GetMatrix());
 
             return Vector2.Transform(pos, invMatrix);
         }

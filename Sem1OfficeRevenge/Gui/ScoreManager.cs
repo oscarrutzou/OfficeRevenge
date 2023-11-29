@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using System.Xml.Serialization;
 using static System.Net.Mime.MediaTypeNames;
 
-namespace Sem1OfficeRevenge.Content.UI
+namespace Sem1OfficeRevenge
 {
     static internal class ScoreManager
     {
@@ -45,10 +45,10 @@ namespace Sem1OfficeRevenge.Content.UI
                 stream.Close();
             }
         }
-        public static void Draw(Vector2 pos) 
+        public static void Draw(Vector2 pos)
         {
-            Global.spriteBatch.DrawString(GlobalTextures.defaultFont, "Kill Count: " + killCount, new Vector2(Global.player.position.X - (Global.graphics.PreferredBackBufferWidth/2) + 25, Global.player.position.Y - (Global.graphics.PreferredBackBufferHeight/2) + 20), Color.Red, 0, Vector2.Zero, 1, SpriteEffects.None, Global.currentScene.GetObjectLayerDepth(LayerDepth.GuiText));
-          
+            Vector2 scorePosition = Global.world.uiCamera.origin + new Vector2(10, 10); // Adjust these values as needed
+            Global.spriteBatch.DrawString(GlobalTextures.defaultFont, "Kill Count: " + killCount, scorePosition, Color.Red, 0, Vector2.Zero, 1, SpriteEffects.None, Global.currentScene.GetObjectLayerDepth(LayerDepth.GuiText));
         }
 
 
