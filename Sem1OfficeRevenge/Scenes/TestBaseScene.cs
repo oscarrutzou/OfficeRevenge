@@ -40,8 +40,10 @@ namespace Sem1OfficeRevenge
 
         public override void DrawInWorld()
         {
+
             ScoreManager.Draw(new Vector2(10, 10));
             base.DrawInWorld();
+            Global.graphics.GraphicsDevice.Clear(Color.Black);
         }
 
         public override void Update()
@@ -61,6 +63,7 @@ namespace Sem1OfficeRevenge
             {
                 pressed = true;
                 Application.Restart();
+                //Global.world.ChangeScene(Scenes.TestBaseScene);
             }
 
             if (state.IsKeyDown(Keys.LeftShift))

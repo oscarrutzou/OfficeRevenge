@@ -84,7 +84,7 @@ namespace Sem1OfficeRevenge
 
         public virtual void DrawInWorld()
         {
-            Global.graphics.GraphicsDevice.Clear(Color.Black);
+            Global.graphics.GraphicsDevice.Clear(Color.DarkRed);
             
             foreach (GameObject gameObject in Global.currentSceneData.gameObjects)
             {

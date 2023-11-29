@@ -12,7 +12,7 @@ namespace Sem1OfficeRevenge.World
 {
     public enum SoundNames
     {
-    TestSound1,
+    Shot,
     TestSound2,
     TestSound3,
     }
@@ -42,7 +42,7 @@ namespace Sem1OfficeRevenge.World
 
             sounds = new Dictionary<SoundNames, SoundEffect>
             {
-                { SoundNames.TestSound1, Global.world.Content.Load<SoundEffect>("Fonts\\DistortedTheme")},
+                { SoundNames.Shot, Global.world.Content.Load<SoundEffect>("Fonts\\gunshot")},
                 { SoundNames.TestSound2, Global.world.Content.Load<SoundEffect>("Fonts\\DistortedTheme")},
                 { SoundNames.TestSound3, Global.world.Content.Load<SoundEffect>("Fonts\\DistortedTheme")}
             };
@@ -73,6 +73,9 @@ namespace Sem1OfficeRevenge.World
             }
             else
             {
+                InstanceGameMusic.Volume = MediaPlayer.Volume;
+                InstanceMenuMusic.Volume = MediaPlayer.Volume;
+
                 if (inMenu)
                 {
                     InstanceGameMusic.Stop();

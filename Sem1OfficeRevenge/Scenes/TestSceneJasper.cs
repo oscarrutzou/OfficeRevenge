@@ -28,6 +28,7 @@ namespace Sem1OfficeRevenge
 
         public override void Initialize()
         {
+
             lvlGen = new LevelGeneration();
             lvlGen.GenerateWorld();
             
@@ -49,6 +50,7 @@ namespace Sem1OfficeRevenge
 
         public override void DrawInWorld()
         {
+            Global.graphics.GraphicsDevice.Clear(Color.Black);
 
             base.DrawInWorld();
             

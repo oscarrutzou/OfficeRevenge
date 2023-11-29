@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Sem1OfficeRevenge.World;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -59,7 +60,7 @@ namespace Sem1OfficeRevenge
             //Bullet bullet = new Bullet(bd);
             Bullet bullet = new Bullet(new Vector2(0, 50), bulletSpeed, bulletDmg);
             bullets.Add(bullet);
-
+            GlobalSound.sounds[SoundNames.Shot].Play();
             Global.currentScene.Instantiate(bullet);
         }
         
