@@ -126,6 +126,7 @@ namespace Sem1OfficeRevenge
                     //Start fade
                     blackScreenFadeInOut.StartFadeIn();
                     blackScreenFadeInOut.onFadeToBlackDone += (sender, e) => { blackScreenFadeInOut.StopAnimation(); };
+                    blackScreenFadeInOut.onFadeFromBlackDone += (sender, e) => { blackScreenFadeInOut.StopAnimation(); };
 
                     // Wait for the fade-in transition to complete
                     await Task.Delay((int)blackScreenFadeInOut.fadeInTime * 1000);
@@ -138,6 +139,9 @@ namespace Sem1OfficeRevenge
                 {
                     gameObject.isRemoved = true;
                 }
+
+                if (scene != Scenes.LoadingScreen) blackScreenFadeInOut?.StartFadeOut();
+
             }
 
             Global.currentScene = scenes[scene];

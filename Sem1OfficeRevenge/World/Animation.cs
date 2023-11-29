@@ -13,12 +13,14 @@ namespace Sem1OfficeRevenge
 
         public float frameRate = 20f;
         private float frameDuration;
-        private float timer;
+        public float timer;
+        public AnimNames animationName;
 
-        public Animation(List<Texture2D> frames)
+        public Animation(List<Texture2D> frames, AnimNames animationName)
         {
             this.frames = frames;
             currentFrame = 0;
+            this.animationName = animationName;
         }
 
         public void AnimationUpdate()
@@ -37,7 +39,7 @@ namespace Sem1OfficeRevenge
 
         private void CheckAnimationDone()
         {
-            if (currentFrame == frames.Count)
+            if (currentFrame == frames.Count - 1)
             {
                 onAnimationDone?.Invoke();
             }

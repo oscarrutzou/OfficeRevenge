@@ -30,7 +30,7 @@ namespace Sem1OfficeRevenge
             Global.world.uiCamera.position = Vector2.Zero;
             Global.world.uiCamera.origin = Vector2.Zero;
 
-            //Global.world.Fullscreen();
+            Global.world.Fullscreen();
             InitMainMenu();
             InitSettingsMenu();
 
@@ -94,6 +94,7 @@ namespace Sem1OfficeRevenge
             fadeInOutObj = new BlackScreenFadeInOut();
             fadeInOutObj.fadeInTime = 1f;
             fadeInOutObj.fadeOutTime = 1f;
+
             Global.currentScene.Instantiate(fadeInOutObj);
             Global.currentScene.Instantiate(resolutionBtn);
             Global.currentScene.Instantiate(musicSlider);
@@ -101,6 +102,7 @@ namespace Sem1OfficeRevenge
         }
         private void Settings()
         {
+            SceneData sc = Global.currentSceneData;
             if (!showSettings)
             {
                 DrawSettingsMenu();

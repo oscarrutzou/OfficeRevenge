@@ -8,7 +8,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace Sem1OfficeRevenge
 {
@@ -45,10 +44,13 @@ namespace Sem1OfficeRevenge
                 stream.Close();
             }
         }
-        public static void Draw(Vector2 pos)
+
+        public static void DrawScore(Vector2 pos)
         {
-            Vector2 scorePosition = Global.world.uiCamera.origin + new Vector2(10, 10); // Adjust these values as needed
-            Global.spriteBatch.DrawString(GlobalTextures.defaultFont, "Kill Count: " + killCount, scorePosition, Color.Red, 0, Vector2.Zero, 1, SpriteEffects.None, Global.currentScene.GetObjectLayerDepth(LayerDepth.GuiText));
+            string text = "Kill Count: " + killCount;
+            //string text = $"Current animation {Global.player.animation.animationName} \n Frame {Global.player.animation.currentFrame} \n Timer {Global.player.animation.timer}";
+            Vector2 scorePosition = Global.world.uiCamera.origin + new Vector2(10, 10); 
+            Global.spriteBatch.DrawString(GlobalTextures.defaultFont, text, scorePosition, Color.Red, 0, Vector2.Zero, 1, SpriteEffects.None, Global.currentScene.GetObjectLayerDepth(LayerDepth.GuiText));
         }
 
 

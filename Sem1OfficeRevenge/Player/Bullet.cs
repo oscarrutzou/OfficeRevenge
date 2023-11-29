@@ -16,36 +16,20 @@ namespace Sem1OfficeRevenge
         public float totalSecondsTimer;
    
 
-        public Bullet(Vector2 offSet)
-        {
-            texture = GlobalTextures.textures[TextureNames.Bullet];
-            centerOrigin = true;
-            SetCorrectBulletPositionWithOffset(offSet);
-            rotation = Global.player.rotation;
-            direction = new((float)Math.Cos(Global.player.rotation), (float)Math.Sin(Global.player.rotation));
-            speed = 1000;
-            lifespan = 2;
-            layerDepth = Global.currentScene.GetObjectLayerDepth(LayerDepth.Enemies);
-            scale = new Vector2(0.2f, 0.2f);
-        }
-
         public Bullet(Vector2 offSet, int speed, int bulletDmg)
         {
             texture = GlobalTextures.textures[TextureNames.Bullet];
+            layerDepth = Global.currentScene.GetObjectLayerDepth(LayerDepth.Enemies);
+            scale = new Vector2(0.2f, 0.2f);
+
             centerOrigin = true;
             SetCorrectBulletPositionWithOffset(offSet);
             rotation = Global.player.rotation;
             direction = new((float)Math.Cos(Global.player.rotation), (float)Math.Sin(Global.player.rotation));
             this.speed = speed;
-
-            //slet det her oscar :D
-            this.speed = 1000;
-            scale = new Vector2(0.2f, 0.2f);
-            //slet det her oscar :D
-
             this.bulletDmg = bulletDmg;
+
             lifespan = 2;
-            layerDepth = Global.currentScene.GetObjectLayerDepth(LayerDepth.Enemies);
         }
 
         public override void Update()
@@ -82,7 +66,7 @@ namespace Sem1OfficeRevenge
             Vector2 offset = new Vector2(playerTexture.Width / 2, 0) + playerGunOffset;
 
             // Add half the height of the projectile sprite to the offset
-            offset.X += texture.Height / 2; //Should use the width when it has a proper texture that faces right
+            offset.X += (texture.Height * scale.Y) / 2; //Should use the width when it has a proper texture that faces right
 
             // Rotate the offset by the same amount as the tower
             float cos = (float)Math.Cos(Global.player.rotation);

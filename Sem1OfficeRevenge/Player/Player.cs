@@ -17,7 +17,7 @@ namespace Sem1OfficeRevenge
         public Vector2 origin;
         public float playerSpeed = 10f;
         private bool hasAttacked;
-        int bulletSpeed = 300;
+        int bulletSpeed = 2000;
         int bulletDmg = 10;
         public List<Bullet> bullets = new List<Bullet>();
 
@@ -26,38 +26,52 @@ namespace Sem1OfficeRevenge
             centerOrigin = true;
             Global.player = this;
             position = Global.world.playerCamera.position;
-            SetObjectAnimation(AnimNames.PlayerRifleMove);
+            SetObjectAnimation(AnimNames.PlayerRifleIdle);
             Global.currentScene.SetObjectLayerDepth(this, LayerDepth.Player);
         }
 
         public override void Update()
         {
-            if (InputManager.mouseClicked)
+            
+            if (InputManager.anyMoveKeyPressed && InputManager.mouseClicked)
             {
                 Fire();
+                AnimRunNShoot();
             }
-            base.Update();
+            else if (InputManager.anyMoveKeyPressed)
+            {
+                AnimMove();
+            } 
+            else if (InputManager.mouseClicked)
+            {
+                Fire();
+                AnimShoot();
+            }            
         }
 
-        public override void Draw()
+        private void AnimRunNShoot()
         {
-            base.Draw();
+            SetObjectAnimation(AnimNames.PlayerRifleShoot);
+            animation.onAnimationDone += () => { SetObjectAnimation(AnimNames.PlayerRifleIdle); };
         }
 
-        private void Movement()
+        private void AnimMove()
         {
-
+            if (animation.animationName == AnimNames.PlayerRifleShoot) return; // So it shows the shoot animation
+            
+            SetObjectAnimation(AnimNames.PlayerRifleMove);
+            animation.onAnimationDone += () => { SetObjectAnimation(AnimNames.PlayerRifleIdle); };
         }
+
+        private void AnimShoot()
+        {
+            SetObjectAnimation(AnimNames.PlayerRifleShoot);
+            animation.onAnimationDone += () => { SetObjectAnimation(AnimNames.PlayerRifleIdle); };
+        }
+
 
         private void Fire()
         {
-            //BulletData bd = new();
-            //{
-            //    bd.position = position;
-            //    bd.rotation = rotation;
-
-            //};
-            //Bullet bullet = new Bullet(bd);
             Bullet bullet = new Bullet(new Vector2(0, 50), bulletSpeed, bulletDmg);
             bullets.Add(bullet);
             GlobalSound.sounds[SoundNames.Shot].Play();

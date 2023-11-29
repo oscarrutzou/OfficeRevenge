@@ -63,20 +63,6 @@ namespace Sem1OfficeRevenge
                 gameObject.animation?.AnimationUpdate();
                 gameObject.Update();
             }
-
-            if (!hasFadeOut)
-            {
-                if (Global.currentScene == Global.world.scenes[Scenes.LoadingScreen]) return;
-
-                Global.world.blackScreenFadeInOut?.StartFadeOut();
-                //Global.world.blackScreenFadeInOut.onFadeToBlackDone += OnFadeToBlackDone;
-                hasFadeOut = true;
-            }
-        }
-
-        private void OnFadeToBlackDone(object sender, EventArgs e)
-        {
-            
         }
 
         public virtual void DrawInWorld()

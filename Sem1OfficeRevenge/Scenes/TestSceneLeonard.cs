@@ -34,7 +34,7 @@ namespace Sem1OfficeRevenge
 
         public override void DrawInWorld()
         {
-            ScoreManager.Draw(new Vector2(10, 10));
+            ScoreManager.DrawScore(new Vector2(10, 10));
             player.Draw();
             civEnm.Draw();
             base.DrawInWorld();
