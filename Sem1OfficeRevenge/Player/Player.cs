@@ -60,7 +60,7 @@ namespace Sem1OfficeRevenge
             //Bullet bullet = new Bullet(bd);
             Bullet bullet = new Bullet(new Vector2(0, 50), bulletSpeed, bulletDmg);
             bullets.Add(bullet);
-            GlobalSound.sounds[SoundNames.Shot].Play();
+            GlobalSound.Play(GlobalSound.sounds[SoundNames.Shot]);
             Global.currentScene.Instantiate(bullet);
         }
         
