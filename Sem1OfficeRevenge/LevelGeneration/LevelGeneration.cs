@@ -64,15 +64,15 @@ namespace Sem1OfficeRevenge
                 }
             }
 
-            foreach (Room room in rooms)
-            {
-                for (int i = 0; i < rnd.Next(3, 8); i++)
-                {
-                    CivEnemies.Add(new CivillianEnemy());
-                    Global.currentScene.Instantiate(CivEnemies[CivEnemies.Count - 1]);
-                    CivEnemies[CivEnemies.Count - 1].position = new Vector2(room.position.X + rnd.Next(-450, 451), room.position.Y + rnd.Next(-450, 451));
-                }
-            }
+            //foreach (Room room in rooms)
+            //{
+            //    for (int i = 0; i < rnd.Next(3, 8); i++)
+            //    {
+            //        CivEnemies.Add(new CivillianEnemy());
+            //        Global.currentScene.Instantiate(CivEnemies[CivEnemies.Count - 1]);
+            //        CivEnemies[CivEnemies.Count - 1].position = new Vector2(room.position.X + rnd.Next(-450, 451), room.position.Y + rnd.Next(-450, 451));
+            //    }
+            //}
 
         }
 

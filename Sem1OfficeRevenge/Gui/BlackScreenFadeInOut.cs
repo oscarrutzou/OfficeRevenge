@@ -28,7 +28,6 @@ namespace Sem1OfficeRevenge
         {
             base.Draw();
 
-            //if (!isVisible) return;
             Global.spriteBatch.Draw(GlobalTextures.textures[TextureNames.Pixel],
                         position,
                         blackScreenSize,

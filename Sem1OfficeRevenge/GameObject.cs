@@ -92,7 +92,7 @@ namespace Sem1OfficeRevenge
                 Global.spriteBatch.Draw(texture, position, null, color, rotation, origin, scale, SpriteEffects.None, layerDepth);
             }
 
-            //DrawDebugCollisionBox();
+            DrawDebugCollisionBox();
         }
 
         public void SetObjectAnimation(AnimNames animationName)
@@ -174,7 +174,7 @@ namespace Sem1OfficeRevenge
         {
             float length = Vector2.Distance(start, end);
             float angle = (float)Math.Atan2(end.Y - start.Y, end.X - start.X);
-            Global.spriteBatch.Draw(pixel, start, null, color, angle, Vector2.Zero, new Vector2(length, 1), SpriteEffects.None, 0);
+            Global.spriteBatch.Draw(pixel, start, null, color, angle, Vector2.Zero, new Vector2(length, 1), SpriteEffects.None, Global.currentScene.GetObjectLayerDepth(LayerDepth.FullOverlay));
         }
         #endregion
 

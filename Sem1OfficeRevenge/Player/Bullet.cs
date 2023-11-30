@@ -39,6 +39,7 @@ namespace Sem1OfficeRevenge
             position += direction * speed * totalSecondsTimer;
 
             CheckCollisionBox();
+            DrawDebugCollisionBox();
         }
 
         public override void CheckCollisionBox()
@@ -79,12 +80,6 @@ namespace Sem1OfficeRevenge
             position = Global.player.position + rotatedOffset;
 
             return position;
-        }
-
-        public override void Draw()
-        {
-            DrawDebugCollisionBox();
-            base.Draw();
         }
     }
 }
