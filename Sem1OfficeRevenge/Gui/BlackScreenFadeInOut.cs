@@ -6,10 +6,11 @@ using System;
 
 namespace Sem1OfficeRevenge
 {
-    public class BlackScreenFadeInOut: Gui
+    public class BlackScreenFadeInOut : Gui
     {
         public float fadeInTime = 1f;
-        public float fadeOutTime = 2f;
+        public int fadeInTimeMillisec = 800; //For the scenechange in gameworld.
+        public float fadeOutTime = 2f; //To lerp towards
         private float timer;
         private float fadeAlpha = 0f; // Start with a transparent screen
         private Rectangle blackScreenSize;

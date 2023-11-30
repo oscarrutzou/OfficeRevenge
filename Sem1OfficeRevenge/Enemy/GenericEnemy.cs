@@ -20,10 +20,11 @@ namespace Sem1OfficeRevenge
             Global.currentScene.SetObjectLayerDepth(this, LayerDepth.Enemies);
         }
         
-        public void Death()
+        public void Die()
         {
             dead = true;
             ScoreManager.killCount++;
         }
+
     }
 }

@@ -31,7 +31,6 @@ namespace Sem1OfficeRevenge
 
             layerDepth = Global.currentScene.GetObjectLayerDepth(LayerDepth.Background);
 
-
         }
         
         public override void Update()

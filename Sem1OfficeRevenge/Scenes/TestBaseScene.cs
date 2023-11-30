@@ -16,7 +16,7 @@ namespace Sem1OfficeRevenge
     {
         LevelGeneration lvlGen;
         bool pressed = false;
-
+        PauseScreen pauseScreen;
         public TestBaseScene()
         {
             
@@ -34,15 +34,43 @@ namespace Sem1OfficeRevenge
             Global.player = new Player();
             Global.player.centerOrigin = true;
             Global.currentScene.Instantiate(Global.player);
-
         }
 
-        public override void DrawInWorld()
-        {
+        //private Button playBtn;
+        //private Button settingsBtn;
+        //private Button quitBtn;
 
-            base.DrawInWorld();
-            Global.graphics.GraphicsDevice.Clear(Color.Black);
-        }
+        //private void InitPause()
+        //{
+        //    playBtn = new Button(
+        //             "Start Game",
+        //             true,
+        //             PlayGame);
+
+        //    settingsBtn = new Button(
+        //                         "Settings",
+        //                         true,
+        //                         PlayGame);
+        //    quitBtn = new Button(
+        //                         "Quit",
+        //                         true,
+        //                         QuitGame);
+
+        //    Global.currentScene.Instantiate(playBtn);
+        //    Global.currentScene.Instantiate(settingsBtn);
+        //    Global.currentScene.Instantiate(quitBtn);
+        //}
+
+        //private void PlayGame()
+        //{
+        //    //Global.world.ChangeScene(Scenes.LoadingScreen);
+        //    //PauseScreenMenu();
+        //}
+        //private void QuitGame()
+        //{
+        //    Global.world.Exit();
+        //}
+        
 
         public override void Update()
         {
@@ -79,8 +107,10 @@ namespace Sem1OfficeRevenge
         public override void DrawOnScreen()
         {
             base.DrawOnScreen();
-
+            
             ScoreManager.DrawScore(new Vector2(10, 10));
+            //pauseScreen.DrawOnScreen();
+
         }
     }
 }

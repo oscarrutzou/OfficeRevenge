@@ -62,14 +62,24 @@ namespace Sem1OfficeRevenge
 
         public virtual void DrawInWorld()
         {
-            Global.graphics.GraphicsDevice.Clear(Color.DarkRed);
+            if (Global.currentScene == Global.world.scenes[Scenes.MainMenu] || Global.currentScene == Global.world.scenes[Scenes.LoadingScreen])
+            {
+                Global.graphics.GraphicsDevice.Clear(Color.DarkRed);
+            }
+            else
+            {
+                Global.graphics.GraphicsDevice.Clear(Color.Black);
+            }
             
             foreach (GameObject gameObject in Global.currentSceneData.gameObjects)
             {
-                if (gameObject is Gui) return;
-                gameObject.Draw();
+                if (gameObject is not Gui)
+                {
+                    gameObject.Draw();
+                }
             }
         }
+
         public virtual void DrawOnScreen()
         {
             foreach (GameObject guiGameObject in Global.currentSceneData.guis)

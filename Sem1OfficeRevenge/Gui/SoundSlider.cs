@@ -47,7 +47,6 @@ namespace Sem1OfficeRevenge
             fillPosition = position + fillOffset;
         }
 
-
         public override void Update()
         {
             // Update the delay timer

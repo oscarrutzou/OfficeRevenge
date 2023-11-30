@@ -34,12 +34,12 @@ namespace Sem1OfficeRevenge
 
         public override void Update()
         {
-            if (isRemoved) return;
+            if (isRemoved || Global.currentScene.isPaused) return;
             totalSecondsTimer = (float)Global.gameTime.ElapsedGameTime.TotalSeconds;
             position += direction * speed * totalSecondsTimer;
 
             CheckCollisionBox();
-            DrawDebugCollisionBox();
+            //DrawDebugCollisionBox();
         }
 
         public override void CheckCollisionBox()

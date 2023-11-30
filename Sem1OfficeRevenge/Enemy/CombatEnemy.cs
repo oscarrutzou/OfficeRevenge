@@ -32,7 +32,8 @@ namespace Sem1OfficeRevenge
 
         public override void Update() 
         {
-            if (dead) return;
+            if (Global.currentScene.isPaused || dead) return;
+
             if (Math.Abs(Global.player.position.X - position.X) < 5 && Math.Abs(Global.player.position.Y - position.Y) < 5 && isAttacking == false)
             {
                 isAttacking = true;

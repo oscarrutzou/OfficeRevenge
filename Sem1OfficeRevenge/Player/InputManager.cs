@@ -10,6 +10,7 @@ namespace Sem1OfficeRevenge
     public static class InputManager
     {
         public static KeyboardState keyboardState;
+        public static KeyboardState previousKeyboardState;
         public static MouseState mouseState;
         // Prevents multiple click when clicking a button
         public static MouseState previousMouseState;
@@ -31,25 +32,30 @@ namespace Sem1OfficeRevenge
             mousePositionOnScreen = GetMousePositionOnUI();
             mousePositionInWorld = GetMousePositionInWorld();
 
-            if (keyboardState.IsKeyDown(Keys.Escape))
+            if (keyboardState.IsKeyDown(Keys.Escape) && !previousKeyboardState.IsKeyDown(Keys.Escape) && Global.player != null)
             {
-                Global.world.Exit();
-            }
+                Global.currentScene.isPaused = !Global.currentScene.isPaused;
 
-            PlayerInput();
+                Global.world.pauseScreen.PauseScreenMenu();
+            }
 
             if (mouseState.LeftButton == ButtonState.Pressed && previousMouseState.LeftButton == ButtonState.Released)
             {
                 CheckButtons();
             }
 
+            PlayerInput();
+
             mouseClicked = (Mouse.GetState().LeftButton == ButtonState.Pressed) && (previousMouseState.LeftButton == ButtonState.Released);
 
             previousMouseState = mouseState;
+            previousKeyboardState = keyboardState;
         }
 
         public static void PlayerInput()
         {
+            if (Global.currentScene.isPaused) return;
+
             if (Global.player != null)
             {
                 Vector2 dir = mousePositionInWorld - Global.player.position;

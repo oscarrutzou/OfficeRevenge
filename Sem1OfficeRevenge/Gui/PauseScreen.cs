@@ -3,14 +3,16 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Media;
-using SharpDX.Direct3D9;
 
 namespace Sem1OfficeRevenge
 {
-    public class MainMenu : Scene
+    public class PauseScreen
     {
         #region Variables
-        private Button playBtn;
+        public bool hasInit;
+
+        private Button pauseBtn;
+        private Button mainMenuBtn;
         private Button settingsBtn;
         private Button quitBtn;
 
@@ -20,47 +22,69 @@ namespace Sem1OfficeRevenge
         private Button resolutionBtn;
         private Button backBtn;
 
+        private bool isChangingResolution = false;
         private int resolutionIndex = 0;
         private BlackScreenFadeInOut fadeInOutObj;
+
         #endregion
 
-        public override void Initialize()
+        public void Initialize()
         {
-            // Reset uiCamera's position and origin
-            Global.world.uiCamera.position = Vector2.Zero;
-            Global.world.uiCamera.origin = Vector2.Zero;
-
-            //Global.world.Fullscreen();
             InitMainMenu();
             InitSettingsMenu();
+            PauseScreenMenu();
 
             WorldOnResolutionChanged();
+        }
+
+        public void PauseScreenMenu()
+        {
+            pauseBtn.isVisible = !pauseBtn.isVisible;
+            mainMenuBtn.isVisible = !mainMenuBtn.isVisible;
+            settingsBtn.isVisible = !settingsBtn.isVisible;
+            quitBtn.isVisible = !quitBtn.isVisible;
+
+            resolutionBtn.isVisible = false;
+            musicSlider.isVisible = false;
+            backBtn.isVisible = false;
+            showSettings = false;
         }
 
         #region Main Menu
         private void InitMainMenu()
         {
-            playBtn = new Button(
-                                 "Start Game",
+            pauseBtn = new Button(
+                                 "Pause",
                                  true,
                                  PlayGame);
-
+            mainMenuBtn = new Button(
+                                 "Main Menu",
+                                 true,
+                                 MainMenuBack);
             settingsBtn = new Button(
                                  "Settings",
                                  true,
                                  Settings);
+
             quitBtn = new Button(
                                  "Quit",
                                  true,
                                  QuitGame);
 
-            Global.currentScene.Instantiate(playBtn);
+            Global.currentScene.Instantiate(pauseBtn);
+            Global.currentScene.Instantiate(mainMenuBtn);
             Global.currentScene.Instantiate(settingsBtn);
             Global.currentScene.Instantiate(quitBtn);
         }
         private void PlayGame()
         {
-            Global.world.ChangeScene(Scenes.LoadingScreen);
+            PauseScreenMenu();
+            Global.currentScene.isPaused = false;
+            showSettings = false;
+        }
+        private void MainMenuBack()
+        {
+            Global.world.ChangeScene(Scenes.MainMenu);
         }
         private void QuitGame()
         {
@@ -110,23 +134,23 @@ namespace Sem1OfficeRevenge
                 showSettings = false;
             }
         }
-
         private void DrawSettingsMenu()
         {
-            playBtn.isVisible = false;
+            pauseBtn.isVisible = false;
             settingsBtn.isVisible = false;
             quitBtn.isVisible = false;
+            mainMenuBtn.isVisible = false;
 
             resolutionBtn.isVisible = true;
             musicSlider.isVisible = true;
             backBtn.isVisible = true;
         }
-
         private void RemoveSettingsMenu()
         {
-            playBtn.isVisible = true;
+            pauseBtn.isVisible = true;
             settingsBtn.isVisible = true;
             quitBtn.isVisible = true;
+            mainMenuBtn.isVisible = true;
 
             resolutionBtn.isVisible = false;
             musicSlider.isVisible = false;
@@ -135,20 +159,18 @@ namespace Sem1OfficeRevenge
         #endregion
 
         #region Setting Resolution
-
         private void WorldOnResolutionChanged()
         {
-            playBtn.position = Global.world.uiCamera.Center + new Vector2(0, -85);
-            settingsBtn.position = Global.world.uiCamera.Center;
-            quitBtn.position = Global.world.uiCamera.Center + new Vector2(0, 85);
+            pauseBtn.position = Global.world.uiCamera.Center + new Vector2(0, -85);
+            mainMenuBtn.position = Global.world.uiCamera.Center;
+            settingsBtn.position = Global.world.uiCamera.Center + new Vector2(0, 85);
+            quitBtn.position = Global.world.uiCamera.Center + new Vector2(0, 170);
 
             resolutionBtn.position = Global.world.uiCamera.Center + new Vector2(0, -85);
             musicSlider.position = Global.world.uiCamera.Center;
             musicSlider.ChangeSliderRectangle(Global.world.uiCamera.Center - new Vector2(GlobalTextures.textures[TextureNames.GuiSliderBase].Width / 2, GlobalTextures.textures[TextureNames.GuiSliderBase].Height / 2));
             backBtn.position = Global.world.uiCamera.Center + new Vector2(0, 85);
         }
-
-        private bool isChangingResolution = false;
 
         private async void ChangeResolution()
         {
@@ -159,7 +181,7 @@ namespace Sem1OfficeRevenge
             isChangingResolution = true;
 
             resolutionIndex++;
-            if (Global.graphics.IsFullScreen) 
+            if (Global.graphics.IsFullScreen)
                 resolutionIndex = 0;
 
 
@@ -194,9 +216,8 @@ namespace Sem1OfficeRevenge
         #endregion
 
         #region Setting Text
-        public override void  DrawOnScreen()
+        public void DrawOnScreen()
         {
-            base.DrawOnScreen();
             DrawResolutionText();
             DrawMusicText();
         }
@@ -218,7 +239,7 @@ namespace Sem1OfficeRevenge
             Global.spriteBatch.DrawString(GlobalTextures.defaultFont,
                                   text,
                                   resolutionBtn.position + new Vector2(-170, -70),
-                                  Color.Black,
+                                  new Color(195, 195, 195),
                                   0,
                                   Vector2.Zero,
                                   1,
@@ -236,7 +257,7 @@ namespace Sem1OfficeRevenge
             Global.spriteBatch.DrawString(GlobalTextures.defaultFont,
                                   text,
                                   musicSlider.position + new Vector2(-170, -50),
-                                  Color.Black,
+                                  new Color(195,195,195),
                                   0,
                                   Vector2.Zero,
                                   1,
@@ -244,5 +265,6 @@ namespace Sem1OfficeRevenge
                                   Global.currentScene.GetObjectLayerDepth(LayerDepth.GuiText));
         }
         #endregion
+
     }
 }

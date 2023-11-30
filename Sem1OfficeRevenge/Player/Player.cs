@@ -28,11 +28,14 @@ namespace Sem1OfficeRevenge
             position = Global.world.playerCamera.position;
             SetObjectAnimation(AnimNames.PlayerRifleIdle);
             Global.currentScene.SetObjectLayerDepth(this, LayerDepth.Player);
+            //layerDepth = Global.currentScene.GetObjectLayerDepth(LayerDepth.GuiObjects);
         }
+
 
         public override void Update()
         {
-            
+            if (Global.currentScene.isPaused) return;
+
             if (InputManager.anyMoveKeyPressed && InputManager.mouseClicked)
             {
                 Fire();
@@ -77,6 +80,10 @@ namespace Sem1OfficeRevenge
             GlobalSound.sounds[SoundNames.Shot].Play();
             Global.currentScene.Instantiate(bullet);
         }
-        
+
+        public override void Draw()
+        {
+            base.Draw();
+        }
     }
 }

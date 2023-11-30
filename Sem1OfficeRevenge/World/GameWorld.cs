@@ -12,7 +12,9 @@ namespace Sem1OfficeRevenge
         public Dictionary<Scenes, Scene> scenes = new Dictionary<Scenes, Scene>();
         public Camera playerCamera { get; private set; }
         public Camera uiCamera { get; private set; }
+
         public BlackScreenFadeInOut blackScreenFadeInOut;
+        public PauseScreen pauseScreen { get; private set; }
 
         public GameWorld()
         {
@@ -44,7 +46,6 @@ namespace Sem1OfficeRevenge
             GlobalAnimations.LoadLoadingScreenIcon();
             //GlobalAnimations.LoadContentTestScenes();
 
-
             GenerateScenes();
             ChangeScene(Scenes.MainMenu);
             blackScreenFadeInOut = new BlackScreenFadeInOut();
@@ -66,7 +67,6 @@ namespace Sem1OfficeRevenge
 
             GlobalSound.MusicUpdate();
 
-            //if (Global.currentScene.isPaused) return;
             InputManager.HandleInput();
             
             Global.currentScene.Update();
@@ -99,11 +99,12 @@ namespace Sem1OfficeRevenge
 
             Global.currentScene.DrawOnScreen();
             blackScreenFadeInOut?.Draw();
-
+            if (Global.currentScene != scenes[Scenes.MainMenu] && Global.currentScene != scenes[Scenes.LoadingScreen]) pauseScreen.DrawOnScreen();
             Global.spriteBatch.End();
 
             base.Draw(gameTime);
         }
+
 
         #region Scene and resolution management
         private void GenerateScenes()
@@ -131,7 +132,7 @@ namespace Sem1OfficeRevenge
                     blackScreenFadeInOut.onFadeFromBlackDone += (sender, e) => { blackScreenFadeInOut.StopAnimation(); };
 
                     // Wait for the fade-in transition to complete
-                    await Task.Delay((int)blackScreenFadeInOut.fadeInTime * 1000);
+                    await Task.Delay(blackScreenFadeInOut.fadeInTimeMillisec);
 
                 }
 
@@ -148,8 +149,12 @@ namespace Sem1OfficeRevenge
 
             Global.currentScene = scenes[scene];
             Global.currentScene.Initialize();
-
+            Global.currentScene.isPaused = false;
             Global.currentScene.hasFadeOut = false;
+
+            if (pauseScreen == null) pauseScreen = new PauseScreen();
+            if (scene != Scenes.MainMenu && scene != Scenes.LoadingScreen) pauseScreen.Initialize();
+
         }
 
         public void ResolutionSize(int width, int height)

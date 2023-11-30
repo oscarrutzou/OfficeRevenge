@@ -30,7 +30,9 @@ namespace Sem1OfficeRevenge
 
         public override void Update()
         {
-            if (dead) return;
+            if (Global.currentScene.isPaused || dead) return;
+
+
             timer += (float)Global.gameTime.ElapsedGameTime.TotalSeconds;
             Vector2 dir = lookPoint - position;
             rotTarget = (float)Math.Atan2(-dir.Y, -dir.X) + MathHelper.Pi;

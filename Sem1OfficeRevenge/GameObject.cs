@@ -92,7 +92,7 @@ namespace Sem1OfficeRevenge
                 Global.spriteBatch.Draw(texture, position, null, color, rotation, origin, scale, SpriteEffects.None, layerDepth);
             }
 
-            DrawDebugCollisionBox();
+            //DrawDebugCollisionBox();
         }
 
         public void SetObjectAnimation(AnimNames animationName)
