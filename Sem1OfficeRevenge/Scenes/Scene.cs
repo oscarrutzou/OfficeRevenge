@@ -33,13 +33,8 @@ namespace Sem1OfficeRevenge
     public abstract class Scene
     {
         // We have a data stored on each scene, to make it easy to add and remove gameObjects
-        private SceneData data = new SceneData(); //Remove this
         public bool hasFadeOut;
-
-        public Scene() 
-        {
-            Global.currentSceneData = data;
-        }
+        public bool isPaused;
 
         public abstract void Initialize();
 

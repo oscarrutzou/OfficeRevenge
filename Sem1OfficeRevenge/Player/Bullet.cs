@@ -39,6 +39,7 @@ namespace Sem1OfficeRevenge
             position += direction * speed * totalSecondsTimer;
 
             CheckCollisionBox();
+            DrawDebugCollisionBox();
         }
 
         public override void CheckCollisionBox()

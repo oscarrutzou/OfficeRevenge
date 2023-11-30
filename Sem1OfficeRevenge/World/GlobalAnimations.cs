@@ -45,11 +45,17 @@ namespace Sem1OfficeRevenge
                 {
                     throw;
                 }
-                await Task.Delay(30); // Wait for 100 milliseconds
+                await Task.Delay(30);
             }
             animations[animationName] = animList;
             progress += 1f / totalAnimations; // Update the progress after each animation is loaded
         }
+
+        public static Animation SetAnimation(AnimNames name)
+        {
+            return new Animation(animations[name], name);
+        }
+
         public static void LoadLoadingScreenIcon()
         {
             List<Texture2D> animList = new List<Texture2D>();
@@ -59,7 +65,6 @@ namespace Sem1OfficeRevenge
             }
             animations[AnimNames.GuiLoadingScreenIcon] = animList;
         }
-
 
         public static void LoadContentTestScenes()
         {
@@ -89,10 +94,7 @@ namespace Sem1OfficeRevenge
             progress += 1f / totalAnimations; // Update the progress after each animation is loaded
         }
 
-        public static Animation SetAnimation(AnimNames name)
-        {
-            return new Animation(animations[name], name);
-        }
+
     
     }
 }

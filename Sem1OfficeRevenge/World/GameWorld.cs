@@ -18,6 +18,7 @@ namespace Sem1OfficeRevenge
         {
             Global.world = this;
             Global.graphics = new GraphicsDeviceManager(this);
+            Global.currentSceneData = new SceneData();
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
             Window.Title = "Office Revenge!";
@@ -65,6 +66,7 @@ namespace Sem1OfficeRevenge
 
             GlobalSound.MusicUpdate();
 
+            //if (Global.currentScene.isPaused) return;
             InputManager.HandleInput();
             
             Global.currentScene.Update();
