@@ -42,16 +42,7 @@ namespace Sem1OfficeRevenge
             if (mouseState.LeftButton == ButtonState.Pressed && previousMouseState.LeftButton == ButtonState.Released)
             {
                 CheckButtons();
-            }
-
-            if (Keyboard.GetState().IsKeyDown(Keys.W) || Keyboard.GetState().IsKeyDown(Keys.A) || Keyboard.GetState().IsKeyDown(Keys.S) || Keyboard.GetState().IsKeyDown(Keys.D))
-            {
-                keyPressed = true;
-            }
-            else
-            {
-                keyPressed = false;
-            }
+            }           
 
             mouseClicked = (Mouse.GetState().LeftButton == ButtonState.Pressed) && (previousMouseState.LeftButton == ButtonState.Released);
 

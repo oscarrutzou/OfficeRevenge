@@ -80,5 +80,11 @@ namespace Sem1OfficeRevenge
 
             return position;
         }
+
+        public override void Draw()
+        {
+            DrawDebugCollisionBox();
+            base.Draw();
+        }
     }
 }
