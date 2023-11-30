@@ -7,17 +7,31 @@ using Microsoft.Xna.Framework.Graphics;
 public class LoadingScene : Scene
 {
     private bool isLoading = false;
+    private bool hasLoaded = false;
     private Icon loadingIcon;
     private Vector2 loadingTextPos;
 
-    public override async void Initialize()
+    public override void Initialize()
     {
         isLoading = true;
         InitLoadingIcon();
-        SceneData sc = Global.currentSceneData;
-        await Task.Run(() => LoadContent());
-        isLoading = false;
-        Global.world.ChangeScene(Scenes.TestBaseScene);
+        HandleHasLoaded();
+    }
+
+    private async void HandleHasLoaded()
+    {
+        if (!hasLoaded)
+        {
+            await Task.Run(() => LoadContent());
+            isLoading = false;
+            hasLoaded = true;
+            Global.world.ChangeScene(Scenes.TestBaseScene);
+        }
+        else
+        {
+            isLoading = false;
+            Global.world.ChangeScene(Scenes.TestBaseScene);
+        }
     }
 
     private async Task LoadContent()
@@ -28,7 +42,7 @@ public class LoadingScene : Scene
     private void InitLoadingIcon()
     {
         Vector2 scale = new Vector2(0.3f, 0.3f);
-        Vector2 position = Global.world.worldCamera.BottomRight + new Vector2(-50, -50);
+        Vector2 position = Global.world.uiCamera.BottomRight + new Vector2(-50, -50);
         loadingIcon = new Icon(scale, 
                                position,
                                GlobalAnimations.SetAnimation(AnimNames.GuiLoadingScreenIcon));
@@ -50,7 +64,7 @@ public class LoadingScene : Scene
         Vector2 textSize = GlobalTextures.defaultFont.MeasureString(text);
 
         // Calculate the position to center the text
-        loadingTextPos = Global.world.worldCamera.BottomCenter + new Vector2(0, -50) - textSize / 2;
+        loadingTextPos = Global.world.uiCamera.BottomCenter + new Vector2(0, -50) - textSize / 2;
 
         Global.spriteBatch.DrawString(GlobalTextures.defaultFont,
                               text,

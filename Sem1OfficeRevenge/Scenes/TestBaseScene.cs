@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework;
-using Sem1OfficeRevenge.Content.UI;
 using Sem1OfficeRevenge.World;
 using System;
 using System.Collections.Generic;
@@ -41,7 +40,6 @@ namespace Sem1OfficeRevenge
         public override void DrawInWorld()
         {
 
-            ScoreManager.Draw(new Vector2(10, 10));
             base.DrawInWorld();
             Global.graphics.GraphicsDevice.Clear(Color.Black);
         }
@@ -59,23 +57,30 @@ namespace Sem1OfficeRevenge
 
             ScoreManager.UpdateScore();
 
-            if (state.IsKeyDown(Keys.R) && pressed == false)
-            {
-                pressed = true;
-                Application.Restart();
-                //Global.world.ChangeScene(Scenes.TestBaseScene);
-            }
+            //if (state.IsKeyDown(Keys.R) && pressed == false)
+            //{
+            //    pressed = true;
+            //    Application.Restart();
+            //    //Global.world.ChangeScene(Scenes.TestBaseScene);
+            //}
 
-            if (state.IsKeyDown(Keys.LeftShift))
-            {
-                Global.player.playerSpeed = 15;
-            }
-            else
-            {
-                Global.player.playerSpeed = 7;
-            }
+            //if (state.IsKeyDown(Keys.LeftShift))
+            //{
+            //    Global.player.playerSpeed = 15;
+            //}
+            //else
+            //{
+            //    Global.player.playerSpeed = 7;
+            //}
 
             base.Update();
+        }
+
+        public override void DrawOnScreen()
+        {
+            base.DrawOnScreen();
+
+            ScoreManager.DrawScore(new Vector2(10, 10));
         }
     }
 }

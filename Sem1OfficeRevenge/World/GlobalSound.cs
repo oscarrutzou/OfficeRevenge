@@ -64,7 +64,7 @@ namespace Sem1OfficeRevenge.World
             }
         }
 
-        public static void music() 
+        public static void MusicUpdate() 
         {
             if (InstanceGameMusic == null ||InstanceMenuMusic == null)
             {

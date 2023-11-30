@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework.Input;
-using Sem1OfficeRevenge.Content.UI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,7 +34,7 @@ namespace Sem1OfficeRevenge
 
         public override void DrawInWorld()
         {
-            ScoreManager.Draw(new Vector2(10, 10));
+            ScoreManager.DrawScore(new Vector2(10, 10));
             player.Draw();
             civEnm.Draw();
             base.DrawInWorld();

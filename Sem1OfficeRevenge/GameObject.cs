@@ -97,7 +97,10 @@ namespace Sem1OfficeRevenge
 
         public void SetObjectAnimation(AnimNames animationName)
         {
-            //if (animation != null) animation = null;
+            // Check if the current animation is already the one we want to set
+            if (animation != null && animation.animationName == animationName) return;
+
+            // If it's not, we create a new animation
             animation = GlobalAnimations.SetAnimation(animationName);
         }
 
@@ -131,12 +134,7 @@ namespace Sem1OfficeRevenge
             if (position == targetWithOffset) return;
 
             Vector2 dir = targetWithOffset - position;
-
-            // Only update the rotation if the distance is greater than a certain threshold
-            if (dir.Length() > 40) //In px
-            {
-                rotation = (float)Math.Atan2(-dir.Y, -dir.X) + MathHelper.Pi;
-            }
+            rotation = (float)Math.Atan2(-dir.Y, -dir.X) + MathHelper.Pi;
         }
         #endregion
 

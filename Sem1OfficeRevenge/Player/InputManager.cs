@@ -18,8 +18,8 @@ namespace Sem1OfficeRevenge
         public static Vector2 mousePositionInWorld;
         public static Vector2 mousePositionOnScreen;
         public static bool mouseClicked;
-        public static bool keyPressed;
-        
+
+        public static bool anyMoveKeyPressed;
         /// <summary>
         /// Gets called in GameWorld, at the start of the update
         /// </summary>
@@ -42,7 +42,6 @@ namespace Sem1OfficeRevenge
             if (mouseState.LeftButton == ButtonState.Pressed && previousMouseState.LeftButton == ButtonState.Released)
             {
                 CheckButtons();
-
             }
 
             if (Keyboard.GetState().IsKeyDown(Keys.W) || Keyboard.GetState().IsKeyDown(Keys.A) || Keyboard.GetState().IsKeyDown(Keys.S) || Keyboard.GetState().IsKeyDown(Keys.D))
@@ -55,12 +54,10 @@ namespace Sem1OfficeRevenge
             }
 
             mouseClicked = (Mouse.GetState().LeftButton == ButtonState.Pressed) && (previousMouseState.LeftButton == ButtonState.Released);
-            
+
             previousMouseState = mouseState;
-
-
         }
-        
+
         public static void PlayerInput()
         {
             if (Global.player != null)
@@ -69,7 +66,7 @@ namespace Sem1OfficeRevenge
                 dir.Normalize();
 
                 // Calculate the offset vector perpendicular to the direction vector
-                Vector2 offset = new Vector2(-dir.Y, dir.X) * -50; // 50 is the offset distance
+                Vector2 offset = new Vector2(-dir.Y, dir.X) * -50; // 50 is the offset distance in px
 
                 Global.player.RotateTowardsTargetWithOffset(mousePositionInWorld, offset);
 
@@ -88,6 +85,21 @@ namespace Sem1OfficeRevenge
                 if (keyboardState.IsKeyDown(Keys.S))
                 {
                     Global.player.position.Y += Global.player.playerSpeed;
+                }
+
+                if (keyboardState.IsKeyDown(Keys.W) || keyboardState.IsKeyDown(Keys.A) || keyboardState.IsKeyDown(Keys.S) || keyboardState.IsKeyDown(Keys.D))
+                {
+                    anyMoveKeyPressed = true;
+                }
+                else
+                {
+                    anyMoveKeyPressed = false;
+                }
+
+                //Fjern
+                if (Mouse.GetState().RightButton == ButtonState.Pressed && previousMouseState.RightButton == ButtonState.Released)
+                {
+                    Global.world.ChangeScene(Scenes.MainMenu);
                 }
 
             }
@@ -122,7 +134,7 @@ namespace Sem1OfficeRevenge
         private static Vector2 GetMousePositionInWorld()
         {
             Vector2 pos = new Vector2(mouseState.X, mouseState.Y);
-            Matrix invMatrix = Matrix.Invert(Global.world.worldCamera.GetMatrix());
+            Matrix invMatrix = Matrix.Invert(Global.world.playerCamera.GetMatrix());
 
             return Vector2.Transform(pos, invMatrix);
         }
