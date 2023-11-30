@@ -23,6 +23,7 @@ namespace Sem1OfficeRevenge
             position = Vector2.Zero;
             blackScreenSize = new Rectangle(0, 0, Global.graphics.PreferredBackBufferWidth, Global.graphics.PreferredBackBufferHeight);
             texture = GlobalTextures.textures[TextureNames.Pixel];
+            isVisible = false;
         }
 
         public override void Draw()

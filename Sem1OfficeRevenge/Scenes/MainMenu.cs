@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Media;
 using SharpDX.Direct3D9;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Sem1OfficeRevenge
 {
@@ -197,8 +198,29 @@ namespace Sem1OfficeRevenge
         public override void  DrawOnScreen()
         {
             base.DrawOnScreen();
+            DrawGameName();
             DrawResolutionText();
             DrawMusicText();
+        }
+
+        private void DrawGameName()
+        {
+            string text = "Office Revenge";
+            // Measure the size of the text
+            Vector2 textSize = GlobalTextures.defaultFontBig.MeasureString(text);
+
+            // Calculate the position to center the text
+            Vector2 textPosition = (playBtn.position + new Vector2(0, -120)) - textSize / 2;
+
+            Global.spriteBatch.DrawString(GlobalTextures.defaultFontBig,
+                      text,
+                      textPosition,
+                      Color.Black,
+                      0,
+                      Vector2.Zero,
+                      1,
+                      SpriteEffects.None,
+                      Global.currentScene.GetObjectLayerDepth(LayerDepth.GuiText));
         }
 
         private void DrawResolutionText()

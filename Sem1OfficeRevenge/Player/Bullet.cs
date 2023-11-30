@@ -19,7 +19,7 @@ namespace Sem1OfficeRevenge
         public Bullet(Vector2 offSet, int speed, int bulletDmg)
         {
             texture = GlobalTextures.textures[TextureNames.Bullet];
-            layerDepth = Global.currentScene.GetObjectLayerDepth(LayerDepth.Enemies);
+            Global.currentScene.SetObjectLayerDepth(this, LayerDepth.Bullets);
             scale = new Vector2(0.07f, 0.07f);
 
             centerOrigin = true;

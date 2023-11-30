@@ -32,22 +32,34 @@ namespace Sem1OfficeRevenge
         {
             InitMainMenu();
             InitSettingsMenu();
-            PauseScreenMenu();
+            HidePauseMenu();
 
             WorldOnResolutionChanged();
         }
 
-        public void PauseScreenMenu()
+        public void HidePauseMenu()
         {
-            pauseBtn.isVisible = !pauseBtn.isVisible;
-            mainMenuBtn.isVisible = !mainMenuBtn.isVisible;
-            settingsBtn.isVisible = !settingsBtn.isVisible;
-            quitBtn.isVisible = !quitBtn.isVisible;
+            pauseBtn.isVisible = false;
+            settingsBtn.isVisible = false;
+            quitBtn.isVisible = false;
+            mainMenuBtn.isVisible = false;
 
             resolutionBtn.isVisible = false;
             musicSlider.isVisible = false;
             backBtn.isVisible = false;
             showSettings = false;
+        }
+
+        public void ShowPauseMenu()
+        {
+            pauseBtn.isVisible = true;
+            settingsBtn.isVisible = true;
+            quitBtn.isVisible = true;
+            mainMenuBtn.isVisible = true;
+
+            resolutionBtn.isVisible = false;
+            musicSlider.isVisible = false;
+            backBtn.isVisible = false;
         }
 
         #region Main Menu
@@ -78,7 +90,7 @@ namespace Sem1OfficeRevenge
         }
         private void PlayGame()
         {
-            PauseScreenMenu();
+            HidePauseMenu();
             Global.currentScene.isPaused = false;
             showSettings = false;
         }
@@ -130,7 +142,7 @@ namespace Sem1OfficeRevenge
             }
             else
             {
-                RemoveSettingsMenu();
+                ShowPauseMenu();
                 showSettings = false;
             }
         }
@@ -145,17 +157,18 @@ namespace Sem1OfficeRevenge
             musicSlider.isVisible = true;
             backBtn.isVisible = true;
         }
-        private void RemoveSettingsMenu()
-        {
-            pauseBtn.isVisible = true;
-            settingsBtn.isVisible = true;
-            quitBtn.isVisible = true;
-            mainMenuBtn.isVisible = true;
 
-            resolutionBtn.isVisible = false;
-            musicSlider.isVisible = false;
-            backBtn.isVisible = false;
-        }
+        //private void RemoveSettingsMenu()
+        //{
+        //    pauseBtn.isVisible = true;
+        //    settingsBtn.isVisible = true;
+        //    quitBtn.isVisible = true;
+        //    mainMenuBtn.isVisible = true;
+
+        //    resolutionBtn.isVisible = false;
+        //    musicSlider.isVisible = false;
+        //    backBtn.isVisible = false;
+        //}
         #endregion
 
         #region Setting Resolution

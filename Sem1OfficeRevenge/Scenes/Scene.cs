@@ -23,6 +23,7 @@ namespace Sem1OfficeRevenge
         Background,
         InteractableObjects,
         Enemies,
+        Bullets,
         Player,
         ScreenOverLay,
         GuiObjects,
@@ -105,6 +106,9 @@ namespace Sem1OfficeRevenge
                 case LayerDepth.Enemies:
                     gameObject.layerDepth = 0.3f;
                     break;
+                case LayerDepth.Bullets:
+                    gameObject.layerDepth = 0.35f;
+                    break;
                 case LayerDepth.Player:
                     gameObject.layerDepth = 0.4f;
                     break;
@@ -134,6 +138,8 @@ namespace Sem1OfficeRevenge
                     return 0.2f;
                 case LayerDepth.Enemies:
                     return 0.3f;
+                case LayerDepth.Bullets:
+                    return 0.35f;
                 case LayerDepth.Player:
                     return 0.4f;
                 case LayerDepth.ScreenOverLay:

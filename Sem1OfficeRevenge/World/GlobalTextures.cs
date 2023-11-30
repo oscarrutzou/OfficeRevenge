@@ -9,7 +9,6 @@ namespace Sem1OfficeRevenge
     public enum TextureNames
     {
         //Gui
-        GuiButtonBasicBlue,
         TileMap1,
         TileMap2,
         TileMap3,
@@ -22,16 +21,14 @@ namespace Sem1OfficeRevenge
         Pixel,
 
 
-        //test
-        Bullet,
-        
+        Bullet,        
     }
 
     public static class GlobalTextures
     {
-        //public static Dictionary<TextureNames, Texture2D> textures;
         public static Dictionary<TextureNames, Texture2D> textures { get; private set; }
         public static SpriteFont defaultFont { get; private set; }
+        public static SpriteFont defaultFontBig { get; private set; }
 
         public static void LoadContent()
         {
@@ -52,12 +49,8 @@ namespace Sem1OfficeRevenge
                 {TextureNames.Bullet, Global.world.Content.Load<Texture2D>("Bullet\\Bullet") }
             };
 
-            //defaultFont = Global.world.Content.Load<SpriteFont>("Fonts\\Arial");
-            
-            
-            //defaultFont = Global.world.Content.Load<SpriteFont>("Fonts\\Friday13SH");
-            //defaultFont = Global.world.Content.Load<SpriteFont>("Fonts\\Friday13v12");
             defaultFont = Global.world.Content.Load<SpriteFont>("Fonts\\SlencoBlack");
+            defaultFontBig = Global.world.Content.Load<SpriteFont>("Fonts\\SlencoBlackBig");
 
         }
     }

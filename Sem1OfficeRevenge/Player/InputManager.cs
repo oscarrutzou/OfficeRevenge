@@ -37,7 +37,14 @@ namespace Sem1OfficeRevenge
             {
                 Global.currentScene.isPaused = !Global.currentScene.isPaused;
 
-                Global.world.pauseScreen.PauseScreenMenu();
+                if (Global.currentScene.isPaused)
+                {
+                    Global.world.pauseScreen.ShowPauseMenu();
+                }
+                else
+                {
+                    Global.world.pauseScreen.HidePauseMenu();
+                }
             }
 
             if (mouseState.LeftButton == ButtonState.Pressed && previousMouseState.LeftButton == ButtonState.Released)
@@ -92,13 +99,6 @@ namespace Sem1OfficeRevenge
                 {
                     anyMoveKeyPressed = false;
                 }
-
-                //Fjern
-                if (Mouse.GetState().RightButton == ButtonState.Pressed && previousMouseState.RightButton == ButtonState.Released)
-                {
-                    Global.world.ChangeScene(Scenes.MainMenu);
-                }
-
             }
         }
 
