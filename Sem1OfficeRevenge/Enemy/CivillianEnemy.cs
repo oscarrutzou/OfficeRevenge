@@ -61,21 +61,7 @@ namespace Sem1OfficeRevenge
                 fleeing = false;
             }
 
-            if (Global.player.bullets.Count > 0)
-            {
-                foreach (Bullet bullet in Global.player.bullets)
-                {
-                    if (Vector2.Distance(position, bullet.position) < 50)
-                    {
-                        bullet.isRemoved = true;
-                        dead = true;
-                        ScoreManager.killCount++;
-                        color = Color.DarkRed;
-                        animation.frameRate = 0;
-                        
-                    }
-                }
-            }
+            
         }
 
         public void Flee()

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using Sem1OfficeRevenge.World;
 using System;
 using System.Collections.Generic;
@@ -28,7 +29,8 @@ namespace Sem1OfficeRevenge
             position = Global.world.playerCamera.position;
             SetObjectAnimation(AnimNames.PlayerRifleIdle);
             Global.currentScene.SetObjectLayerDepth(this, LayerDepth.Player);
-            //layerDepth = Global.currentScene.GetObjectLayerDepth(LayerDepth.GuiObjects);
+
+
         }
 
 
@@ -79,6 +81,7 @@ namespace Sem1OfficeRevenge
             bullets.Add(bullet);
             GlobalSound.sounds[SoundNames.Shot].Play();
             Global.currentScene.Instantiate(bullet);
+            
         }
 
         public override void Draw()

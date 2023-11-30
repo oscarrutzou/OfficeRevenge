@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Sem1OfficeRevenge.World;
 using System;
+using System.Diagnostics.Eventing.Reader;
 using System.Reflection.Metadata;
 
 namespace Sem1OfficeRevenge
@@ -42,7 +43,7 @@ namespace Sem1OfficeRevenge
             if (mouseState.LeftButton == ButtonState.Pressed && previousMouseState.LeftButton == ButtonState.Released)
             {
                 CheckButtons();
-            }
+            }           
 
             PlayerInput();
 
@@ -76,7 +77,7 @@ namespace Sem1OfficeRevenge
                 }
                 if (keyboardState.IsKeyDown(Keys.W))
                 {
-                    Global.player.position.Y -= Global.player.playerSpeed;
+                    Global.player.position.Y -= Global.player.playerSpeed;                    
                 }
                 if (keyboardState.IsKeyDown(Keys.S))
                 {

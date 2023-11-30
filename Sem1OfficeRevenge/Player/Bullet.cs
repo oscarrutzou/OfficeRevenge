@@ -20,7 +20,7 @@ namespace Sem1OfficeRevenge
         {
             texture = GlobalTextures.textures[TextureNames.Bullet];
             layerDepth = Global.currentScene.GetObjectLayerDepth(LayerDepth.Enemies);
-            scale = new Vector2(0.2f, 0.2f);
+            scale = new Vector2(0.07f, 0.07f);
 
             centerOrigin = true;
             SetCorrectBulletPositionWithOffset(offSet);
@@ -39,23 +39,30 @@ namespace Sem1OfficeRevenge
             position += direction * speed * totalSecondsTimer;
 
             CheckCollisionBox();
-            //DrawDebugCollisionBox();
+            
         }
 
         public override void CheckCollisionBox()
         {
-            foreach (GameObject test in Global.currentSceneData.defults) //Ændre til at kigge i enemies i currentSceneData
+            foreach (GenericEnemy enemy in Global.currentSceneData.enemies) //Ændre til at kigge i enemies i currentSceneData
             {
-                if (test is TestObjectCollide) //Fjern dette if, da vi allerede kigger igennem kun enemies. 
+                if (Collision.IsCollidingBox(this, enemy) && !enemy.dead)
                 {
-                    if (Collision.IsCollidingBox(this, test))
-                    {
-                        isRemoved = true; //Fjerner bullet
-                        test.isRemoved = true; //Her skal den dmg enemy med variablet "bulletDmg"
-                        //Spil hit lyd måske?
-                    }
+                    isRemoved = true;
+                    enemy.Die();
+                    
+                    //Spil hit lyd måske?
                 }
             }
+            //foreach (GameObject test in Global.currentSceneData.defults) //Ændre til at kigge i enemies i currentSceneData
+            //{
+            //    if (Collision.IsCollidingBox(this, test))
+            //    {
+            //        isRemoved = true; //Fjerner bullet
+            //        test.isRemoved = true; //Her skal den dmg enemy med variablet "bulletDmg"
+            //                               //Spil hit lyd måske?
+            //    }
+            //}
 
             //Efter lav det samme foreach bare med en med væggene. 
         }

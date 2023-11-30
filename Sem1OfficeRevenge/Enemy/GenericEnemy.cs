@@ -15,6 +15,8 @@ namespace Sem1OfficeRevenge
         public bool dead;
         
 
+
+
         public GenericEnemy()
         {
             Global.currentScene.SetObjectLayerDepth(this, LayerDepth.Enemies);
@@ -24,6 +26,8 @@ namespace Sem1OfficeRevenge
         {
             dead = true;
             ScoreManager.killCount++;
+            animation.frameRate = 0;
+            color = Color.DarkRed;
         }
 
     }
