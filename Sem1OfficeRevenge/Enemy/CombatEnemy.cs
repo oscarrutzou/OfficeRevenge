@@ -25,7 +25,7 @@ namespace Sem1OfficeRevenge
         private void Attack()
         {
             if (dead) return; 
-            
+            //Global.player
 
 
         }
@@ -37,7 +37,7 @@ namespace Sem1OfficeRevenge
             if (Math.Abs(Global.player.position.X - position.X) < 5 && Math.Abs(Global.player.position.Y - position.Y) < 5 && isAttacking == false)
             {
                 isAttacking = true;
-
+                Attack();
 
             }
             else if (Math.Abs(Global.player.position.X - position.X) > 7 && Math.Abs(Global.player.position.Y - position.Y) > 7)
@@ -60,6 +60,11 @@ namespace Sem1OfficeRevenge
             else if(Math.Abs(Global.player.position.Y - position.Y) > 50 && Global.player.position.Y < position.Y) { position.Y -= speed; }
 
 
+
+
+
+
+            
 
         }
     }
