@@ -54,16 +54,6 @@ namespace Sem1OfficeRevenge
                     //Spil hit lyd måske?
                 }
             }
-            //foreach (GameObject test in Global.currentSceneData.defults) //Ændre til at kigge i enemies i currentSceneData
-            //{
-            //    if (Collision.IsCollidingBox(this, test))
-            //    {
-            //        isRemoved = true; //Fjerner bullet
-            //        test.isRemoved = true; //Her skal den dmg enemy med variablet "bulletDmg"
-            //                               //Spil hit lyd måske?
-            //    }
-            //}
-
             //Efter lav det samme foreach bare med en med væggene. 
         }
 

@@ -15,7 +15,7 @@ namespace Sem1OfficeRevenge
         private float fadeAlpha = 0f; // Start with a transparent screen
         private Rectangle blackScreenSize;
         public bool beginAnimation = false;
-        private bool isFadingIn = true; // Start with the fade-in effect
+        public bool isFadingIn { get; private set; }
         public EventHandler<EventArgs> onFadeToBlackDone;
         public EventHandler<EventArgs> onFadeFromBlackDone;
         public BlackScreenFadeInOut()
@@ -24,6 +24,7 @@ namespace Sem1OfficeRevenge
             blackScreenSize = new Rectangle(0, 0, Global.graphics.PreferredBackBufferWidth, Global.graphics.PreferredBackBufferHeight);
             texture = GlobalTextures.textures[TextureNames.Pixel];
             isVisible = false;
+            isFadingIn = true;
         }
 
         public override void Draw()

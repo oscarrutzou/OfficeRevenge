@@ -50,6 +50,7 @@ namespace Sem1OfficeRevenge
             if (mouseState.LeftButton == ButtonState.Pressed && previousMouseState.LeftButton == ButtonState.Released)
             {
                 CheckButtons();
+                if (Global.player != null && !Global.currentScene.isPaused && !Global.world.blackScreenFadeInOut.isFadingIn) Global.player.DamagePlayer(10);
             }           
 
             PlayerInput();

@@ -15,6 +15,8 @@ namespace Sem1OfficeRevenge
 
         public BlackScreenFadeInOut blackScreenFadeInOut;
         public PauseScreen pauseScreen { get; private set; }
+        
+        public bool playerWon;
 
         public GameWorld()
         {
@@ -99,7 +101,7 @@ namespace Sem1OfficeRevenge
 
             Global.currentScene.DrawOnScreen();
             blackScreenFadeInOut?.Draw();
-            if (Global.currentScene != scenes[Scenes.MainMenu] && Global.currentScene != scenes[Scenes.LoadingScreen]) pauseScreen.DrawOnScreen();
+            if (Global.currentScene != scenes[Scenes.MainMenu] && Global.currentScene != scenes[Scenes.LoadingScreen] && Global.currentScene != scenes[Scenes.EndMenu]) pauseScreen.DrawOnScreen();
             Global.spriteBatch.End();
 
             base.Draw(gameTime);
@@ -111,6 +113,7 @@ namespace Sem1OfficeRevenge
         {
             scenes[Scenes.MainMenu] = new MainMenu();
             scenes[Scenes.LoadingScreen] = new LoadingScene();
+            scenes[Scenes.EndMenu] = new EndMenu();
             scenes[Scenes.TestJasper] = new TestSceneJasper();
             scenes[Scenes.TestLeonard] = new TestSceneLeonard();
             scenes[Scenes.TestMarc] = new TestSceneMarc();
@@ -152,8 +155,8 @@ namespace Sem1OfficeRevenge
             Global.currentScene.isPaused = false;
             Global.currentScene.hasFadeOut = false;
 
-            if (pauseScreen == null) pauseScreen = new PauseScreen();
-            if (scene != Scenes.MainMenu && scene != Scenes.LoadingScreen) pauseScreen.Initialize();
+            if (pauseScreen == null) pauseScreen = new PauseScreen(); //Skal være her, da pausescreen bruger gameobjects
+            if (scene != Scenes.MainMenu && scene != Scenes.LoadingScreen && scene != Scenes.EndMenu) pauseScreen.Initialize();
 
         }
 
