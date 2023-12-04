@@ -17,7 +17,7 @@ public class LoadingScene : Scene
         SceneData sc = Global.currentSceneData;
         await Task.Run(() => LoadContent());
         isLoading = false;
-        Global.world.ChangeScene(Scenes.TestBaseScene);
+        Global.world.ChangeScene(Scenes.TestLeonard);
     }
 
     private async Task LoadContent()

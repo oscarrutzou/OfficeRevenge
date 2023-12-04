@@ -17,9 +17,9 @@ namespace Sem1OfficeRevenge
 
         public CombatEnemy()
         {
-                SetObjectAnimation(AnimNames.PlayerRifleIdle);
-
-
+            SetObjectAnimation(AnimNames.PlayerRifleIdle);
+            speed = 5;
+            centerOrigin = true;
         }
 
         private void Attack()
@@ -37,13 +37,27 @@ namespace Sem1OfficeRevenge
             {
                 isAttacking = true;
 
+
             }
             else if (Math.Abs(Global.player.position.X - position.X) > 7 && Math.Abs(Global.player.position.Y - position.Y) > 7)
             {
                 isAttacking = false;
+
             }
-            
-            
+
+
+            if (Math.Abs(Global.player.position.X - position.X) > 50 && Global.player.position.X > position.X)
+            {
+                position.X += speed;
+            }
+            else if (Math.Abs(Global.player.position.X - position.X) > 50 && Global.player.position.X < position.X) { position.X -= speed; }
+
+            if (Math.Abs(Global.player.position.Y - position.Y) > 50 && Global.player.position.Y > position.Y) 
+            {
+                position.Y += speed;
+            }
+            else if(Math.Abs(Global.player.position.Y - position.Y) > 50 && Global.player.position.Y < position.Y) { position.Y -= speed; }
+
 
 
         }
