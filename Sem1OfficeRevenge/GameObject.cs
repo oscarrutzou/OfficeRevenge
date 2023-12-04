@@ -136,6 +136,29 @@ namespace Sem1OfficeRevenge
             Vector2 dir = targetWithOffset - position;
             rotation = (float)Math.Atan2(-dir.Y, -dir.X) + MathHelper.Pi;
         }
+
+        public virtual void LerpTowardsTarget(float target, float origin, float timer, float speed)
+        {
+            if (rotation == target) return;
+            rotation = MathHelper.Lerp(origin, target, timer * speed);
+
+        }
+
+        public float ShortestRotation(float targetRotation, float currentRotation)
+        {
+            float delta = MathHelper.WrapAngle(targetRotation - currentRotation);
+
+            if (delta > MathHelper.Pi)
+            {
+                delta -= MathHelper.TwoPi;
+            }
+            else if (delta < -MathHelper.Pi)
+            {
+                delta += MathHelper.TwoPi;
+            }
+
+            return currentRotation + delta;
+        }
         #endregion
 
         #region DebugCollsionBox
@@ -178,11 +201,6 @@ namespace Sem1OfficeRevenge
         }
         #endregion
 
-        public virtual void LerpTowardsTarget(float target, float origin, float timer, float speed)
-        {
-            if (rotation == target) return;
-            rotation = MathHelper.Lerp(origin, target, timer);
-
-        }
+        
     }
 }
