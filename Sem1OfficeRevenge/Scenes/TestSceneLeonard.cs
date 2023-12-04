@@ -10,9 +10,9 @@ namespace Sem1OfficeRevenge
 {
     public class TestSceneLeonard : Scene
     {
-        CombatEnemy comEnm;
         Player player;
         CivillianEnemy civEnm;
+        CombatEnemy comEnm;
         bool pressed;
         public TestSceneLeonard()
         {
@@ -24,11 +24,14 @@ namespace Sem1OfficeRevenge
             //comEnm = new CombatEnemy();
             player = new Player();
             Global.currentScene.Instantiate(player);
+            Global.player = player;
 
             civEnm = new CivillianEnemy();
             Global.currentScene.Instantiate(civEnm);
-            Global.player = player;
-            
+
+            comEnm = new CombatEnemy();
+            Global.currentScene.Instantiate(comEnm);
+
         }
 
 

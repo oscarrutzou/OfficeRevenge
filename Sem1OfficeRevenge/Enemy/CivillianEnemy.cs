@@ -19,6 +19,7 @@ namespace Sem1OfficeRevenge
         private Vector2 lookPoint;
         private float rotTarget;
         private float rotOrigin;
+        private float rotSpeed;
         private float timer;
 
         public CivillianEnemy()
@@ -36,7 +37,10 @@ namespace Sem1OfficeRevenge
             timer += (float)Global.gameTime.ElapsedGameTime.TotalSeconds;
             Vector2 dir = lookPoint - position;
             rotTarget = (float)Math.Atan2(-dir.Y, -dir.X) + MathHelper.Pi;
-            LerpTowardsTarget(rotTarget, rotOrigin, 1, 1);
+            rotTarget = ShortestRotation(rotTarget, rotation);
+            if (rotTarget > 2.5f) { rotSpeed = 0.0005f; } else if (rotTarget > 1.5f) { rotSpeed = 0.001f; } else { rotSpeed = 0.005f; };
+            LerpTowardsTarget(rotTarget, rotation, timer, rotSpeed);
+            
             if (Math.Abs(Global.player.position.X - position.X) < rnd.Next(850, 1250) && Math.Abs(Global.player.position.Y - position.Y) < rnd.Next(850, 1250))
             {
                 if (!fleeing)
