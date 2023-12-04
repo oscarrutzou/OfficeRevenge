@@ -8,7 +8,7 @@ namespace Sem1OfficeRevenge
 {
     internal class Shotgun : Weapon
     {
-        private int magSizeFactor; // magsize 5
+        private int magSizeFactor; // magsize 5 so factor i 1
 
         private void Shooting()
         {
