@@ -19,6 +19,6 @@ namespace Sem1OfficeRevenge
         public List<Bullet> bullets = new List<Bullet>();
         public List<Gui> guis = new List<Gui>();
 
-        public List<GameObject> defults = new List<GameObject>();
+        public List<GameObject> defaults = new List<GameObject>();
     }
 }

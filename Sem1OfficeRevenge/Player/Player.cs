@@ -13,7 +13,7 @@ namespace Sem1OfficeRevenge
 {
     public class Player : GameObject
     {
-        private int health;
+        public int health {  get; private set; }
         public bool alive;
         public Vector2 origin;
         public float playerSpeed = 10f;
@@ -24,6 +24,8 @@ namespace Sem1OfficeRevenge
 
         public Player()
         {
+            health = 100;
+
             centerOrigin = true;
             Global.player = this;
             position = Global.world.playerCamera.position;
@@ -87,6 +89,16 @@ namespace Sem1OfficeRevenge
         public override void Draw()
         {
             base.Draw();
+        }
+
+        public void DamagePlayer(int dmgAmount)
+        {
+            health -= dmgAmount;
+            if (health <= 0)
+            {
+                health = 0;
+                Global.world.ChangeScene(Scenes.EndMenu);
+            }
         }
     }
 }

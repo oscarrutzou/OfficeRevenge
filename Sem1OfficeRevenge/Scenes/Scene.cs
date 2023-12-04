@@ -63,7 +63,7 @@ namespace Sem1OfficeRevenge
 
         public virtual void DrawInWorld()
         {
-            if (Global.currentScene == Global.world.scenes[Scenes.MainMenu] || Global.currentScene == Global.world.scenes[Scenes.LoadingScreen])
+            if (Global.currentScene == Global.world.scenes[Scenes.MainMenu] || Global.currentScene == Global.world.scenes[Scenes.LoadingScreen] || Global.currentScene == Global.world.scenes[Scenes.EndMenu])
             {
                 Global.graphics.GraphicsDevice.Clear(Color.DarkRed);
             }
@@ -165,7 +165,7 @@ namespace Sem1OfficeRevenge
             Global.currentSceneData.enemies.RemoveAll(enemy => enemy.isRemoved);
             Global.currentSceneData.bullets.RemoveAll(bullet => bullet.isRemoved);
             Global.currentSceneData.guis.RemoveAll(gui => gui.isRemoved);
-            Global.currentSceneData.defults.RemoveAll(defultsObj => defultsObj.isRemoved);
+            Global.currentSceneData.defaults.RemoveAll(defultsObj => defultsObj.isRemoved);
         }
 
         /// <summary>
@@ -176,7 +176,7 @@ namespace Sem1OfficeRevenge
             Global.currentSceneData.gameObjects.AddRange(Global.currentSceneData.enemies);
             Global.currentSceneData.gameObjects.AddRange(Global.currentSceneData.bullets);
             Global.currentSceneData.gameObjects.AddRange(Global.currentSceneData.guis);
-            Global.currentSceneData.gameObjects.AddRange(Global.currentSceneData.defults);
+            Global.currentSceneData.gameObjects.AddRange(Global.currentSceneData.defaults);
         }
 
         /// <summary>
@@ -200,7 +200,7 @@ namespace Sem1OfficeRevenge
                         break;
 
                     default:
-                        Global.currentSceneData.defults.Add(obj);
+                        Global.currentSceneData.defaults.Add(obj);
                         break;
 
                 }
