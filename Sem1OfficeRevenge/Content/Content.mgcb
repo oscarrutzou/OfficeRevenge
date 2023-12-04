@@ -32,13 +32,6 @@
 /processorParam:TextureFormat=Compressed
 /build:Fonts/Arial.spritefont
 
-#begin Fonts/CrunchyFont.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:Fonts/CrunchyFont.spritefont
-
 #begin Fonts/DistortedTheme.mp3
 /importer:Mp3Importer
 /processor:SoundEffectProcessor
@@ -63,6 +56,13 @@
 /processorParam:PremultiplyAlpha=True
 /processorParam:TextureFormat=Compressed
 /build:Fonts/SlencoBlack.spritefont
+
+#begin Fonts/SlencoBlackBig.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Fonts/SlencoBlackBig.spritefont
 
 #begin Fonts/step.mp3
 /importer:Mp3Importer
