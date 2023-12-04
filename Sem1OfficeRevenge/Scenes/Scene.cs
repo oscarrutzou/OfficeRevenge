@@ -23,6 +23,7 @@ namespace Sem1OfficeRevenge
         Background,
         InteractableObjects,
         Enemies,
+        Bullets,
         Player,
         ScreenOverLay,
         GuiObjects,
@@ -33,24 +34,11 @@ namespace Sem1OfficeRevenge
     public abstract class Scene
     {
         // We have a data stored on each scene, to make it easy to add and remove gameObjects
-        private SceneData data = new SceneData();
-        
-        public Scene() 
-        {
-            Global.currentSceneData = data;
-        }
+        public bool hasFadeOut;
+        public bool isPaused;
 
         public abstract void Initialize();
 
-        public void BlackOverLayFadeIn()
-        {
-            //if (Global.currentScene == Global.world.scenes[Scenes.MainMenu] || Global.currentScene == Global.world.scenes[Scenes.LoadingScreen]) return;
-
-            //float fadeOutTimeSec = 1f;
-            //BlackScreenFade fadeInObj = new BlackScreenFade(fadeOutTimeSec, 1, 0, true);
-            //Global.currentScene.Instantiate(fadeInObj);
-        }
-        private bool hasFadeOut;
         /// <summary>
         /// The base update on the scene handles all the gameobjects and calls Update on them all. 
         /// </summary>
@@ -71,27 +59,28 @@ namespace Sem1OfficeRevenge
                 gameObject.animation?.AnimationUpdate();
                 gameObject.Update();
             }
-
-            if (!hasFadeOut)
-            {
-                if (Global.currentScene == Global.world.scenes[Scenes.MainMenu]
-                    || Global.currentScene == Global.world.scenes[Scenes.LoadingScreen]) return;
-
-                Global.world.blackScreenFadeInOut?.StartFadeOut();
-                hasFadeOut = true;
-            }
         }
 
         public virtual void DrawInWorld()
         {
-            Global.graphics.GraphicsDevice.Clear(Color.DarkRed);
+            if (Global.currentScene == Global.world.scenes[Scenes.MainMenu] || Global.currentScene == Global.world.scenes[Scenes.LoadingScreen])
+            {
+                Global.graphics.GraphicsDevice.Clear(Color.DarkRed);
+            }
+            else
+            {
+                Global.graphics.GraphicsDevice.Clear(Color.Black);
+            }
             
             foreach (GameObject gameObject in Global.currentSceneData.gameObjects)
             {
-                if (gameObject is Gui) return;
-                gameObject.Draw();
+                if (gameObject is not Gui)
+                {
+                    gameObject.Draw();
+                }
             }
         }
+
         public virtual void DrawOnScreen()
         {
             foreach (GameObject guiGameObject in Global.currentSceneData.guis)
@@ -116,6 +105,9 @@ namespace Sem1OfficeRevenge
                     break;
                 case LayerDepth.Enemies:
                     gameObject.layerDepth = 0.3f;
+                    break;
+                case LayerDepth.Bullets:
+                    gameObject.layerDepth = 0.35f;
                     break;
                 case LayerDepth.Player:
                     gameObject.layerDepth = 0.4f;
@@ -146,6 +138,8 @@ namespace Sem1OfficeRevenge
                     return 0.2f;
                 case LayerDepth.Enemies:
                     return 0.3f;
+                case LayerDepth.Bullets:
+                    return 0.35f;
                 case LayerDepth.Player:
                     return 0.4f;
                 case LayerDepth.ScreenOverLay:

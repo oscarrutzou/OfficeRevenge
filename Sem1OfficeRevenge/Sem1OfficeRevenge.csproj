@@ -12,6 +12,11 @@
     <ApplicationIcon>officeRevengeIcon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="Content\UI\**" />
+    <EmbeddedResource Remove="Content\UI\**" />
+    <None Remove="Content\UI\**" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="officeRevengeIcon.ico" />
   </ItemGroup>
   <ItemGroup>

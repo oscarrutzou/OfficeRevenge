@@ -47,7 +47,6 @@ namespace Sem1OfficeRevenge
             fillPosition = position + fillOffset;
         }
 
-
         public override void Update()
         {
             // Update the delay timer
@@ -80,8 +79,6 @@ namespace Sem1OfficeRevenge
         {
             base.Draw();
             if (!isVisible) return;
-
-
 
             // Draw the filled rectangle (colored area)
             float musicWidth = MediaPlayer.Volume * sliderRectangle.Width;

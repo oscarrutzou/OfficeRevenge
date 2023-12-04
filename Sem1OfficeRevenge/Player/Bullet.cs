@@ -16,61 +16,53 @@ namespace Sem1OfficeRevenge
         public float totalSecondsTimer;
    
 
-        public Bullet(Vector2 offSet)
-        {
-            texture = GlobalTextures.textures[TextureNames.Bullet];
-            centerOrigin = true;
-            SetCorrectBulletPositionWithOffset(offSet);
-            rotation = Global.player.rotation;
-            direction = new((float)Math.Cos(Global.player.rotation), (float)Math.Sin(Global.player.rotation));
-            speed = 1000;
-            lifespan = 2;
-            layerDepth = Global.currentScene.GetObjectLayerDepth(LayerDepth.Enemies);
-            scale = new Vector2(0.2f, 0.2f);
-        }
-
         public Bullet(Vector2 offSet, int speed, int bulletDmg)
         {
             texture = GlobalTextures.textures[TextureNames.Bullet];
+            Global.currentScene.SetObjectLayerDepth(this, LayerDepth.Bullets);
+            scale = new Vector2(0.07f, 0.07f);
+
             centerOrigin = true;
             SetCorrectBulletPositionWithOffset(offSet);
             rotation = Global.player.rotation;
             direction = new((float)Math.Cos(Global.player.rotation), (float)Math.Sin(Global.player.rotation));
             this.speed = speed;
-
-            //slet det her oscar :D
-            this.speed = 1000;
-            scale = new Vector2(0.2f, 0.2f);
-            //slet det her oscar :D
-
             this.bulletDmg = bulletDmg;
+
             lifespan = 2;
-            layerDepth = Global.currentScene.GetObjectLayerDepth(LayerDepth.Enemies);
         }
 
         public override void Update()
         {
-            if (isRemoved) return;
+            if (isRemoved || Global.currentScene.isPaused) return;
             totalSecondsTimer = (float)Global.gameTime.ElapsedGameTime.TotalSeconds;
             position += direction * speed * totalSecondsTimer;
 
             CheckCollisionBox();
+            
         }
 
         public override void CheckCollisionBox()
         {
-            foreach (GameObject test in Global.currentSceneData.defults) //Ændre til at kigge i enemies i currentSceneData
+            foreach (GenericEnemy enemy in Global.currentSceneData.enemies) //Ændre til at kigge i enemies i currentSceneData
             {
-                if (test is TestObjectCollide) //Fjern dette if, da vi allerede kigger igennem kun enemies. 
+                if (Collision.IsCollidingBox(this, enemy) && !enemy.dead)
                 {
-                    if (Collision.IsCollidingBox(this, test))
-                    {
-                        isRemoved = true; //Fjerner bullet
-                        test.isRemoved = true; //Her skal den dmg enemy med variablet "bulletDmg"
-                        //Spil hit lyd måske?
-                    }
+                    isRemoved = true;
+                    enemy.Die();
+                    
+                    //Spil hit lyd måske?
                 }
             }
+            //foreach (GameObject test in Global.currentSceneData.defults) //Ændre til at kigge i enemies i currentSceneData
+            //{
+            //    if (Collision.IsCollidingBox(this, test))
+            //    {
+            //        isRemoved = true; //Fjerner bullet
+            //        test.isRemoved = true; //Her skal den dmg enemy med variablet "bulletDmg"
+            //                               //Spil hit lyd måske?
+            //    }
+            //}
 
             //Efter lav det samme foreach bare med en med væggene. 
         }
@@ -82,7 +74,7 @@ namespace Sem1OfficeRevenge
             Vector2 offset = new Vector2(playerTexture.Width / 2, 0) + playerGunOffset;
 
             // Add half the height of the projectile sprite to the offset
-            offset.X += texture.Height / 2; //Should use the width when it has a proper texture that faces right
+            offset.X += (texture.Height * scale.Y) / 2; //Should use the width when it has a proper texture that faces right
 
             // Rotate the offset by the same amount as the tower
             float cos = (float)Math.Cos(Global.player.rotation);

@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework;
-using Sem1OfficeRevenge.Content.UI;
 using Sem1OfficeRevenge.World;
 using System;
 using System.Collections.Generic;
@@ -17,7 +16,7 @@ namespace Sem1OfficeRevenge
     {
         LevelGeneration lvlGen;
         bool pressed = false;
-
+        PauseScreen pauseScreen;
         public TestBaseScene()
         {
             
@@ -35,16 +34,43 @@ namespace Sem1OfficeRevenge
             Global.player = new Player();
             Global.player.centerOrigin = true;
             Global.currentScene.Instantiate(Global.player);
-
         }
 
-        public override void DrawInWorld()
-        {
+        //private Button playBtn;
+        //private Button settingsBtn;
+        //private Button quitBtn;
 
-            ScoreManager.Draw(new Vector2(10, 10));
-            base.DrawInWorld();
-            Global.graphics.GraphicsDevice.Clear(Color.Black);
-        }
+        //private void InitPause()
+        //{
+        //    playBtn = new Button(
+        //             "Start Game",
+        //             true,
+        //             PlayGame);
+
+        //    settingsBtn = new Button(
+        //                         "Settings",
+        //                         true,
+        //                         PlayGame);
+        //    quitBtn = new Button(
+        //                         "Quit",
+        //                         true,
+        //                         QuitGame);
+
+        //    Global.currentScene.Instantiate(playBtn);
+        //    Global.currentScene.Instantiate(settingsBtn);
+        //    Global.currentScene.Instantiate(quitBtn);
+        //}
+
+        //private void PlayGame()
+        //{
+        //    //Global.world.ChangeScene(Scenes.LoadingScreen);
+        //    //PauseScreenMenu();
+        //}
+        //private void QuitGame()
+        //{
+        //    Global.world.Exit();
+        //}
+        
 
         public override void Update()
         {
@@ -59,23 +85,32 @@ namespace Sem1OfficeRevenge
 
             ScoreManager.UpdateScore();
 
-            if (state.IsKeyDown(Keys.R) && pressed == false)
-            {
-                pressed = true;
-                Application.Restart();
-                //Global.world.ChangeScene(Scenes.TestBaseScene);
-            }
+            //if (state.IsKeyDown(Keys.R) && pressed == false)
+            //{
+            //    pressed = true;
+            //    Application.Restart();
+            //    //Global.world.ChangeScene(Scenes.TestBaseScene);
+            //}
 
-            if (state.IsKeyDown(Keys.LeftShift))
-            {
-                Global.player.playerSpeed = 15;
-            }
-            else
-            {
-                Global.player.playerSpeed = 7;
-            }
+            //if (state.IsKeyDown(Keys.LeftShift))
+            //{
+            //    Global.player.playerSpeed = 15;
+            //}
+            //else
+            //{
+            //    Global.player.playerSpeed = 7;
+            //}
 
             base.Update();
+        }
+
+        public override void DrawOnScreen()
+        {
+            base.DrawOnScreen();
+            
+            ScoreManager.DrawScore(new Vector2(10, 10));
+            //pauseScreen.DrawOnScreen();
+
         }
     }
 }

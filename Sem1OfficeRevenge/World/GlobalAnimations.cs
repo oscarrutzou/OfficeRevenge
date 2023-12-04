@@ -45,10 +45,25 @@ namespace Sem1OfficeRevenge
                 {
                     throw;
                 }
-                await Task.Delay(30); // Wait for 100 milliseconds
+                await Task.Delay(30);
             }
             animations[animationName] = animList;
             progress += 1f / totalAnimations; // Update the progress after each animation is loaded
+        }
+
+        public static Animation SetAnimation(AnimNames name)
+        {
+            return new Animation(animations[name], name);
+        }
+
+        public static void LoadLoadingScreenIcon()
+        {
+            List<Texture2D> animList = new List<Texture2D>();
+            for (int i = 0; i < 3; i++)
+            {
+                animList.Add(Global.world.Content.Load<Texture2D>("GUI\\Icons\\icon_timeglass_" + i));
+            }
+            animations[AnimNames.GuiLoadingScreenIcon] = animList;
         }
 
         public static void LoadContentTestScenes()
@@ -79,19 +94,7 @@ namespace Sem1OfficeRevenge
             progress += 1f / totalAnimations; // Update the progress after each animation is loaded
         }
 
-        public static Animation SetAnimation(AnimNames name)
-        {
-            return new Animation(animations[name]);
-        }
-        public static void LoadLoadingScreenIcon()
-        {
-            List<Texture2D> animList = new List<Texture2D>();
-            for (int i = 0; i < 3; i++)
-            {
-                animList.Add(Global.world.Content.Load<Texture2D>("GUI\\Icons\\icon_timeglass_" + i));
-            }
-            animations[AnimNames.GuiLoadingScreenIcon] = animList;
-        }
 
+    
     }
 }

@@ -6,10 +6,11 @@ using System;
 
 namespace Sem1OfficeRevenge
 {
-    public class BlackScreenFadeInOut: Gui
+    public class BlackScreenFadeInOut : Gui
     {
         public float fadeInTime = 1f;
-        public float fadeOutTime = 2f;
+        public int fadeInTimeMillisec = 800; //For the scenechange in gameworld.
+        public float fadeOutTime = 2f; //To lerp towards
         private float timer;
         private float fadeAlpha = 0f; // Start with a transparent screen
         private Rectangle blackScreenSize;
@@ -22,11 +23,13 @@ namespace Sem1OfficeRevenge
             position = Vector2.Zero;
             blackScreenSize = new Rectangle(0, 0, Global.graphics.PreferredBackBufferWidth, Global.graphics.PreferredBackBufferHeight);
             texture = GlobalTextures.textures[TextureNames.Pixel];
+            isVisible = false;
         }
 
         public override void Draw()
         {
             base.Draw();
+
             Global.spriteBatch.Draw(GlobalTextures.textures[TextureNames.Pixel],
                         position,
                         blackScreenSize,
@@ -40,6 +43,8 @@ namespace Sem1OfficeRevenge
 
         public void StartFadeIn()
         {
+            blackScreenSize = new Rectangle(0, 0, Global.graphics.PreferredBackBufferWidth, Global.graphics.PreferredBackBufferHeight);
+            isVisible = true;
             beginAnimation = true;
             isFadingIn = true;
             timer = 0f;
@@ -47,6 +52,8 @@ namespace Sem1OfficeRevenge
 
         public void StartFadeOut()
         {
+            blackScreenSize = new Rectangle(0, 0, Global.graphics.PreferredBackBufferWidth, Global.graphics.PreferredBackBufferHeight);
+            isVisible = false;
             beginAnimation = true;
             isFadingIn = false;
             timer = 0f;

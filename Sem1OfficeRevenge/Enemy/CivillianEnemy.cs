@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using Sem1OfficeRevenge.Content.UI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,7 +31,9 @@ namespace Sem1OfficeRevenge
 
         public override void Update()
         {
-            if (dead) return;
+            if (Global.currentScene.isPaused || dead) return;
+
+
             timer += (float)Global.gameTime.ElapsedGameTime.TotalSeconds;
             Vector2 dir = lookPoint - position;
             rotTarget = (float)Math.Atan2(-dir.Y, -dir.X) + MathHelper.Pi;
@@ -64,21 +65,7 @@ namespace Sem1OfficeRevenge
                 fleeing = false;
             }
 
-            if (Global.player.bullets.Count > 0)
-            {
-                foreach (Bullet bullet in Global.player.bullets)
-                {
-                    if (Vector2.Distance(position, bullet.position) < 50)
-                    {
-                        bullet.isRemoved = true;
-                        dead = true;
-                        ScoreManager.killCount++;
-                        color = Color.DarkRed;
-                        animation.frameRate = 0;
-                        
-                    }
-                }
-            }
+            
         }
 
         public void Flee()

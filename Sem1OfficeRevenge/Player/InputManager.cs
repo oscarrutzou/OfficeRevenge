@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Sem1OfficeRevenge.World;
 using System;
+using System.Diagnostics.Eventing.Reader;
 using System.Reflection.Metadata;
 
 namespace Sem1OfficeRevenge
@@ -10,6 +11,7 @@ namespace Sem1OfficeRevenge
     public static class InputManager
     {
         public static KeyboardState keyboardState;
+        public static KeyboardState previousKeyboardState;
         public static MouseState mouseState;
         // Prevents multiple click when clicking a button
         public static MouseState previousMouseState;
@@ -17,7 +19,8 @@ namespace Sem1OfficeRevenge
         public static Vector2 mousePositionInWorld;
         public static Vector2 mousePositionOnScreen;
         public static bool mouseClicked;
-        
+
+        public static bool anyMoveKeyPressed;
         /// <summary>
         /// Gets called in GameWorld, at the start of the update
         /// </summary>
@@ -30,36 +33,44 @@ namespace Sem1OfficeRevenge
             mousePositionOnScreen = GetMousePositionOnUI();
             mousePositionInWorld = GetMousePositionInWorld();
 
-            if (keyboardState.IsKeyDown(Keys.Escape))
+            if (keyboardState.IsKeyDown(Keys.Escape) && !previousKeyboardState.IsKeyDown(Keys.Escape) && Global.player != null)
             {
-                Global.world.Exit();
-            }
+                Global.currentScene.isPaused = !Global.currentScene.isPaused;
 
-            PlayerInput();
+                if (Global.currentScene.isPaused)
+                {
+                    Global.world.pauseScreen.ShowPauseMenu();
+                }
+                else
+                {
+                    Global.world.pauseScreen.HidePauseMenu();
+                }
+            }
 
             if (mouseState.LeftButton == ButtonState.Pressed && previousMouseState.LeftButton == ButtonState.Released)
             {
                 CheckButtons();
+            }           
 
-            }
+            PlayerInput();
 
             mouseClicked = (Mouse.GetState().LeftButton == ButtonState.Pressed) && (previousMouseState.LeftButton == ButtonState.Released);
 
-
             previousMouseState = mouseState;
-
-
+            previousKeyboardState = keyboardState;
         }
-        
+
         public static void PlayerInput()
         {
+            if (Global.currentScene.isPaused) return;
+
             if (Global.player != null)
             {
                 Vector2 dir = mousePositionInWorld - Global.player.position;
                 dir.Normalize();
 
                 // Calculate the offset vector perpendicular to the direction vector
-                Vector2 offset = new Vector2(-dir.Y, dir.X) * -50; // 50 is the offset distance
+                Vector2 offset = new Vector2(-dir.Y, dir.X) * -50; // 50 is the offset distance in px
 
                 Global.player.RotateTowardsTargetWithOffset(mousePositionInWorld, offset);
 
@@ -73,13 +84,21 @@ namespace Sem1OfficeRevenge
                 }
                 if (keyboardState.IsKeyDown(Keys.W))
                 {
-                    Global.player.position.Y -= Global.player.playerSpeed;
+                    Global.player.position.Y -= Global.player.playerSpeed;                    
                 }
                 if (keyboardState.IsKeyDown(Keys.S))
                 {
                     Global.player.position.Y += Global.player.playerSpeed;
                 }
 
+                if (keyboardState.IsKeyDown(Keys.W) || keyboardState.IsKeyDown(Keys.A) || keyboardState.IsKeyDown(Keys.S) || keyboardState.IsKeyDown(Keys.D))
+                {
+                    anyMoveKeyPressed = true;
+                }
+                else
+                {
+                    anyMoveKeyPressed = false;
+                }
             }
         }
 
@@ -112,7 +131,7 @@ namespace Sem1OfficeRevenge
         private static Vector2 GetMousePositionInWorld()
         {
             Vector2 pos = new Vector2(mouseState.X, mouseState.Y);
-            Matrix invMatrix = Matrix.Invert(Global.world.worldCamera.GetMatrix());
+            Matrix invMatrix = Matrix.Invert(Global.world.playerCamera.GetMatrix());
 
             return Vector2.Transform(pos, invMatrix);
         }

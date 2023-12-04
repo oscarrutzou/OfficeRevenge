@@ -95,7 +95,14 @@ namespace Sem1OfficeRevenge
             //DrawDebugCollisionBox();
         }
 
-        public void SetObjectAnimation(AnimNames animationName) => animation = GlobalAnimations.SetAnimation(animationName);
+        public void SetObjectAnimation(AnimNames animationName)
+        {
+            // Check if the current animation is already the one we want to set
+            if (animation != null && animation.animationName == animationName) return;
+
+            // If it's not, we create a new animation
+            animation = GlobalAnimations.SetAnimation(animationName);
+        }
 
         #region CollsionBox
         public void SetCollisionBox(int width, int height)
@@ -127,12 +134,7 @@ namespace Sem1OfficeRevenge
             if (position == targetWithOffset) return;
 
             Vector2 dir = targetWithOffset - position;
-
-            // Only update the rotation if the distance is greater than a certain threshold
-            if (dir.Length() > 40) //In px
-            {
-                rotation = (float)Math.Atan2(-dir.Y, -dir.X) + MathHelper.Pi;
-            }
+            rotation = (float)Math.Atan2(-dir.Y, -dir.X) + MathHelper.Pi;
         }
 
         public virtual void LerpTowardsTarget(float target, float origin, float timer, float speed)
@@ -195,7 +197,7 @@ namespace Sem1OfficeRevenge
         {
             float length = Vector2.Distance(start, end);
             float angle = (float)Math.Atan2(end.Y - start.Y, end.X - start.X);
-            Global.spriteBatch.Draw(pixel, start, null, color, angle, Vector2.Zero, new Vector2(length, 1), SpriteEffects.None, 0);
+            Global.spriteBatch.Draw(pixel, start, null, color, angle, Vector2.Zero, new Vector2(length, 1), SpriteEffects.None, Global.currentScene.GetObjectLayerDepth(LayerDepth.FullOverlay));
         }
         #endregion
 
