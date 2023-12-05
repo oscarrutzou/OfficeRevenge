@@ -18,9 +18,8 @@ namespace Sem1OfficeRevenge
         public int height;
         private Vector2 origin;
         private Vector2 center;
+        public Rectangle hallwayCol;
 
-        //private List<CivillianEnemy> CivEnemies = new List<CivillianEnemy>();
-        //private CivillianEnemy civEnm;
 
         public Room(Texture2D Map, float rotation)
         {
@@ -36,21 +35,13 @@ namespace Sem1OfficeRevenge
         
         public override void Update()
         {
-            //foreach (CivillianEnemy civ in CivEnemies)
-            //{
-            //    civ.Update();
-            //}
+            
         }
 
         public override void Draw()
         {
-            //foreach (CivillianEnemy civ in CivEnemies)
-            //{
-            //    civ.Draw();
-            //}
-
-            base.Draw();
-            
+            base.Draw();   
+            DrawDebugCollisionBox();
         }
 
     }
