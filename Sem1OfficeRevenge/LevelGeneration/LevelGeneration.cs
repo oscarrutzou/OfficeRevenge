@@ -27,7 +27,7 @@ namespace Sem1OfficeRevenge
         private int tempX;
         private int tempY;
         private bool intersects = false;
-
+        private int scale = 5;
         //private Texture2D currentTexture;
 
         public void GenerateWorld()
@@ -363,28 +363,28 @@ namespace Sem1OfficeRevenge
             randomRotation += MathHelper.PiOver2;
             tempRoom.rotation = randomRotation;
         }
-
+   
         private void MoveUp(Room tempRoom)
         {
-            tempRoom.position.Y -= tempRoom.texture.Height * 1;
+            tempRoom.position.Y -= tempRoom.texture.Height * scale;
             previousRoom = tempRoom;
         }
 
         private void MoveDown(Room tempRoom) 
         { 
-           tempRoom.position.Y += tempRoom.texture.Height * 1; 
+           tempRoom.position.Y += tempRoom.texture.Height * scale; 
            previousRoom = tempRoom; 
         }
 
         private void MoveLeft(Room tempRoom)
         {
-            tempRoom.position.X -= tempRoom.texture.Width * 1; 
+            tempRoom.position.X -= tempRoom.texture.Width * scale; 
             previousRoom = tempRoom; 
         }
 
         private void MoveRight(Room tempRoom)
         {
-            tempRoom.position.X += tempRoom.texture.Width * 1; 
+            tempRoom.position.X += tempRoom.texture.Width * scale; 
             previousRoom = tempRoom; 
         }
 

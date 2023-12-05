@@ -32,6 +32,7 @@ namespace Sem1OfficeRevenge
         
         public bool isRemoved;
         public virtual bool isVisible { get; set; }
+
         public Rectangle collisionBox
         {
             get
