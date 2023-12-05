@@ -1,4 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
+using Sem1OfficeRevenge.Enemy;
+using SharpDX.Direct3D9;
 using Microsoft.Xna.Framework.Audio;
 using Sem1OfficeRevenge.World;
 using System;
@@ -15,7 +17,6 @@ namespace Sem1OfficeRevenge
         public bool injured;
         private bool fleeing;
         private int fleeDirection;
-        private Random rnd = new Random();
         private int minSpeed = 5-4;
         private int maxSpeed = 11-4;
         private Vector2 lookPoint;
@@ -23,6 +24,8 @@ namespace Sem1OfficeRevenge
         private float rotOrigin;
         private float rotSpeed;
         private float timer;
+
+
 
         public CivillianEnemy()
         {
@@ -33,9 +36,37 @@ namespace Sem1OfficeRevenge
 
         }
 
+        bool WalkedFar(float range, Vector2 v1, Vector2 v2)
+        {
+            var dx = v1.X - v2.X;
+            var dy = v1.Y - v2.Y;
+            return dx * dx + dy * dy < range * range;
+        }
+
         public override void Update()
         {
             if (Global.currentScene.isPaused || dead) return;
+
+            if (WalkedFar(75, position, oldPos) == false)
+            {
+                if (bloodied > 0)
+                {
+                    shoePrints.Add(new ShoePrint(right, position, rotation));
+                    oldPos = position;
+                    right = !right;
+                    bloodied--;
+                }
+
+            }
+            foreach (Blood blood in Global.currentSceneData.bloods)
+            {
+                if (Math.Abs(position.X - blood.position.X) < (blood.texture.Width * scale.X) / 2 / 2 && Math.Abs(position.Y - blood.position.Y) < (blood.texture.Height * scale.Y) / 2 / 2)
+                {
+
+                    bloodied = 10;
+
+                }
+            }
 
 
             timer += (float)Global.gameTime.ElapsedGameTime.TotalSeconds;
@@ -74,6 +105,10 @@ namespace Sem1OfficeRevenge
             
         }
 
+        public void ChangeDirection() 
+        {
+            fleeDirection = rnd.Next(1, 4);
+            rotOrigin = rotation;
         private void ChooseRndVoiceLine()
         {
             if (rnd.Next(0, 5) == 0)
@@ -86,7 +121,7 @@ namespace Sem1OfficeRevenge
 
         public void Flee()
         {
-            switch (fleeDirection)
+            switch (fleeDirection)  
             {
                 case 1:
                     if (Global.player.position.X>position.X)

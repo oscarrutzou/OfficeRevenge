@@ -6,14 +6,19 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Sem1OfficeRevenge.Enemy;
 
 namespace Sem1OfficeRevenge
 {
     public class GenericEnemy : GameObject
     {
-        private int health;
         public bool dead;
-        
+        private Blood blood;
+        protected List<ShoePrint> shoePrints = new List<ShoePrint>();
+        protected Vector2 oldPos;
+        protected int bloodied = 0;
+        protected bool right = true;
+        protected Random rnd = new Random();
 
 
 
@@ -24,11 +29,14 @@ namespace Sem1OfficeRevenge
         
         public void Die()
         {
+            blood = new Blood(position);
+            Global.currentScene.Instantiate(blood);
             dead = true;
             ScoreManager.killCount++;
             animation.frameRate = 0;
-            color = Color.DarkRed;
-        }
+            //color = Color.DarkRed;
 
+        }
+        
     }
 }

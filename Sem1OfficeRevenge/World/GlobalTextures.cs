@@ -19,7 +19,8 @@ namespace Sem1OfficeRevenge
         GuiSliderOver,
         GuiSliderHandle,
         Pixel,
-
+        Blood,
+        Shoe,
 
         Bullet,        
     }
@@ -32,7 +33,7 @@ namespace Sem1OfficeRevenge
 
         public static void LoadContent()
         {
-            
+
             textures = new Dictionary<TextureNames, Texture2D>
             {
                 {TextureNames.TileMap1, Global.world.Content.Load<Texture2D>("Rooms\\TempLobby1") },
@@ -46,7 +47,11 @@ namespace Sem1OfficeRevenge
                 {TextureNames.GuiSliderOver, Global.world.Content.Load<Texture2D>("GUI\\Slider_frame_over") },
                 {TextureNames.GuiSliderHandle, Global.world.Content.Load<Texture2D>("GUI\\Slider_Handle") },
                 {TextureNames.Pixel, Global.world.Content.Load<Texture2D>("GUI\\Pixel") },
-                {TextureNames.Bullet, Global.world.Content.Load<Texture2D>("Bullet\\Bullet") }
+                {TextureNames.Bullet, Global.world.Content.Load<Texture2D>("Bullet\\Bullet") },
+
+                {TextureNames.Blood, Global.world.Content.Load<Texture2D>("Fonts\\BloodPool") },
+                {TextureNames.Shoe, Global.world.Content.Load<Texture2D>("Fonts\\shoeprint") }
+
             };
 
             defaultFont = Global.world.Content.Load<SpriteFont>("Fonts\\SlencoBlack");

@@ -25,7 +25,7 @@ public class LoadingScene : Scene
             await Task.Run(() => LoadContent());
             isLoading = false;
             hasLoaded = true;
-            Global.world.ChangeScene(Scenes.TestLeonard);
+            Global.world.ChangeScene(Scenes.TestBaseScene);
         }
         else
         {
