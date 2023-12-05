@@ -11,11 +11,11 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Sem1OfficeRevenge
 {
-    internal class Room : GameObject
+    public class Room : GameObject
     {
         //public Texture2D map;
-        int width;
-        int height;
+        public int width;
+        public int height;
         private Vector2 origin;
         private Vector2 center;
 
@@ -28,7 +28,8 @@ namespace Sem1OfficeRevenge
             centerOrigin = true;
             this.rotation = rotation;
             this.scale = new Vector2(5f, 5f);
-
+            width = this.texture.Width * (int)scale.X;
+            height = this.texture.Height * (int)scale.Y;
             layerDepth = Global.currentScene.GetObjectLayerDepth(LayerDepth.Background);
 
         }

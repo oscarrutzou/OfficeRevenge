@@ -11,6 +11,7 @@ namespace Sem1OfficeRevenge
     public abstract class GameObject
     {
         public Vector2 position;
+        public Vector2 origin;
         internal float rotation;
         internal float rotationVelocity = 3f;
         public Vector2 scale = new Vector2(1,1);
@@ -24,13 +25,11 @@ namespace Sem1OfficeRevenge
         public Color color = Color.White;
 
         public Animation animation;
-        //public float frameRate = 20f;
 
         private int collisionBoxWidth;
         private int collisionBoxHeight;
         private Vector2 offset;
         
-        //public bool isVisible = true;
         public bool isRemoved;
         public virtual bool isVisible { get; set; }
         public Rectangle collisionBox
@@ -47,7 +46,7 @@ namespace Sem1OfficeRevenge
                 int width = collisionBoxWidth > 0 ? collisionBoxWidth : drawTexture.Width;
                 int height = collisionBoxHeight > 0 ? collisionBoxHeight : drawTexture.Height;
 
-                Vector2 origin = centerOrigin ? new Vector2(width / 2, height / 2) : Vector2.Zero;
+                origin = centerOrigin ? new Vector2(width / 2, height / 2) : Vector2.Zero;
 
                 return new Rectangle(
                     (int)(position.X + offset.X - origin.X * scale.X),
@@ -74,7 +73,7 @@ namespace Sem1OfficeRevenge
             Texture2D drawTexture = texture ?? animation?.frames[animation.currentFrame];
 
             //If the bool is true, choose the option on the left, if not then it chooses the right
-            Vector2 origin = centerOrigin ? new Vector2(drawTexture.Width / 2, drawTexture.Height / 2) : Vector2.Zero;
+            origin = centerOrigin ? new Vector2(drawTexture.Width / 2, drawTexture.Height / 2) : Vector2.Zero;
 
             if (animation != null && texture != null)
             {
@@ -91,8 +90,6 @@ namespace Sem1OfficeRevenge
                 // Draw static texture
                 Global.spriteBatch.Draw(texture, position, null, color, rotation, origin, scale, SpriteEffects.None, layerDepth);
             }
-
-            //DrawDebugCollisionBox();
         }
 
         public void SetObjectAnimation(AnimNames animationName)
@@ -177,6 +174,37 @@ namespace Sem1OfficeRevenge
 
             // Rotate the corners around the center of the rectangle
             Vector2 origin = new Vector2(collisionBox.Center.X, collisionBox.Center.Y);
+            for (int i = 0; i < 4; i++)
+            {
+                Vector2 dir = corners[i] - origin;
+                dir = Vector2.Transform(dir, Matrix.CreateRotationZ(rotation));
+                corners[i] = dir + origin;
+            }
+
+            // Draw the rotated rectangle
+            for (int i = 0; i < 4; i++)
+            {
+                Vector2 start = corners[i];
+                Vector2 end = corners[(i + 1) % 4];
+                DrawLine(pixel, start, end, Color.Red);
+            }
+        }
+
+        internal void DrawDebugCollisionBox(Rectangle recBox)
+        {
+            // Draw debug collision box
+            Texture2D pixel = new Texture2D(Global.graphics.GraphicsDevice, 1, 1);
+            pixel.SetData(new[] { Color.White });
+
+            // Get the corners of the rectangle
+            Vector2[] corners = new Vector2[4];
+            corners[0] = new Vector2(recBox.Left, recBox.Top);
+            corners[1] = new Vector2(recBox.Right, recBox.Top);
+            corners[2] = new Vector2(recBox.Right, recBox.Bottom);
+            corners[3] = new Vector2(recBox.Left, recBox.Bottom);
+
+            // Rotate the corners around the center of the rectangle
+            Vector2 origin = new Vector2(recBox.Center.X, recBox.Center.Y);
             for (int i = 0; i < 4; i++)
             {
                 Vector2 dir = corners[i] - origin;

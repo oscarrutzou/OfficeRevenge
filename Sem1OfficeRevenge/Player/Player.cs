@@ -15,7 +15,6 @@ namespace Sem1OfficeRevenge
     {
         public int health {  get; private set; }
         public bool alive;
-        public Vector2 origin;
         public float playerSpeed = 10f;
         private bool hasAttacked;
         int bulletSpeed = 2000;
@@ -25,14 +24,13 @@ namespace Sem1OfficeRevenge
         public Player()
         {
             health = 100;
-
+            //scale = new Vector2(0.5f, 0.5f);
             centerOrigin = true;
             Global.player = this;
-            position = Global.world.playerCamera.position;
+
+            position = Global.world.playerCamera.origin;
             SetObjectAnimation(AnimNames.PlayerRifleIdle);
             Global.currentScene.SetObjectLayerDepth(this, LayerDepth.Player);
-
-
         }
 
 
