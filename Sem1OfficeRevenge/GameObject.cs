@@ -16,7 +16,8 @@ namespace Sem1OfficeRevenge
         public Vector2 scale = new Vector2(1,1);
         public float speed;
         public Vector2 direction;
-        
+        public SpriteEffects spriteEffects = SpriteEffects.None;
+
         public Texture2D texture;
         
         public bool centerOrigin;
@@ -68,6 +69,8 @@ namespace Sem1OfficeRevenge
 
         public virtual void Update(){}
 
+        
+
         public virtual void Draw()
         {
             if (!isVisible) return;
@@ -84,12 +87,12 @@ namespace Sem1OfficeRevenge
             if (animation != null)
             {
                 // Draw animation
-                Global.spriteBatch.Draw(drawTexture, position, null, color, rotation, origin, scale, SpriteEffects.None, layerDepth);
+                Global.spriteBatch.Draw(drawTexture, position, null, color, rotation, origin, scale, spriteEffects, layerDepth);
             }
             else if (texture != null)
             {
                 // Draw static texture
-                Global.spriteBatch.Draw(texture, position, null, color, rotation, origin, scale, SpriteEffects.None, layerDepth);
+                Global.spriteBatch.Draw(texture, position, null, color, rotation, origin, scale, spriteEffects, layerDepth);
             }
 
             //DrawDebugCollisionBox();
