@@ -18,6 +18,7 @@ namespace Sem1OfficeRevenge
         public float delayTimer = 0f;
         private float delayDuration = 0.1f;
 
+        private bool sfxSlider;
         private bool _isVisible;
         public override bool isVisible
         {
@@ -32,17 +33,31 @@ namespace Sem1OfficeRevenge
                 }
             }
         }
-        public SoundSlider(Vector2 position)
+        public SoundSlider(Vector2 position, bool sfxSlider)
         {
             centerOrigin = true;
-            this.position = position;
+            this.position = position - new Vector2(GlobalTextures.textures[TextureNames.GuiSliderBase].Width / 2, (GlobalTextures.textures[TextureNames.GuiSliderBase].Height / 2));
             ChangeSliderRectangle(position);
             texture = GlobalTextures.textures[TextureNames.GuiSliderBase];
             handleTexture = GlobalTextures.textures[TextureNames.GuiSliderHandle];
+            this.sfxSlider = sfxSlider;
+        }
+
+        private void SetHandlePos()
+        {
+            if (sfxSlider)
+            {
+                handlePosition = new Vector2(sliderRectangle.X + GlobalSound.sfxVolume * sliderRectangle.Width, fillPosition.Y + handleTexture.Height / 2 - 2);
+            }
+            else
+            {
+                handlePosition = new Vector2(sliderRectangle.X + GlobalSound.musicVolume * sliderRectangle.Width, fillPosition.Y + handleTexture.Height / 2 - 2);
+            }
         }
 
         public void ChangeSliderRectangle(Vector2 position)
         {
+            position -= new Vector2(GlobalTextures.textures[TextureNames.GuiSliderBase].Width / 2, GlobalTextures.textures[TextureNames.GuiSliderBase].Height / 2);
             sliderRectangle = new Rectangle((int)position.X + (int)fillOffset.X, (int)position.Y + (int)fillOffset.Y, sliderBarLength, sliderBarHeight);
             fillPosition = position + fillOffset;
         }
@@ -66,22 +81,42 @@ namespace Sem1OfficeRevenge
                 isDragging = false;
             }
 
-            // If dragging, update the music volume and handle position
             if (isDragging)
             {
-                MediaPlayer.Volume = (InputManager.mousePositionOnScreen.X - sliderRectangle.X) / (float)sliderRectangle.Width;
-            }
-            handlePosition = new Vector2(sliderRectangle.X + MediaPlayer.Volume * sliderRectangle.Width, fillPosition.Y + handleTexture.Height / 2 - 2);
+                // Clamp the mouse position to the bounds of the slider bar
+                float clampedMousePosition = MathHelper.Clamp(InputManager.mousePositionOnScreen.X, sliderRectangle.Left, sliderRectangle.Right);
 
+                if (sfxSlider)
+                {
+                    // If dragging, update the sfx volume and handle position
+                    GlobalSound.sfxVolume = (clampedMousePosition - sliderRectangle.X) / (float)sliderRectangle.Width;
+                }
+                else
+                {
+                    // If dragging, update the music volume and handle position
+                    GlobalSound.musicVolume = (clampedMousePosition - sliderRectangle.X) / (float)sliderRectangle.Width;
+                }
+            }
+
+            SetHandlePos();
         }
+
 
         public override void Draw()
         {
             base.Draw();
             if (!isVisible) return;
-
+            float musicWidth;
             // Draw the filled rectangle (colored area)
-            float musicWidth = MediaPlayer.Volume * sliderRectangle.Width;
+            if (sfxSlider)
+            {
+                musicWidth = GlobalSound.sfxVolume * sliderRectangle.Width;
+            }
+            else
+            {
+                musicWidth = GlobalSound.musicVolume * sliderRectangle.Width;
+            }
+           
             Rectangle musicFill = new Rectangle(sliderRectangle.X, sliderRectangle.Y, (int)musicWidth, sliderRectangle.Height);
 
             Global.spriteBatch.Draw(GlobalTextures.textures[TextureNames.Pixel],

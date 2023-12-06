@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using Sem1OfficeRevenge.World;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -49,10 +48,10 @@ namespace Sem1OfficeRevenge
             GlobalTextures.LoadContent();
             GlobalSound.LoadContent();
             GlobalAnimations.LoadLoadingScreenIcon();
-            GlobalAnimations.LoadContentTestScenes();
+            //GlobalAnimations.LoadContentTestScenes();
 
             GenerateScenes();
-            ChangeScene(Scenes.TestBaseScene);
+            ChangeScene(Scenes.MainMenu);
             blackScreenFadeInOut = new BlackScreenFadeInOut();
 
             base.Initialize();

@@ -18,6 +18,8 @@ namespace Sem1OfficeRevenge
         GuiSliderBase,
         GuiSliderOver,
         GuiSliderHandle,
+        MiniMapOverLaySmall,
+        MiniMapOverLayBig,
         Pixel,
 
 
@@ -45,6 +47,8 @@ namespace Sem1OfficeRevenge
                 {TextureNames.GuiSliderBase, Global.world.Content.Load<Texture2D>("GUI\\Slider_frame") },
                 {TextureNames.GuiSliderOver, Global.world.Content.Load<Texture2D>("GUI\\Slider_frame_over") },
                 {TextureNames.GuiSliderHandle, Global.world.Content.Load<Texture2D>("GUI\\Slider_Handle") },
+                {TextureNames.MiniMapOverLaySmall, Global.world.Content.Load<Texture2D>("GUI\\MiniMapOverLay") },
+                {TextureNames.MiniMapOverLayBig, Global.world.Content.Load<Texture2D>("GUI\\MiniMapOverLay330") },
                 {TextureNames.Pixel, Global.world.Content.Load<Texture2D>("GUI\\Pixel") },
                 {TextureNames.Bullet, Global.world.Content.Load<Texture2D>("Bullet\\Bullet") }
             };

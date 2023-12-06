@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
-using Sem1OfficeRevenge.World;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,6 +22,12 @@ namespace Sem1OfficeRevenge
         private float rotOrigin;
         private float rotSpeed;
         private float timer;
+
+        private float lastSoundTime = 0;
+        private float soundCooldown = 2f; // Cooldown in seconds
+        private bool shouldPlayVoice;
+       
+
 
         public CivillianEnemy()
         {
@@ -49,7 +54,7 @@ namespace Sem1OfficeRevenge
             {
                 if (!fleeing)
                 {
-                    ChooseRndVoiceLine();
+                    //ChooseRndVoiceLine();
 
                     fleeDirection = rnd.Next(1,4);
                     rotOrigin = rotation;
@@ -67,22 +72,34 @@ namespace Sem1OfficeRevenge
             }
             else
             {
-                
                 fleeing = false;
             }
 
             
         }
 
+
         private void ChooseRndVoiceLine()
         {
-            if (rnd.Next(0, 5) == 0)
+            if (!shouldPlayVoice) lastSoundTime = soundCooldown;
+
+            if (timer - lastSoundTime < soundCooldown) return;
+
+            shouldPlayVoice = true;
+
+            if (rnd.Next(0, 15) == 0)
             {
-                int soundIndex = rnd.Next(0, 5);
-                //SoundEffectInstance sound = 
-                //GlobalSound.Play();
+                int soundIndex = rnd.Next(0, deathSounds.Length);
+
+                GlobalSound.sounds[deathSounds[soundIndex]].Play();
+
             }
+
+            lastSoundTime = timer;
         }
+
+
+
 
         public void Flee()
         {
