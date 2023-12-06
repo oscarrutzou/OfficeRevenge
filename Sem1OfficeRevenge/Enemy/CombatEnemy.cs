@@ -7,60 +7,104 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-
+using Sem1OfficeRevenge.Enemy;
+using SharpDX.Direct3D9;
 
 namespace Sem1OfficeRevenge
 {
     public class CombatEnemy : GenericEnemy
     {
         public bool isAttacking;
-
+        private float timer;
+        private float rotTarget;
+        
         public CombatEnemy()
         {
             SetObjectAnimation(AnimNames.PlayerRifleIdle);
-            speed = 5;
+            speed = 7.5f;
             centerOrigin = true;
         }
 
         private void Attack()
         {
-            if (dead) return; 
-            
+            if (dead) return;
+            Global.player.DamagePlayer(50);
+            isAttacking = false;
 
+        }
 
+        bool WalkedFar(float range, Vector2 v1, Vector2 v2)
+        {
+            var dx = v1.X - v2.X;
+            var dy = v1.Y - v2.Y;
+            return dx * dx + dy * dy < range * range;
         }
 
         public override void Update() 
         {
             if (Global.currentScene.isPaused || dead) return;
 
-            if (Math.Abs(Global.player.position.X - position.X) < 5 && Math.Abs(Global.player.position.Y - position.Y) < 5 && isAttacking == false)
+            if (WalkedFar(75, position, oldPos) == false)
             {
-                isAttacking = true;
+                if (bloodied > 0)
+                {
+                    shoePrints.Add(new ShoePrint(right, position, rotation));
+                    oldPos = position;
+                    right = !right;
+                    bloodied--;
+                }
+
+            }
+            foreach (Blood blood in Global.currentSceneData.bloods)
+            {
+                if (Math.Abs(position.X - blood.position.X) < (blood.texture.Width * scale.X) / 2 / 2 && Math.Abs(position.Y - blood.position.Y) < (blood.texture.Height * scale.Y) / 2 / 2)
+                {
+
+                    bloodied = 10;
+
+                }
+            }
+
+
+
+            //if in range:
+            if (Math.Abs(Global.player.position.X - position.X) < rnd.Next(850, 1250) && Math.Abs(Global.player.position.Y - position.Y) < rnd.Next(850, 1250))
+            {
+                if (Math.Abs(Global.player.position.X - position.X) < 65 && Math.Abs(Global.player.position.Y - position.Y) < 65 && isAttacking == false)
+                {
+                    isAttacking = true;
+                    Attack();
+
+                }
+                else if (Math.Abs(Global.player.position.X - position.X) > 7 && Math.Abs(Global.player.position.Y - position.Y) > 7)
+                {
+                    isAttacking = false;
+
+                }
+
+
+                if (Math.Abs(Global.player.position.X - position.X) > 50 && Global.player.position.X > position.X)
+                {
+                    position.X += speed;
+                }
+                else if (Math.Abs(Global.player.position.X - position.X) > 50 && Global.player.position.X < position.X) { position.X -= speed; }
+
+                if (Math.Abs(Global.player.position.Y - position.Y) > 50 && Global.player.position.Y > position.Y)
+                {
+                    position.Y += speed;
+                }
+                else if (Math.Abs(Global.player.position.Y - position.Y) > 50 && Global.player.position.Y < position.Y) { position.Y -= speed; }
+
+                timer += (float)Global.gameTime.ElapsedGameTime.TotalSeconds;
+                Vector2 dir = Global.player.position - position;
+                rotTarget = (float)Math.Atan2(-dir.Y, -dir.X) + MathHelper.Pi;
+                rotTarget = ShortestRotation(rotTarget, rotation);
+                LerpTowardsTarget(rotTarget, rotation, timer, 0.01f);
+
+
 
 
             }
-            else if (Math.Abs(Global.player.position.X - position.X) > 7 && Math.Abs(Global.player.position.Y - position.Y) > 7)
-            {
-                isAttacking = false;
-
-            }
-
-
-            if (Math.Abs(Global.player.position.X - position.X) > 50 && Global.player.position.X > position.X)
-            {
-                position.X += speed;
-            }
-            else if (Math.Abs(Global.player.position.X - position.X) > 50 && Global.player.position.X < position.X) { position.X -= speed; }
-
-            if (Math.Abs(Global.player.position.Y - position.Y) > 50 && Global.player.position.Y > position.Y) 
-            {
-                position.Y += speed;
-            }
-            else if(Math.Abs(Global.player.position.Y - position.Y) > 50 && Global.player.position.Y < position.Y) { position.Y -= speed; }
-
-
-
         }
     }
 }

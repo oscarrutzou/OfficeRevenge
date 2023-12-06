@@ -1,9 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Sem1OfficeRevenge.Enemy;
 using Sem1OfficeRevenge.World;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,6 +23,11 @@ namespace Sem1OfficeRevenge
         int bulletDmg = 10;
         public List<Bullet> bullets = new List<Bullet>();
 
+        private List<ShoePrint> shoePrints = new List<ShoePrint>();
+        private Vector2 oldPos;
+        private int bloodied = 0;
+        private bool right = true;
+
         public Player()
         {
             health = 100;
@@ -36,6 +43,7 @@ namespace Sem1OfficeRevenge
 
         public override void Update()
         {
+            CheckCollisionBox();
             if (Global.currentScene.isPaused) return;
 
             if (InputManager.anyMoveKeyPressed && InputManager.mouseClicked)
@@ -51,7 +59,40 @@ namespace Sem1OfficeRevenge
             {
                 Fire();
                 AnimShoot();
-            }            
+            }
+
+            if (WalkedFar(75, position, oldPos) == false)
+            {
+                if (bloodied > 0)
+                {
+                    shoePrints.Add(new ShoePrint(right, position, rotation));
+                    oldPos = position;
+                    right = !right;
+                    bloodied--;
+                }
+
+            }
+            foreach (Blood blood in Global.currentSceneData.bloods)
+            {
+                if (Math.Abs(position.X - blood.position.X) < (blood.texture.Width*scale.X)/2/2 && Math.Abs(position.Y - blood.position.Y) < (blood.texture.Height * scale.Y) / 2/2)
+                {
+
+                    bloodied = 10;
+
+                }
+            }
+        }
+
+        bool WalkedFar(float range, Vector2 v1, Vector2 v2)
+        {
+            var dx = v1.X - v2.X;
+            var dy = v1.Y - v2.Y;
+            return dx * dx + dy * dy < range * range;
+        }
+
+        public override void CheckCollisionBox()
+        {
+            
         }
 
         private void AnimRunNShoot()
