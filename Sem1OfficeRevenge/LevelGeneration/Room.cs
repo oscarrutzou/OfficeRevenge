@@ -26,7 +26,7 @@ namespace Sem1OfficeRevenge
             this.texture = Map;
             centerOrigin = true;
             this.rotation = rotation;
-            this.scale = new Vector2(5f,5f);
+            this.scale = new Vector2(1f, 1f);
             width = this.texture.Width * (int)scale.X;
             height = this.texture.Height * (int)scale.Y;
             layerDepth = Global.currentScene.GetObjectLayerDepth(LayerDepth.Background);
@@ -39,7 +39,8 @@ namespace Sem1OfficeRevenge
 
         public override void Draw()
         {
-            base.Draw();   
+            base.Draw();
+            DrawDebugCollisionBox(hallwayCol);
             DrawDebugCollisionBox();
         }
 
