@@ -40,6 +40,18 @@ namespace Sem1OfficeRevenge.Enemy
                 scale.X += (float)rnd.Next(3)/100;
                 scale.Y += (float)rnd.Next(3) / 100;
             }
+
+            foreach (Blood blood in Global.currentSceneData.bloods)
+            {
+
+                
+                if (blood != this && Collision.IsCollidingBox(this, blood))
+                {
+
+                    targetScale = scale; break;
+
+                }
+            }
         }
 
 
