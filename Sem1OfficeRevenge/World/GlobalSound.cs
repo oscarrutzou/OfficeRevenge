@@ -12,9 +12,12 @@ namespace Sem1OfficeRevenge.World
 {
     public enum SoundNames
     {
-    Shot,
-    Step,
-    TestSound3,
+        Shot,
+        Step,
+        TestSound3,
+
+        //Enemies
+        
     }
     internal static class GlobalSound
     {

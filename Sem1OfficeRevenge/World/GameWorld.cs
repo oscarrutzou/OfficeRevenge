@@ -94,6 +94,8 @@ namespace Sem1OfficeRevenge
             if (!IsCurrentSceneMenu()) pauseScreen.DrawOnScreen();
             Global.spriteBatch.End();
 
+
+    
             Global.spriteBatch.Begin(sortMode: SpriteSortMode.FrontToBack, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullCounterClockwise, transformMatrix: mapCamera.GetMatrix());
             if (!IsCurrentSceneMenu()) mapCamera.DrawMiniMap();
             Global.spriteBatch.End();

@@ -72,6 +72,7 @@ namespace Sem1OfficeRevenge
 
                 // Calculate the offset vector perpendicular to the direction vector
                 Vector2 offset = new Vector2(-dir.Y, dir.X) * -50; // 50 is the offset distance in px
+                Vector2 tempPosition = Global.player.position; // Store the current position
 
                 Global.player.RotateTowardsTargetWithOffset(mousePositionInWorld, offset);
 
@@ -92,6 +93,23 @@ namespace Sem1OfficeRevenge
                     Global.player.position.Y += Global.player.playerSpeed;
                 }
 
+                //bool isInsideRoom = false;
+                //// Check if the player's collision box is still intersecting with any room's collision box
+                //foreach (Room room in Global.currentSceneData.rooms)
+                //{
+                //    if (Collision.ContainsBox(Global.player, room))
+                //    {
+                //        isInsideRoom = true;
+                //        break;
+                //    }
+                //}
+
+                //// If the player's collision box is not intersecting with any room's collision box, revert the position
+                //if (!isInsideRoom)
+                //{
+                //    Global.player.position = tempPosition;
+                //}
+
                 if (keyboardState.IsKeyDown(Keys.W) || keyboardState.IsKeyDown(Keys.A) || keyboardState.IsKeyDown(Keys.S) || keyboardState.IsKeyDown(Keys.D))
                 {
                     anyMoveKeyPressed = true;
@@ -103,6 +121,10 @@ namespace Sem1OfficeRevenge
             }
         }
 
+        private static void CheckPlayerMoveColRoom(Vector2 newPlayerPos)
+        {
+
+        }
 
         private static void CheckButtons()
         {

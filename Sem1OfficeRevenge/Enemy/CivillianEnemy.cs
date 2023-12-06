@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
-using Sem1OfficeRevenge.Enemy;
-using SharpDX.Direct3D9;
+using Microsoft.Xna.Framework.Audio;
+using Sem1OfficeRevenge.World;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,6 +30,8 @@ namespace Sem1OfficeRevenge
             SetObjectAnimation(AnimNames.PlayerRifleMove);
             centerOrigin = true;
             layerDepth = Global.currentScene.GetObjectLayerDepth(LayerDepth.Enemies);
+
+
         }
 
         bool WalkedFar(float range, Vector2 v1, Vector2 v2)
@@ -76,6 +78,8 @@ namespace Sem1OfficeRevenge
             {
                 if (!fleeing)
                 {
+                    ChooseRndVoiceLine();
+
                     fleeDirection = rnd.Next(1,4);
                     rotOrigin = rotation;
                     fleeing = true;
@@ -103,6 +107,16 @@ namespace Sem1OfficeRevenge
         {
             fleeDirection = rnd.Next(1, 4);
             rotOrigin = rotation;
+        }
+        
+        private void ChooseRndVoiceLine()
+        {
+            if (rnd.Next(0, 5) == 0)
+            {
+                int soundIndex = rnd.Next(0, 5);
+                //SoundEffectInstance sound = 
+                //GlobalSound.Play();
+            }
         }
 
         public void Flee()
