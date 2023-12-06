@@ -129,6 +129,7 @@ namespace Sem1OfficeRevenge
                     throw new ArgumentOutOfRangeException(nameof(layer), layer, null);
             }
         }
+
         public float GetObjectLayerDepth(LayerDepth layer)
         {
             switch (layer)
@@ -167,6 +168,7 @@ namespace Sem1OfficeRevenge
             Global.currentSceneData.bullets.RemoveAll(bullet => bullet.isRemoved);
             Global.currentSceneData.guis.RemoveAll(gui => gui.isRemoved);
             Global.currentSceneData.bloods.RemoveAll(blood => blood.isRemoved);
+            Global.currentSceneData.rooms.RemoveAll(room => room.isRemoved);
             Global.currentSceneData.defaults.RemoveAll(defultsObj => defultsObj.isRemoved);
         }
 
@@ -179,6 +181,7 @@ namespace Sem1OfficeRevenge
             Global.currentSceneData.gameObjects.AddRange(Global.currentSceneData.bullets);
             Global.currentSceneData.gameObjects.AddRange(Global.currentSceneData.guis);
             Global.currentSceneData.gameObjects.AddRange(Global.currentSceneData.bloods);
+            Global.currentSceneData.gameObjects.AddRange(Global.currentSceneData.rooms);
             Global.currentSceneData.gameObjects.AddRange(Global.currentSceneData.defaults);
         }
 
@@ -200,6 +203,9 @@ namespace Sem1OfficeRevenge
                         break;
                     case Gui:
                         Global.currentSceneData.guis.Add((Gui)obj);
+                        break;
+                    case Room:
+                        Global.currentSceneData.rooms.Add((Room)obj);
                         break;
 
                     case Blood:

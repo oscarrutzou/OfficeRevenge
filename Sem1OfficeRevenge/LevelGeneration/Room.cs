@@ -11,45 +11,39 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Sem1OfficeRevenge
 {
-    internal class Room : GameObject
+    public class Room : GameObject
     {
         //public Texture2D map;
-        int width;
-        int height;
+        public int width;
+        public int height;
+        public float alpha;
+        public float alphaFadeInTimer;
+        public bool isFadingIn = true;
         private Vector2 origin;
         private Vector2 center;
+        public Rectangle hallwayCol;
 
-        //private List<CivillianEnemy> CivEnemies = new List<CivillianEnemy>();
-        //private CivillianEnemy civEnm;
 
         public Room(Texture2D Map, float rotation)
         {
             this.texture = Map;
             centerOrigin = true;
             this.rotation = rotation;
-            this.scale = new Vector2(5f, 5f);
-
+            this.scale = new Vector2(5f,5f);
+            width = this.texture.Width * (int)scale.X;
+            height = this.texture.Height * (int)scale.Y;
             layerDepth = Global.currentScene.GetObjectLayerDepth(LayerDepth.Background);
-
         }
         
         public override void Update()
         {
-            //foreach (CivillianEnemy civ in CivEnemies)
-            //{
-            //    civ.Update();
-            //}
+            
         }
 
         public override void Draw()
         {
-            //foreach (CivillianEnemy civ in CivEnemies)
-            //{
-            //    civ.Draw();
-            //}
-
-            base.Draw();
-            
+            base.Draw();   
+            DrawDebugCollisionBox();
         }
 
     }

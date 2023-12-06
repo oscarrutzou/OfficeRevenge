@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using Sem1OfficeRevenge.World;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -12,6 +11,7 @@ namespace Sem1OfficeRevenge
         public Dictionary<Scenes, Scene> scenes = new Dictionary<Scenes, Scene>();
         public Camera playerCamera { get; private set; }
         public Camera uiCamera { get; private set; }
+        public MiniMapCam mapCamera { get; private set; }
 
         public BlackScreenFadeInOut blackScreenFadeInOut;
         public PauseScreen pauseScreen { get; private set; }
@@ -42,6 +42,8 @@ namespace Sem1OfficeRevenge
                 FollowPlayer = false
             };
 
+            mapCamera = new MiniMapCam(Vector2.Zero);
+
             ResolutionSize(1280, 720);
             GlobalTextures.LoadContent();
             GlobalSound.LoadContent();
@@ -51,7 +53,6 @@ namespace Sem1OfficeRevenge
             GenerateScenes();
             ChangeScene(Scenes.MainMenu);
             blackScreenFadeInOut = new BlackScreenFadeInOut();
-
 
             base.Initialize();
         }
@@ -80,32 +81,27 @@ namespace Sem1OfficeRevenge
 
         protected override void Draw(GameTime gameTime)
         {
-            Global.spriteBatch.Begin(
-                sortMode: SpriteSortMode.FrontToBack,
-                BlendState.AlphaBlend,
-                SamplerState.PointClamp,
-                DepthStencilState.None,
-                RasterizerState.CullCounterClockwise,
-                transformMatrix: playerCamera.GetMatrix());
+            Global.spriteBatch.Begin(sortMode: SpriteSortMode.FrontToBack, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullCounterClockwise, transformMatrix: playerCamera.GetMatrix());
 
             Global.currentScene.DrawInWorld();
             Global.spriteBatch.End();
 
-            Global.spriteBatch.Begin(
-                sortMode: SpriteSortMode.FrontToBack,
-                BlendState.AlphaBlend,
-                SamplerState.PointClamp,
-                DepthStencilState.None,
-                RasterizerState.CullCounterClockwise,
-                transformMatrix: uiCamera.GetMatrix());
+            Global.spriteBatch.Begin(sortMode: SpriteSortMode.FrontToBack, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullCounterClockwise, transformMatrix: uiCamera.GetMatrix());
 
             Global.currentScene.DrawOnScreen();
             blackScreenFadeInOut?.Draw();
-            if (Global.currentScene != scenes[Scenes.MainMenu] && Global.currentScene != scenes[Scenes.LoadingScreen] && Global.currentScene != scenes[Scenes.EndMenu]) pauseScreen.DrawOnScreen();
+            if (!IsCurrentSceneMenu()) pauseScreen.DrawOnScreen();
+            Global.spriteBatch.End();
+
+
+    
+            Global.spriteBatch.Begin(sortMode: SpriteSortMode.FrontToBack, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullCounterClockwise, transformMatrix: mapCamera.GetMatrix());
+            if (!IsCurrentSceneMenu()) mapCamera.DrawMiniMap();
             Global.spriteBatch.End();
 
             base.Draw(gameTime);
         }
+
 
 
         #region Scene and resolution management
@@ -156,8 +152,13 @@ namespace Sem1OfficeRevenge
             Global.currentScene.hasFadeOut = false;
 
             if (pauseScreen == null) pauseScreen = new PauseScreen(); //Skal være her, da pausescreen bruger gameobjects
-            if (scene != Scenes.MainMenu && scene != Scenes.LoadingScreen && scene != Scenes.EndMenu) pauseScreen.Initialize();
+            if (!IsCurrentSceneMenu()) pauseScreen.Initialize();
+        }
 
+
+        public bool IsCurrentSceneMenu()
+        {
+            return Global.currentScene == scenes[Scenes.MainMenu] || Global.currentScene == scenes[Scenes.LoadingScreen] || Global.currentScene == scenes[Scenes.EndMenu];
         }
 
         public void ResolutionSize(int width, int height)

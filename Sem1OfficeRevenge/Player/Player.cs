@@ -16,8 +16,8 @@ namespace Sem1OfficeRevenge
     public class Player : GameObject
     {
         public int health {  get; private set; }
+        public bool canMove {  get; private set; }
         public bool alive;
-        public Vector2 origin;
         public float playerSpeed = 10f;
         private bool hasAttacked;
         int bulletSpeed = 2000;
@@ -34,22 +34,24 @@ namespace Sem1OfficeRevenge
         public Player()
         {
             health = 100;
-            
+            //scale = new Vector2(0.5f, 0.5f);
             centerOrigin = true;
             Global.player = this;
-            position = Global.world.playerCamera.position;
+
+            position = Vector2.Zero;
+            //position = Global.world.playerCamera.origin;
             SetObjectAnimation(AnimNames.PlayerRifleIdle);
             sight = GlobalTextures.textures[TextureNames.Sight];
             Global.currentScene.SetObjectLayerDepth(this, LayerDepth.Player);
-
-
         }
 
 
         public override void Update()
         {
-            CheckCollisionBox();
+
             if (Global.currentScene.isPaused) return;
+
+            CheckCollisionBox();
 
             if (InputManager.anyMoveKeyPressed && InputManager.mouseClicked)
             {
@@ -105,7 +107,6 @@ namespace Sem1OfficeRevenge
             SetObjectAnimation(AnimNames.PlayerRifleShoot);
             animation.onAnimationDone += () => { SetObjectAnimation(AnimNames.PlayerRifleIdle); };
         }
-
         private void AnimMove()
         {
             if (animation.animationName == AnimNames.PlayerRifleShoot) return; // So it shows the shoot animation
@@ -113,19 +114,17 @@ namespace Sem1OfficeRevenge
             SetObjectAnimation(AnimNames.PlayerRifleMove);
             animation.onAnimationDone += () => { SetObjectAnimation(AnimNames.PlayerRifleIdle); };
         }
-
         private void AnimShoot()
         {
             SetObjectAnimation(AnimNames.PlayerRifleShoot);
             animation.onAnimationDone += () => { SetObjectAnimation(AnimNames.PlayerRifleIdle); };
         }
-
-
         private void Fire()
         {
             Bullet bullet = new Bullet(new Vector2(0, 50), bulletSpeed, bulletDmg);
             bullets.Add(bullet);
-            GlobalSound.sounds[SoundNames.Shot].Play();
+            //GlobalSound.sounds[SoundNames.Shot].Play();
+            //GlobalSound.PlaySound(GlobalSound.sounds[SoundNames.Shot]);
             Global.currentScene.Instantiate(bullet);
             
         }
@@ -146,5 +145,7 @@ namespace Sem1OfficeRevenge
                 Global.world.ChangeScene(Scenes.EndMenu);
             }
         }
+
+
     }
 }

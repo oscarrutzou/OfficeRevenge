@@ -20,6 +20,7 @@ namespace Sem1OfficeRevenge
         public List<Bullet> bullets = new List<Bullet>();
         public List<Blood> bloods = new List<Blood>();
         public List<Gui> guis = new List<Gui>();
+        public List<Room> rooms = new List<Room>();
 
         public List<GameObject> defaults = new List<GameObject>();
     }

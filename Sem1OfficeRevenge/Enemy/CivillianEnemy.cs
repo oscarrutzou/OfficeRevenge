@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using Sem1OfficeRevenge.Enemy;
-using SharpDX.Direct3D9;
+using Microsoft.Xna.Framework.Audio;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,6 +22,12 @@ namespace Sem1OfficeRevenge
         private float rotSpeed;
         private float timer;
 
+        private float lastSoundTime = 0;
+        private float soundCooldown = 2f; // Cooldown in seconds
+        private bool shouldPlayVoice;
+       
+
+
 
 
         public CivillianEnemy()
@@ -30,6 +35,8 @@ namespace Sem1OfficeRevenge
             SetObjectAnimation(AnimNames.PlayerRifleMove);
             centerOrigin = true;
             layerDepth = Global.currentScene.GetObjectLayerDepth(LayerDepth.Enemies);
+
+
         }
 
         bool WalkedFar(float range, Vector2 v1, Vector2 v2)
@@ -76,6 +83,8 @@ namespace Sem1OfficeRevenge
             {
                 if (!fleeing)
                 {
+                    //ChooseRndVoiceLine();
+
                     fleeDirection = rnd.Next(1,4);
                     rotOrigin = rotation;
                     fleeing = true;
@@ -92,12 +101,34 @@ namespace Sem1OfficeRevenge
             }
             else
             {
-                
                 fleeing = false;
             }
 
             
         }
+
+
+        private void ChooseRndVoiceLine()
+        {
+            if (!shouldPlayVoice) lastSoundTime = soundCooldown;
+
+            if (timer - lastSoundTime < soundCooldown) return;
+
+            shouldPlayVoice = true;
+
+            if (rnd.Next(0, 15) == 0)
+            {
+                int soundIndex = rnd.Next(0, deathSounds.Length);
+
+                GlobalSound.sounds[deathSounds[soundIndex]].Play();
+
+            }
+
+            lastSoundTime = timer;
+        }
+
+
+
 
         public void ChangeDirection() 
         {
