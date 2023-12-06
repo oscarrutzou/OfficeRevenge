@@ -41,11 +41,14 @@ namespace Sem1OfficeRevenge
             textures.Add(GlobalTextures.textures[TextureNames.TileMap2]);
             textures.Add(GlobalTextures.textures[TextureNames.TileMap4]);
             textures.Add(GlobalTextures.textures[TextureNames.TileMap3]);
+            textures.Add(GlobalTextures.textures[TextureNames.TileMap3]);
             textures.Add(GlobalTextures.textures[TextureNames.TileMap5]);
-          
+            textures.Add(GlobalTextures.textures[TextureNames.TileMap5]);
+
 
             //Generate first lobby room
             lobbyRoom = new Room(GlobalTextures.textures[TextureNames.TileMap1], randomRotation);
+            lobbyRoom.SetCollisionBox(300, 300, new Vector2(0, 0));
             Global.currentScene.Instantiate(lobbyRoom);
             rooms.Add(lobbyRoom);
 
@@ -53,7 +56,7 @@ namespace Sem1OfficeRevenge
 
             for (int i = 0; i < 25; i++)
             {
-                Room room = new Room(textures[rnd.Next(0, 4)], randomRotation);
+                Room room = new Room(textures[rnd.Next(0, 6)], randomRotation);
 
                 if (randomRotation < MathHelper.PiOver2 && room.texture.Name == "Rooms\\room3" || randomRotation > MathHelper.PiOver2 && room.texture.Name == "Rooms\\room5")
                 {

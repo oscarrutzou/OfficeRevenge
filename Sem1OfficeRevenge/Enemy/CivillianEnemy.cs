@@ -43,6 +43,13 @@ namespace Sem1OfficeRevenge
             return dx * dx + dy * dy < range * range;
         }
 
+        bool WalkedFar(float range, Vector2 v1, Vector2 v2)
+        {
+            var dx = v1.X - v2.X;
+            var dy = v1.Y - v2.Y;
+            return dx * dx + dy * dy < range * range;
+        }
+
         public override void Update()
         {
             if (Global.currentScene.isPaused || dead) return;

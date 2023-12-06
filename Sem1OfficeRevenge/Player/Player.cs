@@ -28,6 +28,11 @@ namespace Sem1OfficeRevenge
         private int bloodied = 0;
         private bool right = true;
 
+        private List<ShoePrint> shoePrints = new List<ShoePrint>();
+        private Vector2 oldPos;
+        private int bloodied = 0;
+        private bool right = true;
+
         public Player()
         {
             health = 100;

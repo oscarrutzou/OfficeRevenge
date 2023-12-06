@@ -169,6 +169,7 @@ namespace Sem1OfficeRevenge
             Global.currentSceneData.guis.RemoveAll(gui => gui.isRemoved);
             Global.currentSceneData.bloods.RemoveAll(blood => blood.isRemoved);
             Global.currentSceneData.rooms.RemoveAll(room => room.isRemoved);
+            Global.currentSceneData.bloods.RemoveAll(blood => blood.isRemoved);
             Global.currentSceneData.defaults.RemoveAll(defultsObj => defultsObj.isRemoved);
         }
 
@@ -180,6 +181,7 @@ namespace Sem1OfficeRevenge
             Global.currentSceneData.gameObjects.AddRange(Global.currentSceneData.enemies);
             Global.currentSceneData.gameObjects.AddRange(Global.currentSceneData.bullets);
             Global.currentSceneData.gameObjects.AddRange(Global.currentSceneData.guis);
+            Global.currentSceneData.gameObjects.AddRange(Global.currentSceneData.bloods);
             Global.currentSceneData.gameObjects.AddRange(Global.currentSceneData.rooms);
             Global.currentSceneData.gameObjects.AddRange(Global.currentSceneData.bloods);
             Global.currentSceneData.gameObjects.AddRange(Global.currentSceneData.defaults);
