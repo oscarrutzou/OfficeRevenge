@@ -10,6 +10,13 @@ namespace Sem1OfficeRevenge
     {
         private int magSizeFactor; // magsize 15 so factor is 3
 
+        public Pistol()
+        {
+            magSizeFactor = 3;
+            ammo = this.magSize * magSizeFactor;
+            dmg = dmg * 1;
+        }
+
         private void Shooting()
         {
 

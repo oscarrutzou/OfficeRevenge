@@ -17,12 +17,11 @@ namespace Sem1OfficeRevenge
     {
         public int health {  get; private set; }
         public bool canMove {  get; private set; }
+        
         public bool alive;
         public float playerSpeed = 10f;
         private bool hasAttacked;
-        int bulletSpeed = 2000;
-        int bulletDmg = 10;
-        public List<Bullet> bullets = new List<Bullet>();
+        
 
         private List<ShoePrint> shoePrints = new List<ShoePrint>();
         private Vector2 oldPos;
@@ -52,7 +51,7 @@ namespace Sem1OfficeRevenge
 
             if (InputManager.anyMoveKeyPressed && InputManager.mouseClicked)
             {
-                Fire();
+                Weapon.Fire();
                 AnimRunNShoot();
             }
             else if (InputManager.anyMoveKeyPressed)
@@ -61,7 +60,7 @@ namespace Sem1OfficeRevenge
             } 
             else if (InputManager.mouseClicked)
             {
-                Fire();
+                Weapon.Fire();
                 AnimShoot();
             }
 
@@ -116,14 +115,7 @@ namespace Sem1OfficeRevenge
             SetObjectAnimation(AnimNames.PlayerRifleShoot);
             animation.onAnimationDone += () => { SetObjectAnimation(AnimNames.PlayerRifleIdle); };
         }
-        private void Fire()
-        {
-            Bullet bullet = new Bullet(new Vector2(0, 50), bulletSpeed, bulletDmg);
-            bullets.Add(bullet);
-            GlobalSound.sounds[SoundNames.Shot].Play();
-            Global.currentScene.Instantiate(bullet);
-            
-        }
+        
 
         public override void Draw()
         {

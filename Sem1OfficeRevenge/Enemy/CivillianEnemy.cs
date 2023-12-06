@@ -105,82 +105,82 @@ namespace Sem1OfficeRevenge
             
         }
 
-        public void ChangeDirection() 
+        public void ChangeDirection()
         {
             fleeDirection = rnd.Next(1, 4);
             rotOrigin = rotation;
-        private void ChooseRndVoiceLine()
-        {
-            if (rnd.Next(0, 5) == 0)
-            {
-                int soundIndex = rnd.Next(0, 5);
-                //SoundEffectInstance sound = 
-                //GlobalSound.Play();
-            }
         }
-
-        public void Flee()
-        {
-            switch (fleeDirection)  
+            private void ChooseRndVoiceLine()
             {
-                case 1:
-                    if (Global.player.position.X>position.X)
-                    {
-                        position.X -= rnd.Next(minSpeed, maxSpeed);
-                        lookPoint = new Vector2(position.X-50, position.Y);
-
-                    }
-                    else
-                    {
-                        position.X += rnd.Next(minSpeed, maxSpeed);
-                        lookPoint = new Vector2(position.X + 50, position.Y);
-                    }
-                    break;
-
-                case 2:
-                    if (Global.player.position.Y > position.Y)
-                    {
-                        position.Y -= rnd.Next(minSpeed, maxSpeed);
-                        lookPoint = new Vector2(position.X, position.Y-50);
-                    }
-                    else
-                    {
-                        position.Y += rnd.Next(minSpeed, maxSpeed);
-                        lookPoint = new Vector2(position.X, position.Y+50);
-                    }
-                    break;
-
-                case 3:
-                    if (Global.player.position.X > position.X)
-                    {
-                        position.X -= rnd.Next(minSpeed, maxSpeed);
-                        lookPoint = new Vector2(position.X-50, position.Y);
-
-                    }
-                    else
-                    {
-                        position.X += rnd.Next(minSpeed, maxSpeed);
-                        lookPoint = new Vector2(position.X+50, position.Y);
-                    }
-                    if (Global.player.position.Y > position.Y)
-                    {
-                        position.Y -= rnd.Next(minSpeed, maxSpeed);
-                        lookPoint = new Vector2(lookPoint.X, position.Y - 50);
-                    }
-                    else
-                    {
-                        position.Y += rnd.Next(minSpeed, maxSpeed);
-                        lookPoint = new Vector2(lookPoint.X, position.Y + 50);
-                    }
-                    break;
-
-                default:
-                    break;
+                if (rnd.Next(0, 5) == 0)
+                {
+                    int soundIndex = rnd.Next(0, 5);
+                    //SoundEffectInstance sound = 
+                    //GlobalSound.Play();
+                }
             }
+            public void Flee()
+            {
+                switch (fleeDirection)
+                {
+                    case 1:
+                        if (Global.player.position.X > position.X)
+                        {
+                            position.X -= rnd.Next(minSpeed, maxSpeed);
+                            lookPoint = new Vector2(position.X - 50, position.Y);
 
-            
-        }
+                        }
+                        else
+                        {
+                            position.X += rnd.Next(minSpeed, maxSpeed);
+                            lookPoint = new Vector2(position.X + 50, position.Y);
+                        }
+                        break;
 
+                    case 2:
+                        if (Global.player.position.Y > position.Y)
+                        {
+                            position.Y -= rnd.Next(minSpeed, maxSpeed);
+                            lookPoint = new Vector2(position.X, position.Y - 50);
+                        }
+                        else
+                        {
+                            position.Y += rnd.Next(minSpeed, maxSpeed);
+                            lookPoint = new Vector2(position.X, position.Y + 50);
+                        }
+                        break;
+
+                    case 3:
+                        if (Global.player.position.X > position.X)
+                        {
+                            position.X -= rnd.Next(minSpeed, maxSpeed);
+                            lookPoint = new Vector2(position.X - 50, position.Y);
+
+                        }
+                        else
+                        {
+                            position.X += rnd.Next(minSpeed, maxSpeed);
+                            lookPoint = new Vector2(position.X + 50, position.Y);
+                        }
+                        if (Global.player.position.Y > position.Y)
+                        {
+                            position.Y -= rnd.Next(minSpeed, maxSpeed);
+                            lookPoint = new Vector2(lookPoint.X, position.Y - 50);
+                        }
+                        else
+                        {
+                            position.Y += rnd.Next(minSpeed, maxSpeed);
+                            lookPoint = new Vector2(lookPoint.X, position.Y + 50);
+                        }
+                        break;
+
+                    default:
+                        break;
+                }
+
+
+            }
+        
         public override void Draw()
         {
             base.Draw();
