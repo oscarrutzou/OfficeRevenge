@@ -1,4 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
+using Sem1OfficeRevenge.World;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,6 +29,8 @@ namespace Sem1OfficeRevenge
             SetObjectAnimation(AnimNames.PlayerRifleMove);
             centerOrigin = true;
             layerDepth = Global.currentScene.GetObjectLayerDepth(LayerDepth.Enemies);
+
+
         }
 
         public override void Update()
@@ -45,6 +49,8 @@ namespace Sem1OfficeRevenge
             {
                 if (!fleeing)
                 {
+                    ChooseRndVoiceLine();
+
                     fleeDirection = rnd.Next(1,4);
                     rotOrigin = rotation;
                     fleeing = true;
@@ -66,6 +72,16 @@ namespace Sem1OfficeRevenge
             }
 
             
+        }
+
+        private void ChooseRndVoiceLine()
+        {
+            if (rnd.Next(0, 5) == 0)
+            {
+                int soundIndex = rnd.Next(0, 5);
+                //SoundEffectInstance sound = 
+                //GlobalSound.Play();
+            }
         }
 
         public void Flee()

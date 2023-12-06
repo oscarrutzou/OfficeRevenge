@@ -46,7 +46,7 @@ namespace Sem1OfficeRevenge
         {
             foreach (GenericEnemy enemy in Global.currentSceneData.enemies) //Ændre til at kigge i enemies i currentSceneData
             {
-                if (Collision.IsCollidingBox(this, enemy) && !enemy.dead)
+                if (Collision.IntersectBox(this, enemy) && !enemy.dead)
                 {
                     isRemoved = true;
                     enemy.Die();

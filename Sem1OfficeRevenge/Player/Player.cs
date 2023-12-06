@@ -14,6 +14,7 @@ namespace Sem1OfficeRevenge
     public class Player : GameObject
     {
         public int health {  get; private set; }
+        public bool canMove {  get; private set; }
         public bool alive;
         public float playerSpeed = 10f;
         private bool hasAttacked;
@@ -28,7 +29,8 @@ namespace Sem1OfficeRevenge
             centerOrigin = true;
             Global.player = this;
 
-            position = Global.world.playerCamera.origin;
+            position = Vector2.Zero;
+            //position = Global.world.playerCamera.origin;
             SetObjectAnimation(AnimNames.PlayerRifleIdle);
             Global.currentScene.SetObjectLayerDepth(this, LayerDepth.Player);
         }
@@ -37,6 +39,8 @@ namespace Sem1OfficeRevenge
         public override void Update()
         {
             if (Global.currentScene.isPaused) return;
+
+            CheckCollisionBox();
 
             if (InputManager.anyMoveKeyPressed && InputManager.mouseClicked)
             {
@@ -59,7 +63,6 @@ namespace Sem1OfficeRevenge
             SetObjectAnimation(AnimNames.PlayerRifleShoot);
             animation.onAnimationDone += () => { SetObjectAnimation(AnimNames.PlayerRifleIdle); };
         }
-
         private void AnimMove()
         {
             if (animation.animationName == AnimNames.PlayerRifleShoot) return; // So it shows the shoot animation
@@ -67,14 +70,11 @@ namespace Sem1OfficeRevenge
             SetObjectAnimation(AnimNames.PlayerRifleMove);
             animation.onAnimationDone += () => { SetObjectAnimation(AnimNames.PlayerRifleIdle); };
         }
-
         private void AnimShoot()
         {
             SetObjectAnimation(AnimNames.PlayerRifleShoot);
             animation.onAnimationDone += () => { SetObjectAnimation(AnimNames.PlayerRifleIdle); };
         }
-
-
         private void Fire()
         {
             Bullet bullet = new Bullet(new Vector2(0, 50), bulletSpeed, bulletDmg);
@@ -98,5 +98,7 @@ namespace Sem1OfficeRevenge
                 Global.world.ChangeScene(Scenes.EndMenu);
             }
         }
+
+
     }
 }

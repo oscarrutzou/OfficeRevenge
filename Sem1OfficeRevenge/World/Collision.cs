@@ -12,13 +12,30 @@ namespace Sem1OfficeRevenge
         /// <param name="sender"></param>
         /// <param name="other">The target of a collision check</param>
         /// <returns></returns>
-        static public bool IsCollidingBox(GameObject sender, GameObject other)
+        static public bool IntersectBox(GameObject sender, GameObject other)
         {
             if (sender == other
                 || sender == null
                 || other == null) return false;
 
             return sender.collisionBox.Intersects(other.collisionBox);
+        }
+
+        static public bool ContainsBox(GameObject sender, GameObject other)
+        {
+            if (sender == other
+                || sender == null
+                || other == null) return false;
+
+            return other.collisionBox.Contains(sender.collisionBox);
+        }
+
+        static public bool ContainsEitherBox(GameObject sender, Rectangle box1, Rectangle box2)
+        {
+            bool col1 = box1.Contains(sender.collisionBox);
+            bool col2 = box2.Contains(sender.collisionBox);
+            if (col1 || col2) return true;
+            else return false;
         }
     }
 }
