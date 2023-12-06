@@ -18,6 +18,7 @@ namespace Sem1OfficeRevenge
         public List<GenericEnemy> enemies = new List<GenericEnemy>();
         public List<Bullet> bullets = new List<Bullet>();
         public List<Gui> guis = new List<Gui>();
+        public List<Room> rooms = new List<Room>();
 
         public List<GameObject> defaults = new List<GameObject>();
     }

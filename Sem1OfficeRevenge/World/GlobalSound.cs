@@ -13,7 +13,7 @@ namespace Sem1OfficeRevenge.World
     public enum SoundNames
     {
     Shot,
-    TestSound2,
+    Step,
     TestSound3,
     }
     internal static class GlobalSound
@@ -43,7 +43,7 @@ namespace Sem1OfficeRevenge.World
             sounds = new Dictionary<SoundNames, SoundEffect>
             {
                 { SoundNames.Shot, Global.world.Content.Load<SoundEffect>("Fonts\\gunshot")},
-                { SoundNames.TestSound2, Global.world.Content.Load<SoundEffect>("Fonts\\DistortedTheme")},
+                { SoundNames.Step, Global.world.Content.Load<SoundEffect>("Fonts\\step")},
                 { SoundNames.TestSound3, Global.world.Content.Load<SoundEffect>("Fonts\\DistortedTheme")}
             };
 
@@ -54,6 +54,28 @@ namespace Sem1OfficeRevenge.World
         public static void Play(SoundEffect sound)
         {
             soundInstances.Add(sound.CreateInstance());
+            soundInstances[soundInstances.Count - 1].Volume = MediaPlayer.Volume;
+            soundInstances[soundInstances.Count - 1].Play();
+            foreach (SoundEffectInstance item in soundInstances)
+            {
+                if (item.State == SoundState.Stopped)
+                {
+                    item.Dispose();
+                }
+            }
+        }
+
+        public static void PitchedPlay(SoundEffect sound, float pitchVariance)
+        {
+            soundInstances.Add(sound.CreateInstance());
+            float pitch = (float)Global.rnd.NextDouble();
+            pitch = pitch - (1-pitch);
+            if (Global.rnd.Next(0, 10) > 5)
+            {
+                pitch = 0 - pitch;
+            }
+            soundInstances[soundInstances.Count - 1].Pitch = pitch;
+            soundInstances[soundInstances.Count - 1].Volume = MediaPlayer.Volume;
             soundInstances[soundInstances.Count - 1].Play();
             foreach (SoundEffectInstance item in soundInstances)
             {

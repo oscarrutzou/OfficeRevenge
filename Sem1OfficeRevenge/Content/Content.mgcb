@@ -38,11 +38,11 @@
 /processorParam:Quality=Best
 /build:Fonts/DistortedTheme.mp3
 
-#begin Fonts/Gun Shot Sound Effect (128 kbps).mp3
+#begin Fonts/gunshot.mp3
 /importer:Mp3Importer
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
-/build:Fonts/Gun Shot Sound Effect (128 kbps).mp3;Fonts/gunshot.mp3
+/build:Fonts/gunshot.mp3
 
 #begin Fonts/MainTheme.mp3
 /importer:Mp3Importer
@@ -63,6 +63,12 @@
 /processorParam:PremultiplyAlpha=True
 /processorParam:TextureFormat=Compressed
 /build:Fonts/SlencoBlackBig.spritefont
+
+#begin Fonts/step.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Fonts/step.mp3
 
 #begin GUI/Icons/icon_sound_0.png
 /importer:TextureImporter

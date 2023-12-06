@@ -45,10 +45,9 @@ namespace Sem1OfficeRevenge
             }
         }
 
-        public static void DrawScore(Vector2 pos)
+        public static void DrawScore()
         {
-            string text = $"Kill count {killCount} + Player health {Global.player.health}";
-            //string text = $"Current animation {Global.player.animation.animationName} \n Frame {Global.player.animation.currentFrame} \n Timer {Global.player.animation.timer}";
+            string text = $"Kill count {killCount}";
             Vector2 scorePosition = Global.world.uiCamera.origin + new Vector2(10, 10); 
             Global.spriteBatch.DrawString(GlobalTextures.defaultFont, text, scorePosition, Color.Red, 0, Vector2.Zero, 1, SpriteEffects.None, Global.currentScene.GetObjectLayerDepth(LayerDepth.GuiText));
         }

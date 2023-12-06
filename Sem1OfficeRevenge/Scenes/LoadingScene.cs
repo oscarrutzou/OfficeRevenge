@@ -60,7 +60,7 @@ public class LoadingScene : Scene
 
         // Draw loading screen
         // Measure the size of the text
-        string text = $"Loading: {GlobalAnimations.progress * 100}%";
+        string text = $"Loading: {(int)(GlobalAnimations.progress * 100)}%";
         Vector2 textSize = GlobalTextures.defaultFont.MeasureString(text);
 
         // Calculate the position to center the text

@@ -13,7 +13,6 @@ namespace Sem1OfficeRevenge
         public float fadeOutTime = 2f; //To lerp towards
         private float timer;
         private float fadeAlpha = 0f; // Start with a transparent screen
-        private Rectangle blackScreenSize;
         public bool beginAnimation = false;
         public bool isFadingIn { get; private set; }
         public EventHandler<EventArgs> onFadeToBlackDone;
@@ -21,7 +20,6 @@ namespace Sem1OfficeRevenge
         public BlackScreenFadeInOut()
         {
             position = Vector2.Zero;
-            blackScreenSize = new Rectangle(0, 0, Global.graphics.PreferredBackBufferWidth, Global.graphics.PreferredBackBufferHeight);
             texture = GlobalTextures.textures[TextureNames.Pixel];
             isVisible = false;
             isFadingIn = true;
@@ -33,7 +31,7 @@ namespace Sem1OfficeRevenge
 
             Global.spriteBatch.Draw(GlobalTextures.textures[TextureNames.Pixel],
                         position,
-                        blackScreenSize,
+                        Global.graphics.GraphicsDevice.Viewport.Bounds,
                         new Color(Color.Black, fadeAlpha),
                         rotation,
                         Vector2.Zero,
@@ -44,7 +42,6 @@ namespace Sem1OfficeRevenge
 
         public void StartFadeIn()
         {
-            blackScreenSize = new Rectangle(0, 0, Global.graphics.PreferredBackBufferWidth, Global.graphics.PreferredBackBufferHeight);
             isVisible = true;
             beginAnimation = true;
             isFadingIn = true;
@@ -53,7 +50,6 @@ namespace Sem1OfficeRevenge
 
         public void StartFadeOut()
         {
-            blackScreenSize = new Rectangle(0, 0, Global.graphics.PreferredBackBufferWidth, Global.graphics.PreferredBackBufferHeight);
             isVisible = false;
             beginAnimation = true;
             isFadingIn = false;

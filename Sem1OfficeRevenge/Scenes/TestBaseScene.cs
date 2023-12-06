@@ -108,7 +108,7 @@ namespace Sem1OfficeRevenge
         {
             base.DrawOnScreen();
             
-            ScoreManager.DrawScore(new Vector2(10, 10));
+            ScoreManager.DrawScore();
             //pauseScreen.DrawOnScreen();
 
         }
