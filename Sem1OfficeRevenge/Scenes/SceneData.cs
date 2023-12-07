@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Sem1OfficeRevenge.Enemy;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,6 +18,7 @@ namespace Sem1OfficeRevenge
 
         public List<GenericEnemy> enemies = new List<GenericEnemy>();
         public List<Bullet> bullets = new List<Bullet>();
+        public List<Blood> bloods = new List<Blood>();
         public List<Gui> guis = new List<Gui>();
         public List<Room> rooms = new List<Room>();
 

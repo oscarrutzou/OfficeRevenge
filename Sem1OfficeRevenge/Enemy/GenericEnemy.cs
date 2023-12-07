@@ -1,11 +1,24 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+using Sem1OfficeRevenge.Enemy;
 
 namespace Sem1OfficeRevenge
 {
     public class GenericEnemy : GameObject
     {
-        private int health;
         public bool dead;
+        private Blood blood;
+        protected List<ShoePrint> shoePrints = new List<ShoePrint>();
+        protected Vector2 oldPos;
+        protected int bloodied = 0;
+        protected bool right = true;
+        protected Random rnd = new Random();
 
 
         internal SoundNames[] deathVoiceLines = new SoundNames[]
@@ -25,6 +38,8 @@ namespace Sem1OfficeRevenge
         
         public void Die()
         {
+            blood = new Blood(position);
+            Global.currentScene.Instantiate(blood);
             dead = true;
             ScoreManager.killCount++;
             animation.frameRate = 0;
@@ -45,5 +60,7 @@ namespace Sem1OfficeRevenge
             }
         }
 
+        }
+        
     }
 }

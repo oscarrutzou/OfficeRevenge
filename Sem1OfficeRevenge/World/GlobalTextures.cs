@@ -21,7 +21,9 @@ namespace Sem1OfficeRevenge
         MiniMapOverLaySmall,
         MiniMapOverLayBig,
         Pixel,
-
+        Blood,
+        Shoe,
+        Sight,
 
         Bullet,        
     }
@@ -34,7 +36,7 @@ namespace Sem1OfficeRevenge
 
         public static void LoadContent()
         {
-            
+
             textures = new Dictionary<TextureNames, Texture2D>
             {
                 {TextureNames.TileMap1, Global.world.Content.Load<Texture2D>("Rooms\\TempLobby1") },
@@ -50,7 +52,13 @@ namespace Sem1OfficeRevenge
                 {TextureNames.MiniMapOverLaySmall, Global.world.Content.Load<Texture2D>("GUI\\MiniMapOverLay") },
                 {TextureNames.MiniMapOverLayBig, Global.world.Content.Load<Texture2D>("GUI\\MiniMapOverLay330") },
                 {TextureNames.Pixel, Global.world.Content.Load<Texture2D>("GUI\\Pixel") },
-                {TextureNames.Bullet, Global.world.Content.Load<Texture2D>("Bullet\\Bullet") }
+                {TextureNames.Bullet, Global.world.Content.Load<Texture2D>("Bullet\\Bullet") },
+
+                {TextureNames.Blood, Global.world.Content.Load<Texture2D>("Fonts\\BloodPool") },
+                {TextureNames.Shoe, Global.world.Content.Load<Texture2D>("Fonts\\shoeprint") },
+                {TextureNames.Sight, Global.world.Content.Load<Texture2D>("Fonts\\sight") }
+
+
             };
 
             defaultFont = Global.world.Content.Load<SpriteFont>("Fonts\\SlencoBlack");
