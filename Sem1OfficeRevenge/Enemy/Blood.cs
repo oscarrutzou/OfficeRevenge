@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using SharpDX.Direct2D1.Effects;
 
-namespace Sem1OfficeRevenge.Enemy
+namespace Sem1OfficeRevenge
 {
      public class Blood : GameObject
     {
@@ -45,7 +45,7 @@ namespace Sem1OfficeRevenge.Enemy
             {
 
                 
-                if (blood != this && Collision.IsCollidingBox(this, blood))
+                if (blood != this && Collision.IntersectBox(this, blood))
                 {
 
                     targetScale = scale; break;

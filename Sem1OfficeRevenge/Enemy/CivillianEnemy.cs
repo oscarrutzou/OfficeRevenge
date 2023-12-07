@@ -48,6 +48,7 @@ namespace Sem1OfficeRevenge
 
         public override void Update()
         {
+            
             if (Global.currentScene.isPaused || dead) return;
 
             if (WalkedFar(75, position, oldPos) == false)
@@ -116,7 +117,7 @@ namespace Sem1OfficeRevenge
 
             shouldPlayVoice = true;
 
-            if (rnd.Next(0, 15) == 0)
+            if (rnd.Next(0, 2) == 0)
             {
                 int soundIndex = rnd.Next(0, deathSounds.Length);
 

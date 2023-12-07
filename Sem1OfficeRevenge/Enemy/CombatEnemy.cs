@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using Sem1OfficeRevenge.Enemy;
 using SharpDX.Direct3D9;
 
 namespace Sem1OfficeRevenge
@@ -20,6 +19,8 @@ namespace Sem1OfficeRevenge
         
         public CombatEnemy()
         {
+
+            
             SetObjectAnimation(AnimNames.PlayerRifleIdle);
             speed = 7.5f;
             centerOrigin = true;
@@ -99,7 +100,7 @@ namespace Sem1OfficeRevenge
                 Vector2 dir = Global.player.position - position;
                 rotTarget = (float)Math.Atan2(-dir.Y, -dir.X) + MathHelper.Pi;
                 rotTarget = ShortestRotation(rotTarget, rotation);
-                LerpTowardsTarget(rotTarget, rotation, timer, 0.01f);
+                LerpTowardsTarget(rotTarget, rotation, timer, 0.05f);
 
 
 

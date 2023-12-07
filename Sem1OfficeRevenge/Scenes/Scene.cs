@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Sem1OfficeRevenge.Enemy;
 using System;
 using System.Collections.Generic;
 

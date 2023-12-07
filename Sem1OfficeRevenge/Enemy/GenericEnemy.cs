@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using Sem1OfficeRevenge.Enemy;
 
 namespace Sem1OfficeRevenge
 {
@@ -43,9 +42,12 @@ namespace Sem1OfficeRevenge
             dead = true;
             ScoreManager.killCount++;
             animation.frameRate = 0;
-            
 
+            if (rnd.Next(1,7) == 5)
+            {
             SoundOnDeath();
+
+            }
         }
 
         private void SoundOnDeath()
@@ -63,4 +65,4 @@ namespace Sem1OfficeRevenge
         }
         
     }
-}
+

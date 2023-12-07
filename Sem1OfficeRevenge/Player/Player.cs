@@ -1,8 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using Sem1OfficeRevenge.Enemy;
-using Sem1OfficeRevenge.World;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -33,7 +31,7 @@ namespace Sem1OfficeRevenge
 
         public Player()
         {
-            health = 100;
+            health = 100000;
             //scale = new Vector2(0.5f, 0.5f);
             centerOrigin = true;
             Global.player = this;
@@ -124,7 +122,7 @@ namespace Sem1OfficeRevenge
             Bullet bullet = new Bullet(new Vector2(0, 50), bulletSpeed, bulletDmg);
             bullets.Add(bullet);
             //GlobalSound.sounds[SoundNames.Shot].Play();
-            //GlobalSound.PlaySound(GlobalSound.sounds[SoundNames.Shot]);
+            GlobalSound.PlaySound(GlobalSound.sounds[SoundNames.Shot]);
             Global.currentScene.Instantiate(bullet);
             
         }
