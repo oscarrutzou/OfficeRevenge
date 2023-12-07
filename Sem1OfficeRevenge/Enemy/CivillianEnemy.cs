@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
+using Sem1OfficeRevenge.Enemy;
 using Sem1OfficeRevenge.World;
 using System;
 using System.Collections.Generic;
@@ -22,8 +23,8 @@ namespace Sem1OfficeRevenge
         private float rotOrigin;
         private float rotSpeed;
         private float timer;
-
-
+        private Rectangle center;
+        Vector2 tempPosition;
 
         public CivillianEnemy()
         {
@@ -31,7 +32,7 @@ namespace Sem1OfficeRevenge
             centerOrigin = true;
             layerDepth = Global.currentScene.GetObjectLayerDepth(LayerDepth.Enemies);
 
-
+            Vector2 tempPosition = this.position;
         }
 
         bool WalkedFar(float range, Vector2 v1, Vector2 v2)
@@ -56,13 +57,48 @@ namespace Sem1OfficeRevenge
                 }
 
             }
+
+            bool isInsideRoom = false;
+
+            foreach (Room room in Global.currentSceneData.rooms)
+            {
+                if (Collision.ContainsEitherBox(this, room.collisionBox, room.hallwayCol))
+                {
+                    isInsideRoom = true;
+                    this.color = Color.White;
+                    //center = room.collisionBox;
+                    break;
+                }
+                else
+                {
+                    ChangeDirection();
+                    this.color = Color.Gray;
+                }
+
+            }
+
+            if (!isInsideRoom)
+            {
+                //if (center.X > this.position.X)
+                //{
+                //    this.position.X += 3;
+                //}
+                //else { this.position.X -= 3; }
+
+                //if (center.Y > this.position.Y)
+                //{
+                //    this.position.Y += 3;
+                //}
+                //else { this.position.Y -= 3; }
+
+                this.position = tempPosition;
+            }
+
             foreach (Blood blood in Global.currentSceneData.bloods)
             {
                 if (Math.Abs(position.X - blood.position.X) < (blood.texture.Width * scale.X) / 2 / 2 && Math.Abs(position.Y - blood.position.Y) < (blood.texture.Height * scale.Y) / 2 / 2)
                 {
-
                     bloodied = 10;
-
                 }
             }
 
@@ -99,8 +135,6 @@ namespace Sem1OfficeRevenge
                 
                 fleeing = false;
             }
-
-            
         }
 
         public void ChangeDirection() 
@@ -126,12 +160,14 @@ namespace Sem1OfficeRevenge
                 case 1:
                     if (Global.player.position.X>position.X)
                     {
+                        tempPosition = this.position;
                         position.X -= rnd.Next(minSpeed, maxSpeed);
                         lookPoint = new Vector2(position.X-50, position.Y);
 
                     }
                     else
                     {
+                        tempPosition = this.position;
                         position.X += rnd.Next(minSpeed, maxSpeed);
                         lookPoint = new Vector2(position.X + 50, position.Y);
                     }
@@ -140,11 +176,13 @@ namespace Sem1OfficeRevenge
                 case 2:
                     if (Global.player.position.Y > position.Y)
                     {
+                        tempPosition = this.position;
                         position.Y -= rnd.Next(minSpeed, maxSpeed);
                         lookPoint = new Vector2(position.X, position.Y-50);
                     }
                     else
                     {
+                        tempPosition = this.position;
                         position.Y += rnd.Next(minSpeed, maxSpeed);
                         lookPoint = new Vector2(position.X, position.Y+50);
                     }
@@ -153,22 +191,26 @@ namespace Sem1OfficeRevenge
                 case 3:
                     if (Global.player.position.X > position.X)
                     {
+                        tempPosition = this.position;
                         position.X -= rnd.Next(minSpeed, maxSpeed);
                         lookPoint = new Vector2(position.X-50, position.Y);
 
                     }
                     else
                     {
+                        tempPosition = this.position;
                         position.X += rnd.Next(minSpeed, maxSpeed);
                         lookPoint = new Vector2(position.X+50, position.Y);
                     }
                     if (Global.player.position.Y > position.Y)
                     {
+                        tempPosition = this.position;
                         position.Y -= rnd.Next(minSpeed, maxSpeed);
                         lookPoint = new Vector2(lookPoint.X, position.Y - 50);
                     }
                     else
                     {
+                        tempPosition = this.position;
                         position.Y += rnd.Next(minSpeed, maxSpeed);
                         lookPoint = new Vector2(lookPoint.X, position.Y + 50);
                     }

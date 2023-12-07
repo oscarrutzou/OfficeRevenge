@@ -76,7 +76,10 @@ namespace Sem1OfficeRevenge
         {
             KeyboardState state = Keyboard.GetState();
 
-            lvlGen.EnemyColliding();
+            //if (lvlGen.doneGenerating)
+            //{
+            //    lvlGen.EnemyColliding();
+            //}
 
             //check if key is pressed
             //if (state.IsKeyDown(Keys.Space))
