@@ -16,7 +16,7 @@ namespace Sem1OfficeRevenge
         private Vector2 handlePosition;
         private Vector2 fillPosition;
         public float delayTimer = 0f;
-        private float delayDuration = 0.1f;
+        private float delayDuration = 0.2f;
 
         private bool sfxSlider;
         private bool _isVisible;
@@ -64,13 +64,19 @@ namespace Sem1OfficeRevenge
 
         public override void Update()
         {
-            if (!isVisible) return;
-
-            // Update the delay timer
-            if (delayTimer < delayDuration)
+            if (!isVisible)
             {
-                delayTimer += (float)Global.gameTime.ElapsedGameTime.TotalSeconds;
                 return;
+            }
+            else
+            {
+                SetHandlePos();
+
+                if (delayTimer < delayDuration)
+                {
+                    delayTimer += (float)Global.gameTime.ElapsedGameTime.TotalSeconds;
+                    return;
+                }
             }
 
             // Check if the left mouse button is pressed and the mouse is over the slider
@@ -100,7 +106,7 @@ namespace Sem1OfficeRevenge
                 }
             }
 
-            SetHandlePos();
+            
         }
 
 

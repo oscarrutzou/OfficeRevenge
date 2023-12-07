@@ -86,18 +86,6 @@
 /processorParam:TextureFormat=Color
 /build:Fonts/sight.png
 
-#begin Fonts/sight.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Fonts/sight.png
-
 #begin Fonts/SlencoBlack.spritefont
 /importer:FontDescriptionImporter
 /processor:FontDescriptionProcessor
@@ -5530,45 +5518,81 @@
 /processorParam:Quality=Best
 /build:Sounds/EnemyDeath/GenericDeath9.mp3
 
-#begin Sounds/Shooter1.mp3
+#begin Sounds/Player/Shooter1.mp3
 /importer:Mp3Importer
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
-/build:Sounds/Shooter1.mp3
+/build:Sounds/Player/Shooter1.mp3
 
-#begin Sounds/Shooter2.mp3
+#begin Sounds/Player/Shooter10.mp3
 /importer:Mp3Importer
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
-/build:Sounds/Shooter2.mp3
+/build:Sounds/Player/Shooter10.mp3
 
-#begin Sounds/Shooter3.mp3
+#begin Sounds/Player/Shooter11.mp3
 /importer:Mp3Importer
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
-/build:Sounds/Shooter3.mp3
+/build:Sounds/Player/Shooter11.mp3
 
-#begin Sounds/Shooter4.mp3
+#begin Sounds/Player/Shooter2.mp3
 /importer:Mp3Importer
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
-/build:Sounds/Shooter4.mp3
+/build:Sounds/Player/Shooter2.mp3
 
-#begin Sounds/Shooter5.mp3
+#begin Sounds/Player/Shooter3.mp3
 /importer:Mp3Importer
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
-/build:Sounds/Shooter5.mp3
+/build:Sounds/Player/Shooter3.mp3
 
-#begin Sounds/Shooter6.mp3
+#begin Sounds/Player/Shooter4.mp3
 /importer:Mp3Importer
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
-/build:Sounds/Shooter6.mp3
+/build:Sounds/Player/Shooter4.mp3
 
-#begin Sounds/ShooterDeath.mp3
+#begin Sounds/Player/Shooter5.mp3
 /importer:Mp3Importer
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
-/build:Sounds/ShooterDeath.mp3
+/build:Sounds/Player/Shooter5.mp3
+
+#begin Sounds/Player/Shooter6.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/Player/Shooter6.mp3
+
+#begin Sounds/Player/Shooter7.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/Player/Shooter7.mp3
+
+#begin Sounds/Player/Shooter8.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/Player/Shooter8.mp3
+
+#begin Sounds/Player/Shooter9.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/Player/Shooter9.mp3
+
+#begin Sounds/Player/ShooterDeath.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/Player/ShooterDeath.mp3
+
+#begin Sounds/Player/ShooterIntro.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/Player/ShooterIntro.mp3
 
