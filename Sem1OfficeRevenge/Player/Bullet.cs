@@ -16,14 +16,14 @@ namespace Sem1OfficeRevenge
         public float totalSecondsTimer;
    
 
-        public Bullet(Vector2 offSet, int speed, int bulletDmg)
+        public Bullet(int speed, int bulletDmg)
         {
             texture = GlobalTextures.textures[TextureNames.Bullet];
             Global.currentScene.SetObjectLayerDepth(this, LayerDepth.Bullets);
             scale = new Vector2(0.07f, 0.07f);
 
             centerOrigin = true;
-            SetCorrectBulletPositionWithOffset(offSet);
+            SetCorrectBulletPositionWithOffset();
             rotation = Global.player.rotation;
             direction = new((float)Math.Cos(Global.player.rotation), (float)Math.Sin(Global.player.rotation));
             this.speed = speed;
@@ -57,11 +57,11 @@ namespace Sem1OfficeRevenge
             //Efter lav det samme foreach bare med en med væggene. 
         }
 
-        public Vector2 SetCorrectBulletPositionWithOffset(Vector2 playerGunOffset)
+        public Vector2 SetCorrectBulletPositionWithOffset()
         {
             Texture2D playerTexture = Global.player.animation.frames[Global.player.animation.currentFrame];
             // Offset from the center of the tower to the right side of the tower sprite
-            Vector2 offset = new Vector2(playerTexture.Width / 2, 0) + playerGunOffset;
+            Vector2 offset = new Vector2(playerTexture.Width / 2, 0) + new Vector2(0, Global.player.textureOffset);
 
             // Add half the height of the projectile sprite to the offset
             offset.X += (texture.Height * scale.Y) / 2; //Should use the width when it has a proper texture that faces right

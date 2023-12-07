@@ -17,7 +17,7 @@ namespace Sem1OfficeRevenge
     {
         public int health {  get; private set; }
         public bool canMove {  get; private set; }
-        
+        public int textureOffset { get; private set; }
         public bool alive;
         public float playerSpeed = 10f;
         private bool hasAttacked;
@@ -27,21 +27,20 @@ namespace Sem1OfficeRevenge
         private Vector2 oldPos;
         private int bloodied = 0;
         private bool right = true;
-
-        private List<ShoePrint> shoePrints = new List<ShoePrint>();
-        private Vector2 oldPos;
-        private int bloodied = 0;
-        private bool right = true;
+        private Weapon pistol = new Pistol();
+        private Weapon shotgun = new Shotgun();
+        private Weapon rifle = new Rifle();
+        private Weapon currentWeapon;
 
         private Texture2D sight;
 
         public Player()
         {
             health = 100;
-            
+            textureOffset = 50;
             centerOrigin = true;
             Global.player = this;
-
+            currentWeapon = shotgun;
             position = Vector2.Zero;
             //position = Global.world.playerCamera.origin;
             SetObjectAnimation(AnimNames.PlayerRifleIdle);
@@ -59,7 +58,7 @@ namespace Sem1OfficeRevenge
 
             if (InputManager.anyMoveKeyPressed && InputManager.mouseClicked)
             {
-                Weapon.Fire();
+                currentWeapon.Fire();
                 AnimRunNShoot();
             }
             else if (InputManager.anyMoveKeyPressed)
@@ -68,7 +67,7 @@ namespace Sem1OfficeRevenge
             } 
             else if (InputManager.mouseClicked)
             {
-                Weapon.Fire();
+                currentWeapon.Fire();
                 AnimShoot();
             }
 

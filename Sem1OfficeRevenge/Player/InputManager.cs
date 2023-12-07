@@ -71,7 +71,7 @@ namespace Sem1OfficeRevenge
                 dir.Normalize();
 
                 // Calculate the offset vector perpendicular to the direction vector
-                Vector2 offset = new Vector2(-dir.Y, dir.X) * -50; // 50 is the offset distance in px
+                Vector2 offset = new Vector2(-dir.Y, dir.X) * -Global.player.textureOffset; // 50 is the offset distance in px
                 Vector2 tempPosition = Global.player.position; // Store the current position
 
                 Global.player.RotateTowardsTargetWithOffset(mousePositionInWorld, offset);

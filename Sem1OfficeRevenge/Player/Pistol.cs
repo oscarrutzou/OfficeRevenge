@@ -17,6 +17,14 @@ namespace Sem1OfficeRevenge
             dmg = dmg * 1;
         }
 
+        protected override void MakeBullets()
+        {
+            List<Bullet> bullets = new List<Bullet>();
+            Bullet bullet = new Bullet(bulletSpeed, bulletDmg);
+            bullets.Add(bullet);
+            Global.currentScene.Instantiate(bullet);
+        }
+
         private void Shooting()
         {
 
