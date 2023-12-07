@@ -16,8 +16,8 @@ namespace Sem1OfficeRevenge
         public bool injured;
         private bool fleeing;
         private int fleeDirection;
-        private int minSpeed = 5-4;
-        private int maxSpeed = 11-4;
+        private int minSpeed = 1;
+        private int maxSpeed = 7;
         private Vector2 lookPoint;
         private float rotTarget;
         private float rotOrigin;
@@ -29,16 +29,11 @@ namespace Sem1OfficeRevenge
         private bool shouldPlayVoice;
        
 
-
-
-
         public CivillianEnemy()
         {
             SetObjectAnimation(AnimNames.PlayerRifleMove);
             centerOrigin = true;
             layerDepth = Global.currentScene.GetObjectLayerDepth(LayerDepth.Enemies);
-
-
         }
 
         bool WalkedFar(float range, Vector2 v1, Vector2 v2)

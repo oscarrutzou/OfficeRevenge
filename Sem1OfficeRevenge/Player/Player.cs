@@ -2,7 +2,6 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Sem1OfficeRevenge.Enemy;
-using Sem1OfficeRevenge.World;
 using System;
 using System.Collections.Generic;
 using System.IO;

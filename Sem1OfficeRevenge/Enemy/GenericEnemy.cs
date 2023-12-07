@@ -50,6 +50,8 @@ namespace Sem1OfficeRevenge
 
         private void SoundOnDeath()
         {
+            if (Global.rnd.Next(0, 3) != 0) return;
+
             if (!GlobalSound.IsAnySoundPlaying(deathVoiceLines))
             {
                 GlobalSound.PlayRandomSound(deathVoiceLines, 1);
@@ -60,7 +62,6 @@ namespace Sem1OfficeRevenge
             }
         }
 
-        }
-        
-    }
+    }        
 }
+

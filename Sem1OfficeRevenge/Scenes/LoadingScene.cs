@@ -31,7 +31,7 @@ public class LoadingScene : Scene
         else
         {
             isLoading = false;
-            Global.world.ChangeScene(Scenes.TestLeonard);
+            Global.world.ChangeScene(Scenes.TestBaseScene);
         }
     }
 

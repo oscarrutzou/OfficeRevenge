@@ -30,6 +30,14 @@ namespace Sem1OfficeRevenge
             return other.collisionBox.Contains(sender.collisionBox);
         }
 
+        static public bool ContainsEitherBox(Rectangle sender, Rectangle box1, Rectangle box2)
+        {
+            bool col1 = box1.Contains(sender);
+            bool col2 = box2.Contains(sender);
+            if (col1 || col2) return true;
+            else return false;
+        }
+
         static public bool ContainsEitherBox(GameObject sender, Rectangle box1, Rectangle box2)
         {
             bool col1 = box1.Contains(sender.collisionBox);

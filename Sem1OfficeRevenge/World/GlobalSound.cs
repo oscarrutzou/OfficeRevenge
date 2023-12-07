@@ -169,33 +169,6 @@ namespace Sem1OfficeRevenge
             PlaySound(sound);
         }
 
-        public static void PlayRandomSound(SoundNames[] soundArray, int maxAmountPlaying, float divideVolume)
-        {
-            int soundIndex = Global.rnd.Next(0, soundArray.Length);
-            int index = 0;
-
-            SoundEffect sound = sounds[soundArray[soundIndex]];
-
-            foreach (SoundEffectData data in soundInstances)
-            {
-                foreach (SoundNames name in soundArray)
-                {
-                    SoundEffect soundName = sounds[name];
-                    if (data.Instance.State == SoundState.Playing && data.Sound == soundName)
-                    {
-                        index++;
-                    }
-                }
-            }
-
-            if (index >= maxAmountPlaying)
-            {
-                return;
-            }
-
-            PlaySound(sound, divideVolume);
-        }
-
 
         public static void PlaySound(SoundEffect sound)
         {
@@ -222,30 +195,6 @@ namespace Sem1OfficeRevenge
             }
         }
 
-        public static void PlaySound(SoundEffect sound, float divideVolume)
-        {
-            SoundEffectInstance instance = sound.CreateInstance();
-            soundInstances.Add(new SoundEffectData(instance, sound));
-            instance.Volume = sfxVolume / divideVolume;
-            instance.Play();
-
-            List<SoundEffectData> toRemove = new List<SoundEffectData>();
-
-            foreach (SoundEffectData data in soundInstances)
-            {
-                if (data.Instance.State == SoundState.Stopped)
-                {
-                    data.Instance.Stop();
-                    data.Instance.Dispose();
-                    toRemove.Add(data);
-                }
-            }
-
-            foreach (SoundEffectData data in toRemove)
-            {
-                soundInstances.Remove(data);
-            }
-        }
 
         public static void PitchedPlay(SoundEffect sound, float pitchVariance)
         {
@@ -318,7 +267,60 @@ namespace Sem1OfficeRevenge
 
 
 
+
+        //public static void PlayRandomSound(SoundNames[] soundArray, int maxAmountPlaying, float divideVolume)
+        //{
+        //    int soundIndex = Global.rnd.Next(0, soundArray.Length);
+        //    int index = 0;
+
+        //    SoundEffect sound = sounds[soundArray[soundIndex]];
+
+        //    foreach (SoundEffectData data in soundInstances)
+        //    {
+        //        foreach (SoundNames name in soundArray)
+        //        {
+        //            SoundEffect soundName = sounds[name];
+        //            if (data.Instance.State == SoundState.Playing && data.Sound == soundName)
+        //            {
+        //                index++;
+        //            }
+        //        }
+        //    }
+
+        //    if (index >= maxAmountPlaying)
+        //    {
+        //        return;
+        //    }
+
+        //    PlaySound(sound, divideVolume);
+        //}
+
+        //public static void PlaySound(SoundEffect sound, float divideVolume)
+        //{
+        //    SoundEffectInstance instance = sound.CreateInstance();
+        //    soundInstances.Add(new SoundEffectData(instance, sound));
+        //    instance.Volume = sfxVolume / divideVolume;
+        //    instance.Play();
+
+        //    List<SoundEffectData> toRemove = new List<SoundEffectData>();
+
+        //    foreach (SoundEffectData data in soundInstances)
+        //    {
+        //        if (data.Instance.State == SoundState.Stopped)
+        //        {
+        //            data.Instance.Stop();
+        //            data.Instance.Dispose();
+        //            toRemove.Add(data);
+        //        }
+        //    }
+
+        //    foreach (SoundEffectData data in toRemove)
+        //    {
+        //        soundInstances.Remove(data);
+        //    }
+        //}
+
     }
 
-    
+
 }
