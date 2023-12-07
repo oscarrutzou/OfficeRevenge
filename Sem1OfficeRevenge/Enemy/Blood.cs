@@ -45,11 +45,9 @@ namespace Sem1OfficeRevenge.Enemy
             {
 
                 
-                if (blood != this && Collision.IsCollidingBox(this, blood))
+                if (blood != this && Collision.ContainsBox(this, blood))
                 {
-
                     targetScale = scale; break;
-
                 }
             }
         }

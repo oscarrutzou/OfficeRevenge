@@ -65,14 +65,14 @@ namespace Sem1OfficeRevenge
                 if (Collision.ContainsEitherBox(this, room.collisionBox, room.hallwayCol))
                 {
                     isInsideRoom = true;
-                    this.color = Color.White;
+                    //this.color = Color.White;
                     //center = room.collisionBox;
                     break;
                 }
                 else
                 {
-                    ChangeDirection();
-                    this.color = Color.Gray;
+                    //ChangeDirection();
+                    //this.color = Color.Gray;
                 }
 
             }

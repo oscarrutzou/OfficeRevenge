@@ -99,9 +99,7 @@ namespace Sem1OfficeRevenge
                 {
                     intersects = false;
                 }
-
                 rooms.Add(room);
-
             }
 
             if (!intersects)
