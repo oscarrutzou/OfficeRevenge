@@ -38,6 +38,22 @@ namespace Sem1OfficeRevenge
             totalSecondsTimer = (float)Global.gameTime.ElapsedGameTime.TotalSeconds;
             position += direction * speed * totalSecondsTimer;
 
+            bool isInsideRoom = false;
+
+            foreach (Room room in Global.currentSceneData.rooms)
+            {
+                if (Collision.ContainsEitherBox(this, room.collisionBox, room.hallwayCol))
+                {
+                    isInsideRoom = true;
+                    break;
+                }
+            }
+
+            if (!isInsideRoom)
+            {
+                this.isRemoved = true;
+            }
+
             CheckCollisionBox();
             
         }

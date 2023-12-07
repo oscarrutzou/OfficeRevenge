@@ -78,11 +78,6 @@ namespace Sem1OfficeRevenge
                     RoomColliders(room, randomRotation);
                 }
 
-                //Global.currentScene.Instantiate(room);
-                //room.position = previousRoom.position;
-
-                //MoveRoom(room, randomRotation);
-
                 if (CheckIntersect(room))
                 {
                     RemoveRooms();
@@ -108,9 +103,12 @@ namespace Sem1OfficeRevenge
                 {
                     for (int i = 0; i < rnd.Next(3, 8); i++)
                     {
-                        CivEnemies.Add(new CivillianEnemy());
-                        CivEnemies[CivEnemies.Count - 1].position = new Vector2(room.position.X + rnd.Next(-350, 351), room.position.Y + rnd.Next(-450, 451));
-                        Global.currentScene.Instantiate(CivEnemies[CivEnemies.Count - 1]);
+                        if (room.texture.Name != "Rooms\\TempLobby1")
+                        {
+                            CivEnemies.Add(new CivillianEnemy());
+                            CivEnemies[CivEnemies.Count - 1].position = new Vector2(room.position.X + rnd.Next(-350, 351), room.position.Y + rnd.Next(-450, 451));
+                            Global.currentScene.Instantiate(CivEnemies[CivEnemies.Count - 1]);
+                        }
                     }
                 }
 
@@ -122,10 +120,7 @@ namespace Sem1OfficeRevenge
         {
             foreach (Room roomI in rooms)
             {
-                //if (room == roomI)
-                //{
-                //    break;
-                //}
+                
 
                 if (room.collisionBox.Intersects(roomI.collisionBox))
                 {
@@ -145,25 +140,6 @@ namespace Sem1OfficeRevenge
                 }
             }
         }
-
-        //public void EnemyColliding()
-        //{
-        //    foreach (Room room in rooms)
-        //    {
-        //        foreach (CivillianEnemy civEnm in CivEnemies)
-        //        {
-        //            if (Collision.ContainsEitherBox(civEnm, room.collisionBox, room.hallwayCol))
-        //            {
-        //                civEnm.ChangeDirection();
-        //                civEnm.color = Color.Black;
-        //            }
-        //            else
-        //            {
-        //                civEnm.color = Color.White;
-        //            }
-        //        }
-        //    }
-        //}
 
         private void RoomColliders(Room tempRoom, float rotation)
         {
