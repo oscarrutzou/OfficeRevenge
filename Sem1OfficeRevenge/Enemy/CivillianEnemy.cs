@@ -29,7 +29,7 @@ namespace Sem1OfficeRevenge
 
 
 
-        private float timer;
+        
         private Rectangle center;
         Vector2 tempPosition;
 
@@ -73,33 +73,33 @@ namespace Sem1OfficeRevenge
                 if (Collision.ContainsEitherBox(this, room.collisionBox, room.hallwayCol))
                 {
                     isInsideRoom = true;
-                    this.color = Color.White;
+                    //this.color = Color.White;
                     //center = room.collisionBox;
                     break;
                 }
                 else
                 {
                     ChangeDirection();
-                    this.color = Color.Gray;
+                    //this.color = Color.Gray;
                 }
 
             }
 
             if (!isInsideRoom)
             {
-                //if (center.X > this.position.X)
-                //{
-                //    this.position.X += 3;
-                //}
-                //else { this.position.X -= 3; }
+                if (center.X > this.position.X)
+                {
+                    this.position.X += 3;
+                }
+                else { this.position.X -= 3; }
 
-                //if (center.Y > this.position.Y)
-                //{
-                //    this.position.Y += 3;
-                //}
-                //else { this.position.Y -= 3; }
+                if (center.Y > this.position.Y)
+                {
+                    this.position.Y += 3;
+                }
+                else { this.position.Y -= 3; }
 
-                this.position = tempPosition;
+                //this.position = tempPosition;
             }
 
             foreach (Blood blood in Global.currentSceneData.bloods)
@@ -175,15 +175,7 @@ namespace Sem1OfficeRevenge
             rotOrigin = rotation;
         }
         
-        private void ChooseRndVoiceLine()
-        {
-            if (rnd.Next(0, 5) == 0)
-            {
-                int soundIndex = rnd.Next(0, 5);
-                //SoundEffectInstance sound = 
-                //GlobalSound.Play();
-            }
-        }
+        
 
         public void Flee()
         {
