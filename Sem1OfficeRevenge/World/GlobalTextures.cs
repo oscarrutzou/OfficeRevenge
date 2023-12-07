@@ -21,6 +21,7 @@ namespace Sem1OfficeRevenge
         Pixel,
         Blood,
         Shoe,
+        Sight,
 
         Bullet,        
     }
@@ -50,7 +51,9 @@ namespace Sem1OfficeRevenge
                 {TextureNames.Bullet, Global.world.Content.Load<Texture2D>("Bullet\\Bullet") },
 
                 {TextureNames.Blood, Global.world.Content.Load<Texture2D>("Fonts\\BloodPool") },
-                {TextureNames.Shoe, Global.world.Content.Load<Texture2D>("Fonts\\shoeprint") }
+                {TextureNames.Shoe, Global.world.Content.Load<Texture2D>("Fonts\\shoeprint") },
+                {TextureNames.Sight, Global.world.Content.Load<Texture2D>("Fonts\\sight") }
+
 
             };
 

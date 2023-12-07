@@ -111,7 +111,7 @@ namespace Sem1OfficeRevenge
                     for (int i = 0; i < rnd.Next(3, 8); i++)
                     {
                         CivEnemies.Add(new CivillianEnemy());
-                        CivEnemies[CivEnemies.Count - 1].position = new Vector2(room.position.X + rnd.Next(-450, 451), room.position.Y + rnd.Next(-450, 451));
+                        CivEnemies[CivEnemies.Count - 1].position = new Vector2(room.position.X + rnd.Next(-350, 351), room.position.Y + rnd.Next(-450, 451));
                         Global.currentScene.Instantiate(CivEnemies[CivEnemies.Count - 1]);
                     }
                 }

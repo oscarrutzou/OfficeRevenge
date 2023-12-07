@@ -32,7 +32,7 @@ namespace Sem1OfficeRevenge
             centerOrigin = true;
             layerDepth = Global.currentScene.GetObjectLayerDepth(LayerDepth.Enemies);
 
-            Vector2 tempPosition = this.position;
+            //Vector2 tempPosition = this.position;
         }
 
         bool WalkedFar(float range, Vector2 v1, Vector2 v2)
@@ -79,19 +79,19 @@ namespace Sem1OfficeRevenge
 
             if (!isInsideRoom)
             {
-                //if (center.X > this.position.X)
-                //{
-                //    this.position.X += 3;
-                //}
-                //else { this.position.X -= 3; }
+                if (center.X > this.position.X)
+                {
+                    this.position.X += 3;
+                }
+                else { this.position.X -= 3; }
 
-                //if (center.Y > this.position.Y)
-                //{
-                //    this.position.Y += 3;
-                //}
-                //else { this.position.Y -= 3; }
+                if (center.Y > this.position.Y)
+                {
+                    this.position.Y += 3;
+                }
+                else { this.position.Y -= 3; }
 
-                this.position = tempPosition;
+                //this.position = tempPosition;
             }
 
             foreach (Blood blood in Global.currentSceneData.bloods)
