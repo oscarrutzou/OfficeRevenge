@@ -59,6 +59,8 @@ namespace Sem1OfficeRevenge
     {
 
         public static Dictionary<SoundNames, SoundEffect> sounds;
+        public static Dictionary<SoundNames, List<SoundEffectInstance>> soundInstancesPool;
+        private static int maxInstanceOfOneSound = 2;
 
         public static bool inMenu = true;
 
@@ -70,13 +72,13 @@ namespace Sem1OfficeRevenge
 
         public static float musicVolume = 0.2f;
         public static float sfxVolume = 1f;
-
         public static List<SoundEffectData> soundInstances { get; private set; }
 
 
         public static void LoadContent()
         {
             soundInstances = new List<SoundEffectData>();
+            soundInstancesPool = new Dictionary<SoundNames, List<SoundEffectInstance>>();
 
             MenuMusic = Global.world.Content.Load<SoundEffect>("Fonts\\MainTheme");
             GameMusic = Global.world.Content.Load<SoundEffect>("Fonts\\DistortedTheme");
@@ -124,6 +126,17 @@ namespace Sem1OfficeRevenge
 
                 { SoundNames.TestSound3, Global.world.Content.Load<SoundEffect>("Fonts\\DistortedTheme")}
             };
+
+            foreach (var sound in sounds)
+            {
+                soundInstancesPool[sound.Key] = new List<SoundEffectInstance>();
+                for (int i = 0; i < maxInstanceOfOneSound; i++)
+                {
+                    soundInstancesPool[sound.Key].Add(sound.Value.CreateInstance());
+                }
+            }
+
+
         }
 
         public static bool IsAnySoundPlaying(SoundNames[] soundArray)
@@ -147,17 +160,13 @@ namespace Sem1OfficeRevenge
             int soundIndex = Global.rnd.Next(0, soundArray.Length);
             int index = 0;
 
-            SoundEffect sound = sounds[soundArray[soundIndex]];
+            SoundNames soundName = soundArray[soundIndex];
 
-            foreach (SoundEffectData data in soundInstances)
+            foreach (SoundEffectInstance inst in soundInstancesPool[soundName])
             {
-                foreach (SoundNames name in soundArray)
+                if (inst.State == SoundState.Playing)
                 {
-                    SoundEffect soundName = sounds[name];
-                    if (data.Instance.State == SoundState.Playing && data.Sound == soundName)
-                    {
-                        index++;
-                    }
+                    index++;
                 }
             }
 
@@ -166,33 +175,31 @@ namespace Sem1OfficeRevenge
                 return;
             }
 
-            PlaySound(sound);
+            PlaySound(soundName);
         }
 
 
-        public static void PlaySound(SoundEffect sound)
+        public static void PlaySound(SoundNames soundName)
         {
-            SoundEffectInstance instance = sound.CreateInstance();
-            soundInstances.Add(new SoundEffectData(instance, sound));
-            instance.Volume = sfxVolume;
-            instance.Play();
-
-            List<SoundEffectData> toRemove = new List<SoundEffectData>();
-
-            foreach (SoundEffectData data in soundInstances)
+            SoundEffectInstance instance = null;
+            foreach (var inst in soundInstancesPool[soundName])
             {
-                if (data.Instance.State == SoundState.Stopped)
+                if (inst.State != SoundState.Playing)
                 {
-                    data.Instance.Stop();
-                    data.Instance.Dispose();
-                    toRemove.Add(data);
+                    instance = inst;
+                    break;
                 }
             }
 
-            foreach (SoundEffectData data in toRemove)
+            if (instance == null)
             {
-                soundInstances.Remove(data);
+                // All instances are playing, so stop and reuse the oldest one.
+                instance = soundInstancesPool[soundName][0];
+                instance.Stop();
             }
+
+            instance.Volume = sfxVolume;
+            instance.Play();
         }
 
 
@@ -264,63 +271,5 @@ namespace Sem1OfficeRevenge
             }
 
         }
-
-
-
-
-        //public static void PlayRandomSound(SoundNames[] soundArray, int maxAmountPlaying, float divideVolume)
-        //{
-        //    int soundIndex = Global.rnd.Next(0, soundArray.Length);
-        //    int index = 0;
-
-        //    SoundEffect sound = sounds[soundArray[soundIndex]];
-
-        //    foreach (SoundEffectData data in soundInstances)
-        //    {
-        //        foreach (SoundNames name in soundArray)
-        //        {
-        //            SoundEffect soundName = sounds[name];
-        //            if (data.Instance.State == SoundState.Playing && data.Sound == soundName)
-        //            {
-        //                index++;
-        //            }
-        //        }
-        //    }
-
-        //    if (index >= maxAmountPlaying)
-        //    {
-        //        return;
-        //    }
-
-        //    PlaySound(sound, divideVolume);
-        //}
-
-        //public static void PlaySound(SoundEffect sound, float divideVolume)
-        //{
-        //    SoundEffectInstance instance = sound.CreateInstance();
-        //    soundInstances.Add(new SoundEffectData(instance, sound));
-        //    instance.Volume = sfxVolume / divideVolume;
-        //    instance.Play();
-
-        //    List<SoundEffectData> toRemove = new List<SoundEffectData>();
-
-        //    foreach (SoundEffectData data in soundInstances)
-        //    {
-        //        if (data.Instance.State == SoundState.Stopped)
-        //        {
-        //            data.Instance.Stop();
-        //            data.Instance.Dispose();
-        //            toRemove.Add(data);
-        //        }
-        //    }
-
-        //    foreach (SoundEffectData data in toRemove)
-        //    {
-        //        soundInstances.Remove(data);
-        //    }
-        //}
-
     }
-
-
 }

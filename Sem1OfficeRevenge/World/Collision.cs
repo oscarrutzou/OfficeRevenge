@@ -27,6 +27,8 @@ namespace Sem1OfficeRevenge
                 || sender == null
                 || other == null) return false;
 
+            
+
             return other.collisionBox.Contains(sender.collisionBox);
         }
 

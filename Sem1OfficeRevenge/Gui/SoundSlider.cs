@@ -64,6 +64,8 @@ namespace Sem1OfficeRevenge
 
         public override void Update()
         {
+            if (!isVisible) return;
+
             // Update the delay timer
             if (delayTimer < delayDuration)
             {
