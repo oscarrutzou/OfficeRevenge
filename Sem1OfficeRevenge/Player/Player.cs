@@ -33,16 +33,19 @@ namespace Sem1OfficeRevenge
         private int bloodied = 0;
         private bool right = true;
 
+        private Texture2D sight;
+
         public Player()
         {
             health = 100;
-            //scale = new Vector2(0.5f, 0.5f);
+            
             centerOrigin = true;
             Global.player = this;
 
             position = Vector2.Zero;
             //position = Global.world.playerCamera.origin;
             SetObjectAnimation(AnimNames.PlayerRifleIdle);
+            sight = GlobalTextures.textures[TextureNames.Sight];
             Global.currentScene.SetObjectLayerDepth(this, LayerDepth.Player);
         }
 
@@ -124,6 +127,8 @@ namespace Sem1OfficeRevenge
 
         public override void Draw()
         {
+            Global.spriteBatch.Draw(sight, position, null, Color.White, rotation, new Vector2(sight.Width / 2, sight.Height / 2), scale, spriteEffects, 1);
+
             base.Draw();
         }
 
