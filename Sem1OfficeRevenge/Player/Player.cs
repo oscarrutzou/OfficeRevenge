@@ -2,7 +2,6 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Sem1OfficeRevenge.Enemy;
-using Sem1OfficeRevenge.World;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -17,6 +16,7 @@ namespace Sem1OfficeRevenge
     {
         public int health {  get; private set; }
         public bool canMove {  get; private set; }
+
         public bool alive;
         public float playerSpeed = 10f;
         private bool hasAttacked;
@@ -31,6 +31,13 @@ namespace Sem1OfficeRevenge
 
         private Texture2D sight;
 
+        private int voiceLineBufferMili = 10000;
+        private bool isPlayingVl;
+        public SoundNames[] shootVoiceLines = new SoundNames[]
+{
+            SoundNames.Player1, SoundNames.Player2, SoundNames.Player3, SoundNames.Player4, SoundNames.Player5, SoundNames.Player6, SoundNames.Player7, SoundNames.Player8, SoundNames.Player9, SoundNames.Player10, SoundNames.Player11
+        };
+
         public Player()
         {
             health = 100;
@@ -39,7 +46,6 @@ namespace Sem1OfficeRevenge
             Global.player = this;
 
             position = Vector2.Zero;
-            //position = Global.world.playerCamera.origin;
             SetObjectAnimation(AnimNames.PlayerRifleIdle);
             sight = GlobalTextures.textures[TextureNames.Sight];
             Global.currentScene.SetObjectLayerDepth(this, LayerDepth.Player);
@@ -61,7 +67,7 @@ namespace Sem1OfficeRevenge
             else if (InputManager.anyMoveKeyPressed)
             {
                 AnimMove();
-            } 
+            }
             else if (InputManager.mouseClicked)
             {
                 Fire();
@@ -81,7 +87,7 @@ namespace Sem1OfficeRevenge
             }
             foreach (Blood blood in Global.currentSceneData.bloods)
             {
-                if (Math.Abs(position.X - blood.position.X) < (blood.texture.Width*scale.X)/2/2 && Math.Abs(position.Y - blood.position.Y) < (blood.texture.Height * scale.Y) / 2/2)
+                if (Math.Abs(position.X - blood.position.X) < (blood.texture.Width * scale.X) / 2 / 2 && Math.Abs(position.Y - blood.position.Y) < (blood.texture.Height * scale.Y) / 2 / 2)
                 {
 
                     bloodied = 10;
@@ -95,11 +101,6 @@ namespace Sem1OfficeRevenge
             var dx = v1.X - v2.X;
             var dy = v1.Y - v2.Y;
             return dx * dx + dy * dy < range * range;
-        }
-
-        public override void CheckCollisionBox()
-        {
-            
         }
 
         private void AnimRunNShoot()
@@ -123,9 +124,25 @@ namespace Sem1OfficeRevenge
         {
             Bullet bullet = new Bullet(new Vector2(0, 50), bulletSpeed, bulletDmg);
             bullets.Add(bullet);
-            GlobalSound.sounds[SoundNames.Shot].Play();
             Global.currentScene.Instantiate(bullet);
+            //Still play run vl
+            //GlobalSound.PlaySound(GlobalSound.sounds[SoundNames.Shot]);
             
+            PlayShootVL();
+        }
+
+        
+        private async void PlayShootVL()
+        {
+            if (isPlayingVl) return;
+
+            if (GlobalSound.IsAnySoundPlaying(GenericEnemy.deathVoiceLines)) return;
+
+            GlobalSound.PlayRandomSound(shootVoiceLines, 1);
+            isPlayingVl = true;
+
+            await Task.Delay(voiceLineBufferMili);
+            isPlayingVl = false;
         }
 
         public override void Draw()

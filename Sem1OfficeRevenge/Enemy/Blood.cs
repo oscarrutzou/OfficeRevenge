@@ -43,9 +43,7 @@ namespace Sem1OfficeRevenge.Enemy
 
             foreach (Blood blood in Global.currentSceneData.bloods)
             {
-
-                
-                if (blood != this && Collision.ContainsBox(this, blood))
+                if (blood != this && Collision.IntersectBox(this, blood))
                 {
                     targetScale = scale; break;
                 }

@@ -18,6 +18,7 @@ namespace Sem1OfficeRevenge
 
         private bool showSettings;
 
+        private SoundSlider sfxSlider;
         private SoundSlider musicSlider;
         private Button resolutionBtn;
         private Button backBtn;
@@ -30,7 +31,7 @@ namespace Sem1OfficeRevenge
 
         public void Initialize()
         {
-            InitMainMenu();
+            InitDefaultMenu();
             InitSettingsMenu();
             HidePauseMenu();
 
@@ -45,6 +46,7 @@ namespace Sem1OfficeRevenge
             mainMenuBtn.isVisible = false;
 
             resolutionBtn.isVisible = false;
+            sfxSlider.isVisible = false;
             musicSlider.isVisible = false;
             backBtn.isVisible = false;
             showSettings = false;
@@ -58,12 +60,13 @@ namespace Sem1OfficeRevenge
             mainMenuBtn.isVisible = true;
 
             resolutionBtn.isVisible = false;
+            sfxSlider.isVisible = false;
             musicSlider.isVisible = false;
             backBtn.isVisible = false;
         }
 
-        #region Main Menu
-        private void InitMainMenu()
+        #region Default Menu
+        private void InitDefaultMenu()
         {
             pauseBtn = new Button(
                                  "Pause",
@@ -114,8 +117,12 @@ namespace Sem1OfficeRevenge
                                  ChangeResolution);
             resolutionBtn.isVisible = false;
 
+            Vector2 sfxPos = Global.world.uiCamera.Center;
+            sfxSlider = new SoundSlider(sfxPos, true);
+            sfxSlider.isVisible = false;
 
-            musicSlider = new SoundSlider(Global.world.uiCamera.Center - new Vector2(GlobalTextures.textures[TextureNames.GuiSliderBase].Width / 2, GlobalTextures.textures[TextureNames.GuiSliderBase].Height / 2));
+            Vector2 musicPos = Global.world.uiCamera.Center + new Vector2(0, 85);
+            musicSlider = new SoundSlider(musicPos, false);
             musicSlider.isVisible = false;
 
             backBtn = new Button(
@@ -130,6 +137,7 @@ namespace Sem1OfficeRevenge
 
             Global.currentScene.Instantiate(fadeInOutObj);
             Global.currentScene.Instantiate(resolutionBtn);
+            Global.currentScene.Instantiate(sfxSlider);
             Global.currentScene.Instantiate(musicSlider);
             Global.currentScene.Instantiate(backBtn);
         }
@@ -155,20 +163,9 @@ namespace Sem1OfficeRevenge
 
             resolutionBtn.isVisible = true;
             musicSlider.isVisible = true;
+            sfxSlider.isVisible = true;
             backBtn.isVisible = true;
         }
-
-        //private void RemoveSettingsMenu()
-        //{
-        //    pauseBtn.isVisible = true;
-        //    settingsBtn.isVisible = true;
-        //    quitBtn.isVisible = true;
-        //    mainMenuBtn.isVisible = true;
-
-        //    resolutionBtn.isVisible = false;
-        //    musicSlider.isVisible = false;
-        //    backBtn.isVisible = false;
-        //}
         #endregion
 
         #region Setting Resolution
@@ -180,9 +177,12 @@ namespace Sem1OfficeRevenge
             quitBtn.position = Global.world.uiCamera.Center + new Vector2(0, 170);
 
             resolutionBtn.position = Global.world.uiCamera.Center + new Vector2(0, -85);
-            musicSlider.position = Global.world.uiCamera.Center;
-            musicSlider.ChangeSliderRectangle(Global.world.uiCamera.Center - new Vector2(GlobalTextures.textures[TextureNames.GuiSliderBase].Width / 2, GlobalTextures.textures[TextureNames.GuiSliderBase].Height / 2));
-            backBtn.position = Global.world.uiCamera.Center + new Vector2(0, 85);
+            sfxSlider.position = Global.world.uiCamera.Center;
+            sfxSlider.ChangeSliderRectangle(Global.world.uiCamera.Center);
+
+            musicSlider.position = Global.world.uiCamera.Center + new Vector2(0, 85);
+            musicSlider.ChangeSliderRectangle(Global.world.uiCamera.Center + new Vector2(0, 85));
+            backBtn.position = Global.world.uiCamera.Center + new Vector2(0, 170);
         }
 
         private async void ChangeResolution()
@@ -232,6 +232,7 @@ namespace Sem1OfficeRevenge
         public void DrawOnScreen()
         {
             DrawResolutionText();
+            DrawSfxText();
             DrawMusicText();
         }
 
@@ -260,17 +261,35 @@ namespace Sem1OfficeRevenge
                                   Global.currentScene.GetObjectLayerDepth(LayerDepth.GuiText));
         }
 
+        private void DrawSfxText()
+        {
+            if (!sfxSlider.isVisible) return;
+
+            float volume = (float)Math.Round(GlobalSound.sfxVolume * 100, 0);
+            string text = $"Sfx volume {volume}%";
+
+            Global.spriteBatch.DrawString(GlobalTextures.defaultFont,
+                                  text,
+                                  sfxSlider.position + new Vector2(-170, -50),
+                                  new Color(195, 195, 195),
+                                  0,
+                                  Vector2.Zero,
+                                  1,
+                                  SpriteEffects.None,
+                                  Global.currentScene.GetObjectLayerDepth(LayerDepth.GuiText));
+        }
+
         private void DrawMusicText()
         {
             if (!musicSlider.isVisible) return;
 
-            float volume = (float)Math.Round(MediaPlayer.Volume * 100, 0);
+            float volume = (float)Math.Round(GlobalSound.musicVolume * 100, 0);
             string text = $"Music volume {volume}%";
 
             Global.spriteBatch.DrawString(GlobalTextures.defaultFont,
                                   text,
                                   musicSlider.position + new Vector2(-170, -50),
-                                  new Color(195,195,195),
+                                  new Color(195, 195, 195),
                                   0,
                                   Vector2.Zero,
                                   1,

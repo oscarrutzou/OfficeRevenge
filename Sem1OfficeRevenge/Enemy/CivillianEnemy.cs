@@ -16,8 +16,8 @@ namespace Sem1OfficeRevenge
         public bool injured;
         private bool fleeing;
         private int fleeDirection;
-        private int minSpeed = 5-4;
-        private int maxSpeed = 11-4;
+        private int minSpeed = 1;
+        private int maxSpeed = 7;
         private Vector2 lookPoint;
         private float rotTarget;
         private float rotOrigin;
@@ -26,13 +26,16 @@ namespace Sem1OfficeRevenge
         private Rectangle center;
         Vector2 tempPosition;
 
+        private float lastSoundTime = 0;
+        private float soundCooldown = 2f; // Cooldown in seconds
+        private bool shouldPlayVoice;
+       
+
         public CivillianEnemy()
         {
             SetObjectAnimation(AnimNames.PlayerRifleMove);
             centerOrigin = true;
             layerDepth = Global.currentScene.GetObjectLayerDepth(LayerDepth.Enemies);
-
-            //Vector2 tempPosition = this.position;
         }
 
         bool WalkedFar(float range, Vector2 v1, Vector2 v2)
@@ -114,7 +117,7 @@ namespace Sem1OfficeRevenge
             {
                 if (!fleeing)
                 {
-                    ChooseRndVoiceLine();
+                    //ChooseRndVoiceLine();
 
                     fleeDirection = rnd.Next(1,4);
                     rotOrigin = rotation;
@@ -132,7 +135,6 @@ namespace Sem1OfficeRevenge
             }
             else
             {
-                
                 fleeing = false;
             }
         }
@@ -145,12 +147,30 @@ namespace Sem1OfficeRevenge
         
         private void ChooseRndVoiceLine()
         {
-            if (rnd.Next(0, 5) == 0)
+            if (!shouldPlayVoice) lastSoundTime = soundCooldown;
+
+            if (timer - lastSoundTime < soundCooldown) return;
+
+            shouldPlayVoice = true;
+
+            if (rnd.Next(0, 15) == 0)
             {
-                int soundIndex = rnd.Next(0, 5);
-                //SoundEffectInstance sound = 
-                //GlobalSound.Play();
+                int soundIndex = rnd.Next(0, deathSounds.Length);
+
+                GlobalSound.sounds[deathSounds[soundIndex]].Play();
+
             }
+
+            lastSoundTime = timer;
+        }
+
+
+
+
+        public void ChangeDirection() 
+        {
+            fleeDirection = rnd.Next(1, 4);
+            rotOrigin = rotation;
         }
 
         public void Flee()

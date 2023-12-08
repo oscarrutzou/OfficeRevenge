@@ -178,6 +178,30 @@
 /processorParam:TextureFormat=Color
 /build:GUI/Icons/icon_timeglass_2.png;GUI/Icons/icon_timeglass_0.png
 
+#begin GUI/MiniMapOverLay.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:GUI/MiniMapOverLay.png
+
+#begin GUI/MiniMapOverLay330.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:GUI/MiniMapOverLay330.png
+
 #begin GUI/Pixel.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -5361,4 +5385,226 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Rooms/TempLobby1.png
+
+#begin Sounds/ChairAction1.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/ChairAction1.mp3
+
+#begin Sounds/ChairAction2.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/ChairAction2.mp3
+
+#begin Sounds/ChairAction3.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/ChairAction3.mp3
+
+#begin Sounds/ChairAction4.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/ChairAction4.mp3
+
+#begin Sounds/ChairAction5.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/ChairAction5.mp3
+
+#begin Sounds/EnemyDeath/EnemDeathVoiceLine1.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/EnemyDeath/EnemDeathVoiceLine1.mp3
+
+#begin Sounds/EnemyDeath/EnemDeathVoiceLine10.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/EnemyDeath/EnemDeathVoiceLine10.mp3
+
+#begin Sounds/EnemyDeath/EnemDeathVoiceLine2.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/EnemyDeath/EnemDeathVoiceLine2.mp3
+
+#begin Sounds/EnemyDeath/EnemDeathVoiceLine3.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/EnemyDeath/EnemDeathVoiceLine3.mp3
+
+#begin Sounds/EnemyDeath/EnemDeathVoiceLine4.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/EnemyDeath/EnemDeathVoiceLine4.mp3
+
+#begin Sounds/EnemyDeath/EnemDeathVoiceLine5.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/EnemyDeath/EnemDeathVoiceLine5.mp3
+
+#begin Sounds/EnemyDeath/EnemDeathVoiceLine6.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/EnemyDeath/EnemDeathVoiceLine6.mp3
+
+#begin Sounds/EnemyDeath/EnemDeathVoiceLine7.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/EnemyDeath/EnemDeathVoiceLine7.mp3
+
+#begin Sounds/EnemyDeath/EnemDeathVoiceLine8.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/EnemyDeath/EnemDeathVoiceLine8.mp3
+
+#begin Sounds/EnemyDeath/EnemDeathVoiceLine9.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/EnemyDeath/EnemDeathVoiceLine9.mp3
+
+#begin Sounds/EnemyDeath/GenericDeath1.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/EnemyDeath/GenericDeath1.mp3
+
+#begin Sounds/EnemyDeath/GenericDeath2.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/EnemyDeath/GenericDeath2.mp3
+
+#begin Sounds/EnemyDeath/GenericDeath3.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/EnemyDeath/GenericDeath3.mp3
+
+#begin Sounds/EnemyDeath/GenericDeath4.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/EnemyDeath/GenericDeath4.mp3
+
+#begin Sounds/EnemyDeath/GenericDeath5.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/EnemyDeath/GenericDeath5.mp3
+
+#begin Sounds/EnemyDeath/GenericDeath6.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/EnemyDeath/GenericDeath6.mp3
+
+#begin Sounds/EnemyDeath/GenericDeath7.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/EnemyDeath/GenericDeath7.mp3
+
+#begin Sounds/EnemyDeath/GenericDeath8.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/EnemyDeath/GenericDeath8.mp3
+
+#begin Sounds/EnemyDeath/GenericDeath9.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/EnemyDeath/GenericDeath9.mp3
+
+#begin Sounds/Player/Shooter1.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/Player/Shooter1.mp3
+
+#begin Sounds/Player/Shooter10.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/Player/Shooter10.mp3
+
+#begin Sounds/Player/Shooter11.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/Player/Shooter11.mp3
+
+#begin Sounds/Player/Shooter2.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/Player/Shooter2.mp3
+
+#begin Sounds/Player/Shooter3.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/Player/Shooter3.mp3
+
+#begin Sounds/Player/Shooter4.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/Player/Shooter4.mp3
+
+#begin Sounds/Player/Shooter5.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/Player/Shooter5.mp3
+
+#begin Sounds/Player/Shooter6.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/Player/Shooter6.mp3
+
+#begin Sounds/Player/Shooter7.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/Player/Shooter7.mp3
+
+#begin Sounds/Player/Shooter8.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/Player/Shooter8.mp3
+
+#begin Sounds/Player/Shooter9.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/Player/Shooter9.mp3
+
+#begin Sounds/Player/ShooterDeath.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/Player/ShooterDeath.mp3
+
+#begin Sounds/Player/ShooterIntro.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/Player/ShooterIntro.mp3
 

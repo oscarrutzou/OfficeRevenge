@@ -65,6 +65,7 @@ namespace Sem1OfficeRevenge
                 if (Collision.IntersectBox(this, enemy) && !enemy.dead)
                 {
                     isRemoved = true;
+                    
                     enemy.Die();
                     
                     //Spil hit lyd måske?

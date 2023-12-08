@@ -13,12 +13,16 @@ namespace Sem1OfficeRevenge
     {
         private Viewport defaultViewport;
         private Viewport viewport;
+        private int posbuffer = 10;
+        private Rectangle recViewPortWithBuffer;
+        private int dimBuffer = 25;
         private int dimension;
         private Vector2 center;
         private float magicNmbScale; //How much the minimap can see.
         private float scale;
-        Vector2 texScale;
 
+        Vector2 texScale;
+        private bool smallMap;
         public MiniMapCam(Vector2 origin) : base(origin)
         {
             base.origin = origin;
@@ -26,39 +30,54 @@ namespace Sem1OfficeRevenge
 
         public void DrawMiniMap()
         {
-            int x = Global.graphics.PreferredBackBufferWidth - dimension;
-            dimension = Global.graphics.PreferredBackBufferWidth / 5;
-            if (dimension > 300)
+            int x = Global.graphics.PreferredBackBufferWidth - dimension - posbuffer;
+   
+            // Set dem and map based of what resolution is used
+            if (Global.graphics.PreferredBackBufferWidth > 1300)
             {
-                dimension = 300;
-                magicNmbScale = 0.35f;
+                dimension = 330;
+                magicNmbScale = 0.37f;
+                smallMap = false;
             }
             else
             {
+                dimension = 256;
                 magicNmbScale = 0.25f;
+                smallMap = true;
             }
 
-            viewport = new Viewport(x, 0, dimension, dimension);
+            // Makes the new viewport and the rec that need determens when the minimap room textures stops drawing
+            viewport = new Viewport(x, posbuffer, dimension - 2 * posbuffer, dimension - 2 * posbuffer);
+            recViewPortWithBuffer = new Rectangle(x + dimBuffer, posbuffer + dimBuffer, dimension - 2 *  dimBuffer, dimension - 2 * dimBuffer);
+
 
             defaultViewport = Global.graphics.GraphicsDevice.Viewport;
             Global.graphics.GraphicsDevice.Viewport = viewport;
 
+            // Used later for setting 
             center = new Vector2(viewport.X + viewport.Width / 2, viewport.Y + viewport.Height / 2);
             scale = (dimension / (float)defaultViewport.Width) * magicNmbScale;
             
-            if (Global.currentSceneData.rooms != null)
+            //Take a rooms scale
+            if (Global.currentSceneData.rooms.Count != 0)
             {
                 texScale = Global.currentSceneData.rooms[0].scale * scale;
             }
 
             // Draw the minimap.
-            Global.spriteBatch.Draw(GlobalTextures.textures[TextureNames.Pixel], new Vector2(x,0), viewport.Bounds, Color.Black, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+            Texture2D mapTex = smallMap ? GlobalTextures.textures[TextureNames.MiniMapOverLaySmall] : GlobalTextures.textures[TextureNames.MiniMapOverLayBig];
+
+            Global.spriteBatch.Draw(mapTex, new Vector2(x, posbuffer), null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 1f);
+
+            Global.spriteBatch.Draw(GlobalTextures.textures[TextureNames.Pixel], new Vector2(x + dimBuffer, dimBuffer + posbuffer), recViewPortWithBuffer, Color.Black, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
 
             DrawRooms();
             DrawPlayer();
             DrawBullets();
             DrawEnemies();
             
+            //Draw minimap overlay
+
             // Reset the GraphicsDevice's viewport to the default.
             Global.graphics.GraphicsDevice.Viewport = defaultViewport;
         }
@@ -95,16 +114,31 @@ namespace Sem1OfficeRevenge
             {
                 Vector2 pos = ObjectPos(roomObj);
                 Vector2 origin = new Vector2(roomObj.texture.Width / 2, roomObj.texture.Height / 2);
-
-                // Calculate the room's bounds in the screen's coordinates.
                 Rectangle roomBounds = new Rectangle((int)(pos.X - origin.X * texScale.X), (int)(pos.Y - origin.Y * texScale.Y), (int)(roomObj.texture.Width * texScale.X), (int)(roomObj.texture.Height * texScale.Y));
 
-                if (viewport.Bounds.Contains(roomBounds))
+                if (recViewPortWithBuffer.Contains(roomBounds))
                 {
-                    Global.spriteBatch.Draw(roomObj.texture, pos, null, Color.White, roomObj.rotation, origin, texScale, SpriteEffects.None, Global.currentScene.GetObjectLayerDepth(LayerDepth.Background) + 0.01f);
+                    // If the room is in the viewport, start or continue the fade-in effect
+                    roomObj.isFadingIn = true;
+                    roomObj.alphaFadeInTimer += (float)Global.gameTime.ElapsedGameTime.TotalSeconds;
                 }
+                else
+                {
+                    // If the room is not in the viewport, start or continue the fade-out effect
+                    roomObj.isFadingIn = false;
+                    roomObj.alphaFadeInTimer -= (float)Global.gameTime.ElapsedGameTime.TotalSeconds;
+                }
+
+                // Clamp the fade timer between 0 and 1, and calculate the alpha value
+                roomObj.alphaFadeInTimer = MathHelper.Clamp(roomObj.alphaFadeInTimer, 0f, 1f);
+                roomObj.alpha = roomObj.alphaFadeInTimer;
+
+                // Draw the room with the updated alpha value
+                Color color = Color.White * roomObj.alpha; // Apply the alpha value to the color
+                Global.spriteBatch.Draw(roomObj.texture, pos, null, color, roomObj.rotation, origin, texScale, SpriteEffects.None, Global.currentScene.GetObjectLayerDepth(LayerDepth.Background) + 0.01f);
             }
         }
+
 
 
 
@@ -114,27 +148,18 @@ namespace Sem1OfficeRevenge
             foreach (GenericEnemy enemObj in Global.currentSceneData.enemies)
             {
                 Vector2 pos = ObjectPos(enemObj);
-                int dem = (int)(20 * texScale.X);
+                int dem = 20;
+                Rectangle enemRec = new Rectangle((int)pos.X, (int)pos.Y, (int)(dem * texScale.X), (int)(dem * texScale.X));
 
-                // Create a rectangle for the enemy on the minimap.
-                Rectangle enemyRect = new Rectangle((int)pos.X, (int)pos.Y, dem, dem);
 
-                // Check if the enemy's rectangle is within the bounds of the viewport.
-                if (viewport.Bounds.Contains(enemyRect))
+                if (IsObjectInVisibleRoom(enemRec))
                 {
-                    // Draw the enemy on the minimap.
-                    Global.spriteBatch.Draw(GlobalTextures.textures[TextureNames.Pixel],
-                                            pos,
-                                            enemyRect,
-                                            enemObj.dead ? Color.Red : Color.Green,
-                                            0f,
-                                            Vector2.Zero,
-                                            1f,
-                                            SpriteEffects.None,
-                                            Global.currentScene.GetObjectLayerDepth(LayerDepth.Enemies));
+                    Global.spriteBatch.Draw(GlobalTextures.textures[TextureNames.Pixel], pos, enemRec, enemObj.dead ? Color.Red : Color.Green, 0f, Vector2.Zero, 1f, SpriteEffects.None, Global.currentScene.GetObjectLayerDepth(LayerDepth.Enemies));
                 }
             }
         }
+
+
 
         private void DrawBullets()
         {
@@ -147,7 +172,7 @@ namespace Sem1OfficeRevenge
                 Rectangle bulletRect = new Rectangle((int)pos.X, (int)pos.Y, dem, dem);
 
                 // Check if the bullet's rectangle is within the bounds of the viewport.
-                if (viewport.Bounds.Contains(bulletRect))
+                if (IsObjectInVisibleRoom(bulletRect))
                 {
                     // Draw the bullet on the minimap.
                     Global.spriteBatch.Draw(GlobalTextures.textures[TextureNames.Pixel],
@@ -162,6 +187,24 @@ namespace Sem1OfficeRevenge
                 }
             }
         }
+
+        private bool IsObjectInVisibleRoom(Rectangle rec)
+        {
+            foreach (Room roomObj in Global.currentSceneData.rooms)
+            {
+                Vector2 roomPos = ObjectPos(roomObj);
+                Vector2 origin = new Vector2(roomObj.texture.Width / 2, roomObj.texture.Height / 2);
+                Rectangle roomBounds = new Rectangle((int)(roomPos.X - origin.X * texScale.X), (int)(roomPos.Y - origin.Y * texScale.Y), (int)(roomObj.texture.Width * texScale.X), (int)(roomObj.texture.Height * texScale.Y));
+
+                if (recViewPortWithBuffer.Contains(roomBounds) && roomBounds.Contains(rec))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
 
     }
 }

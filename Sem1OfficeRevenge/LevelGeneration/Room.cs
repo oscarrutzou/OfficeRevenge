@@ -16,6 +16,9 @@ namespace Sem1OfficeRevenge
         //public Texture2D map;
         public int width;
         public int height;
+        public float alpha;
+        public float alphaFadeInTimer;
+        public bool isFadingIn = true;
         private Vector2 origin;
         private Vector2 center;
         public Rectangle hallwayCol;

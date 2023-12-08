@@ -5,10 +5,11 @@ using SharpDX.MediaFoundation.DirectX;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Sem1OfficeRevenge.World
+namespace Sem1OfficeRevenge
 {
     public enum SoundNames
     {
@@ -16,13 +17,57 @@ namespace Sem1OfficeRevenge.World
         Step,
         TestSound3,
 
-        //Enemies
-        
+        //Player
+        PlayerIntro,
+        PlayerDeath,
+        Player1,
+        Player2,
+        Player3,
+        Player4,
+        Player5,
+        Player6,
+        Player7,
+        Player8,
+        Player9,
+        Player10,
+        Player11,
+
+        //Attack enemy
+        ChairAction1,
+        ChairAction2,
+        ChairAction3,
+        ChairAction4,
+        ChairAction5,
+
+        //Death
+        DeathVoiceLine1,
+        DeathVoiceLine2,
+        DeathVoiceLine3,
+        DeathVoiceLine4,
+        DeathVoiceLine5,
+        DeathVoiceLine6,
+        DeathVoiceLine7,
+        DeathVoiceLine8,
+        DeathVoiceLine9,
+        DeathVoiceLine10,
+
+        GenericDeath1,
+        GenericDeath2,
+        GenericDeath3,
+        GenericDeath4,
+        GenericDeath5,
+        GenericDeath6,
+        GenericDeath7,
+        GenericDeath8,
+        GenericDeath9,
+
     }
     internal static class GlobalSound
     {
 
         public static Dictionary<SoundNames, SoundEffect> sounds;
+        public static Dictionary<SoundNames, List<SoundEffectInstance>> soundInstancesPool;
+        private static int maxInstanceOfOneSound = 2;
 
         public static bool inMenu = true;
 
@@ -32,13 +77,17 @@ namespace Sem1OfficeRevenge.World
         public static SoundEffectInstance InstanceMenuMusic;
         public static SoundEffectInstance InstanceGameMusic;
 
+        public static float musicVolume = 1f;
+        public static float sfxVolume = 1f;
+        private static int musicVolDivide = 4; //Makes the song less loud by dividing the real volume
 
-        private static List<SoundEffectInstance> soundInstances;
-        
+        public static List<SoundEffectData> soundInstances { get; private set; }
+
 
         public static void LoadContent()
         {
-            soundInstances = new List<SoundEffectInstance>();
+            soundInstances = new List<SoundEffectData>();
+            soundInstancesPool = new Dictionary<SoundNames, List<SoundEffectInstance>>();
 
             MenuMusic = Global.world.Content.Load<SoundEffect>("Fonts\\MainTheme");
             GameMusic = Global.world.Content.Load<SoundEffect>("Fonts\\DistortedTheme");
@@ -47,46 +96,203 @@ namespace Sem1OfficeRevenge.World
             {
                 { SoundNames.Shot, Global.world.Content.Load<SoundEffect>("Fonts\\gunshot")},
                 { SoundNames.Step, Global.world.Content.Load<SoundEffect>("Fonts\\step")},
+
+                { SoundNames.Player1, Global.world.Content.Load<SoundEffect>("Sounds\\Player\\Shooter1")},
+                { SoundNames.Player2, Global.world.Content.Load<SoundEffect>("Sounds\\Player\\Shooter2")},
+                { SoundNames.Player3, Global.world.Content.Load<SoundEffect>("Sounds\\Player\\Shooter3")},
+                { SoundNames.Player4, Global.world.Content.Load<SoundEffect>("Sounds\\Player\\Shooter4")},
+                { SoundNames.Player5, Global.world.Content.Load<SoundEffect>("Sounds\\Player\\Shooter5")},
+                { SoundNames.Player6, Global.world.Content.Load<SoundEffect>("Sounds\\Player\\Shooter6")},
+                { SoundNames.Player7, Global.world.Content.Load<SoundEffect>("Sounds\\Player\\Shooter7")},
+                { SoundNames.Player8, Global.world.Content.Load<SoundEffect>("Sounds\\Player\\Shooter8")},
+                { SoundNames.Player9, Global.world.Content.Load<SoundEffect>("Sounds\\Player\\Shooter9")},
+                { SoundNames.Player10, Global.world.Content.Load<SoundEffect>("Sounds\\Player\\Shooter10")},
+                { SoundNames.Player11, Global.world.Content.Load<SoundEffect>("Sounds\\Player\\Shooter11")},
+                { SoundNames.PlayerIntro, Global.world.Content.Load<SoundEffect>("Sounds\\Player\\ShooterIntro")},
+                { SoundNames.PlayerDeath, Global.world.Content.Load<SoundEffect>("Sounds\\Player\\ShooterDeath")},
+
+                { SoundNames.ChairAction1, Global.world.Content.Load<SoundEffect>("Sounds\\ChairAction1")},
+                { SoundNames.ChairAction2, Global.world.Content.Load<SoundEffect>("Sounds\\ChairAction2")},
+                { SoundNames.ChairAction3, Global.world.Content.Load<SoundEffect>("Sounds\\ChairAction3")},
+                { SoundNames.ChairAction4, Global.world.Content.Load<SoundEffect>("Sounds\\ChairAction4")},
+                { SoundNames.ChairAction5, Global.world.Content.Load<SoundEffect>("Sounds\\ChairAction5")},
+
+                { SoundNames.DeathVoiceLine1, Global.world.Content.Load<SoundEffect>("Sounds\\EnemyDeath\\EnemDeathVoiceLine1")},
+                { SoundNames.DeathVoiceLine2, Global.world.Content.Load<SoundEffect>("Sounds\\EnemyDeath\\EnemDeathVoiceLine2")},
+                { SoundNames.DeathVoiceLine3, Global.world.Content.Load<SoundEffect>("Sounds\\EnemyDeath\\EnemDeathVoiceLine3")},
+                { SoundNames.DeathVoiceLine4, Global.world.Content.Load<SoundEffect>("Sounds\\EnemyDeath\\EnemDeathVoiceLine4")},
+                { SoundNames.DeathVoiceLine5, Global.world.Content.Load<SoundEffect>("Sounds\\EnemyDeath\\EnemDeathVoiceLine5")},
+                { SoundNames.DeathVoiceLine6, Global.world.Content.Load<SoundEffect>("Sounds\\EnemyDeath\\EnemDeathVoiceLine6")},
+                { SoundNames.DeathVoiceLine7, Global.world.Content.Load<SoundEffect>("Sounds\\EnemyDeath\\EnemDeathVoiceLine7")},
+                { SoundNames.DeathVoiceLine8, Global.world.Content.Load<SoundEffect>("Sounds\\EnemyDeath\\EnemDeathVoiceLine8")},
+                { SoundNames.DeathVoiceLine9, Global.world.Content.Load<SoundEffect>("Sounds\\EnemyDeath\\EnemDeathVoiceLine9")},
+                { SoundNames.DeathVoiceLine10, Global.world.Content.Load<SoundEffect>("Sounds\\EnemyDeath\\EnemDeathVoiceLine10")},
+
+
+                { SoundNames.GenericDeath1, Global.world.Content.Load<SoundEffect>("Sounds\\EnemyDeath\\GenericDeath1")},
+                { SoundNames.GenericDeath2, Global.world.Content.Load<SoundEffect>("Sounds\\EnemyDeath\\GenericDeath2")},
+                { SoundNames.GenericDeath3, Global.world.Content.Load<SoundEffect>("Sounds\\EnemyDeath\\GenericDeath3")},
+                { SoundNames.GenericDeath4, Global.world.Content.Load<SoundEffect>("Sounds\\EnemyDeath\\GenericDeath4")},
+                { SoundNames.GenericDeath5, Global.world.Content.Load<SoundEffect>("Sounds\\EnemyDeath\\GenericDeath5")},
+                { SoundNames.GenericDeath6, Global.world.Content.Load<SoundEffect>("Sounds\\EnemyDeath\\GenericDeath6")},
+                { SoundNames.GenericDeath7, Global.world.Content.Load<SoundEffect>("Sounds\\EnemyDeath\\GenericDeath7")},
+                { SoundNames.GenericDeath8, Global.world.Content.Load<SoundEffect>("Sounds\\EnemyDeath\\GenericDeath8")},
+                { SoundNames.GenericDeath9, Global.world.Content.Load<SoundEffect>("Sounds\\EnemyDeath\\GenericDeath9")},
+
                 { SoundNames.TestSound3, Global.world.Content.Load<SoundEffect>("Fonts\\DistortedTheme")}
             };
 
-            
-
-        }
-
-        public static void Play(SoundEffect sound)
-        {
-            soundInstances.Add(sound.CreateInstance());
-            soundInstances[soundInstances.Count - 1].Volume = MediaPlayer.Volume;
-            soundInstances[soundInstances.Count - 1].Play();
-            foreach (SoundEffectInstance item in soundInstances)
+            foreach (var sound in sounds)
             {
-                if (item.State == SoundState.Stopped)
+                soundInstancesPool[sound.Key] = new List<SoundEffectInstance>();
+                for (int i = 0; i < maxInstanceOfOneSound; i++)
                 {
-                    item.Dispose();
+                    soundInstancesPool[sound.Key].Add(sound.Value.CreateInstance());
                 }
             }
+
+
         }
 
-        public static void PitchedPlay(SoundEffect sound, float pitchVariance)
+        public static bool IsAnySoundPlaying(SoundNames[] soundArray)
         {
-            soundInstances.Add(sound.CreateInstance());
+            foreach (SoundNames name in soundArray)
+            {
+                foreach (SoundEffectInstance inst in soundInstancesPool[name])
+                {
+                    if (inst.State == SoundState.Playing)
+                    {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
+        }
+
+        public static void PlayRandomSound(SoundNames[] soundArray, float maxAmountPlaying)
+        {
+            int soundIndex = Global.rnd.Next(0, soundArray.Length);
+            int index = 0;
+
+            SoundNames soundName = soundArray[soundIndex];
+
+            foreach (SoundEffectInstance inst in soundInstancesPool[soundName])
+            {
+                if (inst.State == SoundState.Playing)
+                {
+                    index++;
+                }
+            }
+
+            if (index >= maxAmountPlaying)
+            {
+                return;
+            }
+
+            PlaySound(soundName);
+        }
+
+
+
+        public static void PlaySound(SoundNames soundName)
+        {
+            SoundEffectInstance instance = null;
+            foreach (var inst in soundInstancesPool[soundName])
+            {
+                if (inst.State != SoundState.Playing)
+                {
+                    instance = inst;
+                    break;
+                }
+            }
+
+            if (instance == null)
+            {
+                // All instances are playing, so stop and reuse the oldest one.
+                instance = soundInstancesPool[soundName][0];
+                instance.Stop();
+            }
+
+            instance.Volume = sfxVolume;
+            instance.Play();
+        }
+
+        public static void PlayRandomSound(SoundNames[] soundArray, int maxAmountPlaying, float floatSoundVolDivided)
+        {
+            int soundIndex = Global.rnd.Next(0, soundArray.Length);
+            int index = 0;
+
+            SoundNames soundName = soundArray[soundIndex];
+
+            foreach (SoundEffectInstance inst in soundInstancesPool[soundName])
+            {
+                if (inst.State == SoundState.Playing)
+                {
+                    index++;
+                }
+            }
+
+            if (index >= maxAmountPlaying)
+            {
+                return;
+            }
+
+            PlaySound(soundName, floatSoundVolDivided);
+        }
+
+        public static void PlaySound(SoundNames soundName, float floatSoundVolDivided)
+        {
+            SoundEffectInstance instance = null;
+            foreach (var inst in soundInstancesPool[soundName])
+            {
+                if (inst.State != SoundState.Playing)
+                {
+                    instance = inst;
+                    break;
+                }
+            }
+
+            if (instance == null)
+            {
+                // All instances are playing, so stop and reuse the oldest one.
+                instance = soundInstancesPool[soundName][0];
+                instance.Stop();
+            }
+
+            instance.Volume = sfxVolume / floatSoundVolDivided;
+            instance.Play();
+        }
+
+        public static void PitchedPlay(SoundNames soundName)
+        {
             float pitch = (float)Global.rnd.NextDouble();
-            pitch = pitch - (1-pitch);
+            pitch = pitch - (1 - pitch);
             if (Global.rnd.Next(0, 10) > 5)
             {
                 pitch = 0 - pitch;
             }
-            soundInstances[soundInstances.Count - 1].Pitch = pitch;
-            soundInstances[soundInstances.Count - 1].Volume = MediaPlayer.Volume;
-            soundInstances[soundInstances.Count - 1].Play();
-            foreach (SoundEffectInstance item in soundInstances)
+
+            SoundEffectInstance instance = null;
+            foreach (var inst in soundInstancesPool[soundName])
             {
-                if (item.State == SoundState.Stopped)
+                if (inst.State != SoundState.Playing)
                 {
-                    item.Dispose();
+                    instance = inst;
+                    break;
                 }
             }
+
+            if (instance == null)
+            {
+                // All instances are playing, so stop and reuse the oldest one.
+                instance = soundInstancesPool[soundName][0];
+                instance.Stop();
+            }
+
+            instance.Pitch = pitch;
+            instance.Volume = sfxVolume;
+            instance.Play();
         }
 
         public static void MusicUpdate() 
@@ -98,8 +304,8 @@ namespace Sem1OfficeRevenge.World
             }
             else
             {
-                InstanceGameMusic.Volume = MediaPlayer.Volume;
-                InstanceMenuMusic.Volume = MediaPlayer.Volume;
+                InstanceGameMusic.Volume = Math.Clamp(musicVolume, 0, 1) / musicVolDivide;
+                InstanceMenuMusic.Volume = Math.Clamp(musicVolume, 0, 1) / musicVolDivide;
 
                 if (inMenu)
                 {
@@ -121,10 +327,5 @@ namespace Sem1OfficeRevenge.World
             }
 
         }
-
-
-
     }
-
-    
 }

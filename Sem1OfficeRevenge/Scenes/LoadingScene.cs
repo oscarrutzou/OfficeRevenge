@@ -23,6 +23,7 @@ public class LoadingScene : Scene
         if (!hasLoaded)
         {
             await Task.Run(() => LoadContent());
+            await Task.Delay(1000);
             isLoading = false;
             hasLoaded = true;
             Global.world.ChangeScene(Scenes.TestBaseScene);
@@ -30,7 +31,7 @@ public class LoadingScene : Scene
         else
         {
             isLoading = false;
-            Global.world.ChangeScene(Scenes.TestLeonard);
+            Global.world.ChangeScene(Scenes.TestBaseScene);
         }
     }
 
@@ -60,7 +61,10 @@ public class LoadingScene : Scene
 
         // Draw loading screen
         // Measure the size of the text
-        string text = $"Loading: {(int)(GlobalAnimations.progress * 100)}%";
+        //float prograss = GlobalAnimations.progress * 100;
+        //if (prograss >= 99) prograss = 100;
+        
+        string text = $"Loading: {(int)Math.Round(GlobalAnimations.progress * 100, 0)}%";
         Vector2 textSize = GlobalTextures.defaultFont.MeasureString(text);
 
         // Calculate the position to center the text
