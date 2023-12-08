@@ -19,6 +19,7 @@ namespace Sem1OfficeRevenge
         public static Vector2 mousePositionInWorld;
         public static Vector2 mousePositionOnScreen;
         public static bool mouseClicked;
+        public static bool mouseRightClicked;
 
         public static bool anyMoveKeyPressed;
         /// <summary>
@@ -56,6 +57,7 @@ namespace Sem1OfficeRevenge
             PlayerInput();
 
             mouseClicked = (Mouse.GetState().LeftButton == ButtonState.Pressed) && (previousMouseState.LeftButton == ButtonState.Released);
+            mouseRightClicked = (Mouse.GetState().RightButton == ButtonState.Pressed) && (previousMouseState.RightButton == ButtonState.Released);
 
             previousMouseState = mouseState;
             previousKeyboardState = keyboardState;

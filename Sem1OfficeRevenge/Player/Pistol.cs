@@ -13,14 +13,15 @@ namespace Sem1OfficeRevenge
         public Pistol()
         {
             magSizeFactor = 3;
-            ammo = this.magSize * magSizeFactor;
+            magFull = this.magSize * magSizeFactor;
             dmg = dmg * 1;
+            reloadTime = 3;
         }
 
         protected override void MakeBullets()
         {
             List<Bullet> bullets = new List<Bullet>();
-            Bullet bullet = new Bullet(bulletSpeed, bulletDmg);
+            Bullet bullet = new Bullet(bulletSpeed, bulletDmg, Global.player.rotation);
             bullets.Add(bullet);
             Global.currentScene.Instantiate(bullet);
         }

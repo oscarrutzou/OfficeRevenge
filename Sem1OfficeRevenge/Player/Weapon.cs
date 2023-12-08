@@ -22,6 +22,7 @@ namespace Sem1OfficeRevenge
         protected float cooldown;
         public Weapon()
         {
+            cooldown = 0;
             reloading = false;
             dmg = bulletDmg;
             magSize = 5;
@@ -29,11 +30,14 @@ namespace Sem1OfficeRevenge
 
         public virtual void Fire()
         {
+            if (cooldown > 0 || reloading) return;
+            
             ammo--;
             if (ammo > 0)
             {
                 MakeBullets();
                 GlobalSound.sounds[SoundNames.Shot].Play();
+                
             }
             else
             {
@@ -46,15 +50,26 @@ namespace Sem1OfficeRevenge
 
         public override void Update()
         {
+            base.Update();
+            
+
+            if (cooldown > 0)
+            {
+                cooldown -= (float)Global.gameTime.ElapsedGameTime.TotalSeconds;
+            }
+            else if (reloading)
+            {
+                reloading = false;
+            }
             
         }
 
         public virtual void Reload()
         {
-            if (reloading || (magSize == magFull)) return;
-            reloadTime = cooldown;
+            if (reloading || (ammo == magFull)) return;
+            cooldown = reloadTime;
             reloading = true;
-            magSize = magFull;            
+            ammo = magFull;            
         }
         
     }

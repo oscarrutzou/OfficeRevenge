@@ -58,17 +58,31 @@ namespace Sem1OfficeRevenge
 
             if (InputManager.anyMoveKeyPressed && InputManager.mouseClicked)
             {
-                currentWeapon.Fire();
-                AnimRunNShoot();
+                if (currentWeapon.reloading == false)
+                {
+                    currentWeapon.Fire();
+                    AnimRunNShoot();
+                }
+                
             }
             else if (InputManager.anyMoveKeyPressed)
             {
                 AnimMove();
             } 
             else if (InputManager.mouseClicked)
+            {                               
+                
+                if (currentWeapon.reloading == false)
+                {
+                    currentWeapon.Fire();
+                    AnimShoot();
+                }
+                
+            }
+
+            if (InputManager.mouseRightClicked)
             {
-                currentWeapon.Fire();
-                AnimShoot();
+                currentWeapon.Reload();
             }
 
             if (WalkedFar(75, position, oldPos) == false)
@@ -91,6 +105,7 @@ namespace Sem1OfficeRevenge
 
                 }
             }
+            currentWeapon.Update();
         }
 
         bool WalkedFar(float range, Vector2 v1, Vector2 v2)

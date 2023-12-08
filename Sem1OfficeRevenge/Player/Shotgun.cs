@@ -16,27 +16,29 @@ namespace Sem1OfficeRevenge
         public Shotgun()
         {
             magSizeFactor = 1;
-            ammo = this.magSize * magSizeFactor;
+            magFull = this.magSize * magSizeFactor;
             dmg = dmg * 1;
+            reloadTime = 5;
         }
 
         protected override void MakeBullets()
         {
             List<Bullet> bullets = new List<Bullet>();
-
+            
             for (int i = 0; i < 6; i++)
             {
+                float bulletRotation = Global.player.rotation;
                 float pi = random1.Next(((int)((float)(Math.PI * 100 / 12))));
-                plusOrMinus = random1.Next(0, 2);
-                Bullet bullet = new Bullet(bulletSpeed, bulletDmg);
-                if (plusOrMinus == 0)
+                plusOrMinus = random1.Next(0, 4);
+                if (plusOrMinus == 0 || plusOrMinus == 2)
                 {
-                    bullet.rotation = bullet.rotation - pi;
+                    bulletRotation -= ((float)pi);
                 }
-                else if (plusOrMinus == 1)
+                else if (plusOrMinus == 1 || plusOrMinus == 3)
                 {
-                    bullet.rotation = bullet.rotation + pi;
+                    bulletRotation += ((float)pi);
                 }
+                Bullet bullet = new Bullet(bulletSpeed, bulletDmg, bulletRotation);
                 bullets.Add(bullet);
                 Global.currentScene.Instantiate(bullet);
             }

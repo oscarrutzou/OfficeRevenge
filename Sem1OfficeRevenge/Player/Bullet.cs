@@ -16,7 +16,7 @@ namespace Sem1OfficeRevenge
         public float totalSecondsTimer;
    
 
-        public Bullet(int speed, int bulletDmg)
+        public Bullet(int speed, int bulletDmg, float rotation)
         {
             texture = GlobalTextures.textures[TextureNames.Bullet];
             Global.currentScene.SetObjectLayerDepth(this, LayerDepth.Bullets);
@@ -24,7 +24,7 @@ namespace Sem1OfficeRevenge
 
             centerOrigin = true;
             SetCorrectBulletPositionWithOffset();
-            rotation = Global.player.rotation;
+            this.rotation = rotation;
             direction = new((float)Math.Cos(Global.player.rotation), (float)Math.Sin(Global.player.rotation));
             this.speed = speed;
             this.bulletDmg = bulletDmg;
