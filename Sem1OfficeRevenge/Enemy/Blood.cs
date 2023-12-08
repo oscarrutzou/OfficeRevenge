@@ -43,13 +43,9 @@ namespace Sem1OfficeRevenge
 
             foreach (Blood blood in Global.currentSceneData.bloods)
             {
-
-                
                 if (blood != this && Collision.IntersectBox(this, blood))
                 {
-
                     targetScale = scale; break;
-
                 }
             }
         }

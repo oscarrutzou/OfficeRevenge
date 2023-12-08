@@ -14,8 +14,8 @@ namespace Sem1OfficeRevenge
         public bool injured;
         private bool fleeing;
         private int fleeDirection;
-        private int minSpeed = 5-4;
-        private int maxSpeed = 11-4;
+        private int minSpeed = 1;
+        private int maxSpeed = 7;
         private Vector2 lookPoint;
         private float rotTarget;
         private float rotOrigin;

@@ -32,6 +32,7 @@ namespace Sem1OfficeRevenge
         {
             int x = Global.graphics.PreferredBackBufferWidth - dimension - posbuffer;
    
+            // Set dem and map based of what resolution is used
             if (Global.graphics.PreferredBackBufferWidth > 1300)
             {
                 dimension = 330;
@@ -45,16 +46,20 @@ namespace Sem1OfficeRevenge
                 smallMap = true;
             }
 
+            // Makes the new viewport and the rec that need determens when the minimap room textures stops drawing
             viewport = new Viewport(x, posbuffer, dimension - 2 * posbuffer, dimension - 2 * posbuffer);
             recViewPortWithBuffer = new Rectangle(x + dimBuffer, posbuffer + dimBuffer, dimension - 2 *  dimBuffer, dimension - 2 * dimBuffer);
+
 
             defaultViewport = Global.graphics.GraphicsDevice.Viewport;
             Global.graphics.GraphicsDevice.Viewport = viewport;
 
+            // Used later for setting 
             center = new Vector2(viewport.X + viewport.Width / 2, viewport.Y + viewport.Height / 2);
             scale = (dimension / (float)defaultViewport.Width) * magicNmbScale;
             
-            if (Global.currentSceneData.rooms != null)
+            //Take a rooms scale
+            if (Global.currentSceneData.rooms.Count != 0)
             {
                 texScale = Global.currentSceneData.rooms[0].scale * scale;
             }

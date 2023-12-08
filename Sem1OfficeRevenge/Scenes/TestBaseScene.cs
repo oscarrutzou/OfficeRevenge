@@ -6,7 +6,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Keys = Microsoft.Xna.Framework.Input.Keys;
 using SharpDX.Direct3D9;
 
 namespace Sem1OfficeRevenge
@@ -35,75 +34,11 @@ namespace Sem1OfficeRevenge
             Global.currentScene.Instantiate(Global.player);
         }
 
-        //private Button playBtn;
-        //private Button settingsBtn;
-        //private Button quitBtn;
 
-        //private void InitPause()
-        //{
-        //    playBtn = new Button(
-        //             "Start Game",
-        //             true,
-        //             PlayGame);
-
-        //    settingsBtn = new Button(
-        //                         "Settings",
-        //                         true,
-        //                         PlayGame);
-        //    quitBtn = new Button(
-        //                         "Quit",
-        //                         true,
-        //                         QuitGame);
-
-        //    Global.currentScene.Instantiate(playBtn);
-        //    Global.currentScene.Instantiate(settingsBtn);
-        //    Global.currentScene.Instantiate(quitBtn);
-        //}
-
-        //private void PlayGame()
-        //{
-        //    //Global.world.ChangeScene(Scenes.LoadingScreen);
-        //    //PauseScreenMenu();
-        //}
-        //private void QuitGame()
-        //{
-        //    Global.world.Exit();
-        //}
-        
 
         public override void Update()
         {
-            KeyboardState state = Keyboard.GetState();
-
-            //if (lvlGen.doneGenerating)
-            //{
-            //    lvlGen.EnemyColliding();
-            //}
-
-            //check if key is pressed
-            //if (state.IsKeyDown(Keys.Space))
-            //{
-            //    lvlGen.RemoveRooms();
-            //    lvlGen.GenerateWorld();
-            //}
-
             ScoreManager.UpdateScore();
-
-            //if (state.IsKeyDown(Keys.R) && pressed == false)
-            //{
-            //    pressed = true;
-            //    Application.Restart();
-            //    //Global.world.ChangeScene(Scenes.TestBaseScene);
-            //}
-
-            //if (state.IsKeyDown(Keys.LeftShift))
-            //{
-            //    Global.player.playerSpeed = 15;
-            //}
-            //else
-            //{
-            //    Global.player.playerSpeed = 7;
-            //}
 
             base.Update();
         }
@@ -113,8 +48,6 @@ namespace Sem1OfficeRevenge
             base.DrawOnScreen();
             
             ScoreManager.DrawScore();
-            //pauseScreen.DrawOnScreen();
-
         }
     }
 }
