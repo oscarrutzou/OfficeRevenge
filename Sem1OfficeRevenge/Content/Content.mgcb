@@ -86,18 +86,6 @@
 /processorParam:TextureFormat=Color
 /build:Fonts/sight.png
 
-#begin Fonts/sight.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Fonts/sight.png
-
 #begin Fonts/SlencoBlack.spritefont
 /importer:FontDescriptionImporter
 /processor:FontDescriptionProcessor
@@ -5301,6 +5289,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Player/Top_Down_Survivor/shotgun/shoot/survivor-shoot_shotgun_2.png
+
+#begin Rooms/elevator.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Rooms/elevator.png
 
 #begin Rooms/room2.png
 /importer:TextureImporter
