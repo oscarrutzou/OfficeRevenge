@@ -100,32 +100,7 @@ namespace Sem1OfficeRevenge
             {
                 fleeing = false;
             }
-
-            
         }
-
-
-        private void ChooseRndVoiceLine()
-        {
-            if (!shouldPlayVoice) lastSoundTime = soundCooldown;
-
-            if (timer - lastSoundTime < soundCooldown) return;
-
-            shouldPlayVoice = true;
-
-            if (rnd.Next(0, 15) == 0)
-            {
-                int soundIndex = rnd.Next(0, deathSounds.Length);
-
-                GlobalSound.sounds[deathSounds[soundIndex]].Play();
-
-            }
-
-            lastSoundTime = timer;
-        }
-
-
-
 
         public void ChangeDirection() 
         {

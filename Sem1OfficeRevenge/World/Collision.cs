@@ -27,8 +27,6 @@ namespace Sem1OfficeRevenge
                 || sender == null
                 || other == null) return false;
 
-            
-
             return other.collisionBox.Contains(sender.collisionBox);
         }
 
@@ -36,16 +34,14 @@ namespace Sem1OfficeRevenge
         {
             bool col1 = box1.Contains(sender);
             bool col2 = box2.Contains(sender);
-            if (col1 || col2) return true;
-            else return false;
+            return (col1 || col2);
         }
 
         static public bool ContainsEitherBox(GameObject sender, Rectangle box1, Rectangle box2)
         {
             bool col1 = box1.Contains(sender.collisionBox);
             bool col2 = box2.Contains(sender.collisionBox);
-            if (col1 || col2) return true;
-            else return false;
+            return (col1 || col2);
         }
     }
 }

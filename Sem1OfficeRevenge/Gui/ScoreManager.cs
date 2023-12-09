@@ -11,7 +11,7 @@ using System.Xml.Serialization;
 
 namespace Sem1OfficeRevenge
 {
-    static internal class ScoreManager
+    static public class ScoreManager
     {
         public static int killCount = 0;
         
@@ -52,6 +52,12 @@ namespace Sem1OfficeRevenge
             Global.spriteBatch.DrawString(GlobalTextures.defaultFont, text, scorePosition, Color.Red, 0, Vector2.Zero, 1, SpriteEffects.None, Global.currentScene.GetObjectLayerDepth(LayerDepth.GuiText));
         }
 
+        public static void DrawScore(Color color)
+        {
+            string text = $"Kill count {killCount}";
+            Vector2 scorePosition = Global.world.uiCamera.origin + new Vector2(10, 10);
+            Global.spriteBatch.DrawString(GlobalTextures.defaultFont, text, scorePosition, color, 0, Vector2.Zero, 1, SpriteEffects.None, Global.currentScene.GetObjectLayerDepth(LayerDepth.GuiText));
+        }
 
     }
 }

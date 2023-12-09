@@ -152,7 +152,7 @@ namespace Sem1OfficeRevenge
                             break;
 
                         case "Rooms\\room2":
-                            tempRoom.SetCollisionBox(175, 300, new Vector2(0, 0));                            tempRoom.hallwayCol = new Rectangle((int)tempRoom.position.X + 30, (int)tempRoom.position.Y - 30, 240, 240);
+                            tempRoom.SetCollisionBox(175, 300, new Vector2(0, 0));
                             tempRoom.hallwayCol = new Rectangle((int)tempRoom.position.X + 30, (int)tempRoom.position.Y - 30, 240, 240);
 
                             break;

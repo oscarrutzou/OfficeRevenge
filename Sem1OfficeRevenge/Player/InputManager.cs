@@ -19,6 +19,8 @@ namespace Sem1OfficeRevenge
         public static Vector2 mousePositionOnScreen;
         public static bool mouseClicked;
 
+        private static bool noClip = true;
+
         public static bool anyMoveKeyPressed;
         /// <summary>
         /// Gets called in GameWorld, at the start of the update
@@ -92,7 +94,13 @@ namespace Sem1OfficeRevenge
                     Global.player.position.Y += Global.player.playerSpeed;
                 }
 
-                //CheckPlayerMoveColRoom(tempPosition);
+                //Noclip
+                if (keyboardState.IsKeyDown(Keys.N) && !previousKeyboardState.IsKeyDown(Keys.N))
+                {
+                    noClip = !noClip;
+                }
+
+                CheckPlayerMoveColRoom(tempPosition);
 
                 if (keyboardState.IsKeyDown(Keys.W) || keyboardState.IsKeyDown(Keys.A) || keyboardState.IsKeyDown(Keys.S) || keyboardState.IsKeyDown(Keys.D))
                 {
@@ -107,11 +115,13 @@ namespace Sem1OfficeRevenge
 
         private static void CheckPlayerMoveColRoom(Vector2 tempPosition)
         {
+            if (noClip) return;
+
             bool isInsideRoom = false;
             // Check if the player's collision box is still intersecting with any room's collision box
             foreach (Room room in Global.currentSceneData.rooms)
             {
-                if (Collision.ContainsBox(Global.player, room))
+                if (Collision.ContainsEitherBox(Global.player, room.collisionBox, room.hallwayCol))
                 {
                     isInsideRoom = true;
                     break;

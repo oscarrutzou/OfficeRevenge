@@ -16,6 +16,8 @@ namespace Sem1OfficeRevenge
         Shot,
         Step,
         TestSound3,
+        ElevatorDoorOpen,
+        ElevatorDing,
 
         //Player
         PlayerIntro,
@@ -73,9 +75,11 @@ namespace Sem1OfficeRevenge
 
         public static SoundEffect MenuMusic;
         public static SoundEffect GameMusic;
+        public static SoundEffect ElevatorMusic;
 
         public static SoundEffectInstance InstanceMenuMusic;
         public static SoundEffectInstance InstanceGameMusic;
+        public static SoundEffectInstance InstanceElevatorMusic;
 
         public static float musicVolume = 1f;
         public static float sfxVolume = 1f;
@@ -91,11 +95,14 @@ namespace Sem1OfficeRevenge
 
             MenuMusic = Global.world.Content.Load<SoundEffect>("Fonts\\MainTheme");
             GameMusic = Global.world.Content.Load<SoundEffect>("Fonts\\DistortedTheme");
+            ElevatorMusic = Global.world.Content.Load<SoundEffect>("Sounds\\ElevatorTheme");
 
             sounds = new Dictionary<SoundNames, SoundEffect>
             {
                 { SoundNames.Shot, Global.world.Content.Load<SoundEffect>("Fonts\\gunshot")},
                 { SoundNames.Step, Global.world.Content.Load<SoundEffect>("Fonts\\step")},
+                { SoundNames.ElevatorDing, Global.world.Content.Load<SoundEffect>("Sounds\\ElevatorDing")},
+                { SoundNames.ElevatorDoorOpen, Global.world.Content.Load<SoundEffect>("Sounds\\ElevatorDoorOpen")},
 
                 { SoundNames.Player1, Global.world.Content.Load<SoundEffect>("Sounds\\Player\\Shooter1")},
                 { SoundNames.Player2, Global.world.Content.Load<SoundEffect>("Sounds\\Player\\Shooter2")},
@@ -297,16 +304,19 @@ namespace Sem1OfficeRevenge
 
         public static void MusicUpdate() 
         {
-            if (InstanceGameMusic == null ||InstanceMenuMusic == null)
+            if (InstanceGameMusic == null || InstanceMenuMusic == null || InstanceElevatorMusic == null)
             {
                 InstanceMenuMusic = MenuMusic.CreateInstance();
                 InstanceGameMusic = GameMusic.CreateInstance();
+                InstanceElevatorMusic = ElevatorMusic.CreateInstance();
             }
             else
             {
-                InstanceGameMusic.Volume = Math.Clamp(musicVolume, 0, 1) / musicVolDivide;
                 InstanceMenuMusic.Volume = Math.Clamp(musicVolume, 0, 1) / musicVolDivide;
+                InstanceGameMusic.Volume = Math.Clamp(musicVolume, 0, 1) / musicVolDivide;
+                InstanceElevatorMusic.Volume = Math.Clamp(musicVolume, 0, 1) / musicVolDivide;
 
+                
                 if (inMenu)
                 {
                     InstanceGameMusic.Stop();
@@ -314,9 +324,15 @@ namespace Sem1OfficeRevenge
                 else
                 {
                     InstanceMenuMusic.Stop();
+                    InstanceElevatorMusic.Stop();
                 }
 
-                if (InstanceMenuMusic.State == SoundState.Stopped && inMenu)
+                if (Global.currentScene == Global.world.scenes[Scenes.ElevatorMenu])
+                {
+                    InstanceElevatorMusic.Play();
+                    InstanceElevatorMusic.IsLooped = true;
+                }
+                if (InstanceMenuMusic.State == SoundState.Stopped && inMenu && Global.currentScene != Global.world.scenes[Scenes.ElevatorMenu])
                 {
                     InstanceMenuMusic.Play();
                 }

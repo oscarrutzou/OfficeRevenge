@@ -18,6 +18,8 @@ namespace Sem1OfficeRevenge
         
         public bool playerWon;
 
+        public int FloorLevel = 1;
+
         public GameWorld()
         {
             Global.world = this;
@@ -41,6 +43,7 @@ namespace Sem1OfficeRevenge
             {
                 FollowPlayer = false
             };
+
 
             mapCamera = new MiniMapCam(Vector2.Zero);
 
@@ -93,8 +96,6 @@ namespace Sem1OfficeRevenge
             if (!IsCurrentSceneMenu()) pauseScreen.DrawOnScreen();
             Global.spriteBatch.End();
 
-
-    
             Global.spriteBatch.Begin(sortMode: SpriteSortMode.FrontToBack, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullCounterClockwise, transformMatrix: mapCamera.GetMatrix());
             if (!IsCurrentSceneMenu()) mapCamera.DrawMiniMap();
             Global.spriteBatch.End();
@@ -109,6 +110,7 @@ namespace Sem1OfficeRevenge
         {
             scenes[Scenes.MainMenu] = new MainMenu();
             scenes[Scenes.LoadingScreen] = new LoadingScene();
+            scenes[Scenes.ElevatorMenu] = new ElevatorMenu();
             scenes[Scenes.EndMenu] = new EndMenu();
             scenes[Scenes.TestJasper] = new TestSceneJasper();
             scenes[Scenes.TestLeonard] = new TestSceneLeonard();
@@ -116,6 +118,11 @@ namespace Sem1OfficeRevenge
             scenes[Scenes.TestOscar] = new TestSceneOscar();
             scenes[Scenes.TestBaseScene] = new TestBaseScene();
             
+        }
+
+        public bool IsCurrentSceneMenu()
+        {
+            return Global.currentScene == scenes[Scenes.MainMenu] || Global.currentScene == scenes[Scenes.LoadingScreen] || Global.currentScene == scenes[Scenes.ElevatorMenu] || Global.currentScene == scenes[Scenes.EndMenu];
         }
 
 
@@ -155,11 +162,6 @@ namespace Sem1OfficeRevenge
             if (!IsCurrentSceneMenu()) pauseScreen.Initialize();
         }
 
-
-        public bool IsCurrentSceneMenu()
-        {
-            return Global.currentScene == scenes[Scenes.MainMenu] || Global.currentScene == scenes[Scenes.LoadingScreen] || Global.currentScene == scenes[Scenes.EndMenu];
-        }
 
         public void ResolutionSize(int width, int height)
         {

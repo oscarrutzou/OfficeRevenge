@@ -11,6 +11,7 @@ namespace Sem1OfficeRevenge
         MainMenu,
         LoadingScreen,
         Level,
+        ElevatorMenu,
         EndMenu,
         TestJasper,
         TestLeonard,
@@ -67,6 +68,10 @@ namespace Sem1OfficeRevenge
             if (Global.currentScene == Global.world.scenes[Scenes.MainMenu] || Global.currentScene == Global.world.scenes[Scenes.LoadingScreen] || Global.currentScene == Global.world.scenes[Scenes.EndMenu])
             {
                 Global.graphics.GraphicsDevice.Clear(Color.DarkRed);
+            }
+            else if (Global.currentScene == Global.world.scenes[Scenes.ElevatorMenu])
+            {
+                Global.graphics.GraphicsDevice.Clear(Color.Silver);
             }
             else
             {

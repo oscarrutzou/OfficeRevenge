@@ -8,22 +8,35 @@ namespace Sem1OfficeRevenge
 {
     public enum TextureNames
     {
-        //Gui
         TileMap1,
         TileMap2,
         TileMap3,
         TileMap4,
         TileMap5,
+
+
         GuiButtonTest,
         GuiSliderBase,
         GuiSliderOver,
         GuiSliderHandle,
+        GuiEleBtnNormal,
+        GuiEleBtnUp,
+        GuiEleText,
+        ElevatorBgSmall,
+
         MiniMapOverLaySmall,
         MiniMapOverLayBig,
+
+        ElevatorMenu,
         Pixel,
+
         Blood,
         Shoe,
         Sight,
+
+        Pistol,
+        ShotGun,
+        Rifle,
 
         Bullet,        
     }
@@ -32,6 +45,7 @@ namespace Sem1OfficeRevenge
     {
         public static Dictionary<TextureNames, Texture2D> textures { get; private set; }
         public static SpriteFont defaultFont { get; private set; }
+        public static SpriteFont defaultFontMid { get; private set; }
         public static SpriteFont defaultFontBig { get; private set; }
 
         public static void LoadContent()
@@ -52,6 +66,17 @@ namespace Sem1OfficeRevenge
                 {TextureNames.MiniMapOverLaySmall, Global.world.Content.Load<Texture2D>("GUI\\MiniMapOverLay") },
                 {TextureNames.MiniMapOverLayBig, Global.world.Content.Load<Texture2D>("GUI\\MiniMapOverLay330") },
                 {TextureNames.Pixel, Global.world.Content.Load<Texture2D>("GUI\\Pixel") },
+                {TextureNames.Pistol, Global.world.Content.Load<Texture2D>("GUI\\pistolPic") },
+                {TextureNames.Rifle, Global.world.Content.Load<Texture2D>("GUI\\ak47Pic") },
+                {TextureNames.ShotGun, Global.world.Content.Load<Texture2D>("GUI\\shotgunPic") },
+
+                {TextureNames.ElevatorMenu, Global.world.Content.Load<Texture2D>("GUI\\Elevatormenu") },
+                {TextureNames.GuiEleBtnNormal, Global.world.Content.Load<Texture2D>("GUI\\SimpleBtn") },
+                {TextureNames.GuiEleBtnUp, Global.world.Content.Load<Texture2D>("GUI\\SimpleBtnUp") },
+                {TextureNames.GuiEleText, Global.world.Content.Load<Texture2D>("GUI\\ElevatorText") },
+                {TextureNames.ElevatorBgSmall, Global.world.Content.Load<Texture2D>("GUI\\ElevatorBgSmall") },
+
+
                 {TextureNames.Bullet, Global.world.Content.Load<Texture2D>("Bullet\\Bullet") },
 
                 {TextureNames.Blood, Global.world.Content.Load<Texture2D>("Fonts\\BloodPool") },
@@ -62,6 +87,7 @@ namespace Sem1OfficeRevenge
             };
 
             defaultFont = Global.world.Content.Load<SpriteFont>("Fonts\\SlencoBlack");
+            defaultFontMid = Global.world.Content.Load<SpriteFont>("Fonts\\SlencoBlackMid");
             defaultFontBig = Global.world.Content.Load<SpriteFont>("Fonts\\SlencoBlackBig");
 
         }
