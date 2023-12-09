@@ -18,6 +18,7 @@ namespace Sem1OfficeRevenge
         public static Vector2 mousePositionInWorld;
         public static Vector2 mousePositionOnScreen;
         public static bool mouseClicked;
+        public static bool mouseRightClicked;
 
         private static bool noClip = true;
 
@@ -57,6 +58,7 @@ namespace Sem1OfficeRevenge
             PlayerInput();
 
             mouseClicked = (Mouse.GetState().LeftButton == ButtonState.Pressed) && (previousMouseState.LeftButton == ButtonState.Released);
+            mouseRightClicked = (Mouse.GetState().RightButton == ButtonState.Pressed) && (previousMouseState.RightButton == ButtonState.Released);
 
             previousMouseState = mouseState;
             previousKeyboardState = keyboardState;
@@ -72,7 +74,7 @@ namespace Sem1OfficeRevenge
                 dir.Normalize();
 
                 // Calculate the offset vector perpendicular to the direction vector
-                Vector2 offset = new Vector2(-dir.Y, dir.X) * -50; // 50 is the offset distance in px
+                Vector2 offset = new Vector2(-dir.Y, dir.X) * -Global.player.textureOffset; // 50 is the offset distance in px
                 Vector2 tempPosition = Global.player.position; // Store the current position
 
                 Global.player.RotateTowardsTargetWithOffset(mousePositionInWorld, offset);
