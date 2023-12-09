@@ -13,8 +13,7 @@ namespace Sem1OfficeRevenge
         TileMap3,
         TileMap4,
         TileMap5,
-
-
+        TileMap6,
         GuiButtonTest,
         GuiSliderBase,
         GuiSliderOver,
@@ -58,6 +57,7 @@ namespace Sem1OfficeRevenge
                 {TextureNames.TileMap3, Global.world.Content.Load<Texture2D>("Rooms\\room3") },
                 {TextureNames.TileMap4, Global.world.Content.Load<Texture2D>("Rooms\\room4p") },
                 {TextureNames.TileMap5, Global.world.Content.Load<Texture2D>("Rooms\\room5") },
+                {TextureNames.TileMap6, Global.world.Content.Load<Texture2D>("Rooms\\Elevator") },
 
                 {TextureNames.GuiButtonTest, Global.world.Content.Load<Texture2D>("GUI\\TestBtn") },
                 {TextureNames.GuiSliderBase, Global.world.Content.Load<Texture2D>("GUI\\Slider_frame") },

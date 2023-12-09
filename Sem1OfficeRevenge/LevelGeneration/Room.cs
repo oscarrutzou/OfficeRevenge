@@ -42,7 +42,8 @@ namespace Sem1OfficeRevenge
 
         public override void Draw()
         {
-            base.Draw();   
+            base.Draw();
+            DrawDebugCollisionBox(hallwayCol);
             DrawDebugCollisionBox();
         }
 

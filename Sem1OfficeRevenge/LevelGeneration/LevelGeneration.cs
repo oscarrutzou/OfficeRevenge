@@ -19,7 +19,9 @@ namespace Sem1OfficeRevenge
         Random rnd = new Random();
 
         Room lobbyRoom;
+        Room elevator;
 
+        private int scale = 5;
         private float randomRotation;
         private int randomNum;
 
@@ -27,7 +29,8 @@ namespace Sem1OfficeRevenge
         private int tempX;
         private int tempY;
         private bool intersects = false;
-        private int scale = 5;
+        public bool doneGenerating = false;
+        
         //private Texture2D currentTexture;
 
         public void GenerateWorld()
@@ -41,19 +44,23 @@ namespace Sem1OfficeRevenge
             textures.Add(GlobalTextures.textures[TextureNames.TileMap2]);
             textures.Add(GlobalTextures.textures[TextureNames.TileMap4]);
             textures.Add(GlobalTextures.textures[TextureNames.TileMap3]);
+            textures.Add(GlobalTextures.textures[TextureNames.TileMap3]);
             textures.Add(GlobalTextures.textures[TextureNames.TileMap5]);
-          
+            textures.Add(GlobalTextures.textures[TextureNames.TileMap5]);
+            textures.Add(GlobalTextures.textures[TextureNames.TileMap6]);
+
 
             //Generate first lobby room
             lobbyRoom = new Room(GlobalTextures.textures[TextureNames.TileMap1], randomRotation);
+            lobbyRoom.SetCollisionBox(300, 300, new Vector2(0, 0));
             Global.currentScene.Instantiate(lobbyRoom);
             rooms.Add(lobbyRoom);
 
             previousRoom = lobbyRoom;
 
-            for (int i = 0; i < 25; i++)
+            for (int i = 0; i < 7; i++)
             {
-                Room room = new Room(textures[rnd.Next(0, 4)], randomRotation);
+                Room room = new Room(textures[rnd.Next(0, 6)], randomRotation);
 
                 if (randomRotation < MathHelper.PiOver2 && room.texture.Name == "Rooms\\room3" || randomRotation > MathHelper.PiOver2 && room.texture.Name == "Rooms\\room5")
                 {
@@ -73,11 +80,6 @@ namespace Sem1OfficeRevenge
                     RoomColliders(room, randomRotation);
                 }
 
-                //Global.currentScene.Instantiate(room);
-                //room.position = previousRoom.position;
-
-                //MoveRoom(room, randomRotation);
-
                 if (CheckIntersect(room))
                 {
                     RemoveRooms();
@@ -86,21 +88,40 @@ namespace Sem1OfficeRevenge
 
                     GenerateWorld();
 
+                    intersects = true;
+
                     break;
                 }
-
+                else
+                {
+                    intersects = false;
+                }
                 rooms.Add(room);
-
             }
 
-            foreach (Room room in rooms)
+            if (!intersects)
             {
-                for (int i = 0; i < rnd.Next(3, 8); i++)
+                foreach (Room room in rooms)
                 {
-                    CivEnemies.Add(new CivillianEnemy());
-                    Global.currentScene.Instantiate(CivEnemies[CivEnemies.Count - 1]);
-                    CivEnemies[CivEnemies.Count - 1].position = new Vector2(room.position.X + rnd.Next(-450, 451), room.position.Y + rnd.Next(-450, 451));
+                    for (int i = 0; i < rnd.Next(3, 8); i++)
+                    {
+                        if (room.texture.Name != "Rooms\\TempLobby1" && room.texture.Name != "Rooms\\Elevator")
+                        {
+                            CivEnemies.Add(new CivillianEnemy());
+                            CivEnemies[CivEnemies.Count - 1].position = new Vector2(room.position.X + rnd.Next(-250, 251), room.position.Y + rnd.Next(-250, 251));
+                            Global.currentScene.Instantiate(CivEnemies[CivEnemies.Count - 1]);
+                        }
+                    }
                 }
+
+                elevator = new Room(GlobalTextures.textures[TextureNames.TileMap6], randomRotation);
+                elevator.position = previousRoom.position;
+                Global.currentScene.Instantiate(elevator);
+
+                MoveRoom(elevator, randomRotation);
+                RoomColliders(elevator, randomRotation);
+
+                doneGenerating = true;
             }
         }
 
@@ -108,17 +129,13 @@ namespace Sem1OfficeRevenge
         {
             foreach (Room roomI in rooms)
             {
-                //if (room == roomI)
-                //{
-                //    break;
-                //}
+                
 
                 if (room.collisionBox.Intersects(roomI.collisionBox))
                 {
                     intersects = true;
                 }
             }
-
             return intersects;
         }
 
@@ -141,31 +158,31 @@ namespace Sem1OfficeRevenge
                     switch (tempRoom.texture.Name)
                     {
                         case "Rooms\\room3":
-                            tempRoom.SetCollisionBox(240, 240, new Vector2(30, -30));
-                            tempRoom.hallwayCol = new Rectangle((int)tempRoom.position.X + 30, (int)tempRoom.position.Y - 30, 240, 240);
+                            tempRoom.SetCollisionBox(240, 240, new Vector2(30 * scale, -30 * scale));
+                            tempRoom.hallwayCol = new Rectangle((int)tempRoom.position.X - 20 * scale , (int)tempRoom.position.Y + 140 * scale, 40 * scale, 130 * scale);
                             break;
 
                         case "Rooms\\room5":
-                            tempRoom.SetCollisionBox(240, 240, new Vector2(-30, 30));
-                            tempRoom.hallwayCol = new Rectangle((int)tempRoom.position.X + 30, (int)tempRoom.position.Y - 30, 240, 240);
-
+                            tempRoom.SetCollisionBox(240, 240, new Vector2(-30 * scale, 30 * scale));
+                            tempRoom.hallwayCol = new Rectangle((int)tempRoom.position.X - 20 * scale, (int)tempRoom.position.Y + 140 * scale, 40 * scale, 130 * scale);
                             break;
 
                         case "Rooms\\room2":
-                            tempRoom.SetCollisionBox(175, 300, new Vector2(0, 0));
-                            tempRoom.hallwayCol = new Rectangle((int)tempRoom.position.X + 30, (int)tempRoom.position.Y - 30, 240, 240);
-
+                            tempRoom.SetCollisionBox(175, 300, new Vector2(0, 0));                          
+                            tempRoom.hallwayCol = new Rectangle((int)tempRoom.position.X - 20 * scale, (int)tempRoom.position.Y + 140 * scale, 40 * scale, 130 * scale);
                             break;
 
                         case "Rooms\\room4p":
-                            tempRoom.SetCollisionBox(250, 300, new Vector2(-30, 0));
-                            tempRoom.hallwayCol = new Rectangle((int)tempRoom.position.X + 30, (int)tempRoom.position.Y - 30, 240, 240);
+                            tempRoom.SetCollisionBox(250, 300, new Vector2(-30 * scale, 0));
+                            tempRoom.hallwayCol = new Rectangle((int)tempRoom.position.X - 20 * scale, (int)tempRoom.position.Y + 140 * scale, 40 * scale, 130 * scale);
+                            break;
 
-
+                        case "Rooms\\Elevator":
+                            tempRoom.SetCollisionBox(100, 75, new Vector2(0, 115 * scale));
+                            tempRoom.hallwayCol = new Rectangle((int)tempRoom.position.X - 20 * scale, (int)tempRoom.position.Y + 140 * scale, 40 * scale, 130 * scale);
                             break;
 
                         default:
-                            
                             break;
                     }
                     break;
@@ -174,30 +191,30 @@ namespace Sem1OfficeRevenge
                     switch (tempRoom.texture.Name)
                     {
                         case "Rooms\\room3":
-                            tempRoom.SetCollisionBox(240, 240, new Vector2(30, -30));
-                            tempRoom.hallwayCol = new Rectangle((int)tempRoom.position.X + 30, (int)tempRoom.position.Y - 30, 240, 240);
-
+                            tempRoom.SetCollisionBox(240, 240, new Vector2(30 * scale, -30 * scale));
+                            tempRoom.hallwayCol = new Rectangle((int)tempRoom.position.X - 20 * scale, (int)tempRoom.position.Y - 270 * scale, 40 * scale, 130 * scale);
                             break;
 
                         case "Rooms\\room5":
-                            tempRoom.SetCollisionBox(240, 240, new Vector2(30, -30));
-                            tempRoom.hallwayCol = new Rectangle((int)tempRoom.position.X + 30, (int)tempRoom.position.Y - 30, 240, 240);
-
+                            tempRoom.SetCollisionBox(240, 240, new Vector2(30 * scale, -30 * scale));
+                            tempRoom.hallwayCol = new Rectangle((int)tempRoom.position.X - 20 * scale, (int)tempRoom.position.Y - 270 * scale, 40 * scale, 130 * scale);
                             break;
 
                         case "Rooms\\room2":
-                            tempRoom.SetCollisionBox(175, 300, new Vector2(0, 0));
-                            tempRoom.hallwayCol = new Rectangle((int)tempRoom.position.X + 30, (int)tempRoom.position.Y - 30, 240, 240);
-
+                            tempRoom.SetCollisionBox(175, 300, new Vector2(0, 0 ));
+                            tempRoom.hallwayCol = new Rectangle((int)tempRoom.position.X - 20 * scale, (int)tempRoom.position.Y - 270 * scale, 40 * scale, 130 * scale);
                             break;
 
                         case "Rooms\\room4p":
-
-                            tempRoom.SetCollisionBox(250, 300, new Vector2(30, 0));
-                            tempRoom.hallwayCol = new Rectangle((int)tempRoom.position.X + 30, (int)tempRoom.position.Y - 30, 240, 240);
-
-
+                            tempRoom.SetCollisionBox(250, 300, new Vector2(30 * scale, 0));
+                            tempRoom.hallwayCol = new Rectangle((int)tempRoom.position.X - 20 * scale, (int)tempRoom.position.Y - 270 * scale, 40 * scale, 130 * scale);
                             break;
+
+                        case "Rooms\\Elevator":
+                            tempRoom.SetCollisionBox(100, 75, new Vector2(0, -115 * scale));
+                            tempRoom.hallwayCol = new Rectangle((int)tempRoom.position.X - 20 * scale, (int)tempRoom.position.Y - 270 * scale, 40 * scale, 130 * scale);
+                            break;
+
 
                         default:
                             
@@ -209,23 +226,32 @@ namespace Sem1OfficeRevenge
                     switch (tempRoom.texture.Name)
                     {
                         case "Rooms\\room3":
-                            tempRoom.SetCollisionBox(240, 240, new Vector2(-30, -30));
+                            tempRoom.SetCollisionBox(240, 240, new Vector2(-30 * scale, -30 * scale));
+                            tempRoom.hallwayCol = new Rectangle((int)tempRoom.position.X - 230 * scale, (int)tempRoom.position.Y - 65 * scale, 40 * scale, 130 * scale);
                             break;
 
                         case "Rooms\\room5":
-                            tempRoom.SetCollisionBox(240, 240, new Vector2(-30, -30));
+                            tempRoom.SetCollisionBox(240, 240, new Vector2(-30 * scale, -30 * scale));
+                            tempRoom.hallwayCol = new Rectangle((int)tempRoom.position.X - 230 * scale, (int)tempRoom.position.Y - 65 * scale, 40 * scale, 130 * scale);
                             break;
 
                         case "Rooms\\room2":
                             tempRoom.SetCollisionBox(175, 300, new Vector2(0, 0));
+                            tempRoom.hallwayCol = new Rectangle((int)tempRoom.position.X - 230 * scale, (int)tempRoom.position.Y - 65 * scale, 40 * scale, 130 * scale);
                             break;
 
                         case "Rooms\\room4p":
-                            tempRoom.SetCollisionBox(250, 300, new Vector2(0, -30));
+                            tempRoom.SetCollisionBox(250, 300, new Vector2(0, -30 * scale));
+                            tempRoom.hallwayCol = new Rectangle((int)tempRoom.position.X - 230 * scale, (int)tempRoom.position.Y - 65 * scale, 40 * scale, 130 * scale);
+                            break;
+
+                        case "Rooms\\Elevator":
+                            tempRoom.SetCollisionBox(100, 75, new Vector2(-115 * scale, 0));
+                            tempRoom.hallwayCol = new Rectangle((int)tempRoom.position.X - 230 * scale, (int)tempRoom.position.Y - 65 * scale, 40 * scale, 130 * scale);
+
                             break;
 
                         default:
-                            
                             break;
                     }
 
@@ -233,28 +259,35 @@ namespace Sem1OfficeRevenge
 
                 case MathHelper.Pi + MathHelper.PiOver2:
 
-                    switch (previousRoom.texture.Name)
+                    switch (tempRoom.texture.Name)
                     {
                         case "Rooms\\room3":
-                            tempRoom.SetCollisionBox(240, 240, new Vector2(30, 30));
+                            tempRoom.SetCollisionBox(240, 240, new Vector2(30 * scale, 30 * scale));
+                            tempRoom.hallwayCol = new Rectangle((int)tempRoom.position.X + 190 * scale, (int)tempRoom.position.Y - 65 * scale, 40 * scale, 130 * scale);
                             break;
 
                         case "Rooms\\room5":
                             tempRoom.SetCollisionBox(240, 240, new Vector2(0, 0));
+                            tempRoom.hallwayCol = new Rectangle((int)tempRoom.position.X + 190 * scale, (int)tempRoom.position.Y - 65 * scale, 40 * scale, 130 * scale);
                             break;
 
                         case "Rooms\\room2":
                             tempRoom.SetCollisionBox(175, 300, new Vector2(0,0));
-                            
+                            tempRoom.hallwayCol = new Rectangle((int)tempRoom.position.X + 190 * scale, (int)tempRoom.position.Y - 65 * scale, 40 * scale, 130 * scale);
                             break;
 
                         case "Rooms\\room4p":
-                            tempRoom.SetCollisionBox(250, 300, new Vector2(0, 30));
+                            tempRoom.SetCollisionBox(250, 300, new Vector2(0, 30 * scale));
+                            tempRoom.hallwayCol = new Rectangle((int)tempRoom.position.X + 190 * scale, (int)tempRoom.position.Y - 65 * scale, 40 * scale, 130 * scale);
+                            break;
+
+                        case "Rooms\\Elevator":
+                            tempRoom.SetCollisionBox(100, 75, new Vector2(110 * scale, 0));
+                            tempRoom.hallwayCol = new Rectangle((int)tempRoom.position.X + 190 * scale, (int)tempRoom.position.Y - 65 * scale, 40 * scale, 130 * scale);
                             
                             break;
 
                         default:
-                            
                             break;
                     }
                     break;
