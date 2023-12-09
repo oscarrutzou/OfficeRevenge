@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using Sem1OfficeRevenge.World;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,13 +12,15 @@ namespace Sem1OfficeRevenge
         public int dmg;        
         public int magSize; // standart size 5
         public int magFull;
-        public static int bulletSpeed = 200;
+        public static int bulletSpeed = 1000;
         public static int bulletDmg = 10;
         public List<Bullet> bullets;
         public bool reloading;
         protected float reloadTime;
-        protected static int ammo;
+        public int ammo;
         protected float cooldown;
+
+        private bool hasPlayedReloadAnim;
         public Weapon()
         {
             cooldown = 0;
@@ -39,11 +40,6 @@ namespace Sem1OfficeRevenge
                 GlobalSound.sounds[SoundNames.Shot].Play();
                 
             }
-            else
-            {
-                Reload();
-            }
-
         }
 
         protected abstract void MakeBullets();
@@ -51,7 +47,8 @@ namespace Sem1OfficeRevenge
         public override void Update()
         {
             base.Update();
-            
+
+            if (ammo <= 0) Reload();
 
             if (cooldown > 0)
             {
@@ -60,8 +57,10 @@ namespace Sem1OfficeRevenge
             else if (reloading)
             {
                 reloading = false;
+                ammo = magFull; //Refill ammo
             }
-            
+
+
         }
 
         public virtual void Reload()
@@ -69,8 +68,9 @@ namespace Sem1OfficeRevenge
             if (reloading || (ammo == magFull)) return;
             cooldown = reloadTime;
             reloading = true;
-            ammo = magFull;            
+            ammo = 0;
+            Global.player.AnimReload();
         }
-        
+
     }
 }

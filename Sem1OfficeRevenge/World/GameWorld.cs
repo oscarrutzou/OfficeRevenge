@@ -20,6 +20,11 @@ namespace Sem1OfficeRevenge
 
         public int FloorLevel = 1;
 
+        public Weapon pistol;
+        public Weapon shotgun;
+        public Weapon rifle;
+        public Weapon currentWeapon;
+
         public GameWorld()
         {
             Global.world = this;
@@ -38,13 +43,10 @@ namespace Sem1OfficeRevenge
             {
                 FollowPlayer = true
             };
-
             uiCamera = new Camera(Vector2.Zero)
             {
                 FollowPlayer = false
             };
-
-
             mapCamera = new MiniMapCam(Vector2.Zero);
 
             ResolutionSize(1280, 720);
@@ -57,10 +59,18 @@ namespace Sem1OfficeRevenge
             ChangeScene(Scenes.MainMenu);
             blackScreenFadeInOut = new BlackScreenFadeInOut();
 
+
+            InitWeapons();
             base.Initialize();
         }
 
-
+        private void InitWeapons()
+        {
+            pistol = new Pistol();
+            rifle = new Rifle();
+            shotgun = new Shotgun();
+            currentWeapon = shotgun;
+        }
 
         protected override void LoadContent()
         {
@@ -78,6 +88,7 @@ namespace Sem1OfficeRevenge
             Global.currentScene.Update();
 
             blackScreenFadeInOut?.Update();
+
 
             base.Update(gameTime);
         }
@@ -99,6 +110,8 @@ namespace Sem1OfficeRevenge
             Global.spriteBatch.Begin(sortMode: SpriteSortMode.FrontToBack, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullCounterClockwise, transformMatrix: mapCamera.GetMatrix());
             if (!IsCurrentSceneMenu()) mapCamera.DrawMiniMap();
             Global.spriteBatch.End();
+
+   
 
             base.Draw(gameTime);
         }
@@ -160,6 +173,7 @@ namespace Sem1OfficeRevenge
 
             if (pauseScreen == null) pauseScreen = new PauseScreen(); //Skal være her, da pausescreen bruger gameobjects
             if (!IsCurrentSceneMenu()) pauseScreen.Initialize();
+            
         }
 
 

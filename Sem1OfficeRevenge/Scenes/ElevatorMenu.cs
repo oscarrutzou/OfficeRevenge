@@ -17,6 +17,8 @@ namespace Sem1OfficeRevenge
         private Button rifleBtn;
         private Button shotgunBtn;
 
+        private int riflePrice = 0;
+        private int shotgunPrice = 0;
 
         private float pistolScale = 0.15f;
         private float rifleScale = 0.22f;
@@ -55,19 +57,19 @@ namespace Sem1OfficeRevenge
                     "0",
                     GlobalTextures.textures[TextureNames.GuiEleBtnNormal],
                     true,
-                    ChangeWeapon);
+                    ChangeToPistol);
             
             rifleBtn = new Button(Vector2.Zero,
                     "50",
                     GlobalTextures.textures[TextureNames.GuiEleBtnNormal],
                     true,
-                    ChangeWeapon);
+                    ChangeToRifle);
 
             shotgunBtn = new Button(Vector2.Zero,
                     "100",
                     GlobalTextures.textures[TextureNames.GuiEleBtnNormal],
                     true,
-                    ChangeWeapon);
+                    ChangeToShotgun);
 
 
             Global.currentScene.Instantiate(nextLvlBtn);
@@ -87,12 +89,20 @@ namespace Sem1OfficeRevenge
             Global.world.ChangeScene(Scenes.TestBaseScene);
         }
 
-        private void ChangeWeapon()
+        private void ChangeToPistol()
         {
             if (ScoreManager.killCount > 0)
-            {
-                //Change weapon on player?
-            }
+                Global.world.currentWeapon = Global.world.pistol;
+        }
+        private void ChangeToRifle()
+        {
+            if (ScoreManager.killCount > riflePrice)
+                Global.world.currentWeapon = Global.world.rifle;
+        }
+        private void ChangeToShotgun()
+        {
+            if (ScoreManager.killCount > shotgunPrice)
+                Global.world.currentWeapon = Global.world.shotgun;
         }
 
         private void SetPositions()

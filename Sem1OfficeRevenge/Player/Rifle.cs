@@ -8,14 +8,13 @@ namespace Sem1OfficeRevenge
 {
     internal class Rifle : Weapon
     {
-        private int magSizeFactor; // magsize 30 so factor is 6
-
         public Rifle()
         {
-            magSizeFactor = 6;
-            magFull = this.magSize * magSizeFactor;
+            magSize = 30;
+            magFull = magSize;
+            ammo = magSize;
             dmg = dmg * 2;
-            reloadTime = 3;
+            reloadTime = 1;
         }
 
         protected override void MakeBullets()

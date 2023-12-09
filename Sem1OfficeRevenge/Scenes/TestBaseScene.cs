@@ -47,7 +47,7 @@ namespace Sem1OfficeRevenge
 
         private void DrawAmmo()
         {
-            string text = $"Ammo 5/20";
+            string text = $"Ammo {Global.world.currentWeapon.ammo}/{Global.world.currentWeapon.magSize}";
             // Measure the size of the text
             //Vector2 textSize = GlobalTextures.defaultFont.MeasureString(text);
 

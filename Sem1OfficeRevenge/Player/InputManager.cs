@@ -118,20 +118,25 @@ namespace Sem1OfficeRevenge
         private static void CheckPlayerMoveColRoom(Vector2 tempPosition)
         {
             if (noClip) return;
-
             bool isInsideRoom = false;
-            // Check if the player's collision box is still intersecting with any room's collision box
+            bool isInsideHallway = false;
+
+            // Check if the player's collision box is contained within any room's collision box or hallway collision box
             foreach (Room room in Global.currentSceneData.rooms)
             {
-                if (Collision.ContainsEitherBox(Global.player, room.collisionBox, room.hallwayCol))
+                if (room.collisionBox.Contains(Global.player.collisionBox))
                 {
                     isInsideRoom = true;
-                    break;
+                }
+                if (room.hallwayCol.Contains(Global.player.collisionBox))
+                {
+                    isInsideHallway = true;
+                    //break; // Break here because we found a hallway that contains the player
                 }
             }
 
-            // If the player's collision box is not intersecting with any room's collision box, revert the position
-            if (!isInsideRoom)
+            // If the player's collision box is not contained within any room's collision box or hallway collision box, revert the position
+            if (!isInsideRoom && !isInsideHallway)
             {
                 Global.player.position = tempPosition;
             }
