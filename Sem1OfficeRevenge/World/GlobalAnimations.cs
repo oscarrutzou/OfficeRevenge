@@ -26,6 +26,7 @@ namespace Sem1OfficeRevenge
         PlayerRifleReload,
 
         GuiLoadingScreenIcon,
+        //GuiCircleButtonClickAnim,
     }
 
     public static class GlobalAnimations
@@ -52,6 +53,9 @@ namespace Sem1OfficeRevenge
             await LoadAnimation(AnimNames.PlayerRifleMove, "Player\\Top_Down_Survivor\\rifle\\move\\survivor-move_rifle_", 20, totalAnimations);
             await LoadAnimation(AnimNames.PlayerRifleShoot, "Player\\Top_Down_Survivor\\rifle\\shoot\\survivor-shoot_rifle_", 3, totalAnimations);
             await LoadAnimation(AnimNames.PlayerRifleReload, "Player\\Top_Down_Survivor\\rifle\\reload\\survivor-reload_rifle_", 20, totalAnimations);
+
+
+            //await LoadAnimation(AnimNames.GuiCircleButtonClickAnim, "GUI\\", 2, totalAnimations);
         }
 
         private static async Task LoadAnimation(AnimNames animationName, string path, int framesInAnim, int totalAnimations)

@@ -96,6 +96,13 @@ namespace Sem1OfficeRevenge
             }
         }
 
+        public void SetObjectAnimation(Animation animation)
+        {
+            // Check if the current animation is already the one we want to set
+            if (this.animation != null && this.animation == animation) return;
+            this.animation = animation;
+        }
+
         public void SetObjectAnimation(AnimNames animationName)
         {
             // Check if the current animation is already the one we want to set

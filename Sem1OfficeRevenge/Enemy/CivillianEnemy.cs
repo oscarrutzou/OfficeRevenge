@@ -45,6 +45,8 @@ namespace Sem1OfficeRevenge
             return dx * dx + dy * dy < range * range;
         }
 
+       
+
         public override void Update()
         {
             if (Global.currentScene.isPaused || dead) return;

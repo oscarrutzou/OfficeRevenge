@@ -18,6 +18,13 @@ namespace Sem1OfficeRevenge
         
         public bool playerWon;
 
+        public int FloorLevel = 1;
+
+        public Weapon pistol;
+        public Weapon shotgun;
+        public Weapon rifle;
+        public Weapon currentWeapon;
+
         public GameWorld()
         {
             Global.world = this;
@@ -36,12 +43,10 @@ namespace Sem1OfficeRevenge
             {
                 FollowPlayer = true
             };
-
             uiCamera = new Camera(Vector2.Zero)
             {
                 FollowPlayer = false
             };
-
             mapCamera = new MiniMapCam(Vector2.Zero);
 
             ResolutionSize(1280, 720);
@@ -54,10 +59,18 @@ namespace Sem1OfficeRevenge
             ChangeScene(Scenes.MainMenu);
             blackScreenFadeInOut = new BlackScreenFadeInOut();
 
+
+            InitWeapons();
             base.Initialize();
         }
 
-
+        private void InitWeapons()
+        {
+            pistol = new Pistol();
+            rifle = new Rifle();
+            shotgun = new Shotgun();
+            currentWeapon = shotgun;
+        }
 
         protected override void LoadContent()
         {
@@ -76,6 +89,7 @@ namespace Sem1OfficeRevenge
 
             blackScreenFadeInOut?.Update();
 
+
             base.Update(gameTime);
         }
 
@@ -93,11 +107,11 @@ namespace Sem1OfficeRevenge
             if (!IsCurrentSceneMenu()) pauseScreen.DrawOnScreen();
             Global.spriteBatch.End();
 
-
-    
             Global.spriteBatch.Begin(sortMode: SpriteSortMode.FrontToBack, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullCounterClockwise, transformMatrix: mapCamera.GetMatrix());
             if (!IsCurrentSceneMenu()) mapCamera.DrawMiniMap();
             Global.spriteBatch.End();
+
+   
 
             base.Draw(gameTime);
         }
@@ -109,6 +123,7 @@ namespace Sem1OfficeRevenge
         {
             scenes[Scenes.MainMenu] = new MainMenu();
             scenes[Scenes.LoadingScreen] = new LoadingScene();
+            scenes[Scenes.ElevatorMenu] = new ElevatorMenu();
             scenes[Scenes.EndMenu] = new EndMenu();
             scenes[Scenes.TestJasper] = new TestSceneJasper();
             scenes[Scenes.TestLeonard] = new TestSceneLeonard();
@@ -116,6 +131,11 @@ namespace Sem1OfficeRevenge
             scenes[Scenes.TestOscar] = new TestSceneOscar();
             scenes[Scenes.TestBaseScene] = new TestBaseScene();
             
+        }
+
+        public bool IsCurrentSceneMenu()
+        {
+            return Global.currentScene == scenes[Scenes.MainMenu] || Global.currentScene == scenes[Scenes.LoadingScreen] || Global.currentScene == scenes[Scenes.ElevatorMenu] || Global.currentScene == scenes[Scenes.EndMenu];
         }
 
 
@@ -153,13 +173,9 @@ namespace Sem1OfficeRevenge
 
             if (pauseScreen == null) pauseScreen = new PauseScreen(); //Skal være her, da pausescreen bruger gameobjects
             if (!IsCurrentSceneMenu()) pauseScreen.Initialize();
+            
         }
 
-
-        public bool IsCurrentSceneMenu()
-        {
-            return Global.currentScene == scenes[Scenes.MainMenu] || Global.currentScene == scenes[Scenes.LoadingScreen] || Global.currentScene == scenes[Scenes.EndMenu];
-        }
 
         public void ResolutionSize(int width, int height)
         {
