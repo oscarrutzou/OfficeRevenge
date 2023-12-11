@@ -107,9 +107,9 @@ namespace Sem1OfficeRevenge
                     {
                         if (room.texture.Name != "Rooms\\TempLobby1" && room.texture.Name != "Rooms\\Elevator")
                         {
-                            CivEnemies.Add(new CivillianEnemy());
-                            CivEnemies[CivEnemies.Count - 1].position = new Vector2(room.position.X + rnd.Next(-250, 251), room.position.Y + rnd.Next(-250, 251));
-                            Global.currentScene.Instantiate(CivEnemies[CivEnemies.Count - 1]);
+                            Enemies.Add(new CivillianEnemy());
+                            Enemies[Enemies.Count - 1].position = new Vector2(room.position.X + rnd.Next(-250, 251), room.position.Y + rnd.Next(-250, 251));
+                            Global.currentScene.Instantiate(Enemies[Enemies.Count - 1]);
                         }
                     }
                     for (int i = 0; i < rnd.Next(0, 3); i++)
