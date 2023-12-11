@@ -20,7 +20,7 @@ namespace Sem1OfficeRevenge
         {
             texture = GlobalTextures.textures[TextureNames.Bullet];
             Global.currentScene.SetObjectLayerDepth(this, LayerDepth.Bullets);
-            scale = new Vector2(0.07f, 0.07f);
+            scale = new Vector2(0.05f, 0.05f);
 
             centerOrigin = true;
             SetCorrectBulletPositionWithOffset();

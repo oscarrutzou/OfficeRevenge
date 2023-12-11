@@ -33,13 +33,13 @@ namespace Sem1OfficeRevenge
         {
             if (cooldown > 0 || reloading) return;
             
-            ammo--;
+            
             if (ammo > 0)
             {
                 MakeBullets();
-                GlobalSound.sounds[SoundNames.Shot].Play();
-                
+                ammo--;
             }
+            
         }
 
         protected abstract void MakeBullets();

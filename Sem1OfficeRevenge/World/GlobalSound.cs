@@ -13,6 +13,7 @@ namespace Sem1OfficeRevenge
 {
     public enum SoundNames
     {
+        Shotgun,
         Shot,
         Step,
         TestSound3,
@@ -99,6 +100,7 @@ namespace Sem1OfficeRevenge
 
             sounds = new Dictionary<SoundNames, SoundEffect>
             {
+                { SoundNames.Shotgun, Global.world.Content.Load<SoundEffect>("Sounds\\shotgun")},
                 { SoundNames.Shot, Global.world.Content.Load<SoundEffect>("Fonts\\gunshot")},
                 { SoundNames.Step, Global.world.Content.Load<SoundEffect>("Fonts\\step")},
                 { SoundNames.ElevatorDing, Global.world.Content.Load<SoundEffect>("Sounds\\ElevatorDing")},
