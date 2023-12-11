@@ -22,7 +22,7 @@ namespace Sem1OfficeRevenge
 
             //Level Generation
             lvlGen = new LevelGeneration();
-            lvlGen.GenerateSecondWorld();
+            lvlGen.GenerateWorld();
 
             //Player Generation
             Global.player = new Player();
