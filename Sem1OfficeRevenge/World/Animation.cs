@@ -32,7 +32,6 @@ namespace Sem1OfficeRevenge
             {
                 timer -= frameDuration;
                 currentFrame = (currentFrame + 1) % frames.Count;
-
                 CheckAnimationDone();
             }
         }

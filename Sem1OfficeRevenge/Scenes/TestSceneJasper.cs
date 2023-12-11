@@ -30,7 +30,7 @@ namespace Sem1OfficeRevenge
         {
 
             lvlGen = new LevelGeneration();
-            lvlGen.GenerateWorld();
+            lvlGen.GenerateSecondWorld();
             
             Global.graphics.IsFullScreen = false;
             Global.graphics.PreferredBackBufferWidth = 1920;
@@ -60,12 +60,12 @@ namespace Sem1OfficeRevenge
         {
             KeyboardState state = Keyboard.GetState();
 
-            //check if key is pressed
-            if (state.IsKeyDown(Keys.Space))
-            {
-                lvlGen.RemoveRooms();
-                lvlGen.GenerateWorld();
-            }
+            ////check if key is pressed
+            //if (state.IsKeyDown(Keys.Space))
+            //{
+            //    lvlGen.RemoveRooms();
+            //    lvlGen.GenerateWorld();
+            //}
            
 
             base.Update();

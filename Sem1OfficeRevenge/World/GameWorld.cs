@@ -18,7 +18,8 @@ namespace Sem1OfficeRevenge
         
         public bool playerWon;
 
-        public int FloorLevel = 1;
+        public int curfloorLevel = 5;
+        public int maxFloorLevels = 5;
 
         public Weapon pistol;
         public Weapon shotgun;
@@ -70,6 +71,13 @@ namespace Sem1OfficeRevenge
             rifle = new Rifle();
             shotgun = new Shotgun();
             currentWeapon = shotgun;
+        }
+
+        public void RefreshWeapons()
+        {
+            pistol.RefreshGunAfterRun();
+            rifle.RefreshGunAfterRun();
+            shotgun.RefreshGunAfterRun();
         }
 
         protected override void LoadContent()

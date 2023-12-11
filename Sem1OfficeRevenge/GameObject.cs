@@ -188,7 +188,7 @@ namespace Sem1OfficeRevenge
             for (int i = 0; i < 4; i++)
             {
                 Vector2 dir = corners[i] - origin;
-                dir = Vector2.Transform(dir, Matrix.CreateRotationZ(rotation));
+               //dir = Vector2.Transform(dir, Matrix.CreateRotationZ(rotation));
                 corners[i] = dir + origin;
             }
 
@@ -219,7 +219,7 @@ namespace Sem1OfficeRevenge
             for (int i = 0; i < 4; i++)
             {
                 Vector2 dir = corners[i] - origin;
-                dir = Vector2.Transform(dir, Matrix.CreateRotationZ(rotation));
+                //dir = Vector2.Transform(dir, Matrix.CreateRotationZ(rotation));
                 corners[i] = dir + origin;
             }
 
