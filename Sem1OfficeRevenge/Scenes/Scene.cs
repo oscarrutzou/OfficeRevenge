@@ -10,6 +10,7 @@ namespace Sem1OfficeRevenge
         MainMenu,
         LoadingScreen,
         Level,
+        ElevatorMenu,
         EndMenu,
         TestJasper,
         TestLeonard,
@@ -66,6 +67,10 @@ namespace Sem1OfficeRevenge
             if (Global.currentScene == Global.world.scenes[Scenes.MainMenu] || Global.currentScene == Global.world.scenes[Scenes.LoadingScreen] || Global.currentScene == Global.world.scenes[Scenes.EndMenu])
             {
                 Global.graphics.GraphicsDevice.Clear(Color.DarkRed);
+            }
+            else if (Global.currentScene == Global.world.scenes[Scenes.ElevatorMenu])
+            {
+                Global.graphics.GraphicsDevice.Clear(Color.Silver);
             }
             else
             {
@@ -166,6 +171,7 @@ namespace Sem1OfficeRevenge
             Global.currentSceneData.enemies.RemoveAll(enemy => enemy.isRemoved);
             Global.currentSceneData.bullets.RemoveAll(bullet => bullet.isRemoved);
             Global.currentSceneData.guis.RemoveAll(gui => gui.isRemoved);
+            Global.currentSceneData.bloods.RemoveAll(blood => blood.isRemoved);
             Global.currentSceneData.rooms.RemoveAll(room => room.isRemoved);
             Global.currentSceneData.bloods.RemoveAll(blood => blood.isRemoved);
             Global.currentSceneData.defaults.RemoveAll(defultsObj => defultsObj.isRemoved);

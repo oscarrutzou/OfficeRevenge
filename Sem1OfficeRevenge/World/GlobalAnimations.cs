@@ -37,6 +37,7 @@ namespace Sem1OfficeRevenge
 
 
         GuiLoadingScreenIcon,
+        //GuiCircleButtonClickAnim,
     }
 
     public static class GlobalAnimations

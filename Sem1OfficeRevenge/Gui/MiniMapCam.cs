@@ -30,6 +30,8 @@ namespace Sem1OfficeRevenge
 
         public void DrawMiniMap()
         {
+            if (Global.world.IsCurrentSceneMenu()) return;
+
             int x = Global.graphics.PreferredBackBufferWidth - dimension - posbuffer;
    
             // Set dem and map based of what resolution is used

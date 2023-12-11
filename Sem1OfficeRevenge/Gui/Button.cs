@@ -13,6 +13,7 @@ namespace Sem1OfficeRevenge
         private float timeSinceLastClick = 0; // The time since the button was last clicked
         private bool invokeActionOnFullScale;
         private bool hasPressed;
+        public Color textColor = Color.Black;
 
         public Button(Vector2 position, string text, Texture2D texture, bool invokeActionOnFullScale, Action onClick)
         {
@@ -79,7 +80,7 @@ namespace Sem1OfficeRevenge
         {
             if (!isVisible) return;
 
-            scale = new Vector2(0.95f, 0.95f);  // Shrink the button by 10%
+            scale = new Vector2(0.95f, 0.95f);  // Shrink the button
 
             if (timeSinceLastClick >= clickCooldown)
             {
@@ -99,7 +100,6 @@ namespace Sem1OfficeRevenge
         public override void Draw()
         {
             base.Draw();
-            //DrawDebugCollisionBox();
             DrawText();
         }
 
@@ -116,7 +116,7 @@ namespace Sem1OfficeRevenge
             Global.spriteBatch.DrawString(GlobalTextures.defaultFont,
                                               text,
                                               textPosition,
-                                              Color.Black,
+                                              textColor,
                                               0,
                                               Vector2.Zero,
                                               1,

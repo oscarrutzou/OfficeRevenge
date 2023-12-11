@@ -18,6 +18,9 @@ namespace Sem1OfficeRevenge
         public static Vector2 mousePositionInWorld;
         public static Vector2 mousePositionOnScreen;
         public static bool mouseClicked;
+        public static bool mouseRightClicked;
+
+        private static bool noClip = true;
 
         public static bool anyMoveKeyPressed;
         /// <summary>
@@ -55,6 +58,7 @@ namespace Sem1OfficeRevenge
             PlayerInput();
 
             mouseClicked = (Mouse.GetState().LeftButton == ButtonState.Pressed) && (previousMouseState.LeftButton == ButtonState.Released);
+            mouseRightClicked = (Mouse.GetState().RightButton == ButtonState.Pressed) && (previousMouseState.RightButton == ButtonState.Released);
 
             previousMouseState = mouseState;
             previousKeyboardState = keyboardState;
@@ -70,7 +74,7 @@ namespace Sem1OfficeRevenge
                 dir.Normalize();
 
                 // Calculate the offset vector perpendicular to the direction vector
-                Vector2 offset = new Vector2(-dir.Y, dir.X) * -50; // 50 is the offset distance in px
+                Vector2 offset = new Vector2(-dir.Y, dir.X) * -Global.player.textureOffset; // 50 is the offset distance in px
                 Vector2 tempPosition = Global.player.position; // Store the current position
 
                 Global.player.RotateTowardsTargetWithOffset(mousePositionInWorld, offset);
@@ -92,7 +96,13 @@ namespace Sem1OfficeRevenge
                     Global.player.position.Y += Global.player.playerSpeed;
                 }
 
-                //CheckPlayerMoveColRoom(tempPosition);
+                //Noclip
+                if (keyboardState.IsKeyDown(Keys.N) && !previousKeyboardState.IsKeyDown(Keys.N))
+                {
+                    noClip = !noClip;
+                }
+
+                CheckPlayerMoveColRoom(tempPosition);
 
                 if (keyboardState.IsKeyDown(Keys.W) || keyboardState.IsKeyDown(Keys.A) || keyboardState.IsKeyDown(Keys.S) || keyboardState.IsKeyDown(Keys.D))
                 {
@@ -107,19 +117,26 @@ namespace Sem1OfficeRevenge
 
         private static void CheckPlayerMoveColRoom(Vector2 tempPosition)
         {
+            if (noClip) return;
             bool isInsideRoom = false;
-            // Check if the player's collision box is still intersecting with any room's collision box
+            bool isInsideHallway = false;
+
+            // Check if the player's collision box is contained within any room's collision box or hallway collision box
             foreach (Room room in Global.currentSceneData.rooms)
             {
-                if (Collision.ContainsBox(Global.player, room))
+                if (room.collisionBox.Contains(Global.player.collisionBox))
                 {
                     isInsideRoom = true;
-                    break;
+                }
+                if (room.hallwayCol.Contains(Global.player.collisionBox))
+                {
+                    isInsideHallway = true;
+                    //break; // Break here because we found a hallway that contains the player
                 }
             }
 
-            // If the player's collision box is not intersecting with any room's collision box, revert the position
-            if (!isInsideRoom)
+            // If the player's collision box is not contained within any room's collision box or hallway collision box, revert the position
+            if (!isInsideRoom && !isInsideHallway)
             {
                 Global.player.position = tempPosition;
             }

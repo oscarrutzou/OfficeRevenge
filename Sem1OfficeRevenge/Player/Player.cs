@@ -15,18 +15,18 @@ namespace Sem1OfficeRevenge
     {
         public int health {  get; private set; }
         public bool canMove {  get; private set; }
-
+        public int textureOffset { get; private set; }
         public bool alive;
         public float playerSpeed = 10f;
         private bool hasAttacked;
-        int bulletSpeed = 2000;
-        int bulletDmg = 10;
-        public List<Bullet> bullets = new List<Bullet>();
+        
 
         private List<ShoePrint> shoePrints = new List<ShoePrint>();
         private Vector2 oldPos;
         private int bloodied = 0;
         private bool right = true;
+
+
 
         private Texture2D sight;
 
@@ -37,40 +37,90 @@ namespace Sem1OfficeRevenge
             SoundNames.Player1, SoundNames.Player2, SoundNames.Player3, SoundNames.Player4, SoundNames.Player5, SoundNames.Player6, SoundNames.Player7, SoundNames.Player8, SoundNames.Player9, SoundNames.Player10, SoundNames.Player11
         };
 
+        private Animation idleAnim;
+        private Animation moveAnim;
+        private Animation shootAnim;
+        public Animation reloadAnim { get; private set; }
+
         public Player()
         {
-            health = 100000;
-            //scale = new Vector2(0.5f, 0.5f);
+            health = 100;
+            textureOffset = 50;
             centerOrigin = true;
             Global.player = this;
-
             position = Vector2.Zero;
-            SetObjectAnimation(AnimNames.PlayerRifleIdle);
+            SetAnimCurrentWeapon();
+            animation = idleAnim;
             sight = GlobalTextures.textures[TextureNames.Sight];
             Global.currentScene.SetObjectLayerDepth(this, LayerDepth.Player);
+
+            SetCollisionBox(150, 110);
         }
 
+
+        private void SetAnimCurrentWeapon()
+        {
+            switch (Global.world.currentWeapon)
+            {
+                case Pistol:
+                    idleAnim = GlobalAnimations.SetAnimation(AnimNames.PlayerHandgunIdle);
+                    moveAnim = GlobalAnimations.SetAnimation(AnimNames.PlayerHandgunMove);
+                    shootAnim = GlobalAnimations.SetAnimation(AnimNames.PlayerHandgunShoot);
+                    reloadAnim = GlobalAnimations.SetAnimation(AnimNames.PlayerHandgunReload);
+                    break;
+                case Rifle:
+                    idleAnim = GlobalAnimations.SetAnimation(AnimNames.PlayerRifleIdle);
+                    moveAnim = GlobalAnimations.SetAnimation(AnimNames.PlayerRifleMove);
+                    shootAnim = GlobalAnimations.SetAnimation(AnimNames.PlayerRifleShoot);
+                    reloadAnim = GlobalAnimations.SetAnimation(AnimNames.PlayerRifleReload);
+                    break;
+                case Shotgun:
+                    idleAnim = GlobalAnimations.SetAnimation(AnimNames.PlayerShotGunIdle);
+                    moveAnim = GlobalAnimations.SetAnimation(AnimNames.PlayerShotGunMove);
+                    shootAnim = GlobalAnimations.SetAnimation(AnimNames.PlayerShotGunShoot);
+                    reloadAnim = GlobalAnimations.SetAnimation(AnimNames.PlayerShotGunReload);
+                    break;
+            }
+        }
 
         public override void Update()
         {
 
+            CheckCollisionBox();
             if (Global.currentScene.isPaused) return;
 
             CheckCollisionBox();
 
+            Weapon currentWeapon = Global.world.currentWeapon;
             if (InputManager.anyMoveKeyPressed && InputManager.mouseClicked)
             {
-                Fire();
-                AnimRunNShoot();
+                if (currentWeapon.reloading == false)
+                {
+                    PlayShootVL();
+                    currentWeapon.Fire();
+                    AnimRunNShoot();
+                }
+                
             }
             else if (InputManager.anyMoveKeyPressed)
             {
                 AnimMove();
             }
             else if (InputManager.mouseClicked)
+            {                               
+                
+                if (currentWeapon.reloading == false)
+                {
+                    PlayShootVL();
+                    currentWeapon.Fire();
+                    AnimShoot();
+                }
+                
+            }
+
+            if (InputManager.mouseRightClicked)
             {
-                Fire();
-                AnimShoot();
+                currentWeapon.Reload();
             }
 
             if (WalkedFar(75, position, oldPos) == false)
@@ -93,6 +143,7 @@ namespace Sem1OfficeRevenge
 
                 }
             }
+            currentWeapon.Update();
         }
 
         bool WalkedFar(float range, Vector2 v1, Vector2 v2)
@@ -104,35 +155,30 @@ namespace Sem1OfficeRevenge
 
         private void AnimRunNShoot()
         {
-            SetObjectAnimation(AnimNames.PlayerRifleShoot);
-            animation.onAnimationDone += () => { SetObjectAnimation(AnimNames.PlayerRifleIdle); };
+            SetObjectAnimation(shootAnim);
+            animation.onAnimationDone += () => { SetObjectAnimation(idleAnim); };
         }
         private void AnimMove()
         {
-            if (animation.animationName == AnimNames.PlayerRifleShoot) return; // So it shows the shoot animation
+            if (animation == shootAnim || animation == reloadAnim) return; // So it shows the shoot animation
             
-            SetObjectAnimation(AnimNames.PlayerRifleMove);
-            animation.onAnimationDone += () => { SetObjectAnimation(AnimNames.PlayerRifleIdle); };
-        }
-        private void AnimShoot()
-        {
-            SetObjectAnimation(AnimNames.PlayerRifleShoot);
-            animation.onAnimationDone += () => { SetObjectAnimation(AnimNames.PlayerRifleIdle); };
-        }
-        private void Fire()
-        {
-            Bullet bullet = new Bullet(new Vector2(0, 50), bulletSpeed, bulletDmg);
-            bullets.Add(bullet);
-            //GlobalSound.sounds[SoundNames.Shot].Play();
-            //GlobalSound.PlaySound(GlobalSound.sounds[SoundNames.Shot]);
-            Global.currentScene.Instantiate(bullet);
-            //Still play run vl
-            //GlobalSound.PlaySound(GlobalSound.sounds[SoundNames.Shot]);
-            
-            PlayShootVL();
+            SetObjectAnimation(moveAnim);
+            animation.onAnimationDone += () => { SetObjectAnimation(idleAnim); };
         }
 
-        
+        public void AnimReload()
+        {
+            if (animation == reloadAnim) return;
+            SetObjectAnimation(reloadAnim);
+            animation.onAnimationDone += () => { SetObjectAnimation(idleAnim); };
+        }
+
+        private void AnimShoot()
+        {
+            SetObjectAnimation(shootAnim);
+            animation.onAnimationDone += () => { SetObjectAnimation(idleAnim); };
+        }
+    
         private async void PlayShootVL()
         {
             if (isPlayingVl) return;
@@ -149,7 +195,7 @@ namespace Sem1OfficeRevenge
         public override void Draw()
         {
             Global.spriteBatch.Draw(sight, position, null, Color.White, rotation, new Vector2(sight.Width / 2, sight.Height / 2), scale, spriteEffects, 1);
-
+            DrawDebugCollisionBox();
             base.Draw();
         }
 

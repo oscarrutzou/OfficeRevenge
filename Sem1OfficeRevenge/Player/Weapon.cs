@@ -7,23 +7,70 @@ using System.Threading.Tasks;
 
 namespace Sem1OfficeRevenge
 {
-    internal class Weapon : GameObject
+    public abstract class Weapon : GameObject
     {
-        public int dmg;
-        public Vector2 shootDirection;
-        public float shootVelocity;
-        public int magSize;
-        public bool isMagFull;
+        public int dmg;        
+        public int magSize; // standart size 5
+        public int magFull;
+        public static int bulletSpeed = 1000;
+        public static int bulletDmg = 10;
+        public List<Bullet> bullets;
+        public bool reloading;
+        protected float reloadTime;
+        public int ammo;
+        protected float cooldown;
+
+        private bool hasPlayedReloadAnim;
+        public Weapon()
+        {
+            cooldown = 0;
+            reloading = false;
+            dmg = bulletDmg;
+            magSize = 5;
+        }
+
+        public virtual void Fire()
+        {
+            if (cooldown > 0 || reloading) return;
+            
+            ammo--;
+            if (ammo > 0)
+            {
+                MakeBullets();
+                GlobalSound.sounds[SoundNames.Shot].Play();
+                
+            }
+        }
+
+        protected abstract void MakeBullets();
 
         public override void Update()
         {
-            
+            base.Update();
+
+            if (ammo <= 0) Reload();
+
+            if (cooldown > 0)
+            {
+                cooldown -= (float)Global.gameTime.ElapsedGameTime.TotalSeconds;
+            }
+            else if (reloading)
+            {
+                reloading = false;
+                ammo = magFull; //Refill ammo
+            }
+
+
         }
 
-        private void Reload()
+        public virtual void Reload()
         {
-
+            if (reloading || (ammo == magFull)) return;
+            cooldown = reloadTime;
+            reloading = true;
+            ammo = 0;
+            Global.player.AnimReload();
         }
-        
+
     }
 }

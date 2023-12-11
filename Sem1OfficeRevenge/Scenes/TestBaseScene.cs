@@ -7,6 +7,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using SharpDX.Direct3D9;
+using Microsoft.Xna.Framework.Graphics;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Sem1OfficeRevenge
 {
@@ -34,8 +36,6 @@ namespace Sem1OfficeRevenge
             Global.currentScene.Instantiate(Global.player);
         }
 
-
-
         public override void Update()
         {
             ScoreManager.UpdateScore();
@@ -48,6 +48,24 @@ namespace Sem1OfficeRevenge
             base.DrawOnScreen();
             
             ScoreManager.DrawScore();
+            DrawAmmo();
+        }
+
+        private void DrawAmmo()
+        {
+            string text = $"Ammo {Global.world.currentWeapon.ammo}/{Global.world.currentWeapon.magSize}";
+            // Measure the size of the text
+            //Vector2 textSize = GlobalTextures.defaultFont.MeasureString(text);
+
+            Global.spriteBatch.DrawString(GlobalTextures.defaultFont,
+                                  text,
+                                  Global.world.uiCamera.BottomLeft + new Vector2(10, -50),
+                                  Color.Gray,
+                                  0,
+                                  Vector2.Zero,
+                                  1,
+                                  SpriteEffects.None,
+                                  Global.currentScene.GetObjectLayerDepth(LayerDepth.GuiText));
         }
     }
 }

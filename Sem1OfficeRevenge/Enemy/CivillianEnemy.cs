@@ -21,6 +21,8 @@ namespace Sem1OfficeRevenge
         private float rotOrigin;
         private float rotSpeed;
         private float timer;
+        private Rectangle center;
+        Vector2 tempPosition;
 
         private float lastSoundTime = 0;
         private float soundCooldown = 2f; // Cooldown in seconds
@@ -48,6 +50,8 @@ namespace Sem1OfficeRevenge
             var dy = v1.Y - v2.Y;
             return dx * dx + dy * dy < range * range;
         }
+
+       
 
         public override void Update()
         {
@@ -79,7 +83,7 @@ namespace Sem1OfficeRevenge
                 }
                 else
                 {
-                    ChangeDirection();
+                    //ChangeDirection();
                     //this.color = Color.Gray;
                 }
 
@@ -150,11 +154,14 @@ namespace Sem1OfficeRevenge
                     SetObjectAnimation(AnimNames.NPCIdle);
                 }
             }
-
-            
         }
 
-
+        public void ChangeDirection() 
+        {
+            fleeDirection = rnd.Next(1, 4);
+            rotOrigin = rotation;
+        }
+        
         private void ChooseRndVoiceLine()
         {
             if (!shouldPlayVoice) lastSoundTime = soundCooldown;
@@ -177,13 +184,11 @@ namespace Sem1OfficeRevenge
 
 
 
-        public void ChangeDirection() 
-        {
-            fleeDirection = rnd.Next(1, 4);
-            rotOrigin = rotation;
-        }
-        
-        
+        //public void ChangeDirection() 
+        //{
+        //    fleeDirection = rnd.Next(1, 4);
+        //    rotOrigin = rotation;
+        //}
 
         public void Flee()
         {
