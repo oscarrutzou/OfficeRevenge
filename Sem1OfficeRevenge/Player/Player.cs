@@ -139,9 +139,7 @@ namespace Sem1OfficeRevenge
             {
                 if (Math.Abs(position.X - blood.position.X) < (blood.texture.Width * scale.X) / 2 / 2 && Math.Abs(position.Y - blood.position.Y) < (blood.texture.Height * scale.Y) / 2 / 2)
                 {
-
                     bloodied = 10;
-
                 }
             }
             currentWeapon.Update();
@@ -183,7 +181,6 @@ namespace Sem1OfficeRevenge
         private async void PlayShootVL()
         {
             if (isPlayingVl) return;
-
             if (GlobalSound.IsAnySoundPlaying(GenericEnemy.deathVoiceLines)) return;
 
             GlobalSound.PlayRandomSound(shootVoiceLines, 1);

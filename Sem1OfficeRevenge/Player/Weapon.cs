@@ -37,7 +37,7 @@ namespace Sem1OfficeRevenge
             if (ammo > 0)
             {
                 MakeBullets();
-                GlobalSound.sounds[SoundNames.Shot].Play();
+                GlobalSound.PlaySound(SoundNames.Shot);
                 
             }
         }
@@ -53,6 +53,13 @@ namespace Sem1OfficeRevenge
             if (cooldown > 0)
             {
                 cooldown -= (float)Global.gameTime.ElapsedGameTime.TotalSeconds;
+
+                if (this is Shotgun)
+                {
+                    Global.player.AnimReload();
+                    if (Global.player.animation == Global.player.reloadAnim) Global.player.animation.frameRate = 40;
+
+                }
             }
             else if (reloading)
             {

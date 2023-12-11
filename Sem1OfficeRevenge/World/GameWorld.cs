@@ -18,7 +18,8 @@ namespace Sem1OfficeRevenge
         
         public bool playerWon;
 
-        public int FloorLevel = 1;
+        public int curfloorLevel = 5;
+        public int maxFloorLevels = 5;
 
         public Weapon pistol;
         public Weapon shotgun;
