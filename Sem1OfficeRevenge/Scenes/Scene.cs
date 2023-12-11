@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Sem1OfficeRevenge.Enemy;
+using SharpDX.Direct2D1.Effects;
+using SharpDX.Direct3D9;
 using System;
 using System.Collections.Generic;
 
@@ -93,6 +95,13 @@ namespace Sem1OfficeRevenge
             {
                 guiGameObject.Draw();
             }
+            DrawCursor();
+        }
+
+        private void DrawCursor()
+        {
+            Vector2 pos = new Vector2(InputManager.mousePositionOnScreen.X - GlobalTextures.textures[TextureNames.CrossHair].Width / 2, InputManager.mousePositionOnScreen.Y - GlobalTextures.textures[TextureNames.CrossHair].Height / 2);
+            Global.spriteBatch.Draw(GlobalTextures.textures[TextureNames.CrossHair], pos, null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 1f);
         }
 
 
@@ -125,10 +134,10 @@ namespace Sem1OfficeRevenge
                     gameObject.layerDepth = 0.9f;
                     break;
                 case LayerDepth.GuiText:
-                    gameObject.layerDepth = 0.99f;
+                    gameObject.layerDepth = 0.98f;
                     break;
                 case LayerDepth.FullOverlay:
-                    gameObject.layerDepth = 1f;
+                    gameObject.layerDepth = 0.99f;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(layer), layer, null);

@@ -29,6 +29,7 @@ namespace Sem1OfficeRevenge
 
         ElevatorMenu,
         Pixel,
+        CrossHair,
 
         Blood,
         Shoe,
@@ -86,7 +87,9 @@ namespace Sem1OfficeRevenge
 
                 {TextureNames.Blood, Global.world.Content.Load<Texture2D>("Fonts\\BloodPool") },
                 {TextureNames.Shoe, Global.world.Content.Load<Texture2D>("Fonts\\shoeprint") },
-                {TextureNames.Sight, Global.world.Content.Load<Texture2D>("Fonts\\sight") }
+                {TextureNames.Sight, Global.world.Content.Load<Texture2D>("Fonts\\sight") },
+
+                {TextureNames.CrossHair, Global.world.Content.Load<Texture2D>("GUI\\crosshair") }
 
 
             };

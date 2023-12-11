@@ -26,7 +26,7 @@ namespace Sem1OfficeRevenge
         {
             List<Bullet> bullets = new List<Bullet>();
             float spread = MathHelper.ToRadians(45f); // Spread angle in degrees. Adjust as needed.
-            if (cooldown < 0)
+            if (cooldown <= 0)
             {
                 for (int i = 0; i < 6; i++)
                 {

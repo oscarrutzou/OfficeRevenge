@@ -32,7 +32,7 @@ namespace Sem1OfficeRevenge
             Global.graphics = new GraphicsDeviceManager(this);
             Global.currentSceneData = new SceneData();
             Content.RootDirectory = "Content";
-            IsMouseVisible = true;
+            IsMouseVisible = false;
             Window.Title = "Office Revenge!";
         }
 
@@ -65,20 +65,6 @@ namespace Sem1OfficeRevenge
             base.Initialize();
         }
 
-        private void InitWeapons()
-        {
-            pistol = new Pistol();
-            rifle = new Rifle();
-            shotgun = new Shotgun();
-            currentWeapon = shotgun;
-        }
-
-        public void RefreshWeapons()
-        {
-            pistol.RefreshGunAfterRun();
-            rifle.RefreshGunAfterRun();
-            shotgun.RefreshGunAfterRun();
-        }
 
         protected override void LoadContent()
         {
@@ -209,6 +195,22 @@ namespace Sem1OfficeRevenge
 
 
         #endregion
+
+
+        private void InitWeapons()
+        {
+            pistol = new Pistol();
+            rifle = new Rifle();
+            shotgun = new Shotgun();
+            currentWeapon = shotgun;
+        }
+
+        public void RefreshWeapons()
+        {
+            pistol.RefreshGunAfterRun();
+            rifle.RefreshGunAfterRun();
+            shotgun.RefreshGunAfterRun();
+        }
 
     }
 }
