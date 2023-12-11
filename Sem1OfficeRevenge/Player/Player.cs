@@ -89,7 +89,7 @@ namespace Sem1OfficeRevenge
 
             CheckCollisionBox();
             if (Global.currentScene.isPaused) return;
-
+            
             CheckCollisionBox();
 
             Weapon currentWeapon = Global.world.currentWeapon;
@@ -176,7 +176,7 @@ namespace Sem1OfficeRevenge
         {
             if (Global.world.currentWeapon is Shotgun shotgun)
             {
-                //Tjek shotgun cooldown, return hvis ik 0
+                if (shotgun.pumpTime > 0) return;                
             }
             SetObjectAnimation(shootAnim);
             animation.onAnimationDone += () => { SetObjectAnimation(idleAnim); };
