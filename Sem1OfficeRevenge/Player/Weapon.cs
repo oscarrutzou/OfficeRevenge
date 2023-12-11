@@ -38,7 +38,7 @@ namespace Sem1OfficeRevenge
             {
                 MakeBullets();
                 GlobalSound.PlaySound(SoundNames.Shot);
-                
+
             }
         }
 
@@ -68,6 +68,13 @@ namespace Sem1OfficeRevenge
             }
 
 
+        }
+
+        public void RefreshGunAfterRun()
+        {
+            ammo = magSize;
+            reloading = false;
+            cooldown = 0;
         }
 
         public virtual void Reload()

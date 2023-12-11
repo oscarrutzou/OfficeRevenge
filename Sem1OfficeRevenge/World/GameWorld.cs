@@ -73,6 +73,13 @@ namespace Sem1OfficeRevenge
             currentWeapon = shotgun;
         }
 
+        public void RefreshWeapons()
+        {
+            pistol.RefreshGunAfterRun();
+            rifle.RefreshGunAfterRun();
+            shotgun.RefreshGunAfterRun();
+        }
+
         protected override void LoadContent()
         {
             Global.spriteBatch = new SpriteBatch(GraphicsDevice);            

@@ -55,7 +55,7 @@ namespace Sem1OfficeRevenge
             sight = GlobalTextures.textures[TextureNames.Sight];
             Global.currentScene.SetObjectLayerDepth(this, LayerDepth.Player);
 
-            SetCollisionBox(150, 110);
+            SetCollisionBox(110, 110);
         }
 
 
@@ -174,6 +174,10 @@ namespace Sem1OfficeRevenge
 
         private void AnimShoot()
         {
+            if (Global.world.currentWeapon is Shotgun shotgun)
+            {
+                //Tjek shotgun cooldown, return hvis ik 0
+            }
             SetObjectAnimation(shootAnim);
             animation.onAnimationDone += () => { SetObjectAnimation(idleAnim); };
         }
