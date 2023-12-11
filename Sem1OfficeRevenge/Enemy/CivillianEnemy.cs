@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Sem1OfficeRevenge.Enemy;
+//using Sem1OfficeRevenge.World;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -70,7 +71,7 @@ namespace Sem1OfficeRevenge
                 {
                     isInsideRoom = true;
                     //this.color = Color.White;
-                    //center = room.collisionBox;
+                    center = room.collisionBox;
                     break;
                 }
                 else
@@ -164,9 +165,6 @@ namespace Sem1OfficeRevenge
 
             lastSoundTime = timer;
         }
-
-
-
 
         //public void ChangeDirection() 
         //{
