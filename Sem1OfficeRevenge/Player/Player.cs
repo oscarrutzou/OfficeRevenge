@@ -124,7 +124,7 @@ namespace Sem1OfficeRevenge
             Bullet bullet = new Bullet(new Vector2(0, 50), bulletSpeed, bulletDmg);
             bullets.Add(bullet);
             //GlobalSound.sounds[SoundNames.Shot].Play();
-            GlobalSound.PlaySound(GlobalSound.sounds[SoundNames.Shot]);
+            //GlobalSound.PlaySound(GlobalSound.sounds[SoundNames.Shot]);
             Global.currentScene.Instantiate(bullet);
             //Still play run vl
             //GlobalSound.PlaySound(GlobalSound.sounds[SoundNames.Shot]);

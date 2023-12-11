@@ -35,7 +35,7 @@ namespace Sem1OfficeRevenge
 
         public CivillianEnemy()
         {
-            SetObjectAnimation(AnimNames.PlayerRifleMove);
+            SetObjectAnimation(AnimNames.NPCIdle);
             centerOrigin = true;
             layerDepth = Global.currentScene.GetObjectLayerDepth(LayerDepth.Enemies);
 
@@ -120,6 +120,10 @@ namespace Sem1OfficeRevenge
             
             if (Math.Abs(Global.player.position.X - position.X) < rnd.Next(850, 1250) && Math.Abs(Global.player.position.Y - position.Y) < rnd.Next(850, 1250))
             {
+                if (animation == GlobalAnimations.SetAnimation(AnimNames.NPCIdle))
+                {
+                    SetObjectAnimation(AnimNames.CivWalk);
+                }
                 if (!fleeing)
                 {
                     //ChooseRndVoiceLine();
@@ -141,6 +145,10 @@ namespace Sem1OfficeRevenge
             else
             {
                 fleeing = false;
+                if (animation == GlobalAnimations.SetAnimation(AnimNames.CivWalk))
+                {
+                    SetObjectAnimation(AnimNames.NPCIdle);
+                }
             }
 
             
