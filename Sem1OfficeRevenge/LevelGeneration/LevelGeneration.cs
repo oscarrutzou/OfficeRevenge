@@ -117,14 +117,11 @@ namespace Sem1OfficeRevenge
                             {
                                 Enemies.Add(new CombatEnemy());
                                 Global.currentScene.Instantiate(Enemies[Enemies.Count - 1]);
-                                Enemies[Enemies.Count - 1].position = new Vector2(room.position.X + rnd.Next(-450, 451), room.position.Y + rnd.Next(-450, 451));
+                                Enemies[Enemies.Count - 1].position = new Vector2(room.position.X + rnd.Next(-250, 251), room.position.Y + rnd.Next(-250, 251));
                             }
 
                         }
                     }
-                    
-                    
-                    
                 }
 
                 //generate elevator
@@ -187,22 +184,6 @@ namespace Sem1OfficeRevenge
                     break;
             }
 
-                    case MathHelper.Pi:
-                    lobbyRoom.SetCollisionBox(100, 75, new Vector2(0, 115 * scale));
-                    break;
-
-                    case MathHelper.PiOver2:
-                    lobbyRoom.SetCollisionBox(100, 75, new Vector2(115 * scale, 0));
-                    break;
-
-                    case MathHelper.Pi + MathHelper.PiOver2:
-                    lobbyRoom.SetCollisionBox(100, 75, new Vector2(-115 * scale, 0));
-                    break;
-
-                     default:
-                        break;
-                }
-
                 previousRoom = lobbyRoom;
 
                 for (int i = 0; i < 7; i++)
@@ -255,13 +236,13 @@ namespace Sem1OfficeRevenge
                             if (room.texture.Name != "Rooms\\ElevatorReverse")
                             {
                                 Enemies.Add(new CivillianEnemy());
-                                Enemies[Enemies.Count - 1].position = new Vector2(room.position.X + rnd.Next(-150, 151), room.position.Y + rnd.Next(-150, 151));
+                                Enemies[Enemies.Count - 1].position = new Vector2(room.position.X + rnd.Next(-250, 251), room.position.Y + rnd.Next(-250, 251));
                                 Global.currentScene.Instantiate(Enemies[Enemies.Count - 1]);
                             for (int ii = 0; ii < rnd.Next(0, 4); ii++)
                             {
                                 Enemies.Add(new CombatEnemy());
                                 Global.currentScene.Instantiate(Enemies[Enemies.Count - 1]);
-                                Enemies[Enemies.Count - 1].position = new Vector2(room.position.X + rnd.Next(-450, 451), room.position.Y + rnd.Next(-450, 451));
+                                Enemies[Enemies.Count - 1].position = new Vector2(room.position.X + rnd.Next(-250, 251), room.position.Y + rnd.Next(-250, 251));
                             }
                         }
 
@@ -277,83 +258,6 @@ namespace Sem1OfficeRevenge
 
                     doneGenerating = true;
                 }
-        }
-
-            previousRoom = lobbyRoom;
-
-            //Generate Rooms
-            for (int i = 0; i < 7; i++)
-            {
-                Room room = new Room(textures[rnd.Next(0, 6)], randomRotation);
-
-                //if rotation is under pi/2 and room is room3 or rotation is over pi/2 and room is room5, generate new room.
-                if (randomRotation < MathHelper.PiOver2 && room.texture.Name == "Rooms\\room3" || randomRotation > MathHelper.PiOver2 && room.texture.Name == "Rooms\\room5")
-                {
-                    //generate new room, non turning room.
-                    room.texture = textures[rnd.Next(0, 2)];
-                    Global.currentScene.Instantiate(room);
-                    room.position = previousRoom.position;
-
-                    //move room and set collision box
-                    MoveRoom(room, randomRotation);
-                    RoomColliders(room, randomRotation);
-                }
-                else
-                {
-                    //instantiates room
-                    Global.currentScene.Instantiate(room);
-                    room.position = previousRoom.position;
-
-                    MoveRoom(room, randomRotation);
-                    RoomColliders(room, randomRotation);
-                }
-
-                //check if room intersects with other rooms
-                if (CheckIntersect(room))
-                {
-                    RemoveRooms();
-
-                    rooms.Clear();
-
-                    GenerateSecondWorld();
-
-                    intersects = true;
-
-                    break;
-                }
-                else
-                {
-                    intersects = false;
-                }
-                rooms.Add(room);
-            }
-
-            //if no rooms intersect, generate civillians and elevator
-            if (!intersects)
-            {
-                foreach (Room room in rooms)
-                {
-                    for (int i = 0; i < rnd.Next(3, 8); i++)
-                    {
-                        if (room.texture.Name != "Rooms\\ElevatorReverse")
-                        {
-                            CivEnemies.Add(new CivillianEnemy());
-                            CivEnemies[CivEnemies.Count - 1].position = new Vector2(room.position.X + rnd.Next(-150, 151), room.position.Y + rnd.Next(-150, 151));
-                            Global.currentScene.Instantiate(CivEnemies[CivEnemies.Count - 1]);
-                        }
-                    }
-                }
-
-                //generate elevator
-                elevator = new Room(GlobalTextures.textures[TextureNames.TileMap6], randomRotation);
-                elevator.position = previousRoom.position;
-                Global.currentScene.Instantiate(elevator);
-
-                MoveRoom(elevator, randomRotation);
-                RoomColliders(elevator, randomRotation);
-
-                doneGenerating = true;
-            }
         }
 
         //Check if room intersects with other rooms and returns true or false
