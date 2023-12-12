@@ -117,6 +117,7 @@ namespace Sem1OfficeRevenge
 
         private void ResetScore()
         {
+            ScoreManager.ResetScore();
 
         }
 

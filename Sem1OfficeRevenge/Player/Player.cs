@@ -196,7 +196,7 @@ namespace Sem1OfficeRevenge
         public override void Draw()
         {
             Global.spriteBatch.Draw(sight, position, null, Color.White, rotation, new Vector2(sight.Width / 2, sight.Height / 2), scale, spriteEffects, 1);
-            DrawDebugCollisionBox();
+            //DrawDebugCollisionBox();
             base.Draw();
         }
 

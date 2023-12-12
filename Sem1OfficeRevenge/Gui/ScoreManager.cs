@@ -45,6 +45,17 @@ namespace Sem1OfficeRevenge
             }
         }
 
+        public static void ResetScore()
+        {
+            string appdataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            string folder = Path.Combine(appdataPath, "OfficeRevengeData");
+            Directory.CreateDirectory(folder);
+            string path = Path.Combine(folder, "data.txt");
+            
+            File.Delete(path);
+            
+        }
+
         public static void DrawScore()
         {
             string text = $"Kill count {killCount}";
