@@ -16,7 +16,7 @@ namespace Sem1OfficeRevenge
         Random rnd = new Random();
 
         Room lobbyRoom;
-        Room elevator;
+        public Room elevator;
 
         private int scale = 5;
         private float randomRotation;

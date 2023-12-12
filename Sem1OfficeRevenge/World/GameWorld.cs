@@ -197,7 +197,7 @@ namespace Sem1OfficeRevenge
             pistol = new Pistol();
             rifle = new Rifle();
             shotgun = new Shotgun();
-            currentWeapon = shotgun;
+            currentWeapon = pistol;
         }
 
         public void RefreshWeapons()
