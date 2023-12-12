@@ -1,11 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http.Headers;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Sem1OfficeRevenge
 {
@@ -34,21 +28,14 @@ namespace Sem1OfficeRevenge
         private Vector2 targetPos;
        
 
-
-
-      
-
         public CivillianEnemy()
         {
             speed = 5;
             SetObjectAnimation(AnimNames.NPCIdle);
             centerOrigin = true;
             layerDepth = Global.currentScene.GetObjectLayerDepth(LayerDepth.Enemies);
-
-            Vector2 tempPosition = this.position;
-
-
-            
+            health = 20;
+            Vector2 tempPosition = this.position;            
         }
 
         bool WalkedFar(float range, Vector2 v1, Vector2 v2)
@@ -62,6 +49,7 @@ namespace Sem1OfficeRevenge
 
         public override void Update()
         {
+            
 
             if (ourRoom == null)
             {

@@ -1,9 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using System;
-using System.Diagnostics.Eventing.Reader;
-using System.Reflection.Metadata;
 
 namespace Sem1OfficeRevenge
 {
@@ -20,10 +16,10 @@ namespace Sem1OfficeRevenge
         public static bool mouseClicked;
         public static bool mouseRightClicked;
 
-        private static bool noClip = true;
         private static float eleTimer = 0;
         private static int eleMovePlayerTime = 3;
 
+        public static bool noClip;
         public static bool anyMoveKeyPressed;
         /// <summary>
         /// Gets called in GameWorld, at the start of the update
@@ -54,7 +50,6 @@ namespace Sem1OfficeRevenge
             if (mouseState.LeftButton == ButtonState.Pressed && previousMouseState.LeftButton == ButtonState.Released)
             {
                 CheckButtons();
-                //if (Global.player != null && !Global.currentScene.isPaused && !Global.world.blackScreenFadeInOut.isFadingIn) Global.player.DamagePlayer(20);
             }           
 
             PlayerInput();
@@ -98,30 +93,20 @@ namespace Sem1OfficeRevenge
                     Global.player.position.Y += Global.player.playerSpeed;
                 }
 
-                //Noclip
-                if (keyboardState.IsKeyDown(Keys.N) && !previousKeyboardState.IsKeyDown(Keys.N))
+                if (keyboardState.IsKeyDown(Keys.N) && previousKeyboardState.IsKeyDown(Keys.N))
                 {
                     noClip = !noClip;
                 }
 
                 CheckPlayerMoveColRoom(tempPosition);
-                
 
-                if (keyboardState.IsKeyDown(Keys.W) || keyboardState.IsKeyDown(Keys.A) || keyboardState.IsKeyDown(Keys.S) || keyboardState.IsKeyDown(Keys.D))
-                {
-                    anyMoveKeyPressed = true;
-                }
-                else
-                {
-                    anyMoveKeyPressed = false;
-                }
+                anyMoveKeyPressed = keyboardState.IsKeyDown(Keys.W) || keyboardState.IsKeyDown(Keys.A) || keyboardState.IsKeyDown(Keys.S) || keyboardState.IsKeyDown(Keys.D);
             }
         }
 
 
         private static void CheckPlayerMoveColRoom(Vector2 tempPosition)
         {
-            if (noClip) return;
             bool isInsideRoom = false;
             //bool isInsideHallway = false;
 
@@ -133,14 +118,21 @@ namespace Sem1OfficeRevenge
                     isInsideRoom = true;
                 }
 
-                if (room.texture == GlobalTextures.textures[TextureNames.TileMap6] && Collision.ContainsBox(Global.player, room))
+                if (room.texture == GlobalTextures.textures[TextureNames.TileMap6] || room.texture == GlobalTextures.textures[TextureNames.TileMap7])
                 {
-                    eleTimer += (float)Global.gameTime.ElapsedGameTime.TotalSeconds;
+                    bool isLastRoom = room == Global.currentSceneData.rooms[Global.currentSceneData.rooms.Count - 1];
+                    bool isPlayerInRoom = Collision.ContainsBox(Global.player, room);
+
+                    if (Global.world.curfloorLevel == 1 && isLastRoom && isPlayerInRoom 
+                        || Global.world.curfloorLevel != 1 && !isLastRoom && isPlayerInRoom)
+                    {
+                        eleTimer += (float)Global.gameTime.ElapsedGameTime.TotalSeconds;
+                    }
                 }
             }
 
             // If the player's collision box is not contained within any room's collision box or hallway collision box, revert the position
-            if (!isInsideRoom)
+            if (!isInsideRoom && !noClip)
             {
                 Global.player.position = tempPosition;
             }
@@ -163,19 +155,17 @@ namespace Sem1OfficeRevenge
 
         private static void CheckButtons()
         {
-            if (Global.currentSceneData.guis != null)
-            {
-                foreach (Gui gui in Global.currentSceneData.guis)
-                {
-                    if (gui is Button button)
-                    {
-                        if (button.IsMouseOver() && button.isVisible)
-                        {
-                            button.OnClick();
-                            return;  // Return early if a button was clicked
-                        }
-                    }
+            if (Global.currentSceneData.guis == null) return;
 
+            foreach (Gui gui in Global.currentSceneData.guis)
+            {
+                if (gui is Button button)
+                {
+                    if (button.IsMouseOver() && button.isVisible)
+                    {
+                        button.OnClick();
+                        return;  // Return early if a button was clicked
+                    }
                 }
             }
         }

@@ -1,13 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Drawing.Text;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using SharpDX.Direct3D9;
 
 namespace Sem1OfficeRevenge
 {
@@ -20,7 +12,7 @@ namespace Sem1OfficeRevenge
         public CombatEnemy()
         {
 
-            
+            health = 50;
             SetObjectAnimation(AnimNames.ChairWalk);
             speed = 7.5f;
             centerOrigin = true;
@@ -48,7 +40,10 @@ namespace Sem1OfficeRevenge
             
             if (Global.currentScene.isPaused || dead) return;
 
-            
+            if (health <= 0)
+            {
+                Die();
+            }
             
 
             if (WalkedFar(75, position, oldPos) == false)

@@ -1,13 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing.Design;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-
-
 
 namespace Sem1OfficeRevenge
 {
@@ -23,7 +15,6 @@ namespace Sem1OfficeRevenge
         private Vector2 center;
         public Rectangle hallwayCol;
 
-
         public Room(Texture2D Map, float rotation)
         {
             this.texture = Map;
@@ -34,16 +25,5 @@ namespace Sem1OfficeRevenge
             height = this.texture.Height * (int)scale.Y;
             layerDepth = Global.currentScene.GetObjectLayerDepth(LayerDepth.Background);
         }
-        
-        public override void Update()
-        {
-            
-        }
-
-        public override void Draw()
-        {
-            base.Draw();
-        }
-
     }
 }

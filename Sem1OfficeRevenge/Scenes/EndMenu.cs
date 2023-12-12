@@ -2,8 +2,6 @@
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Media;
-using SharpDX.Direct3D9;
 
 namespace Sem1OfficeRevenge
 {
@@ -62,9 +60,11 @@ namespace Sem1OfficeRevenge
 
         private void PlayGame()
         {
+            Global.world.curfloorLevel = 1;
             Global.world.ChangeScene(Scenes.LoadingScreen);
             Global.world.playerWon = false;
         }
+
         private void QuitGame()
         {
             Global.world.Exit();

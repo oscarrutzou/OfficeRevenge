@@ -1,10 +1,6 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Media;
-using SharpDX.Direct3D9;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace Sem1OfficeRevenge
 {

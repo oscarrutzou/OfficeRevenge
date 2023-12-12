@@ -2,9 +2,6 @@
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Media;
-using SharpDX.Direct3D9;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace Sem1OfficeRevenge
 {
@@ -65,6 +62,7 @@ namespace Sem1OfficeRevenge
         {
             Global.world.ChangeScene(Scenes.LoadingScreen);
             Global.world.playerWon = false;
+            Global.world.curfloorLevel = 1;
         }
         private void QuitGame()
         {
@@ -227,14 +225,6 @@ namespace Sem1OfficeRevenge
         #endregion
 
         #region Setting Text
-        public override void  DrawOnScreen()
-        {
-            base.DrawOnScreen();
-            DrawGameName();
-            DrawResolutionText();
-            DrawSfxText();
-            DrawMusicText();
-        }
 
         private void DrawGameName()
         {
@@ -316,6 +306,26 @@ namespace Sem1OfficeRevenge
                                   SpriteEffects.None,
                                   Global.currentScene.GetObjectLayerDepth(LayerDepth.GuiText));
         }
+
+
         #endregion
+
+        public override void Update()
+        {
+            base.Update();
+            ScoreManager.UpdateScore();
+        }
+
+        public override void DrawOnScreen()
+        {
+            base.DrawOnScreen();
+            DrawGameName();
+            DrawResolutionText();
+            DrawSfxText();
+            DrawMusicText();
+
+            if (showSettings) ScoreManager.DrawScore(Color.Black);
+        }
+
     }
 }

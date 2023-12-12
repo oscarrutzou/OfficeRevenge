@@ -1,14 +1,6 @@
-﻿using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using SharpDX.Direct3D9;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using static System.Net.Mime.MediaTypeNames;
+
 
 namespace Sem1OfficeRevenge
 {
@@ -28,12 +20,15 @@ namespace Sem1OfficeRevenge
 
             //Level Generation
             lvlGen = new LevelGeneration();
-            lvlGen.GenerateWorld();
+            if (Global.world.curfloorLevel == 1) lvlGen.GenerateWorld();
+            else lvlGen.GenerateSecondWorld();
+
 
             //Player Generation
             Global.player = new Player();
             Global.player.centerOrigin = true;
             Global.currentScene.Instantiate(Global.player);
+            if (Global.world.curfloorLevel != 1) Global.player.position = lvlGen.elevator.collisionBox.Center.ToVector2();
         }
 
         public override void Update()
@@ -54,8 +49,6 @@ namespace Sem1OfficeRevenge
         private void DrawAmmo()
         {
             string text = $"Ammo {Global.world.currentWeapon.ammo}/{Global.world.currentWeapon.magSize}";
-            // Measure the size of the text
-            //Vector2 textSize = GlobalTextures.defaultFont.MeasureString(text);
 
             Global.spriteBatch.DrawString(GlobalTextures.defaultFont,
                                   text,

@@ -3,11 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using System.Xml.Linq;
 
 namespace Sem1OfficeRevenge
 {
@@ -25,8 +21,6 @@ namespace Sem1OfficeRevenge
         private Vector2 oldPos;
         private int bloodied = 0;
         private bool right = true;
-
-
 
         private Texture2D sight;
 
@@ -85,7 +79,6 @@ namespace Sem1OfficeRevenge
 
         public override void Update()
         {
-
             CheckCollisionBox();
             if (Global.currentScene.isPaused) return;
             
@@ -96,11 +89,22 @@ namespace Sem1OfficeRevenge
             {
                 if (currentWeapon.reloading == false)
                 {
-                    PlayShootVL();
-                    currentWeapon.Fire();
-                    AnimRunNShoot();
-                }
-                
+                    if (Global.world.currentWeapon is Shotgun shotgun)
+                    {
+                        if (shotgun.pumpTime <= 0)
+                        {
+                            AnimRunNShoot();
+                            PlayShootVL();
+                        }
+                        currentWeapon.Fire();
+                    }
+                    else
+                    {
+                        currentWeapon.Fire();
+                        AnimRunNShoot();
+                        PlayShootVL();
+                    }                    
+                }               
             }
             else if (InputManager.anyMoveKeyPressed)
             {
@@ -108,14 +112,24 @@ namespace Sem1OfficeRevenge
             }
             else if (InputManager.mouseClicked)
             {                               
-                
                 if (currentWeapon.reloading == false)
                 {
-                    PlayShootVL();
-                    currentWeapon.Fire();
-                    AnimShoot();
-                }
-                
+                    if (Global.world.currentWeapon is Shotgun shotgun)
+                    {
+                        if (shotgun.pumpTime <= 0)
+                        {
+                            AnimShoot();
+                            PlayShootVL();
+                        }
+                        currentWeapon.Fire();
+                    }
+                    else
+                    {
+                        currentWeapon.Fire();
+                        AnimShoot();
+                        PlayShootVL();
+                    }                    
+                }               
             }
 
             if (InputManager.mouseRightClicked)
@@ -132,7 +146,6 @@ namespace Sem1OfficeRevenge
                     right = !right;
                     bloodied--;
                 }
-
             }
             foreach (Blood blood in Global.currentSceneData.bloods)
             {
@@ -152,7 +165,7 @@ namespace Sem1OfficeRevenge
         }
 
         private void AnimRunNShoot()
-        {
+        {           
             SetObjectAnimation(shootAnim);
             animation.onAnimationDone += () => { SetObjectAnimation(idleAnim); };
         }
@@ -172,11 +185,7 @@ namespace Sem1OfficeRevenge
         }
 
         private void AnimShoot()
-        {
-            if (Global.world.currentWeapon is Shotgun shotgun)
-            {
-                if (shotgun.pumpTime > 0) return;                
-            }
+        {            
             SetObjectAnimation(shootAnim);
             animation.onAnimationDone += () => { SetObjectAnimation(idleAnim); };
         }

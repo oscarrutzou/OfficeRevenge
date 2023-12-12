@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -19,7 +16,7 @@ namespace Sem1OfficeRevenge
         Random rnd = new Random();
 
         Room lobbyRoom;
-        Room elevator;
+        public Room elevator;
 
         private int scale = 5;
         private float randomRotation;
@@ -256,7 +253,7 @@ namespace Sem1OfficeRevenge
 
                     doneGenerating = true;
                 }
-            }
+        }
 
         private bool CheckIntersect(Room room)
         {

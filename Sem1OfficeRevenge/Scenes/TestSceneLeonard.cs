@@ -1,12 +1,4 @@
-﻿using Microsoft.Xna.Framework.Input;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Numerics;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Sem1OfficeRevenge
+﻿namespace Sem1OfficeRevenge
 {
     public class TestSceneLeonard : Scene
     {

@@ -1,13 +1,6 @@
 ﻿using Microsoft.Xna.Framework.Audio;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Media;
-using SharpDX.MediaFoundation.DirectX;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Sem1OfficeRevenge
 {
@@ -71,6 +64,7 @@ namespace Sem1OfficeRevenge
         public static Dictionary<SoundNames, SoundEffect> sounds;
         public static Dictionary<SoundNames, List<SoundEffectInstance>> soundInstancesPool;
         private static int maxInstanceOfOneSound = 2;
+        private static int maxInstanceOfGunSound = 10;
 
         public static bool inMenu = true;
 
@@ -154,13 +148,14 @@ namespace Sem1OfficeRevenge
             foreach (var sound in sounds)
             {
                 soundInstancesPool[sound.Key] = new List<SoundEffectInstance>();
-                for (int i = 0; i < maxInstanceOfOneSound; i++)
+                int max = maxInstanceOfOneSound;
+                if (sound.Key == SoundNames.Shot || sound.Key == SoundNames.Shotgun) max = maxInstanceOfGunSound;
+
+                for (int i = 0; i < max; i++)
                 {
                     soundInstancesPool[sound.Key].Add(sound.Value.CreateInstance());
                 }
             }
-
-
         }
 
         public static bool IsAnySoundPlaying(SoundNames[] soundArray)

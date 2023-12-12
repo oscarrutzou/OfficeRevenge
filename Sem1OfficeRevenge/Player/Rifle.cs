@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace Sem1OfficeRevenge
 {
@@ -13,7 +9,7 @@ namespace Sem1OfficeRevenge
             magSize = 30;
             magFull = magSize;
             ammo = magSize;
-            dmg = dmg * 2;
+            bulletDmg = 30;
             reloadTime = 1;
         }
 

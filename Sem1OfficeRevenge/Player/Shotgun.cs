@@ -1,9 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Sem1OfficeRevenge
 {
@@ -17,7 +14,7 @@ namespace Sem1OfficeRevenge
             magSize = 5;
             magFull = magSize;
             ammo = magSize;
-            dmg = dmg * 1;
+            bulletDmg = 10;
             reloadTime = 2;
             
         }

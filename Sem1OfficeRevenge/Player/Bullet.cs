@@ -1,11 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using SharpDX.Direct3D9;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Sem1OfficeRevenge
 {
@@ -65,8 +60,8 @@ namespace Sem1OfficeRevenge
                 if (Collision.IntersectBox(this, enemy) && !enemy.dead)
                 {
                     isRemoved = true;
-                    
-                    enemy.Die();
+
+                    enemy.TakeDmg(bulletDmg);
                     
                     //Spil hit lyd måske?
                 }

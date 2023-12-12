@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -109,8 +108,6 @@ namespace Sem1OfficeRevenge
             base.Draw(gameTime);
         }
 
-
-
         #region Scene and resolution management
         private void GenerateScenes()
         {
@@ -195,13 +192,12 @@ namespace Sem1OfficeRevenge
 
         #endregion
 
-
         private void InitWeapons()
         {
             pistol = new Pistol();
             rifle = new Rifle();
             shotgun = new Shotgun();
-            currentWeapon = shotgun;
+            currentWeapon = pistol;
         }
 
         public void RefreshWeapons()

@@ -1,13 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-
-namespace Sem1OfficeRevenge
+﻿namespace Sem1OfficeRevenge
 {
     public class TestSceneMarc : Scene
     {
@@ -24,8 +15,6 @@ namespace Sem1OfficeRevenge
             Global.player.centerOrigin = true;
             Global.currentScene.Instantiate(Global.player);
 
-            TestObjectCollide testObj = new TestObjectCollide(new Vector2(400,200));
-            Global.currentScene.Instantiate(testObj);
 
         }
 

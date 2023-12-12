@@ -1,9 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using SharpDX.Direct2D1.Effects;
-using SharpDX.Direct3D9;
-using SharpDX.MediaFoundation;
 using System;
 
 namespace Sem1OfficeRevenge
