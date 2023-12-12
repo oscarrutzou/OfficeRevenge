@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Sem1OfficeRevenge.Enemy;
 using System;
 using System.Collections.Generic;
 
@@ -193,7 +192,6 @@ namespace Sem1OfficeRevenge
             Global.currentSceneData.gameObjects.AddRange(Global.currentSceneData.enemies);
             Global.currentSceneData.gameObjects.AddRange(Global.currentSceneData.bullets);
             Global.currentSceneData.gameObjects.AddRange(Global.currentSceneData.guis);
-            Global.currentSceneData.gameObjects.AddRange(Global.currentSceneData.bloods);
             Global.currentSceneData.gameObjects.AddRange(Global.currentSceneData.rooms);
             Global.currentSceneData.gameObjects.AddRange(Global.currentSceneData.bloods);
             Global.currentSceneData.gameObjects.AddRange(Global.currentSceneData.defaults);

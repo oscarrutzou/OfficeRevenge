@@ -9,7 +9,7 @@ namespace Sem1OfficeRevenge
             magSize = 30;
             magFull = magSize;
             ammo = magSize;
-            dmg = dmg * 2;
+            bulletDmg = 30;
             reloadTime = 1;
         }
 
@@ -20,6 +20,7 @@ namespace Sem1OfficeRevenge
             bullets.Add(bullet);
             Global.currentScene.Instantiate(bullet);
             GlobalSound.PlaySound(SoundNames.Shot);
+            ammo--;
         }
     }
 }

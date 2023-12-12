@@ -60,8 +60,8 @@ namespace Sem1OfficeRevenge
                 if (Collision.IntersectBox(this, enemy) && !enemy.dead)
                 {
                     isRemoved = true;
-                    
-                    enemy.Die();
+
+                    enemy.TakeDmg(bulletDmg);
                     
                     //Spil hit lyd måske?
                 }

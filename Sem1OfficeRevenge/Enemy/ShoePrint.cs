@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 
 
-namespace Sem1OfficeRevenge.Enemy
+namespace Sem1OfficeRevenge
 {
     public class ShoePrint : GameObject
     {

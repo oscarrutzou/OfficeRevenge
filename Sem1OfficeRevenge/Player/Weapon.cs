@@ -7,20 +7,21 @@ namespace Sem1OfficeRevenge
         public int dmg;        
         public int magSize; // standart size 5
         public int magFull;
-        public static int bulletSpeed = 1000;
-        public static int bulletDmg = 10;
+        public int bulletSpeed = 1000;
+        public int bulletDmg;
         public List<Bullet> bullets;
         public bool reloading;
         protected float reloadTime;
         public int ammo;
-        protected float cooldown;
+        public float cooldown;
+        public float pumpTime;
 
         private bool hasPlayedReloadAnim;
         public Weapon()
         {
             cooldown = 0;
             reloading = false;
-            dmg = bulletDmg;
+            
             magSize = 5;
         }
 
@@ -32,7 +33,7 @@ namespace Sem1OfficeRevenge
             if (ammo > 0)
             {
                 MakeBullets();
-                ammo--;
+                
             }
             
         }
@@ -42,13 +43,13 @@ namespace Sem1OfficeRevenge
         public override void Update()
         {
             base.Update();
-
+            pumpTime -= (float)Global.gameTime.ElapsedGameTime.TotalSeconds;
             if (ammo <= 0) Reload();
 
             if (cooldown > 0)
             {
                 cooldown -= (float)Global.gameTime.ElapsedGameTime.TotalSeconds;
-
+                
                 if (this is Shotgun)
                 {
                     Global.player.AnimReload();

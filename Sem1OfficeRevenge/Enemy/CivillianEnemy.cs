@@ -17,18 +17,30 @@ namespace Sem1OfficeRevenge
         private float rotSpeed;
         private float timer;
         private Rectangle center;
-        Vector2 tempPosition;
+        private Vector2 tempPosition;
+        private bool isInsideRoom = true;
+        private Room ourRoom;
+
 
         private float lastSoundTime = 0;
         private float soundCooldown = 2f; // Cooldown in seconds
         private bool shouldPlayVoice;
+
+        private Vector2 targetPos;
        
+
+
+
+      
 
         public CivillianEnemy()
         {
-            SetObjectAnimation(AnimNames.PlayerRifleMove);
+            speed = 5;
+            SetObjectAnimation(AnimNames.NPCIdle);
             centerOrigin = true;
             layerDepth = Global.currentScene.GetObjectLayerDepth(LayerDepth.Enemies);
+            health = 20;
+            Vector2 tempPosition = this.position;            
         }
 
         bool WalkedFar(float range, Vector2 v1, Vector2 v2)
@@ -42,6 +54,22 @@ namespace Sem1OfficeRevenge
 
         public override void Update()
         {
+            
+
+            if (ourRoom == null)
+            {
+                foreach (Room room in Global.currentSceneData.rooms)
+                {
+                    if (Collision.ContainsEitherBox(this, room.collisionBox, room.hallwayCol))
+                    {
+                        ourRoom = room;
+                        break;
+                    }
+
+
+                }
+            }
+
             if (Global.currentScene.isPaused || dead) return;
 
             if (WalkedFar(75, position, oldPos) == false)
@@ -56,39 +84,41 @@ namespace Sem1OfficeRevenge
 
             }
 
-            bool isInsideRoom = false;
-
-            foreach (Room room in Global.currentSceneData.rooms)
+            if (isInsideRoom == true && ourRoom != null)
             {
-                if (Collision.ContainsEitherBox(this, room.collisionBox, room.hallwayCol))
+                if (Collision.ContainsEitherBox(this, ourRoom.collisionBox, ourRoom.hallwayCol))
                 {
-                    isInsideRoom = true;
-                    center = room.collisionBox;
-                    break;
+                    
+                    //this.color = Color.White;
+                    //center = room.collisionBox
                 }
                 else
                 {
-
+                    targetPos = ourRoom.position + new Vector2(rnd.Next(-200, 201), rnd.Next(-200, 201));
+                    isInsideRoom = false;
+                    //ChangeDirection();
+                    //this.color = Color.Gray;
                 }
+
 
             }
 
-            if (!isInsideRoom)
-            {
-                if (center.X > this.position.X)
-                {
-                    this.position.X += 3;
-                }
-                else { this.position.X -= 3; }
+            //if (!isInsideRoom)
+            //{
+            //    if (center.X > this.position.X)
+            //    {
+            //        this.position.X += 3;
+            //    }
+            //    else { this.position.X -= 3; }
 
-                if (center.Y > this.position.Y)
-                {
-                    this.position.Y += 3;
-                }
-                else { this.position.Y -= 3; }
+            //    if (center.Y > this.position.Y)
+            //    {
+            //        this.position.Y += 3;
+            //    }
+            //    else { this.position.Y -= 3; }
 
-                //this.position = tempPosition;
-            }
+            //    //this.position = tempPosition;
+            //}
 
             foreach (Blood blood in Global.currentSceneData.bloods)
             {
@@ -99,15 +129,14 @@ namespace Sem1OfficeRevenge
             }
 
 
-            timer += (float)Global.gameTime.ElapsedGameTime.TotalSeconds;
-            Vector2 dir = lookPoint - position;
-            rotTarget = (float)Math.Atan2(-dir.Y, -dir.X) + MathHelper.Pi;
-            rotTarget = ShortestRotation(rotTarget, rotation);
-            if (rotTarget > 2.5f) { rotSpeed = 0.0005f; } else if (rotTarget > 1.5f) { rotSpeed = 0.001f; } else { rotSpeed = 0.005f; };
-            LerpTowardsTarget(rotTarget, rotation, timer, rotSpeed);
+            
             
             if (Math.Abs(Global.player.position.X - position.X) < rnd.Next(850, 1250) && Math.Abs(Global.player.position.Y - position.Y) < rnd.Next(850, 1250))
             {
+                if (animation == GlobalAnimations.SetAnimation(AnimNames.NPCIdle))
+                {
+                    SetObjectAnimation(AnimNames.CivWalk);
+                }
                 if (!fleeing)
                 {
                     //ChooseRndVoiceLine();
@@ -129,6 +158,10 @@ namespace Sem1OfficeRevenge
             else
             {
                 fleeing = false;
+                if (animation == GlobalAnimations.SetAnimation(AnimNames.CivWalk))
+                {
+                    SetObjectAnimation(AnimNames.NPCIdle);
+                }
             }
         }
 
@@ -146,7 +179,7 @@ namespace Sem1OfficeRevenge
 
             shouldPlayVoice = true;
 
-            if (rnd.Next(0, 15) == 0)
+            if (rnd.Next(0, 2) == 0)
             {
                 int soundIndex = rnd.Next(0, deathSounds.Length);
 
@@ -165,72 +198,112 @@ namespace Sem1OfficeRevenge
 
         public void Flee()
         {
-            switch (fleeDirection)  
+
+            if (isInsideRoom == false)
             {
-                case 1:
-                    if (Global.player.position.X>position.X)
-                    {
-                        tempPosition = this.position;
-                        position.X -= rnd.Next(minSpeed, maxSpeed);
-                        lookPoint = new Vector2(position.X-50, position.Y);
 
-                    }
-                    else
-                    {
-                        tempPosition = this.position;
-                        position.X += rnd.Next(minSpeed, maxSpeed);
-                        lookPoint = new Vector2(position.X + 50, position.Y);
-                    }
-                    break;
+                if (targetPos.X > position.X)
+                {
+                    position.X += speed;
+                }
+                else if (targetPos.X < position.X) { position.X -= speed; }
 
-                case 2:
-                    if (Global.player.position.Y > position.Y)
-                    {
-                        tempPosition = this.position;
-                        position.Y -= rnd.Next(minSpeed, maxSpeed);
-                        lookPoint = new Vector2(position.X, position.Y-50);
-                    }
-                    else
-                    {
-                        tempPosition = this.position;
-                        position.Y += rnd.Next(minSpeed, maxSpeed);
-                        lookPoint = new Vector2(position.X, position.Y+50);
-                    }
-                    break;
+                if (targetPos.Y > position.Y)
+                {
+                    position.Y += speed;
+                }
+                else if (targetPos.Y < position.Y) { position.Y -= speed; }
 
-                case 3:
-                    if (Global.player.position.X > position.X)
-                    {
-                        tempPosition = this.position;
-                        position.X -= rnd.Next(minSpeed, maxSpeed);
-                        lookPoint = new Vector2(position.X-50, position.Y);
+                //float hat = Math.Abs(Global.player.position.X - position.X);
+                //float fat = Math.Abs(Global.player.position.Y - position.Y);
+                if (Math.Abs(Global.player.position.X - position.X) < 300 && Math.Abs(Global.player.position.Y - position.Y) < 300)
+                {
 
-                    }
-                    else
-                    {
-                        tempPosition = this.position;
-                        position.X += rnd.Next(minSpeed, maxSpeed);
-                        lookPoint = new Vector2(position.X+50, position.Y);
-                    }
-                    if (Global.player.position.Y > position.Y)
-                    {
-                        tempPosition = this.position;
-                        position.Y -= rnd.Next(minSpeed, maxSpeed);
-                        lookPoint = new Vector2(lookPoint.X, position.Y - 50);
-                    }
-                    else
-                    {
-                        tempPosition = this.position;
-                        position.Y += rnd.Next(minSpeed, maxSpeed);
-                        lookPoint = new Vector2(lookPoint.X, position.Y + 50);
-                    }
-                    break;
+                    isInsideRoom = true;
+                }
 
-                default:
-                    break;
+                timer += (float)Global.gameTime.ElapsedGameTime.TotalSeconds;
+                Vector2 dir = targetPos - position;
+                rotTarget = (float)Math.Atan2(-dir.Y, -dir.X) + MathHelper.Pi;
+                rotTarget = ShortestRotation(rotTarget, rotation);
+                if (rotTarget > 2.5f) { rotSpeed = 0.0005f; } else if (rotTarget > 1.5f) { rotSpeed = 0.001f; } else { rotSpeed = 0.005f; };
+                LerpTowardsTarget(rotTarget, rotation, timer, rotSpeed);
             }
 
-            
+            else
+            {
+                timer += (float)Global.gameTime.ElapsedGameTime.TotalSeconds;
+                Vector2 dir = lookPoint - position;
+                rotTarget = (float)Math.Atan2(-dir.Y, -dir.X) + MathHelper.Pi;
+                rotTarget = ShortestRotation(rotTarget, rotation);
+                if (rotTarget > 2.5f) { rotSpeed = 0.0005f; } else if (rotTarget > 1.5f) { rotSpeed = 0.001f; } else { rotSpeed = 0.005f; };
+                LerpTowardsTarget(rotTarget, rotation, timer, rotSpeed);
+                switch (fleeDirection)
+                {
+                    case 1:
+                        if (Global.player.position.X > position.X)
+                        {
+                            tempPosition = this.position;
+                            position.X -= rnd.Next(minSpeed, maxSpeed);
+                            lookPoint = new Vector2(position.X - 50, position.Y);
+
+                        }
+                        else
+                        {
+                            tempPosition = this.position;
+                            position.X += rnd.Next(minSpeed, maxSpeed);
+                            lookPoint = new Vector2(position.X + 50, position.Y);
+                        }
+                        break;
+
+                    case 2:
+                        if (Global.player.position.Y > position.Y)
+                        {
+                            tempPosition = this.position;
+                            position.Y -= rnd.Next(minSpeed, maxSpeed);
+                            lookPoint = new Vector2(position.X, position.Y - 50);
+                        }
+                        else
+                        {
+                            tempPosition = this.position;
+                            position.Y += rnd.Next(minSpeed, maxSpeed);
+                            lookPoint = new Vector2(position.X, position.Y + 50);
+                        }
+                        break;
+
+                    case 3:
+                        if (Global.player.position.X > position.X)
+                        {
+                            tempPosition = this.position;
+                            position.X -= rnd.Next(minSpeed, maxSpeed);
+                            lookPoint = new Vector2(position.X - 50, position.Y);
+
+                        }
+                        else
+                        {
+                            tempPosition = this.position;
+                            position.X += rnd.Next(minSpeed, maxSpeed);
+                            lookPoint = new Vector2(position.X + 50, position.Y);
+                        }
+                        if (Global.player.position.Y > position.Y)
+                        {
+                            tempPosition = this.position;
+                            position.Y -= rnd.Next(minSpeed, maxSpeed);
+                            lookPoint = new Vector2(lookPoint.X, position.Y - 50);
+                        }
+                        else
+                        {
+                            tempPosition = this.position;
+                            position.Y += rnd.Next(minSpeed, maxSpeed);
+                            lookPoint = new Vector2(lookPoint.X, position.Y + 50);
+                        }
+                        break;
+
+                    default:
+                        break;
+                }
+
+            }
         }
 
         public override void Draw()

@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 
-namespace Sem1OfficeRevenge.Enemy
+namespace Sem1OfficeRevenge
 {
      public class Blood : GameObject
     {
