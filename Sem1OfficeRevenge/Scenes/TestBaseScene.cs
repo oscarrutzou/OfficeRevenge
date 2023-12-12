@@ -14,7 +14,13 @@ namespace Sem1OfficeRevenge
 {
     public class TestBaseScene : Scene
     {
-        LevelGeneration lvlGen;
+        public LevelGeneration lvlGen;
+        bool pressed = false;
+        PauseScreen pauseScreen;
+        public TestBaseScene()
+        {
+            
+        }
 
         public override void Initialize()
         {

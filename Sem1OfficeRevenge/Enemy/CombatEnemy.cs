@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using Sem1OfficeRevenge.Enemy;
 using SharpDX.Direct3D9;
 
 namespace Sem1OfficeRevenge
@@ -20,7 +19,9 @@ namespace Sem1OfficeRevenge
         
         public CombatEnemy()
         {
-            SetObjectAnimation(AnimNames.PlayerRifleIdle);
+
+            
+            SetObjectAnimation(AnimNames.ChairWalk);
             speed = 7.5f;
             centerOrigin = true;
         }
@@ -30,6 +31,8 @@ namespace Sem1OfficeRevenge
             if (dead) return;
             Global.player.DamagePlayer(50);
             isAttacking = false;
+            SetObjectAnimation(AnimNames.ChairAttack);
+            animation.onAnimationDone += () => { SetObjectAnimation(AnimNames.ChairWalk); };
 
         }
 
@@ -42,7 +45,11 @@ namespace Sem1OfficeRevenge
 
         public override void Update() 
         {
+            
             if (Global.currentScene.isPaused || dead) return;
+
+            
+            
 
             if (WalkedFar(75, position, oldPos) == false)
             {
@@ -70,6 +77,12 @@ namespace Sem1OfficeRevenge
             //if in range:
             if (Math.Abs(Global.player.position.X - position.X) < rnd.Next(850, 1250) && Math.Abs(Global.player.position.Y - position.Y) < rnd.Next(850, 1250))
             {
+                if (animation == GlobalAnimations.SetAnimation(AnimNames.NPCIdle))
+                {
+                    SetObjectAnimation(AnimNames.ChairWalk);
+
+                }
+
                 if (Math.Abs(Global.player.position.X - position.X) < 65 && Math.Abs(Global.player.position.Y - position.Y) < 65 && isAttacking == false)
                 {
                     isAttacking = true;
@@ -99,12 +112,13 @@ namespace Sem1OfficeRevenge
                 Vector2 dir = Global.player.position - position;
                 rotTarget = (float)Math.Atan2(-dir.Y, -dir.X) + MathHelper.Pi;
                 rotTarget = ShortestRotation(rotTarget, rotation);
-                LerpTowardsTarget(rotTarget, rotation, timer, 0.01f);
+                LerpTowardsTarget(rotTarget, rotation, timer, 0.05f);
 
 
 
 
             }
+            
         }
     }
 }

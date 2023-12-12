@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using Sem1OfficeRevenge.Enemy;
 
 namespace Sem1OfficeRevenge
 {
@@ -34,6 +33,9 @@ namespace Sem1OfficeRevenge
         public GenericEnemy()
         {
             Global.currentScene.SetObjectLayerDepth(this, LayerDepth.Enemies);
+            scale = new Vector2(3.3f,3.3f);
+            SetObjectAnimation(AnimNames.NPCIdle);
+            SetCollisionBox(60, 60);
         }
         
         public void Die()
@@ -42,10 +44,24 @@ namespace Sem1OfficeRevenge
             Global.currentScene.Instantiate(blood);
             dead = true;
             ScoreManager.killCount++;
-            animation.frameRate = 0;
-            color = Color.DarkRed;
+            
+
+            if (this is CombatEnemy)
+            {
+                SetObjectAnimation(AnimNames.ChairDeath);
+                animation.onAnimationDone += () => { animation.frameRate = 0; };
+            }
+            
+            if (this is CivillianEnemy)
+            {
+                SetObjectAnimation(AnimNames.CivDeath);
+                animation.onAnimationDone += () => { animation.frameRate = 0; };
+            }
+
 
             SoundOnDeath();
+
+            
         }
 
         private void SoundOnDeath()
@@ -62,6 +78,11 @@ namespace Sem1OfficeRevenge
             }
         }
 
+        public override void Draw()
+        {
+            base.Draw();
+            //DrawDebugCollisionBox();
+        }
     }        
 }
 

@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using SharpDX.Direct2D1.Effects;
 
-namespace Sem1OfficeRevenge.Enemy
+namespace Sem1OfficeRevenge
 {
      public class Blood : GameObject
     {

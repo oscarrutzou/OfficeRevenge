@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Sem1OfficeRevenge.Enemy
+namespace Sem1OfficeRevenge
 {
     public class ShoePrint : GameObject
     {

@@ -14,7 +14,7 @@ namespace Sem1OfficeRevenge
         private List<Room> rooms = new List<Room>();
         private List<Room> tempRooms = new List<Room>();
         private List<Texture2D> textures = new List<Texture2D>();
-        private List<CivillianEnemy> CivEnemies = new List<CivillianEnemy>();
+        private List<GenericEnemy> Enemies = new List<GenericEnemy>();
         private CivillianEnemy civEnm;
         Random rnd = new Random();
 
@@ -106,11 +106,19 @@ namespace Sem1OfficeRevenge
                     {
                         if (room.texture.Name != "Rooms\\TempLobby1" && room.texture.Name != "Rooms\\Elevator")
                         {
-                            CivEnemies.Add(new CivillianEnemy());
-                            CivEnemies[CivEnemies.Count - 1].position = new Vector2(room.position.X + rnd.Next(-150, 151), room.position.Y + rnd.Next(-150, 151));
-                            Global.currentScene.Instantiate(CivEnemies[CivEnemies.Count - 1]);
+                            Enemies.Add(new CivillianEnemy());
+                            Enemies[Enemies.Count - 1].position = new Vector2(room.position.X + rnd.Next(-250, 251), room.position.Y + rnd.Next(-250, 251));
+                            Global.currentScene.Instantiate(Enemies[Enemies.Count - 1]);
                         }
                     }
+                    for (int i = 0; i < rnd.Next(0, 3); i++)
+                {
+                    Enemies.Add(new CombatEnemy());
+                    Global.currentScene.Instantiate(Enemies[Enemies.Count - 1]);
+                    Enemies[Enemies.Count - 1].position = new Vector2(room.position.X + rnd.Next(-450, 451), room.position.Y + rnd.Next(-450, 451));
+                }
+                    
+                    
                 }
 
                 elevator = new Room(GlobalTextures.textures[TextureNames.TileMap6], randomRotation);
