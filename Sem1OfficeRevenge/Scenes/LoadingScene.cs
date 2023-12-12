@@ -27,11 +27,13 @@ public class LoadingScene : Scene
             isLoading = false;
             hasLoaded = true;
             Global.world.ChangeScene(Scenes.TestBaseScene);
+            Global.world.RefreshWeapons();
         }
         else
         {
             isLoading = false;
             Global.world.ChangeScene(Scenes.TestBaseScene);
+            Global.world.RefreshWeapons();
         }
     }
 

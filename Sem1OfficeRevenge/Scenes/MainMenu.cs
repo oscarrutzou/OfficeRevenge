@@ -35,7 +35,7 @@ namespace Sem1OfficeRevenge
             //Global.world.Fullscreen();
             InitMainMenu();
             InitSettingsMenu();
-
+            
             WorldOnResolutionChanged();
         }
 
@@ -63,6 +63,7 @@ namespace Sem1OfficeRevenge
         private void PlayGame()
         {
             Global.world.ChangeScene(Scenes.LoadingScreen);
+            Global.world.playerWon = false;
         }
         private void QuitGame()
         {

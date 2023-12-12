@@ -54,7 +54,7 @@ namespace Sem1OfficeRevenge
             sight = GlobalTextures.textures[TextureNames.Sight];
             Global.currentScene.SetObjectLayerDepth(this, LayerDepth.Player);
 
-            SetCollisionBox(150, 110);
+            SetCollisionBox(110, 110);
         }
 
 
@@ -138,9 +138,7 @@ namespace Sem1OfficeRevenge
             {
                 if (Math.Abs(position.X - blood.position.X) < (blood.texture.Width * scale.X) / 2 / 2 && Math.Abs(position.Y - blood.position.Y) < (blood.texture.Height * scale.Y) / 2 / 2)
                 {
-
                     bloodied = 10;
-
                 }
             }
             currentWeapon.Update();
@@ -175,6 +173,10 @@ namespace Sem1OfficeRevenge
 
         private void AnimShoot()
         {
+            if (Global.world.currentWeapon is Shotgun shotgun)
+            {
+                //Tjek shotgun cooldown, return hvis ik 0
+            }
             SetObjectAnimation(shootAnim);
             animation.onAnimationDone += () => { SetObjectAnimation(idleAnim); };
         }
@@ -182,7 +184,6 @@ namespace Sem1OfficeRevenge
         private async void PlayShootVL()
         {
             if (isPlayingVl) return;
-
             if (GlobalSound.IsAnySoundPlaying(GenericEnemy.deathVoiceLines)) return;
 
             GlobalSound.PlayRandomSound(shootVoiceLines, 1);

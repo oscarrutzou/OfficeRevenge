@@ -17,8 +17,8 @@ namespace Sem1OfficeRevenge
         private Button rifleBtn;
         private Button shotgunBtn;
 
-        private int riflePrice = 0;
-        private int shotgunPrice = 0;
+        private int riflePrice = 50;
+        private int shotgunPrice = 100;
 
         private float pistolScale = 0.15f;
         private float rifleScale = 0.22f;
@@ -32,7 +32,7 @@ namespace Sem1OfficeRevenge
         {
             GlobalSound.PlaySound(SoundNames.ElevatorDoorOpen); //Spil når man skifter scene i stedet for.
 
-            Global.world.Fullscreen();
+            //Global.world.Fullscreen();
             // Reset uiCamera's position and origin
             Global.world.uiCamera.position = Vector2.Zero;
             Global.world.uiCamera.origin = Vector2.Zero;
@@ -82,7 +82,7 @@ namespace Sem1OfficeRevenge
 
         private async void NextLevel()
         {
-            if (Global.world.FloorLevel < 5) Global.world.FloorLevel++;
+            if (Global.world.curfloorLevel < 5) Global.world.curfloorLevel++;
             GlobalSound.PlaySound(SoundNames.ElevatorDing);
             await Task.Delay(1000);
             GlobalSound.PlaySound(SoundNames.ElevatorDoorOpen);
@@ -160,7 +160,7 @@ namespace Sem1OfficeRevenge
             Vector2 textBgPos = Global.world.uiCamera.Center + new Vector2(-GlobalTextures.textures[TextureNames.GuiEleText].Width * bgScale.X / 2, GlobalTextures.textures[TextureNames.GuiEleText].Height * bgScale.Y / 2 - 300);
             Global.spriteBatch.Draw(GlobalTextures.textures[TextureNames.GuiEleText], textBgPos, null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
 
-            string text = $"Floor {Global.world.FloorLevel}/5";
+            string text = $"Floor {Global.world.curfloorLevel}/{Global.world.maxFloorLevels}";
             
             // Measure the size of the text
             Vector2 textSize = GlobalTextures.defaultFontMid.MeasureString(text);

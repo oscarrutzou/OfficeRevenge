@@ -21,6 +21,8 @@ namespace Sem1OfficeRevenge
         public static bool mouseRightClicked;
 
         private static bool noClip = true;
+        private static float eleTimer = 0;
+        private static int eleMovePlayerTime = 3;
 
         public static bool anyMoveKeyPressed;
         /// <summary>
@@ -103,6 +105,7 @@ namespace Sem1OfficeRevenge
                 }
 
                 CheckPlayerMoveColRoom(tempPosition);
+                
 
                 if (keyboardState.IsKeyDown(Keys.W) || keyboardState.IsKeyDown(Keys.A) || keyboardState.IsKeyDown(Keys.S) || keyboardState.IsKeyDown(Keys.D))
                 {
@@ -115,32 +118,48 @@ namespace Sem1OfficeRevenge
             }
         }
 
+
         private static void CheckPlayerMoveColRoom(Vector2 tempPosition)
         {
             if (noClip) return;
             bool isInsideRoom = false;
-            bool isInsideHallway = false;
+            //bool isInsideHallway = false;
 
             // Check if the player's collision box is contained within any room's collision box or hallway collision box
             foreach (Room room in Global.currentSceneData.rooms)
             {
-                if (room.collisionBox.Contains(Global.player.collisionBox))
+                if (Collision.ContainsEitherBox(Global.player, room.collisionBox, room.hallwayCol))
                 {
                     isInsideRoom = true;
                 }
-                if (room.hallwayCol.Contains(Global.player.collisionBox))
+
+                if (room.texture == GlobalTextures.textures[TextureNames.TileMap6] && Collision.ContainsBox(Global.player, room))
                 {
-                    isInsideHallway = true;
-                    //break; // Break here because we found a hallway that contains the player
+                    eleTimer += (float)Global.gameTime.ElapsedGameTime.TotalSeconds;
                 }
             }
 
             // If the player's collision box is not contained within any room's collision box or hallway collision box, revert the position
-            if (!isInsideRoom && !isInsideHallway)
+            if (!isInsideRoom)
             {
                 Global.player.position = tempPosition;
             }
+
+            if (eleTimer >= eleMovePlayerTime)
+            {
+                eleTimer = 0;
+                if (Global.world.curfloorLevel == Global.world.maxFloorLevels)
+                {
+                    Global.world.playerWon = true;
+                    Global.world.ChangeScene(Scenes.EndMenu);
+                }
+                else
+                {
+                    Global.world.ChangeScene(Scenes.ElevatorMenu);
+                }
+            }
         }
+
 
         private static void CheckButtons()
         {

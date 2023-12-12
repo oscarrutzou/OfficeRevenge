@@ -33,13 +33,13 @@ namespace Sem1OfficeRevenge
         {
             if (cooldown > 0 || reloading) return;
             
-            ammo--;
+            
             if (ammo > 0)
             {
                 MakeBullets();
-                GlobalSound.sounds[SoundNames.Shot].Play();
-                
+                ammo--;
             }
+            
         }
 
         protected abstract void MakeBullets();
@@ -53,6 +53,13 @@ namespace Sem1OfficeRevenge
             if (cooldown > 0)
             {
                 cooldown -= (float)Global.gameTime.ElapsedGameTime.TotalSeconds;
+
+                if (this is Shotgun)
+                {
+                    Global.player.AnimReload();
+                    if (Global.player.animation == Global.player.reloadAnim) Global.player.animation.frameRate = 40;
+
+                }
             }
             else if (reloading)
             {
@@ -61,6 +68,13 @@ namespace Sem1OfficeRevenge
             }
 
 
+        }
+
+        public void RefreshGunAfterRun()
+        {
+            ammo = magSize;
+            reloading = false;
+            cooldown = 0;
         }
 
         public virtual void Reload()

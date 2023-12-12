@@ -14,6 +14,7 @@ namespace Sem1OfficeRevenge
         TileMap4,
         TileMap5,
         TileMap6,
+        TileMap7,
         GuiButtonTest,
         GuiSliderBase,
         GuiSliderOver,
@@ -28,6 +29,7 @@ namespace Sem1OfficeRevenge
 
         ElevatorMenu,
         Pixel,
+        CrossHair,
 
         Blood,
         Shoe,
@@ -37,7 +39,8 @@ namespace Sem1OfficeRevenge
         ShotGun,
         Rifle,
 
-        Bullet,        
+        Bullet,
+        Pellet,
     }
 
     public static class GlobalTextures
@@ -58,6 +61,7 @@ namespace Sem1OfficeRevenge
                 {TextureNames.TileMap4, Global.world.Content.Load<Texture2D>("Rooms\\room4p") },
                 {TextureNames.TileMap5, Global.world.Content.Load<Texture2D>("Rooms\\room5") },
                 {TextureNames.TileMap6, Global.world.Content.Load<Texture2D>("Rooms\\Elevator") },
+                {TextureNames.TileMap7, Global.world.Content.Load<Texture2D>("Rooms\\ElevatorReverse") },
 
                 {TextureNames.GuiButtonTest, Global.world.Content.Load<Texture2D>("GUI\\TestBtn") },
                 {TextureNames.GuiSliderBase, Global.world.Content.Load<Texture2D>("GUI\\Slider_frame") },
@@ -78,10 +82,14 @@ namespace Sem1OfficeRevenge
 
 
                 {TextureNames.Bullet, Global.world.Content.Load<Texture2D>("Bullet\\Bullet") },
+                {TextureNames.Pellet, Global.world.Content.Load<Texture2D>("Bullet\\pellet") },
+
 
                 {TextureNames.Blood, Global.world.Content.Load<Texture2D>("Fonts\\BloodPool") },
                 {TextureNames.Shoe, Global.world.Content.Load<Texture2D>("Fonts\\shoeprint") },
-                {TextureNames.Sight, Global.world.Content.Load<Texture2D>("Fonts\\sight") }
+                {TextureNames.Sight, Global.world.Content.Load<Texture2D>("Fonts\\sight") },
+
+                {TextureNames.CrossHair, Global.world.Content.Load<Texture2D>("GUI\\crosshair") }
 
 
             };

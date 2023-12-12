@@ -18,7 +18,8 @@ namespace Sem1OfficeRevenge
         
         public bool playerWon;
 
-        public int FloorLevel = 1;
+        public int curfloorLevel = 5;
+        public int maxFloorLevels = 5;
 
         public Weapon pistol;
         public Weapon shotgun;
@@ -31,7 +32,7 @@ namespace Sem1OfficeRevenge
             Global.graphics = new GraphicsDeviceManager(this);
             Global.currentSceneData = new SceneData();
             Content.RootDirectory = "Content";
-            IsMouseVisible = true;
+            IsMouseVisible = false;
             Window.Title = "Office Revenge!";
         }
 
@@ -64,13 +65,6 @@ namespace Sem1OfficeRevenge
             base.Initialize();
         }
 
-        private void InitWeapons()
-        {
-            pistol = new Pistol();
-            rifle = new Rifle();
-            shotgun = new Shotgun();
-            currentWeapon = shotgun;
-        }
 
         protected override void LoadContent()
         {
@@ -201,6 +195,22 @@ namespace Sem1OfficeRevenge
 
 
         #endregion
+
+
+        private void InitWeapons()
+        {
+            pistol = new Pistol();
+            rifle = new Rifle();
+            shotgun = new Shotgun();
+            currentWeapon = shotgun;
+        }
+
+        public void RefreshWeapons()
+        {
+            pistol.RefreshGunAfterRun();
+            rifle.RefreshGunAfterRun();
+            shotgun.RefreshGunAfterRun();
+        }
 
     }
 }
