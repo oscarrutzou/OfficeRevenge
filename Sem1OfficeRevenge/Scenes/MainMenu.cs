@@ -62,6 +62,7 @@ namespace Sem1OfficeRevenge
         {
             Global.world.ChangeScene(Scenes.LoadingScreen);
             Global.world.playerWon = false;
+            Global.world.curfloorLevel = 1;
         }
         private void QuitGame()
         {

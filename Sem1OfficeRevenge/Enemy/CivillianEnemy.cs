@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using Sem1OfficeRevenge.Enemy;
 using System;
 
 namespace Sem1OfficeRevenge
@@ -28,10 +27,6 @@ namespace Sem1OfficeRevenge
 
         private Vector2 targetPos;
        
-
-
-
-      
 
         public CivillianEnemy()
         {

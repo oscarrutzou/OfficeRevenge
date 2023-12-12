@@ -1,6 +1,5 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
-using Sem1OfficeRevenge.Enemy;
 
 namespace Sem1OfficeRevenge
 {
