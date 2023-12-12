@@ -20,6 +20,7 @@ namespace Sem1OfficeRevenge
         private SoundSlider sfxSlider;
         private SoundSlider musicSlider;
         private Button resolutionBtn;
+        private Button resetBtn;
         private Button backBtn;
 
         private int resolutionIndex = 0;
@@ -89,6 +90,13 @@ namespace Sem1OfficeRevenge
             musicSlider = new SoundSlider(musicPos, false);
             musicSlider.isVisible = false;
 
+
+            resetBtn = new Button(
+                                 "Reset Score",
+                                 true,
+                                 ResetScore);
+            resetBtn.isVisible = false;
+
             backBtn = new Button(
                                  "Back",
                                  true,
@@ -103,8 +111,15 @@ namespace Sem1OfficeRevenge
             Global.currentScene.Instantiate(resolutionBtn);
             Global.currentScene.Instantiate(sfxSlider);
             Global.currentScene.Instantiate(musicSlider);
+            Global.currentScene.Instantiate(resetBtn);
             Global.currentScene.Instantiate(backBtn);
         }
+
+        private void ResetScore()
+        {
+
+        }
+
         private void Settings()
         {
             if (!showSettings)
@@ -128,6 +143,7 @@ namespace Sem1OfficeRevenge
             resolutionBtn.isVisible = true;
             sfxSlider.isVisible = true;
             musicSlider.isVisible = true;
+            resetBtn.isVisible = true;
             backBtn.isVisible = true;
         }
 
@@ -140,6 +156,7 @@ namespace Sem1OfficeRevenge
             resolutionBtn.isVisible = false;
             sfxSlider.isVisible = false;
             musicSlider.isVisible = false;
+            resetBtn.isVisible = false;
             backBtn.isVisible = false;
         }
         #endregion
@@ -159,7 +176,8 @@ namespace Sem1OfficeRevenge
 
             musicSlider.position = Global.world.uiCamera.Center + new Vector2(0, 85);
             musicSlider.ChangeSliderRectangle(Global.world.uiCamera.Center + new Vector2(0, 85));
-            backBtn.position = Global.world.uiCamera.Center + new Vector2(0, 170);
+            resetBtn.position = Global.world.uiCamera.Center + new Vector2(0, 170);
+            backBtn.position = Global.world.uiCamera.Center + new Vector2(0, 255);
         }
 
         private bool isChangingResolution = false;

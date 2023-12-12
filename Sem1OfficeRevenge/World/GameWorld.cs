@@ -18,7 +18,7 @@ namespace Sem1OfficeRevenge
         
         public bool playerWon;
 
-        public int curfloorLevel = 5;
+        public int curfloorLevel = 1;
         public int maxFloorLevels = 5;
 
         public Weapon pistol;
@@ -50,7 +50,8 @@ namespace Sem1OfficeRevenge
             };
             mapCamera = new MiniMapCam(Vector2.Zero);
 
-            ResolutionSize(1280, 720);
+            //ResolutionSize(1280, 720);
+            Fullscreen();
             GlobalTextures.LoadContent();
             GlobalSound.LoadContent();
             GlobalAnimations.LoadLoadingScreenIcon();
@@ -104,8 +105,6 @@ namespace Sem1OfficeRevenge
             Global.spriteBatch.Begin(sortMode: SpriteSortMode.FrontToBack, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullCounterClockwise, transformMatrix: mapCamera.GetMatrix());
             if (!IsCurrentSceneMenu()) mapCamera.DrawMiniMap();
             Global.spriteBatch.End();
-
-   
 
             base.Draw(gameTime);
         }
