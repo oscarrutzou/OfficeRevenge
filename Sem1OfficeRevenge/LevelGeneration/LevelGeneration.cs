@@ -30,8 +30,6 @@ namespace Sem1OfficeRevenge
         private int tempY;
         private bool intersects = false;
         public bool doneGenerating = false;
-        
-        //private Texture2D currentTexture;
 
         public void GenerateWorld()
         {
@@ -57,28 +55,35 @@ namespace Sem1OfficeRevenge
 
             previousRoom = lobbyRoom;
 
+            //Generate Rooms
             for (int i = 0; i < 7; i++)
             {
                 Room room = new Room(textures[rnd.Next(0, 6)], randomRotation);
 
+                //if rotation is under pi/2 and room is room3 or rotation is over pi/2 and room is room5, generate new room.
                 if (randomRotation < MathHelper.PiOver2 && room.texture.Name == "Rooms\\room3" || randomRotation > MathHelper.PiOver2 && room.texture.Name == "Rooms\\room5")
                 {
+                    //generate new room, non turning room.
                     room.texture = textures[rnd.Next(0, 2)];
                     Global.currentScene.Instantiate(room);
                     room.position = previousRoom.position;
 
+                    //move room and set collision box
                     MoveRoom(room, randomRotation);
                     RoomColliders(room, randomRotation);
                 }
                 else
                 {
+                    //instantiates room
                     Global.currentScene.Instantiate(room);
+                    //sets room position to previous room position
                     room.position = previousRoom.position;
 
                     MoveRoom(room, randomRotation);
                     RoomColliders(room, randomRotation);
                 }
 
+                //check if room intersects with other rooms
                 if (CheckIntersect(room))
                 {
                     RemoveRooms();
@@ -99,6 +104,7 @@ namespace Sem1OfficeRevenge
                 rooms.Add(room);
             }
 
+            //if no rooms intersect, generate civillians and elevator
             if (!intersects)
             {
                 foreach (Room room in rooms)
@@ -114,7 +120,7 @@ namespace Sem1OfficeRevenge
                     }
                 }
 
-
+                //generate elevator
                 elevator = new Room(GlobalTextures.textures[TextureNames.TileMap6], randomRotation);
                 elevator.position = previousRoom.position;
                 Global.currentScene.Instantiate(elevator);
@@ -126,127 +132,136 @@ namespace Sem1OfficeRevenge
             }
         }
 
+        //Second world generation for after the first level (same as first world generation but with different textures)
         public void GenerateSecondWorld()
         {
-                intersects = false;
+            intersects = false;
 
-                //Generate random rotation
-                randomRotation = RandomRotation();
+            //Generate random rotation
+            randomRotation = RandomRotation();
 
-                //Add textures to list
-                textures.Add(GlobalTextures.textures[TextureNames.TileMap2]);
-                textures.Add(GlobalTextures.textures[TextureNames.TileMap4]);
-                textures.Add(GlobalTextures.textures[TextureNames.TileMap3]);
-                textures.Add(GlobalTextures.textures[TextureNames.TileMap3]);
-                textures.Add(GlobalTextures.textures[TextureNames.TileMap5]);
-                textures.Add(GlobalTextures.textures[TextureNames.TileMap5]);
-                textures.Add(GlobalTextures.textures[TextureNames.TileMap6]);
-                textures.Add(GlobalTextures.textures[TextureNames.TileMap7]);
+            //Add textures to list
+            textures.Add(GlobalTextures.textures[TextureNames.TileMap2]);
+            textures.Add(GlobalTextures.textures[TextureNames.TileMap4]);
+            textures.Add(GlobalTextures.textures[TextureNames.TileMap3]);
+            textures.Add(GlobalTextures.textures[TextureNames.TileMap3]);
+            textures.Add(GlobalTextures.textures[TextureNames.TileMap5]);
+            textures.Add(GlobalTextures.textures[TextureNames.TileMap5]);
+            textures.Add(GlobalTextures.textures[TextureNames.TileMap6]);
+            textures.Add(GlobalTextures.textures[TextureNames.TileMap7]);
 
 
-                //Generate first lobby room
-                lobbyRoom = new Room(GlobalTextures.textures[TextureNames.TileMap7], randomRotation);
-                lobbyRoom.SetCollisionBox(100, 75, new Vector2(0, 0));
-                Global.currentScene.Instantiate(lobbyRoom);
-                rooms.Add(lobbyRoom);
+            //Generate first lobby room
+            lobbyRoom = new Room(GlobalTextures.textures[TextureNames.TileMap7], randomRotation);
+            lobbyRoom.SetCollisionBox(100, 75, new Vector2(0, 0));
+            Global.currentScene.Instantiate(lobbyRoom);
+            rooms.Add(lobbyRoom);
 
-                switch (randomRotation)
-                {
-                    case 0:
-                    lobbyRoom.SetCollisionBox(100, 75, new Vector2(0, -115 * scale));
+            //set collision box on first room based on rotation
+            switch (randomRotation)
+            {
+                case 0:
+                lobbyRoom.SetCollisionBox(100, 75, new Vector2(0, -115 * scale));
+                break;
+
+                case MathHelper.Pi:
+                lobbyRoom.SetCollisionBox(100, 75, new Vector2(0, 115 * scale));
+                break;
+
+                case MathHelper.PiOver2:
+                lobbyRoom.SetCollisionBox(100, 75, new Vector2(115 * scale, 0));
+                break;
+
+                case MathHelper.Pi + MathHelper.PiOver2:
+                lobbyRoom.SetCollisionBox(100, 75, new Vector2(-115 * scale, 0));
+                break;
+
+                    default:
                     break;
-
-                    case MathHelper.Pi:
-                    lobbyRoom.SetCollisionBox(100, 75, new Vector2(0, 115 * scale));
-                    break;
-
-                    case MathHelper.PiOver2:
-                    lobbyRoom.SetCollisionBox(100, 75, new Vector2(115 * scale, 0));
-                    break;
-
-                    case MathHelper.Pi + MathHelper.PiOver2:
-                    lobbyRoom.SetCollisionBox(100, 75, new Vector2(-115 * scale, 0));
-                    break;
-
-                     default:
-                        break;
-                }
-
-                previousRoom = lobbyRoom;
-
-                for (int i = 0; i < 7; i++)
-                {
-                    Room room = new Room(textures[rnd.Next(0, 6)], randomRotation);
-
-                    if (randomRotation < MathHelper.PiOver2 && room.texture.Name == "Rooms\\room3" || randomRotation > MathHelper.PiOver2 && room.texture.Name == "Rooms\\room5")
-                    {
-                        room.texture = textures[rnd.Next(0, 2)];
-                        Global.currentScene.Instantiate(room);
-                        room.position = previousRoom.position;
-
-                        MoveRoom(room, randomRotation);
-                        RoomColliders(room, randomRotation);
-                    }
-                    else
-                    {
-                        Global.currentScene.Instantiate(room);
-                        room.position = previousRoom.position;
-
-                        MoveRoom(room, randomRotation);
-                        RoomColliders(room, randomRotation);
-                    }
-
-                    if (CheckIntersect(room))
-                    {
-                        RemoveRooms();
-
-                        rooms.Clear();
-
-                        GenerateSecondWorld();
-
-                        intersects = true;
-
-                        break;
-                    }
-                    else
-                    {
-                        intersects = false;
-                    }
-                    rooms.Add(room);
-                }
-
-                if (!intersects)
-                {
-                    foreach (Room room in rooms)
-                    {
-                        for (int i = 0; i < rnd.Next(3, 8); i++)
-                        {
-                            if (room.texture.Name != "Rooms\\ElevatorReverse")
-                            {
-                                CivEnemies.Add(new CivillianEnemy());
-                                CivEnemies[CivEnemies.Count - 1].position = new Vector2(room.position.X + rnd.Next(-150, 151), room.position.Y + rnd.Next(-150, 151));
-                                Global.currentScene.Instantiate(CivEnemies[CivEnemies.Count - 1]);
-                            }
-                        }
-                    }
-
-                    elevator = new Room(GlobalTextures.textures[TextureNames.TileMap6], randomRotation);
-                    elevator.position = previousRoom.position;
-                    Global.currentScene.Instantiate(elevator);
-
-                    MoveRoom(elevator, randomRotation);
-                    RoomColliders(elevator, randomRotation);
-
-                    doneGenerating = true;
-                }
             }
 
+            previousRoom = lobbyRoom;
+
+            //Generate Rooms
+            for (int i = 0; i < 7; i++)
+            {
+                Room room = new Room(textures[rnd.Next(0, 6)], randomRotation);
+
+                //if rotation is under pi/2 and room is room3 or rotation is over pi/2 and room is room5, generate new room.
+                if (randomRotation < MathHelper.PiOver2 && room.texture.Name == "Rooms\\room3" || randomRotation > MathHelper.PiOver2 && room.texture.Name == "Rooms\\room5")
+                {
+                    //generate new room, non turning room.
+                    room.texture = textures[rnd.Next(0, 2)];
+                    Global.currentScene.Instantiate(room);
+                    room.position = previousRoom.position;
+
+                    //move room and set collision box
+                    MoveRoom(room, randomRotation);
+                    RoomColliders(room, randomRotation);
+                }
+                else
+                {
+                    //instantiates room
+                    Global.currentScene.Instantiate(room);
+                    room.position = previousRoom.position;
+
+                    MoveRoom(room, randomRotation);
+                    RoomColliders(room, randomRotation);
+                }
+
+                //check if room intersects with other rooms
+                if (CheckIntersect(room))
+                {
+                    RemoveRooms();
+
+                    rooms.Clear();
+
+                    GenerateSecondWorld();
+
+                    intersects = true;
+
+                    break;
+                }
+                else
+                {
+                    intersects = false;
+                }
+                rooms.Add(room);
+            }
+
+            //if no rooms intersect, generate civillians and elevator
+            if (!intersects)
+            {
+                foreach (Room room in rooms)
+                {
+                    for (int i = 0; i < rnd.Next(3, 8); i++)
+                    {
+                        if (room.texture.Name != "Rooms\\ElevatorReverse")
+                        {
+                            CivEnemies.Add(new CivillianEnemy());
+                            CivEnemies[CivEnemies.Count - 1].position = new Vector2(room.position.X + rnd.Next(-150, 151), room.position.Y + rnd.Next(-150, 151));
+                            Global.currentScene.Instantiate(CivEnemies[CivEnemies.Count - 1]);
+                        }
+                    }
+                }
+
+                //generate elevator
+                elevator = new Room(GlobalTextures.textures[TextureNames.TileMap6], randomRotation);
+                elevator.position = previousRoom.position;
+                Global.currentScene.Instantiate(elevator);
+
+                MoveRoom(elevator, randomRotation);
+                RoomColliders(elevator, randomRotation);
+
+                doneGenerating = true;
+            }
+        }
+
+        //Check if room intersects with other rooms and returns true or false
         private bool CheckIntersect(Room room)
         {
             foreach (Room roomI in rooms)
             {
-                
-
                 if (room.collisionBox.Intersects(roomI.collisionBox))
                 {
                     intersects = true;
@@ -255,6 +270,7 @@ namespace Sem1OfficeRevenge
             return intersects;
         }
 
+        //Removes all rooms from the scene
         public void RemoveRooms()
         {
             if (rooms.Count >= 0 && rooms.Count <= 25)
@@ -266,6 +282,7 @@ namespace Sem1OfficeRevenge
             }
         }
 
+        //Sets collision box on room the room and on rotation
         private void RoomColliders(Room tempRoom, float rotation)
         {
             switch (rotation)
@@ -412,6 +429,7 @@ namespace Sem1OfficeRevenge
             }
         }
 
+        //Moves room based on rotation
         private void MoveRoom(Room tempRoom, float rotation)
         {
             //move room up, down, left or right based on random rotation
@@ -500,46 +518,51 @@ namespace Sem1OfficeRevenge
             }
         }
 
+        //Rotates room left
         private void RotateLeft(Room tempRoom)
         {
             randomRotation -= MathHelper.PiOver2;
             tempRoom.rotation = randomRotation;
         }
 
+        //Rotates room right
         private void RotateRight(Room tempRoom)
         {
             randomRotation += MathHelper.PiOver2;
             tempRoom.rotation = randomRotation;
         }
    
+        //Moves room up
         private void MoveUp(Room tempRoom)
         {
             tempRoom.position.Y -= tempRoom.texture.Height * scale;
             previousRoom = tempRoom;
         }
 
+        //Moves room down
         private void MoveDown(Room tempRoom) 
         { 
            tempRoom.position.Y += tempRoom.texture.Height * scale; 
            previousRoom = tempRoom; 
         }
 
+        //Moves room left
         private void MoveLeft(Room tempRoom)
         {
             tempRoom.position.X -= tempRoom.texture.Width * scale; 
             previousRoom = tempRoom; 
         }
 
+        //Moves room right
         private void MoveRight(Room tempRoom)
         {
             tempRoom.position.X += tempRoom.texture.Width * scale; 
             previousRoom = tempRoom; 
         }
 
+        //Generates random rotation
         public float RandomRotation()
         {
-            //randomNum = rnd.Next(0, 4);
-
             switch (rnd.Next(0, 4))
             {
 
