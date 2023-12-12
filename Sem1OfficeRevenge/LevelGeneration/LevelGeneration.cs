@@ -54,7 +54,7 @@ namespace Sem1OfficeRevenge
 
             previousRoom = lobbyRoom;
 
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 7; i++)
             {
                 Room room = new Room(textures[rnd.Next(0, 6)], randomRotation);
 
@@ -92,6 +92,7 @@ namespace Sem1OfficeRevenge
                 {
                     intersects = false;
                 }
+
                 rooms.Add(room);
             }
 
@@ -109,6 +110,14 @@ namespace Sem1OfficeRevenge
                         }
                     }
                 }
+
+
+                elevator = new Room(GlobalTextures.textures[TextureNames.TileMap6], randomRotation);
+                elevator.position = previousRoom.position;
+                Global.currentScene.Instantiate(elevator);
+
+                MoveRoom(elevator, randomRotation);
+                RoomColliders(elevator, randomRotation);
 
                 doneGenerating = true;
             }
