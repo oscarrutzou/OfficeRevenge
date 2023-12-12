@@ -18,7 +18,8 @@ namespace Sem1OfficeRevenge
         public bool reloading;
         protected float reloadTime;
         public int ammo;
-        protected float cooldown;
+        public float cooldown;
+        public float pumpTime;
 
         private bool hasPlayedReloadAnim;
         public Weapon()
@@ -37,7 +38,7 @@ namespace Sem1OfficeRevenge
             if (ammo > 0)
             {
                 MakeBullets();
-                ammo--;
+                
             }
             
         }
@@ -47,13 +48,13 @@ namespace Sem1OfficeRevenge
         public override void Update()
         {
             base.Update();
-
+            pumpTime -= (float)Global.gameTime.ElapsedGameTime.TotalSeconds;
             if (ammo <= 0) Reload();
 
             if (cooldown > 0)
             {
                 cooldown -= (float)Global.gameTime.ElapsedGameTime.TotalSeconds;
-
+                
                 if (this is Shotgun)
                 {
                     Global.player.AnimReload();

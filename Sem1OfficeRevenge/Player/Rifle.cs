@@ -24,6 +24,7 @@ namespace Sem1OfficeRevenge
             bullets.Add(bullet);
             Global.currentScene.Instantiate(bullet);
             GlobalSound.PlaySound(SoundNames.Shot);
+            ammo--;
         }
     }
 }

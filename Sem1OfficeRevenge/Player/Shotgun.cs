@@ -11,7 +11,7 @@ namespace Sem1OfficeRevenge
     {
         Random random1 = new Random();
         
-        
+
         public Shotgun()
         {
             magSize = 5;
@@ -26,7 +26,8 @@ namespace Sem1OfficeRevenge
         {
             List<Bullet> bullets = new List<Bullet>();
             float spread = MathHelper.ToRadians(45f); // Spread angle in degrees. Adjust as needed.
-            if (cooldown <= 0)
+            
+            if (pumpTime <= 0)
             {
                 for (int i = 0; i < 6; i++)
                 {
@@ -43,7 +44,8 @@ namespace Sem1OfficeRevenge
                     Global.currentScene.Instantiate(bullet);
                 }
                 GlobalSound.PlaySound(SoundNames.Shotgun);
-                cooldown = 1;
+                pumpTime = 1;
+                ammo--;
             }
         }
     }
