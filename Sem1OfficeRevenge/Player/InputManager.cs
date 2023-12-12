@@ -16,7 +16,6 @@ namespace Sem1OfficeRevenge
         public static bool mouseClicked;
         public static bool mouseRightClicked;
 
-        private static bool noClip = true;
         private static float eleTimer = 0;
         private static int eleMovePlayerTime = 3;
 
@@ -50,7 +49,6 @@ namespace Sem1OfficeRevenge
             if (mouseState.LeftButton == ButtonState.Pressed && previousMouseState.LeftButton == ButtonState.Released)
             {
                 CheckButtons();
-                //if (Global.player != null && !Global.currentScene.isPaused && !Global.world.blackScreenFadeInOut.isFadingIn) Global.player.DamagePlayer(20);
             }           
 
             PlayerInput();
@@ -94,30 +92,15 @@ namespace Sem1OfficeRevenge
                     Global.player.position.Y += Global.player.playerSpeed;
                 }
 
-                //Noclip
-                if (keyboardState.IsKeyDown(Keys.N) && !previousKeyboardState.IsKeyDown(Keys.N))
-                {
-                    noClip = !noClip;
-                }
-
                 CheckPlayerMoveColRoom(tempPosition);
-                
 
-                if (keyboardState.IsKeyDown(Keys.W) || keyboardState.IsKeyDown(Keys.A) || keyboardState.IsKeyDown(Keys.S) || keyboardState.IsKeyDown(Keys.D))
-                {
-                    anyMoveKeyPressed = true;
-                }
-                else
-                {
-                    anyMoveKeyPressed = false;
-                }
+                anyMoveKeyPressed = keyboardState.IsKeyDown(Keys.W) || keyboardState.IsKeyDown(Keys.A) || keyboardState.IsKeyDown(Keys.S) || keyboardState.IsKeyDown(Keys.D);
             }
         }
 
 
         private static void CheckPlayerMoveColRoom(Vector2 tempPosition)
         {
-            if (noClip) return;
             bool isInsideRoom = false;
             //bool isInsideHallway = false;
 
