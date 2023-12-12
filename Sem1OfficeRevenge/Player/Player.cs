@@ -1,14 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 using Sem1OfficeRevenge.Enemy;
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using System.Xml.Linq;
 
 namespace Sem1OfficeRevenge
 {
@@ -26,8 +21,6 @@ namespace Sem1OfficeRevenge
         private Vector2 oldPos;
         private int bloodied = 0;
         private bool right = true;
-
-
 
         private Texture2D sight;
 
@@ -86,7 +79,6 @@ namespace Sem1OfficeRevenge
 
         public override void Update()
         {
-
             CheckCollisionBox();
             if (Global.currentScene.isPaused) return;
 
@@ -101,7 +93,6 @@ namespace Sem1OfficeRevenge
                     currentWeapon.Fire();
                     AnimRunNShoot();
                 }
-                
             }
             else if (InputManager.anyMoveKeyPressed)
             {
@@ -109,14 +100,12 @@ namespace Sem1OfficeRevenge
             }
             else if (InputManager.mouseClicked)
             {                               
-                
                 if (currentWeapon.reloading == false)
                 {
                     PlayShootVL();
                     currentWeapon.Fire();
                     AnimShoot();
                 }
-                
             }
 
             if (InputManager.mouseRightClicked)
@@ -197,7 +186,7 @@ namespace Sem1OfficeRevenge
         public override void Draw()
         {
             Global.spriteBatch.Draw(sight, position, null, Color.White, rotation, new Vector2(sight.Width / 2, sight.Height / 2), scale, spriteEffects, 1);
-            DrawDebugCollisionBox();
+            //DrawDebugCollisionBox();
             base.Draw();
         }
 

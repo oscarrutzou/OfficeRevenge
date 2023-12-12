@@ -71,7 +71,7 @@ namespace Sem1OfficeRevenge
                 {
                     throw;
                 }
-                await Task.Delay(5); //Ændre dette for at skifte for hurtigt det loader
+                await Task.Delay(1); //Ændre dette for at skifte for hurtigt det loader
             }
             animations[animationName] = animList;
             progress += 1f / totalAnimations; // Update the progress after each animation is loaded

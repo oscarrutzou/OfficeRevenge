@@ -1,9 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using System;
-using System.Diagnostics.Eventing.Reader;
-using System.Reflection.Metadata;
 
 namespace Sem1OfficeRevenge
 {
@@ -163,19 +159,17 @@ namespace Sem1OfficeRevenge
 
         private static void CheckButtons()
         {
-            if (Global.currentSceneData.guis != null)
-            {
-                foreach (Gui gui in Global.currentSceneData.guis)
-                {
-                    if (gui is Button button)
-                    {
-                        if (button.IsMouseOver() && button.isVisible)
-                        {
-                            button.OnClick();
-                            return;  // Return early if a button was clicked
-                        }
-                    }
+            if (Global.currentSceneData.guis == null) return;
 
+            foreach (Gui gui in Global.currentSceneData.guis)
+            {
+                if (gui is Button button)
+                {
+                    if (button.IsMouseOver() && button.isVisible)
+                    {
+                        button.OnClick();
+                        return;  // Return early if a button was clicked
+                    }
                 }
             }
         }

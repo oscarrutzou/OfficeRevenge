@@ -1,8 +1,4 @@
-﻿using System;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input;
-
-namespace Sem1OfficeRevenge
+﻿namespace Sem1OfficeRevenge
 {
     public class TestSceneOscar : Scene
     {
