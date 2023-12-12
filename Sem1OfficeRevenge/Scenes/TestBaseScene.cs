@@ -14,7 +14,7 @@ namespace Sem1OfficeRevenge
 {
     public class TestBaseScene : Scene
     {
-        LevelGeneration lvlGen;
+        private LevelGeneration lvlGen;
 
         public override void Initialize()
         {
