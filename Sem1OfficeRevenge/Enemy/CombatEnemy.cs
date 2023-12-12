@@ -20,7 +20,7 @@ namespace Sem1OfficeRevenge
         public CombatEnemy()
         {
 
-            
+            health = 50;
             SetObjectAnimation(AnimNames.ChairWalk);
             speed = 7.5f;
             centerOrigin = true;
@@ -48,7 +48,10 @@ namespace Sem1OfficeRevenge
             
             if (Global.currentScene.isPaused || dead) return;
 
-            
+            if (health <= 0)
+            {
+                Die();
+            }
             
 
             if (WalkedFar(75, position, oldPos) == false)

@@ -12,8 +12,8 @@ namespace Sem1OfficeRevenge
         public int dmg;        
         public int magSize; // standart size 5
         public int magFull;
-        public static int bulletSpeed = 1000;
-        public static int bulletDmg = 10;
+        public int bulletSpeed = 1000;
+        public int bulletDmg;
         public List<Bullet> bullets;
         public bool reloading;
         protected float reloadTime;
@@ -26,7 +26,7 @@ namespace Sem1OfficeRevenge
         {
             cooldown = 0;
             reloading = false;
-            dmg = bulletDmg;
+            
             magSize = 5;
         }
 

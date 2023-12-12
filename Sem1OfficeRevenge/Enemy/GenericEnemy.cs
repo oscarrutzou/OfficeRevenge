@@ -18,6 +18,7 @@ namespace Sem1OfficeRevenge
         protected int bloodied = 0;
         protected bool right = true;
         protected Random rnd = new Random();
+        public int health;
 
 
         public static SoundNames[] deathVoiceLines = new SoundNames[]
@@ -36,6 +37,16 @@ namespace Sem1OfficeRevenge
             scale = new Vector2(3.3f,3.3f);
             SetObjectAnimation(AnimNames.NPCIdle);
             SetCollisionBox(60, 60);
+        }
+
+        public void TakeDmg(int bulletDmg)
+        {
+            health -= bulletDmg;
+            if (health <= 0)
+            {
+                Die();
+
+            }
         }
         
         public void Die()

@@ -96,11 +96,22 @@ namespace Sem1OfficeRevenge
             {
                 if (currentWeapon.reloading == false)
                 {
-                    PlayShootVL();
-                    currentWeapon.Fire();
-                    AnimRunNShoot();
-                }
-                
+                    if (Global.world.currentWeapon is Shotgun shotgun)
+                    {
+                        if (shotgun.pumpTime <= 0)
+                        {
+                            AnimRunNShoot();
+                            PlayShootVL();
+                        }
+                        currentWeapon.Fire();
+                    }
+                    else
+                    {
+                        currentWeapon.Fire();
+                        AnimRunNShoot();
+                        PlayShootVL();
+                    }                    
+                }               
             }
             else if (InputManager.anyMoveKeyPressed)
             {
@@ -111,11 +122,22 @@ namespace Sem1OfficeRevenge
                 
                 if (currentWeapon.reloading == false)
                 {
-                    PlayShootVL();
-                    currentWeapon.Fire();
-                    AnimShoot();
-                }
-                
+                    if (Global.world.currentWeapon is Shotgun shotgun)
+                    {
+                        if (shotgun.pumpTime <= 0)
+                        {
+                            AnimShoot();
+                            PlayShootVL();
+                        }
+                        currentWeapon.Fire();
+                    }
+                    else
+                    {
+                        currentWeapon.Fire();
+                        AnimShoot();
+                        PlayShootVL();
+                    }                    
+                }               
             }
 
             if (InputManager.mouseRightClicked)
@@ -132,7 +154,6 @@ namespace Sem1OfficeRevenge
                     right = !right;
                     bloodied--;
                 }
-
             }
             foreach (Blood blood in Global.currentSceneData.bloods)
             {
@@ -152,7 +173,7 @@ namespace Sem1OfficeRevenge
         }
 
         private void AnimRunNShoot()
-        {
+        {           
             SetObjectAnimation(shootAnim);
             animation.onAnimationDone += () => { SetObjectAnimation(idleAnim); };
         }
@@ -172,11 +193,7 @@ namespace Sem1OfficeRevenge
         }
 
         private void AnimShoot()
-        {
-            if (Global.world.currentWeapon is Shotgun shotgun)
-            {
-                if (shotgun.pumpTime > 0) return;                
-            }
+        {            
             SetObjectAnimation(shootAnim);
             animation.onAnimationDone += () => { SetObjectAnimation(idleAnim); };
         }

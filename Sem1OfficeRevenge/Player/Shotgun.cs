@@ -17,7 +17,7 @@ namespace Sem1OfficeRevenge
             magSize = 5;
             magFull = magSize;
             ammo = magSize;
-            dmg = dmg * 1;
+            bulletDmg = 10;
             reloadTime = 2;
             
         }

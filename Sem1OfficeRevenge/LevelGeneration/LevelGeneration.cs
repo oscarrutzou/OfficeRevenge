@@ -229,9 +229,9 @@ namespace Sem1OfficeRevenge
                         {
                             if (room.texture.Name != "Rooms\\ElevatorReverse")
                             {
-                                CivEnemies.Add(new CivillianEnemy());
-                                CivEnemies[CivEnemies.Count - 1].position = new Vector2(room.position.X + rnd.Next(-150, 151), room.position.Y + rnd.Next(-150, 151));
-                                Global.currentScene.Instantiate(CivEnemies[CivEnemies.Count - 1]);
+                                Enemies.Add(new CivillianEnemy());
+                                Enemies[Enemies.Count - 1].position = new Vector2(room.position.X + rnd.Next(-150, 151), room.position.Y + rnd.Next(-150, 151));
+                                Global.currentScene.Instantiate(Enemies[Enemies.Count - 1]);
                             }
                         }
                     }
@@ -245,7 +245,7 @@ namespace Sem1OfficeRevenge
 
                     doneGenerating = true;
                 }
-            }
+        }
 
         private bool CheckIntersect(Room room)
         {

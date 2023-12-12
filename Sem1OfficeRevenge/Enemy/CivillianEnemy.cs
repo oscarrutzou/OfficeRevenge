@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
+using SharpDX.DirectWrite;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -44,11 +45,8 @@ namespace Sem1OfficeRevenge
             SetObjectAnimation(AnimNames.NPCIdle);
             centerOrigin = true;
             layerDepth = Global.currentScene.GetObjectLayerDepth(LayerDepth.Enemies);
-
-            Vector2 tempPosition = this.position;
-
-
-            
+            health = 20;
+            Vector2 tempPosition = this.position;            
         }
 
         bool WalkedFar(float range, Vector2 v1, Vector2 v2)
@@ -62,6 +60,7 @@ namespace Sem1OfficeRevenge
 
         public override void Update()
         {
+            
 
             if (ourRoom == null)
             {
