@@ -275,7 +275,7 @@ namespace Sem1OfficeRevenge
         {
             if (!sfxSlider.isVisible) return;
 
-            float volume = (float)Math.Round(GlobalSound.sfxVolume * 100, 0);
+            float volume = (float)Math.Round(GlobalSounds.sfxVolume * 100, 0);
             string text = $"Sfx volume {volume}%";
 
             Global.spriteBatch.DrawString(GlobalTextures.defaultFont,
@@ -293,7 +293,7 @@ namespace Sem1OfficeRevenge
         {
             if (!musicSlider.isVisible) return;
 
-            float volume = (float)Math.Round(GlobalSound.musicVolume * 100, 0);
+            float volume = (float)Math.Round(GlobalSounds.musicVolume * 100, 0);
             string text = $"Music volume {volume}%";
 
             Global.spriteBatch.DrawString(GlobalTextures.defaultFont,

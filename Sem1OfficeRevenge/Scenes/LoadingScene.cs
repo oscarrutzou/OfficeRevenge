@@ -22,7 +22,7 @@ public class LoadingScene : Scene
     {
         if (!hasLoaded)
         {
-            await Task.Run(() => LoadContent());
+            await Task.Run(() => GlobalAnimations.LoadContent());
             await Task.Delay(1000);
             isLoading = false;
             hasLoaded = true;
@@ -35,11 +35,6 @@ public class LoadingScene : Scene
             Global.world.ChangeScene(Scenes.TestBaseScene);
             Global.world.RefreshWeapons();
         }
-    }
-
-    private async Task LoadContent()
-    {
-        await GlobalAnimations.LoadContent();
     }
 
     private void InitLoadingIcon()

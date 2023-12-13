@@ -64,18 +64,7 @@ namespace Sem1OfficeRevenge
 
         public virtual void DrawInWorld()
         {
-            if (Global.currentScene == Global.world.scenes[Scenes.MainMenu] || Global.currentScene == Global.world.scenes[Scenes.LoadingScreen] || Global.currentScene == Global.world.scenes[Scenes.EndMenu])
-            {
-                Global.graphics.GraphicsDevice.Clear(Color.DarkRed);
-            }
-            else if (Global.currentScene == Global.world.scenes[Scenes.ElevatorMenu])
-            {
-                Global.graphics.GraphicsDevice.Clear(Color.Silver);
-            }
-            else
-            {
-                Global.graphics.GraphicsDevice.Clear(Color.Black);
-            }
+            DrawSceenColor();
             
             foreach (GameObject gameObject in Global.currentSceneData.gameObjects)
             {
@@ -93,6 +82,24 @@ namespace Sem1OfficeRevenge
                 guiGameObject.Draw();
             }
             DrawCursor();
+        }
+
+        private void DrawSceenColor()
+        {
+            if (Global.currentScene == Global.world.scenes[Scenes.MainMenu]
+                || Global.currentScene == Global.world.scenes[Scenes.LoadingScreen]
+                || Global.currentScene == Global.world.scenes[Scenes.EndMenu])
+            {
+                Global.graphics.GraphicsDevice.Clear(Color.DarkRed);
+            }
+            else if (Global.currentScene == Global.world.scenes[Scenes.ElevatorMenu])
+            {
+                Global.graphics.GraphicsDevice.Clear(Color.Silver);
+            }
+            else
+            {
+                Global.graphics.GraphicsDevice.Clear(Color.Black);
+            }
         }
 
         private void DrawCursor()
@@ -140,7 +147,6 @@ namespace Sem1OfficeRevenge
                     throw new ArgumentOutOfRangeException(nameof(layer), layer, null);
             }
         }
-
         public float GetObjectLayerDepth(LayerDepth layer)
         {
             switch (layer)
@@ -170,6 +176,7 @@ namespace Sem1OfficeRevenge
         #endregion
 
         #region Sort Objects
+
         /// <summary>
         /// If the list has the bool "isRemoved" then it removes it from the list
         /// </summary>
@@ -219,7 +226,6 @@ namespace Sem1OfficeRevenge
                     case Room:
                         Global.currentSceneData.rooms.Add((Room)obj);
                         break;
-
                     case Blood:
                         Global.currentSceneData.bloods.Add((Blood)obj);
                         break;

@@ -16,7 +16,7 @@ namespace Sem1OfficeRevenge
 
         public override void Initialize()
         {
-            GlobalSound.inMenu = false;
+            GlobalSounds.inMenu = false;
 
             //Level Generation
             lvlGen = new LevelGeneration();

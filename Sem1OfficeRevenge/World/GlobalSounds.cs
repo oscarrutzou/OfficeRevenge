@@ -58,7 +58,7 @@ namespace Sem1OfficeRevenge
         GenericDeath9,
 
     }
-    internal static class GlobalSound
+    internal static class GlobalSounds
     {
 
         public static Dictionary<SoundNames, SoundEffect> sounds;

@@ -8,7 +8,8 @@ namespace Sem1OfficeRevenge
         public bool isAttacking;
         private float timer;
         private float rotTarget;
-        
+
+
         public CombatEnemy()
         {
 
@@ -21,11 +22,21 @@ namespace Sem1OfficeRevenge
         private void Attack()
         {
             if (dead) return;
+            AttackVL();
             Global.player.DamagePlayer(50);
             isAttacking = false;
             SetObjectAnimation(AnimNames.ChairAttack);
             animation.onAnimationDone += () => { SetObjectAnimation(AnimNames.ChairWalk); };
+        }
 
+        private void AttackVL()
+        {
+            if (Global.rnd.Next(0, 2) != 0) return;
+
+            if (!GlobalSounds.IsAnySoundPlaying(deathVoiceLines) && !GlobalSounds.IsAnySoundPlaying(Global.player.shootVoiceLines) && !GlobalSounds.IsAnySoundPlaying(combatEnemyAttackVL))
+            {
+                GlobalSounds.PlayRandomSound(combatEnemyAttackVL, 1);
+            }
         }
 
         bool WalkedFar(float range, Vector2 v1, Vector2 v2)

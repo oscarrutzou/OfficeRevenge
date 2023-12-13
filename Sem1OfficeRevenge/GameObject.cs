@@ -37,9 +37,7 @@ namespace Sem1OfficeRevenge
                 // Try to get the width and height of the texture or the current frame of the animation.
                 Texture2D drawTexture = texture ?? animation?.frames[animation.currentFrame];
                 if (drawTexture is null)
-                {
                     throw new InvalidOperationException("GameObject must have a valid texture or animation.");
-                }
 
                 int width = collisionBoxWidth > 0 ? collisionBoxWidth : drawTexture.Width;
                 int height = collisionBoxHeight > 0 ? collisionBoxHeight : drawTexture.Height;
@@ -53,7 +51,6 @@ namespace Sem1OfficeRevenge
                     (int)(height * scale.Y)
                 );
             }
-
             set {  }
         }
 
@@ -65,8 +62,6 @@ namespace Sem1OfficeRevenge
 
         public virtual void Update(){}
 
-        
-
         public virtual void Draw()
         {
             if (!isVisible) return;
@@ -75,21 +70,11 @@ namespace Sem1OfficeRevenge
             //If the bool is true, choose the option on the left, if not then it chooses the right
             origin = centerOrigin ? new Vector2(drawTexture.Width / 2, drawTexture.Height / 2) : Vector2.Zero;
 
-            if (animation != null && texture != null)
-            {
-                throw new Exception("You should only have either a animation or texture loaded. Set the other variable to null");
-            }
-
             if (animation != null)
-            {
-                // Draw animation
                 Global.spriteBatch.Draw(drawTexture, position, null, color, rotation, origin, scale, spriteEffects, layerDepth);
-            }
+                
             else if (texture != null)
-            {
-                // Draw static texture
-                Global.spriteBatch.Draw(texture, position, null, color, rotation, origin, scale, spriteEffects, layerDepth);
-            }
+                Global.spriteBatch.Draw(texture, position, null, color, rotation, origin, scale, spriteEffects, layerDepth);            
         }
 
         public void SetObjectAnimation(Animation animation)
@@ -122,7 +107,8 @@ namespace Sem1OfficeRevenge
             this.offset = offset;
         }
 
-        public virtual void CheckCollisionBox() { } // This don't need to have anything in it, in this GameObject script
+        public virtual void CheckCollisionBox() { } 
+
         public void RotateTowardsTarget(Vector2 target)
         {
             if (position == target) return;
@@ -184,7 +170,6 @@ namespace Sem1OfficeRevenge
             for (int i = 0; i < 4; i++)
             {
                 Vector2 dir = corners[i] - origin;
-                //dir = Vector2.Transform(dir, Matrix.CreateRotationZ(rotation));
                 corners[i] = dir + origin;
             }
 
@@ -215,7 +200,6 @@ namespace Sem1OfficeRevenge
             for (int i = 0; i < 4; i++)
             {
                 Vector2 dir = corners[i] - origin;
-                //dir = Vector2.Transform(dir, Matrix.CreateRotationZ(rotation));
                 corners[i] = dir + origin;
             }
 
@@ -235,7 +219,5 @@ namespace Sem1OfficeRevenge
             Global.spriteBatch.Draw(pixel, start, null, color, angle, Vector2.Zero, new Vector2(length, 1), SpriteEffects.None, Global.currentScene.GetObjectLayerDepth(LayerDepth.FullOverlay));
         }
         #endregion
-
-        
     }
 }

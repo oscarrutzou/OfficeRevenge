@@ -193,9 +193,9 @@ namespace Sem1OfficeRevenge
         private async void PlayShootVL()
         {
             if (isPlayingVl) return;
-            if (GlobalSound.IsAnySoundPlaying(GenericEnemy.deathVoiceLines)) return;
+            if (GlobalSounds.IsAnySoundPlaying(GenericEnemy.deathVoiceLines)) return;
 
-            GlobalSound.PlayRandomSound(shootVoiceLines, 1);
+            GlobalSounds.PlayRandomSound(shootVoiceLines, 1);
             isPlayingVl = true;
 
             await Task.Delay(voiceLineBufferMili);

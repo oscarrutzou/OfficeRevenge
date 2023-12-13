@@ -15,6 +15,11 @@ namespace Sem1OfficeRevenge
         protected Random rnd = new Random();
         public int health;
 
+        internal SoundNames[] combatEnemyAttackVL = new SoundNames[]
+        {
+            SoundNames.ChairAction1, SoundNames.ChairAction2, SoundNames.ChairAction3, SoundNames.ChairAction4, SoundNames.ChairAction5
+        };
+
 
         public static SoundNames[] deathVoiceLines = new SoundNames[]
         {
@@ -74,13 +79,13 @@ namespace Sem1OfficeRevenge
         {
             if (Global.rnd.Next(0, 2) != 0) return;
 
-            if (!GlobalSound.IsAnySoundPlaying(deathVoiceLines) && !GlobalSound.IsAnySoundPlaying(Global.player.shootVoiceLines))
+            if (!GlobalSounds.IsAnySoundPlaying(deathVoiceLines) && !GlobalSounds.IsAnySoundPlaying(Global.player.shootVoiceLines) && !GlobalSounds.IsAnySoundPlaying(combatEnemyAttackVL))
             {
-                GlobalSound.PlayRandomSound(deathVoiceLines, 1, 3);
+                GlobalSounds.PlayRandomSound(deathVoiceLines, 1, 3);
             }
             else
             {
-                GlobalSound.PlayRandomSound(deathSounds, 1, 6);
+                GlobalSounds.PlayRandomSound(deathSounds, 1, 6);
             }
         }
 

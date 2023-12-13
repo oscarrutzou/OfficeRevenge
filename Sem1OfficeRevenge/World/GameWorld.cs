@@ -7,7 +7,7 @@ namespace Sem1OfficeRevenge
 {
     public class GameWorld : Game
     {
-        public Dictionary<Scenes, Scene> scenes = new Dictionary<Scenes, Scene>();
+        public Dictionary<Scenes, Scene> scenes { get; private set; }
         public Camera playerCamera { get; private set; }
         public Camera uiCamera { get; private set; }
         public MiniMapCam mapCamera { get; private set; }
@@ -29,6 +29,7 @@ namespace Sem1OfficeRevenge
         {
             Global.world = this;
             Global.graphics = new GraphicsDeviceManager(this);
+            scenes = new Dictionary<Scenes, Scene>();
             Global.currentSceneData = new SceneData();
             Content.RootDirectory = "Content";
             IsMouseVisible = false;
@@ -49,18 +50,15 @@ namespace Sem1OfficeRevenge
             };
             mapCamera = new MiniMapCam(Vector2.Zero);
 
-            //ResolutionSize(1280, 720);
             Fullscreen();
             GlobalTextures.LoadContent();
-            GlobalSound.LoadContent();
+            GlobalSounds.LoadContent();
             GlobalAnimations.LoadLoadingScreenIcon();
-            //GlobalAnimations.LoadContentTestScenes();
 
             GenerateScenes();
             ChangeScene(Scenes.MainMenu);
+
             blackScreenFadeInOut = new BlackScreenFadeInOut();
-
-
             InitWeapons();
             base.Initialize();
         }
@@ -75,7 +73,7 @@ namespace Sem1OfficeRevenge
         {
             Global.gameTime = gameTime;
 
-            GlobalSound.MusicUpdate();
+            GlobalSounds.MusicUpdate();
 
             InputManager.HandleInput();
             
@@ -83,25 +81,33 @@ namespace Sem1OfficeRevenge
 
             blackScreenFadeInOut?.Update();
 
-
             base.Update(gameTime);
         }
 
         protected override void Draw(GameTime gameTime)
         {
-            Global.spriteBatch.Begin(sortMode: SpriteSortMode.FrontToBack, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullCounterClockwise, transformMatrix: playerCamera.GetMatrix());
+            //Draw in world objects
+            Global.spriteBatch.Begin(sortMode: SpriteSortMode.FrontToBack, BlendState.AlphaBlend,
+                SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullCounterClockwise, 
+                transformMatrix: playerCamera.GetMatrix());
 
             Global.currentScene.DrawInWorld();
             Global.spriteBatch.End();
 
-            Global.spriteBatch.Begin(sortMode: SpriteSortMode.FrontToBack, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullCounterClockwise, transformMatrix: uiCamera.GetMatrix());
+            //Draw on screen objects
+            Global.spriteBatch.Begin(sortMode: SpriteSortMode.FrontToBack, BlendState.AlphaBlend, 
+                SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullCounterClockwise, 
+                transformMatrix: uiCamera.GetMatrix());
 
             Global.currentScene.DrawOnScreen();
-            blackScreenFadeInOut?.Draw();
+            blackScreenFadeInOut?.Draw(); //Can be it has not been set
             if (!IsCurrentSceneMenu()) pauseScreen.DrawOnScreen();
             Global.spriteBatch.End();
 
-            Global.spriteBatch.Begin(sortMode: SpriteSortMode.FrontToBack, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullCounterClockwise, transformMatrix: mapCamera.GetMatrix());
+            //Draw minimap
+            Global.spriteBatch.Begin(sortMode: SpriteSortMode.FrontToBack, BlendState.AlphaBlend,
+                SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullCounterClockwise, 
+                transformMatrix: mapCamera.GetMatrix());
             if (!IsCurrentSceneMenu()) mapCamera.DrawMiniMap();
             Global.spriteBatch.End();
 

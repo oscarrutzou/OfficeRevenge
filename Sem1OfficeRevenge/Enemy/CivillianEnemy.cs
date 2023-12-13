@@ -178,7 +178,7 @@ namespace Sem1OfficeRevenge
             {
                 int soundIndex = rnd.Next(0, deathSounds.Length);
 
-                GlobalSound.sounds[deathSounds[soundIndex]].Play();
+                GlobalSounds.sounds[deathSounds[soundIndex]].Play();
 
             }
 

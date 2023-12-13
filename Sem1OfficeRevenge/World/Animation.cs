@@ -6,15 +6,13 @@ namespace Sem1OfficeRevenge
 {
     public class Animation
     {
-        public List<Texture2D> frames;
-        public int currentFrame;
+        public AnimNames animationName { get; private set; }
+        public List<Texture2D> frames { get; private set; }
+        public int currentFrame { get; private set; }
         public Action onAnimationDone;
-
-
         public float frameRate = 20f;
         private float frameDuration;
-        public float timer;
-        public AnimNames animationName;
+        private float timer;
 
         public Animation(List<Texture2D> frames, AnimNames animationName)
         {

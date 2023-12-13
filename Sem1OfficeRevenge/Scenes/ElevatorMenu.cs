@@ -26,7 +26,7 @@ namespace Sem1OfficeRevenge
 
         public override void Initialize()
         {
-            GlobalSound.PlaySound(SoundNames.ElevatorDoorOpen); //Spil når man skifter scene i stedet for.
+            GlobalSounds.PlaySound(SoundNames.ElevatorDoorOpen); //Spil når man skifter scene i stedet for.
 
             //Global.world.Fullscreen();
             // Reset uiCamera's position and origin
@@ -79,9 +79,9 @@ namespace Sem1OfficeRevenge
         private async void NextLevel()
         {
             if (Global.world.curfloorLevel < 5) Global.world.curfloorLevel++;
-            GlobalSound.PlaySound(SoundNames.ElevatorDing);
+            GlobalSounds.PlaySound(SoundNames.ElevatorDing);
             await Task.Delay(1000);
-            GlobalSound.PlaySound(SoundNames.ElevatorDoorOpen);
+            GlobalSounds.PlaySound(SoundNames.ElevatorDoorOpen);
             Global.world.ChangeScene(Scenes.TestBaseScene);
         }
 

@@ -49,7 +49,6 @@ namespace Sem1OfficeRevenge
             string path = Path.Combine(folder, "data.txt");
             
             File.Delete(path);
-            
         }
 
         public static void DrawScore()

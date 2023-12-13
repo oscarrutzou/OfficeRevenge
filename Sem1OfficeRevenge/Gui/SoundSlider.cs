@@ -46,11 +46,11 @@ namespace Sem1OfficeRevenge
         {
             if (sfxSlider)
             {
-                handlePosition = new Vector2(sliderRectangle.X + GlobalSound.sfxVolume * sliderRectangle.Width, fillPosition.Y + handleTexture.Height / 2 - 2);
+                handlePosition = new Vector2(sliderRectangle.X + GlobalSounds.sfxVolume * sliderRectangle.Width, fillPosition.Y + handleTexture.Height / 2 - 2);
             }
             else
             {
-                handlePosition = new Vector2(sliderRectangle.X + GlobalSound.musicVolume * sliderRectangle.Width, fillPosition.Y + handleTexture.Height / 2 - 2);
+                handlePosition = new Vector2(sliderRectangle.X + GlobalSounds.musicVolume * sliderRectangle.Width, fillPosition.Y + handleTexture.Height / 2 - 2);
             }
         }
 
@@ -96,12 +96,12 @@ namespace Sem1OfficeRevenge
                 if (sfxSlider)
                 {
                     // If dragging, update the sfx volume and handle position
-                    GlobalSound.sfxVolume = (clampedMousePosition - sliderRectangle.X) / (float)sliderRectangle.Width;
+                    GlobalSounds.sfxVolume = (clampedMousePosition - sliderRectangle.X) / (float)sliderRectangle.Width;
                 }
                 else
                 {
                     // If dragging, update the music volume and handle position
-                    GlobalSound.musicVolume = (clampedMousePosition - sliderRectangle.X) / (float)sliderRectangle.Width;
+                    GlobalSounds.musicVolume = (clampedMousePosition - sliderRectangle.X) / (float)sliderRectangle.Width;
                 }
             }
 
@@ -117,11 +117,11 @@ namespace Sem1OfficeRevenge
             // Draw the filled rectangle (colored area)
             if (sfxSlider)
             {
-                musicWidth = GlobalSound.sfxVolume * sliderRectangle.Width;
+                musicWidth = GlobalSounds.sfxVolume * sliderRectangle.Width;
             }
             else
             {
-                musicWidth = GlobalSound.musicVolume * sliderRectangle.Width;
+                musicWidth = GlobalSounds.musicVolume * sliderRectangle.Width;
             }
            
             Rectangle musicFill = new Rectangle(sliderRectangle.X, sliderRectangle.Y, (int)musicWidth, sliderRectangle.Height);

@@ -21,7 +21,7 @@ namespace Sem1OfficeRevenge
             Bullet bullet = new Bullet(bulletSpeed, bulletDmg, Global.player.rotation);
             bullets.Add(bullet);
             Global.currentScene.Instantiate(bullet);
-            GlobalSound.PlaySound(SoundNames.Shot);
+            GlobalSounds.PlaySound(SoundNames.Shot);
             ammo--;
         }
     }
