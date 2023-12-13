@@ -13,8 +13,8 @@ namespace Sem1OfficeRevenge
         private Button rifleBtn;
         private Button shotgunBtn;
 
-        private int riflePrice = 50;
         private int shotgunPrice = 100;
+        private int riflePrice = 200;
 
         private float pistolScale = 0.15f;
         private float rifleScale = 0.22f;
@@ -28,15 +28,12 @@ namespace Sem1OfficeRevenge
         {
             GlobalSounds.PlaySound(SoundNames.ElevatorDoorOpen); //Spil når man skifter scene i stedet for.
 
-            //Global.world.Fullscreen();
             // Reset uiCamera's position and origin
             Global.world.uiCamera.position = Vector2.Zero;
             Global.world.uiCamera.origin = Vector2.Zero;
 
-
             InitMainMenu();
-            SetPositions();
-            
+            SetPositions();            
         }
 
 
@@ -55,23 +52,22 @@ namespace Sem1OfficeRevenge
                     true,
                     ChangeToPistol);
             
-            rifleBtn = new Button(Vector2.Zero,
-                    "50",
-                    GlobalTextures.textures[TextureNames.GuiEleBtnNormal],
-                    true,
-                    ChangeToRifle);
-
             shotgunBtn = new Button(Vector2.Zero,
-                    "100",
+                    $"{shotgunPrice}",
                     GlobalTextures.textures[TextureNames.GuiEleBtnNormal],
                     true,
                     ChangeToShotgun);
 
+            rifleBtn = new Button(Vector2.Zero,
+                    $"{riflePrice}",
+                    GlobalTextures.textures[TextureNames.GuiEleBtnNormal],
+                    true,
+                    ChangeToRifle);
 
             Global.currentScene.Instantiate(nextLvlBtn);
             Global.currentScene.Instantiate(pistolBtn);
-            Global.currentScene.Instantiate(rifleBtn);
             Global.currentScene.Instantiate(shotgunBtn);
+            Global.currentScene.Instantiate(rifleBtn);
         }
 
 
@@ -104,13 +100,13 @@ namespace Sem1OfficeRevenge
         private void SetPositions()
         {
             pistolBtn.position = Global.world.uiCamera.Center + new Vector2(-200, 50);
-            rifleBtn.position = Global.world.uiCamera.Center + new Vector2(0, 50);
-            shotgunBtn.position = Global.world.uiCamera.Center + new Vector2(200, 50);
+            shotgunBtn.position = Global.world.uiCamera.Center + new Vector2(0, 50);
+            rifleBtn.position = Global.world.uiCamera.Center + new Vector2(200, 50);
             nextLvlBtn.position = Global.world.uiCamera.Center + new Vector2(0, 200);
 
             pistolPos = new Vector2(pistolBtn.position.X - 55, pistolBtn.position.Y - 100);
-            riflePos = new Vector2(rifleBtn.position.X - 90, rifleBtn.position.Y - 120);
             shotgunPos = new Vector2(shotgunBtn.position.X - 100, shotgunBtn.position.Y - 110);
+            riflePos = new Vector2(rifleBtn.position.X - 90, rifleBtn.position.Y - 120);
         }
 
         private void ChangeColorOfBtn(Button button, int costOfWeapon)
@@ -158,9 +154,6 @@ namespace Sem1OfficeRevenge
 
             string text = $"Floor {Global.world.curfloorLevel}/{Global.world.maxFloorLevels}";
             
-            // Measure the size of the text
-            Vector2 textSize = GlobalTextures.defaultFontMid.MeasureString(text);
-
             // Calculate the position to center the text
             Vector2 textPosition = textBgPos + new Vector2(20, 20);
 

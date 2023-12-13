@@ -60,8 +60,8 @@ namespace Sem1OfficeRevenge
 
         private void PlayGame()
         {
-            Global.world.curfloorLevel = 1;
             Global.world.ChangeScene(Scenes.LoadingScreen);
+            Global.world.curfloorLevel = 1;
             Global.world.playerWon = false;
         }
 
