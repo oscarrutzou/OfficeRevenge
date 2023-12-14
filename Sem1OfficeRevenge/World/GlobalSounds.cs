@@ -306,7 +306,7 @@ namespace Sem1OfficeRevenge
         public static void MusicUpdate() 
         {
             //Update music
-            if (InstanceGameMusic == null || InstanceMenuMusic == null || InstanceElevatorMusic == null)
+            if (instanceGameMusic == null || instanceMenuMusic == null || instanceElevatorMusic == null)
             {
                 instanceMenuMusic = menuMusic.CreateInstance();
                 instanceGameMusic = gameMusic.CreateInstance();

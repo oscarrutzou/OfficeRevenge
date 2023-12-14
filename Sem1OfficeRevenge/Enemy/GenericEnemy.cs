@@ -15,7 +15,13 @@ namespace Sem1OfficeRevenge
         protected Random rnd = new Random();
         public int health;
 
-        //Voice lines
+        //Combat lines
+        internal SoundNames[] combatEnemyAttackVL = new SoundNames[]
+        {
+            SoundNames.ChairAction1, SoundNames.ChairAction2, SoundNames.ChairAction3, SoundNames.ChairAction4, SoundNames.ChairAction5
+        };
+
+        //Death voice lines
         public static SoundNames[] deathVoiceLines = new SoundNames[]
         {
             SoundNames.DeathVoiceLine1, SoundNames.DeathVoiceLine2, SoundNames.DeathVoiceLine3, SoundNames.DeathVoiceLine4, SoundNames.DeathVoiceLine5, SoundNames.DeathVoiceLine6, SoundNames.DeathVoiceLine7, SoundNames.DeathVoiceLine8, SoundNames.DeathVoiceLine9, SoundNames.DeathVoiceLine10,

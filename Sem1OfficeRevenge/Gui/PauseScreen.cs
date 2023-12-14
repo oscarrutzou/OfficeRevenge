@@ -88,16 +88,16 @@ namespace Sem1OfficeRevenge
                                  "Quit",
                                  true,
                                  QuitGame);
-            //instansiate buttons
+            //Instansiate buttons
             Global.currentScene.Instantiate(pauseBtn);
             Global.currentScene.Instantiate(mainMenuBtn);
             Global.currentScene.Instantiate(settingsBtn);
             Global.currentScene.Instantiate(quitBtn);
         }
 
-        private void PlayGame()
+        private void UnPauseGame()
         {
-            //if the game is paused, unpause it
+            //If the game is paused, unpause it
             HidePauseMenu();
             Global.currentScene.isPaused = false;
             showSettings = false;
@@ -285,7 +285,7 @@ namespace Sem1OfficeRevenge
             if (!sfxSlider.isVisible) return;
             
             // Draw the sfx text
-            float volume = (float)Math.Round(GlobalSound.sfxVolume * 100, 0);
+            float volume = (float)Math.Round(GlobalSounds.sfxVolume * 100, 0);
             string text = $"Sfx volume {volume}%";
 
             Global.spriteBatch.DrawString(GlobalTextures.defaultFont,
@@ -305,7 +305,7 @@ namespace Sem1OfficeRevenge
             if (!musicSlider.isVisible) return;
 
             // Draw the music text
-            float volume = (float)Math.Round(GlobalSound.musicVolume * 100, 0);
+            float volume = (float)Math.Round(GlobalSounds.musicVolume * 100, 0);
             string text = $"Music volume {volume}%";
 
             Global.spriteBatch.DrawString(GlobalTextures.defaultFont,

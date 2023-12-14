@@ -303,7 +303,7 @@ namespace Sem1OfficeRevenge
             if (!musicSlider.isVisible) return;
 
             // Measure the size of the text
-            float volume = (float)Math.Round(GlobalSound.musicVolume * 100, 0);
+            float volume = (float)Math.Round(GlobalSounds.musicVolume * 100, 0);
             string text = $"Music volume {volume}%";
 
             Global.spriteBatch.DrawString(GlobalTextures.defaultFont,
