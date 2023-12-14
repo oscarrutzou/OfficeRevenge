@@ -70,7 +70,7 @@ namespace Sem1OfficeRevenge
             pauseBtn = new Button(
                                  "Pause",
                                  true,
-                                 PlayGame);
+                                 UnPauseGame);
             mainMenuBtn = new Button(
                                  "Main Menu",
                                  true,
@@ -90,7 +90,7 @@ namespace Sem1OfficeRevenge
             Global.currentScene.Instantiate(settingsBtn);
             Global.currentScene.Instantiate(quitBtn);
         }
-        private void PlayGame()
+        private void UnPauseGame()
         {
             HidePauseMenu();
             Global.currentScene.isPaused = false;

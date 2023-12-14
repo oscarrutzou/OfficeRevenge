@@ -30,14 +30,20 @@ namespace Sem1OfficeRevenge
             Global.world.uiCamera.position = Vector2.Zero;
             Global.world.uiCamera.origin = Vector2.Zero;
 
-            //Global.world.Fullscreen();
             InitMainMenu();
             InitSettingsMenu();
-            
+            ResetVariables();
             WorldOnResolutionChanged();
         }
 
+
         #region Main Menu
+        private void ResetVariables()
+        {
+            Global.world.curfloorLevel = 1;
+            Global.world.playerWon = false;
+        }
+
         private void InitMainMenu()
         {
             playBtn = new Button(
@@ -61,8 +67,6 @@ namespace Sem1OfficeRevenge
         private void PlayGame()
         {
             Global.world.ChangeScene(Scenes.LoadingScreen);
-            Global.world.playerWon = false;
-            Global.world.curfloorLevel = 1;
         }
         private void QuitGame()
         {

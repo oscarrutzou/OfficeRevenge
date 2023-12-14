@@ -137,6 +137,8 @@ namespace Sem1OfficeRevenge
 
         public async void ChangeScene(Scenes scene)
         {
+            if (scenes[scene] == Global.currentScene) return;
+
             if (Global.currentSceneData != null && Global.currentScene != null)
             {
                 if(scene != Scenes.LoadingScreen)
