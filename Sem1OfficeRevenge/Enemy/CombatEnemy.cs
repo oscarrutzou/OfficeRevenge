@@ -9,7 +9,6 @@ namespace Sem1OfficeRevenge
         private float timer;
         private float rotTarget;
 
-
         public CombatEnemy()
         {
             health = 50;
@@ -17,7 +16,6 @@ namespace Sem1OfficeRevenge
             speed = 7.5f;
             centerOrigin = true;
         }
-
 
         private void Attack()
         {

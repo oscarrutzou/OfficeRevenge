@@ -5,6 +5,7 @@ namespace Sem1OfficeRevenge
 {
     public static class InputManager
     {
+        #region Variables
         public static KeyboardState keyboardState;
         public static KeyboardState previousKeyboardState;
         public static MouseState mouseState;
@@ -21,6 +22,8 @@ namespace Sem1OfficeRevenge
 
         public static bool noClip;
         public static bool anyMoveKeyPressed;
+        #endregion
+
         /// <summary>
         /// Gets called in GameWorld, at the start of the update
         /// </summary>
@@ -139,6 +142,7 @@ namespace Sem1OfficeRevenge
                 Global.player.position = tempPosition;
             }
 
+            //Change scenes based on what floor the player is at.
             if (eleTimer >= eleMovePlayerTime)
             {
                 eleTimer = 0;

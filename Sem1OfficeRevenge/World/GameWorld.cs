@@ -7,13 +7,14 @@ namespace Sem1OfficeRevenge
 {
     public class GameWorld : Game
     {
+        #region Variabbles
         public Dictionary<Scenes, Scene> scenes { get; private set; }
-        public Camera playerCamera { get; private set; }
-        public Camera uiCamera { get; private set; }
-        public MiniMapCam mapCamera { get; private set; }
+        public Camera playerCamera { get; private set; } //Camera that follows the player
+        public Camera uiCamera { get; private set; } //Static on the ui
+        public MiniMapCam mapCamera { get; private set; } //Minimap
 
-        public BlackScreenFadeInOut blackScreenFadeInOut;
-        public PauseScreen pauseScreen { get; private set; }
+        public BlackScreenFadeInOut blackScreenFadeInOut; //For the fade animaiton when changing scenes/resolution
+        public PauseScreen pauseScreen { get; private set; } //Overlay on the GameScene
         
         public bool playerWon;
 
@@ -24,6 +25,7 @@ namespace Sem1OfficeRevenge
         public Weapon shotgun;
         public Weapon rifle;
         public Weapon currentWeapon;
+        #endregion
 
         public GameWorld()
         {
@@ -40,6 +42,7 @@ namespace Sem1OfficeRevenge
         {
             Global.spriteBatch = new SpriteBatch(GraphicsDevice);
 
+            //Set cameras
             playerCamera = new Camera(new Vector2(Global.graphics.PreferredBackBufferWidth / 2, Global.graphics.PreferredBackBufferHeight / 2))
             {
                 followPlayer = true
@@ -79,7 +82,7 @@ namespace Sem1OfficeRevenge
             
             Global.currentScene.Update();
 
-            blackScreenFadeInOut?.Update();
+            blackScreenFadeInOut?.Update(); //To update even when switching scenes
 
             base.Update(gameTime);
         }
@@ -100,7 +103,7 @@ namespace Sem1OfficeRevenge
                 transformMatrix: uiCamera.GetMatrix());
 
             Global.currentScene.DrawOnScreen();
-            blackScreenFadeInOut?.Draw(); //Can be it has not been set
+            blackScreenFadeInOut?.Draw();
             if (!IsCurrentSceneMenu()) pauseScreen.DrawOnScreen();
             Global.spriteBatch.End();
 
@@ -136,12 +139,12 @@ namespace Sem1OfficeRevenge
             return Global.currentScene == scenes[Scenes.MainMenu] || Global.currentScene == scenes[Scenes.LoadingScreen] || Global.currentScene == scenes[Scenes.ElevatorMenu] || Global.currentScene == scenes[Scenes.EndMenu];
         }
 
-
         public async void ChangeScene(Scenes scene)
         {
             if (scenes[scene] == Global.currentScene) return;
 
-            if (Global.currentSceneData != null && Global.currentScene != null)
+            //So it dosent fade in at the start when loading the game the first time
+            if (Global.currentSceneData != null && Global.currentScene != null) 
             {
                 if(scene != Scenes.LoadingScreen)
                 {
@@ -171,7 +174,8 @@ namespace Sem1OfficeRevenge
             Global.currentScene.isPaused = false;
             Global.currentScene.hasFadeOut = false;
 
-            if (pauseScreen == null) pauseScreen = new PauseScreen(); //Skal være her, da pausescreen bruger gameobjects
+            //Have to be here since this pausescreen uses gameobjects. Maybe move it to the GameScene, to remove clutter 
+            if (pauseScreen == null) pauseScreen = new PauseScreen(); 
             if (!IsCurrentSceneMenu()) pauseScreen.Initialize();
             
         }
@@ -185,6 +189,7 @@ namespace Sem1OfficeRevenge
             Global.graphics.IsFullScreen = false;
             Global.graphics.ApplyChanges();
 
+            //Centers the player
             playerCamera.origin = new Vector2(width / 2, height / 2);
         }
 
@@ -196,6 +201,7 @@ namespace Sem1OfficeRevenge
             Global.graphics.IsFullScreen = true;
             Global.graphics.ApplyChanges();
 
+            //Centers the player
             playerCamera.origin = new Vector2(Global.graphics.PreferredBackBufferWidth / 2, Global.graphics.PreferredBackBufferHeight / 2);
         }
 

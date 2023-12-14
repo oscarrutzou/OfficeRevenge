@@ -22,12 +22,12 @@ public class LoadingScene : Scene
     {
         if (!hasLoaded)
         {
-            await Task.Run(() => GlobalAnimations.LoadContent());
-            await Task.Delay(1000);
+            await Task.Run(() => GlobalAnimations.LoadContent()); //Wait for the loading to complete
+            await Task.Delay(1000); //Wait for 1sec to make the transition better
             isLoading = false;
             hasLoaded = true;
             Global.world.ChangeScene(Scenes.GameScene);
-            Global.world.RefreshWeapons();
+            Global.world.RefreshWeapons(); 
         }
         else
         {
