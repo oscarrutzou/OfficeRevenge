@@ -9,9 +9,8 @@ namespace Sem1OfficeRevenge
 {
     static public class ScoreManager
     {
-        public static int killCount = 0;
+        public static int killCount;
         
-
         public static void UpdateScore()
         {
             string appdataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);

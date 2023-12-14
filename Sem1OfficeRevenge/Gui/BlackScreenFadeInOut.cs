@@ -12,7 +12,7 @@ namespace Sem1OfficeRevenge
         private float timer;
         private float fadeAlpha = 0f; // Start with a transparent screen
         public bool beginAnimation = false;
-        public bool isFadingIn { get; private set; }
+        private bool isFadingIn;
         public EventHandler<EventArgs> onFadeToBlackDone;
         public EventHandler<EventArgs> onFadeFromBlackDone;
         public BlackScreenFadeInOut()

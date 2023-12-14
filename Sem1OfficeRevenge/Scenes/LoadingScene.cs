@@ -6,8 +6,8 @@ using Microsoft.Xna.Framework.Graphics;
 
 public class LoadingScene : Scene
 {
-    private bool isLoading = false;
-    private bool hasLoaded = false;
+    private bool isLoading;
+    private bool hasLoaded;
     private Icon loadingIcon;
     private Vector2 loadingTextPos;
 
@@ -26,13 +26,13 @@ public class LoadingScene : Scene
             await Task.Delay(1000);
             isLoading = false;
             hasLoaded = true;
-            Global.world.ChangeScene(Scenes.TestBaseScene);
+            Global.world.ChangeScene(Scenes.GameScene);
             Global.world.RefreshWeapons();
         }
         else
         {
             isLoading = false;
-            Global.world.ChangeScene(Scenes.TestBaseScene);
+            Global.world.ChangeScene(Scenes.GameScene);
             Global.world.RefreshWeapons();
         }
     }
@@ -53,13 +53,8 @@ public class LoadingScene : Scene
     public override void DrawOnScreen()
     {
         base.DrawOnScreen();
-        // Draw your loading screen here
-        if (!isLoading) return;
 
-        // Draw loading screen
-        // Measure the size of the text
-        //float prograss = GlobalAnimations.progress * 100;
-        //if (prograss >= 99) prograss = 100;
+        if (!isLoading) return;
         
         string text = $"Loading: {(int)Math.Round(GlobalAnimations.progress * 100, 0)}%";
         Vector2 textSize = GlobalTextures.defaultFont.MeasureString(text);

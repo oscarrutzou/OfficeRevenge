@@ -19,8 +19,8 @@ namespace Sem1OfficeRevenge
         private Button resolutionBtn;
         private Button backBtn;
 
-        private bool isChangingResolution = false;
-        private int resolutionIndex = 0;
+        private bool isChangingResolution;
+        private int resolutionIndex;
         private BlackScreenFadeInOut fadeInOutObj;
         #endregion
 

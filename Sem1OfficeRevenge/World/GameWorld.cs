@@ -42,11 +42,11 @@ namespace Sem1OfficeRevenge
 
             playerCamera = new Camera(new Vector2(Global.graphics.PreferredBackBufferWidth / 2, Global.graphics.PreferredBackBufferHeight / 2))
             {
-                FollowPlayer = true
+                followPlayer = true
             };
             uiCamera = new Camera(Vector2.Zero)
             {
-                FollowPlayer = false
+                followPlayer = false
             };
             mapCamera = new MiniMapCam(Vector2.Zero);
 
@@ -125,7 +125,7 @@ namespace Sem1OfficeRevenge
             scenes[Scenes.TestLeonard] = new TestSceneLeonard();
             scenes[Scenes.TestMarc] = new TestSceneMarc();
             scenes[Scenes.TestOscar] = new TestSceneOscar();
-            scenes[Scenes.TestBaseScene] = new TestBaseScene();
+            scenes[Scenes.GameScene] = new GameScene();
             
         }
 

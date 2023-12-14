@@ -78,7 +78,7 @@ namespace Sem1OfficeRevenge
             GlobalSounds.PlaySound(SoundNames.ElevatorDing);
             await Task.Delay(1000);
             GlobalSounds.PlaySound(SoundNames.ElevatorDoorOpen);
-            Global.world.ChangeScene(Scenes.TestBaseScene);
+            Global.world.ChangeScene(Scenes.GameScene);
         }
 
         private void ChangeToPistol()

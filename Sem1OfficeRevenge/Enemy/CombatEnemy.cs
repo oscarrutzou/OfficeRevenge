@@ -22,11 +22,12 @@ namespace Sem1OfficeRevenge
         private void Attack()
         {
             if (dead) return;
-            AttackVL();
+            
             Global.player.DamagePlayer(50);
             isAttacking = false;
             SetObjectAnimation(AnimNames.ChairAttack);
             animation.onAnimationDone += () => { SetObjectAnimation(AnimNames.ChairWalk); };
+            AttackVL();
         }
 
         private void AttackVL()
@@ -86,7 +87,7 @@ namespace Sem1OfficeRevenge
                 if (animation == GlobalAnimations.SetAnimation(AnimNames.NPCIdle))
                 {
                     SetObjectAnimation(AnimNames.ChairWalk);
-
+                    
                 }
 
                 if (Math.Abs(Global.player.position.X - position.X) < 65 && Math.Abs(Global.player.position.Y - position.Y) < 65 && isAttacking == false)

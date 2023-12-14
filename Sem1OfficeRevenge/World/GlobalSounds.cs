@@ -58,39 +58,35 @@ namespace Sem1OfficeRevenge
         GenericDeath9,
 
     }
-    internal static class GlobalSounds
+    public static class GlobalSounds
     {
 
         public static Dictionary<SoundNames, SoundEffect> sounds;
-        public static Dictionary<SoundNames, List<SoundEffectInstance>> soundInstancesPool;
+        private static Dictionary<SoundNames, List<SoundEffectInstance>> soundInstancesPool;
         private static int maxInstanceOfOneSound = 2;
         private static int maxInstanceOfGunSound = 10;
 
         public static bool inMenu = true;
 
-        public static SoundEffect MenuMusic;
-        public static SoundEffect GameMusic;
-        public static SoundEffect ElevatorMusic;
+        private static SoundEffect menuMusic;
+        private static SoundEffect gameMusic;
+        private static SoundEffect elevatorMusic;
 
-        public static SoundEffectInstance InstanceMenuMusic;
-        public static SoundEffectInstance InstanceGameMusic;
-        public static SoundEffectInstance InstanceElevatorMusic;
+        private static SoundEffectInstance instanceMenuMusic;
+        private static SoundEffectInstance instanceGameMusic;
+        private static SoundEffectInstance instanceElevatorMusic;
 
         public static float musicVolume = 1f;
         public static float sfxVolume = 1f;
         private static int musicVolDivide = 4; //Makes the song less loud by dividing the real volume
 
-        public static List<SoundEffectData> soundInstances { get; private set; }
-
-
         public static void LoadContent()
         {
-            soundInstances = new List<SoundEffectData>();
             soundInstancesPool = new Dictionary<SoundNames, List<SoundEffectInstance>>();
 
-            MenuMusic = Global.world.Content.Load<SoundEffect>("Fonts\\MainTheme");
-            GameMusic = Global.world.Content.Load<SoundEffect>("Fonts\\DistortedTheme");
-            ElevatorMusic = Global.world.Content.Load<SoundEffect>("Sounds\\ElevatorTheme");
+            menuMusic = Global.world.Content.Load<SoundEffect>("Fonts\\MainTheme");
+            gameMusic = Global.world.Content.Load<SoundEffect>("Fonts\\DistortedTheme");
+            elevatorMusic = Global.world.Content.Load<SoundEffect>("Sounds\\ElevatorTheme");
 
             sounds = new Dictionary<SoundNames, SoundEffect>
             {
@@ -197,8 +193,6 @@ namespace Sem1OfficeRevenge
             PlaySound(soundName);
         }
 
-
-
         public static void PlaySound(SoundNames soundName)
         {
             SoundEffectInstance instance = null;
@@ -222,7 +216,7 @@ namespace Sem1OfficeRevenge
             instance.Play();
         }
 
-        public static void PlayRandomSound(SoundNames[] soundArray, int maxAmountPlaying, float floatSoundVolDivided)
+        public static void PlayRandomSound(SoundNames[] soundArray, int maxAmountPlaying, float soundVolDivided)
         {
             int soundIndex = Global.rnd.Next(0, soundArray.Length);
             int index = 0;
@@ -242,7 +236,7 @@ namespace Sem1OfficeRevenge
                 return;
             }
 
-            PlaySound(soundName, floatSoundVolDivided);
+            PlaySound(soundName, soundVolDivided);
         }
 
         public static void PlaySound(SoundNames soundName, float floatSoundVolDivided)
@@ -301,41 +295,41 @@ namespace Sem1OfficeRevenge
 
         public static void MusicUpdate() 
         {
-            if (InstanceGameMusic == null || InstanceMenuMusic == null || InstanceElevatorMusic == null)
+            if (instanceGameMusic == null || instanceMenuMusic == null || instanceElevatorMusic == null)
             {
-                InstanceMenuMusic = MenuMusic.CreateInstance();
-                InstanceGameMusic = GameMusic.CreateInstance();
-                InstanceElevatorMusic = ElevatorMusic.CreateInstance();
+                instanceMenuMusic = menuMusic.CreateInstance();
+                instanceGameMusic = gameMusic.CreateInstance();
+                instanceElevatorMusic = elevatorMusic.CreateInstance();
             }
             else
             {
-                InstanceMenuMusic.Volume = Math.Clamp(musicVolume, 0, 1) / musicVolDivide;
-                InstanceGameMusic.Volume = Math.Clamp(musicVolume, 0, 1) / musicVolDivide;
-                InstanceElevatorMusic.Volume = Math.Clamp(musicVolume, 0, 1) / musicVolDivide;
+                instanceMenuMusic.Volume = Math.Clamp(musicVolume, 0, 1) / musicVolDivide;
+                instanceGameMusic.Volume = Math.Clamp(musicVolume, 0, 1) / musicVolDivide;
+                instanceElevatorMusic.Volume = Math.Clamp(musicVolume, 0, 1) / musicVolDivide;
 
                 
                 if (inMenu)
                 {
-                    InstanceGameMusic.Stop();
+                    instanceGameMusic.Stop();
                 }
                 else
                 {
-                    InstanceMenuMusic.Stop();
-                    InstanceElevatorMusic.Stop();
+                    instanceMenuMusic.Stop();
+                    instanceElevatorMusic.Stop();
                 }
 
                 if (Global.currentScene == Global.world.scenes[Scenes.ElevatorMenu])
                 {
-                    InstanceElevatorMusic.Play();
-                    InstanceElevatorMusic.IsLooped = true;
+                    instanceElevatorMusic.Play();
+                    instanceElevatorMusic.IsLooped = true;
                 }
-                if (InstanceMenuMusic.State == SoundState.Stopped && inMenu && Global.currentScene != Global.world.scenes[Scenes.ElevatorMenu])
+                if (instanceMenuMusic.State == SoundState.Stopped && inMenu && Global.currentScene != Global.world.scenes[Scenes.ElevatorMenu])
                 {
-                    InstanceMenuMusic.Play();
+                    instanceMenuMusic.Play();
                 }
-                if (InstanceGameMusic.State == SoundState.Stopped && !inMenu)
+                if (instanceGameMusic.State == SoundState.Stopped && !inMenu)
                 {
-                    InstanceGameMusic.Play();
+                    instanceGameMusic.Play();
                 }
             }
 

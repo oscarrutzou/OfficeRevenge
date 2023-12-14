@@ -10,13 +10,13 @@ namespace Sem1OfficeRevenge
         MainMenu,
         LoadingScreen,
         Level,
+        GameScene,
         ElevatorMenu,
         EndMenu,
         TestJasper,
         TestLeonard,
         TestMarc,
         TestOscar,
-        TestBaseScene,
     }
 
     public enum LayerDepth

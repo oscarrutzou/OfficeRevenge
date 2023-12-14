@@ -20,7 +20,7 @@ namespace Sem1OfficeRevenge
         private Button resetBtn;
         private Button backBtn;
 
-        private int resolutionIndex = 0;
+        private int resolutionIndex;
         private BlackScreenFadeInOut fadeInOutObj;
         #endregion
 
