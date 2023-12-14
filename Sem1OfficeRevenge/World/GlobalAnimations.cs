@@ -42,12 +42,14 @@ namespace Sem1OfficeRevenge
 
     public static class GlobalAnimations
     {
+        // Dictionary of all animations
         private static Dictionary<AnimNames, List<Texture2D>> animations = new Dictionary<AnimNames, List<Texture2D>>();
         public static float progress = 0f;
 
 
         public static async Task LoadContent()
         {
+            // Load all animations
             int totalAnimations = Enum.GetNames(typeof(AnimNames)).Length - 1; //-1 since the loading screen icon already has been loaded.
 
             await LoadAnimation(AnimNames.PlayerHandgunIdle, "Player\\Top_Down_Survivor\\handgun\\idle\\survivor-idle_handgun_", 20, totalAnimations);
@@ -81,6 +83,7 @@ namespace Sem1OfficeRevenge
 
         private static async Task LoadAnimation(AnimNames animationName, string path, int framesInAnim, int totalAnimations)
         {
+            // Load all frames in the animation
             List<Texture2D> animList = new List<Texture2D>();
             for (int i = 0; i < framesInAnim; i++)
             {
@@ -100,11 +103,13 @@ namespace Sem1OfficeRevenge
 
         public static Animation SetAnimation(AnimNames name)
         {
+            // Check if the animation exists
             return new Animation(animations[name], name);
         }
 
         public static void LoadLoadingScreenIcon()
         {
+            // Load the loading screen icon
             List<Texture2D> animList = new List<Texture2D>();
             for (int i = 0; i < 3; i++)
             {
@@ -115,6 +120,7 @@ namespace Sem1OfficeRevenge
 
         public static void LoadContentTestScenes()
         {
+            // Load all animations
             int totalAnimations = Enum.GetNames(typeof(AnimNames)).Length - 1; //-1 since the loading screen icon already has been loaded.
 
             LoadAnimationTest(AnimNames.PlayerRifleIdle, "Player\\Top_Down_Survivor\\rifle\\idle\\survivor-idle_rifle_", 20, totalAnimations);
@@ -125,6 +131,7 @@ namespace Sem1OfficeRevenge
 
         private static void LoadAnimationTest(AnimNames animationName, string path, int framesInAnim, int totalAnimations)
         {
+            // Load all frames in the animation
             List<Texture2D> animList = new List<Texture2D>();
             for (int i = 0; i < framesInAnim; i++)
             {

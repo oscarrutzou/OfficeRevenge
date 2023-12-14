@@ -74,6 +74,7 @@ namespace Sem1OfficeRevenge
         #region Setting Menu
         private void InitSettingsMenu()
         {
+            // Create the settings menu objects
             resolutionBtn = new Button(
                                  "Resolution",
                                  true,
@@ -104,7 +105,8 @@ namespace Sem1OfficeRevenge
             fadeInOutObj = new BlackScreenFadeInOut();
             fadeInOutObj.fadeInTimeMillisec = 500;
             fadeInOutObj.fadeOutTime = 1f;
-
+            
+            // Instantiate the settings menu objects
             Global.currentScene.Instantiate(fadeInOutObj);
             Global.currentScene.Instantiate(resolutionBtn);
             Global.currentScene.Instantiate(sfxSlider);
@@ -164,6 +166,7 @@ namespace Sem1OfficeRevenge
 
         private void WorldOnResolutionChanged()
         {
+            // Update the button positions
             playBtn.position = Global.world.uiCamera.Center + new Vector2(0, -85);
             settingsBtn.position = Global.world.uiCamera.Center;
             quitBtn.position = Global.world.uiCamera.Center + new Vector2(0, 85);
@@ -250,6 +253,7 @@ namespace Sem1OfficeRevenge
         {
             if (!resolutionBtn.isVisible) return;
 
+            // Measure the size of the text
             string text;
             if (Global.graphics.IsFullScreen)
             {
@@ -273,6 +277,7 @@ namespace Sem1OfficeRevenge
 
         private void DrawSfxText()
         {
+            // If the slider is not visible, do nothing
             if (!sfxSlider.isVisible) return;
 
             float volume = (float)Math.Round(GlobalSound.sfxVolume * 100, 0);
@@ -293,6 +298,7 @@ namespace Sem1OfficeRevenge
         {
             if (!musicSlider.isVisible) return;
 
+            // Measure the size of the text
             float volume = (float)Math.Round(GlobalSound.musicVolume * 100, 0);
             string text = $"Music volume {volume}%";
 

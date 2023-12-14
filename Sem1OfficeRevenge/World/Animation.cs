@@ -10,7 +10,6 @@ namespace Sem1OfficeRevenge
         public int currentFrame;
         public Action onAnimationDone;
 
-
         public float frameRate = 20f;
         private float frameDuration;
         public float timer;
@@ -23,10 +22,13 @@ namespace Sem1OfficeRevenge
             this.animationName = animationName;
         }
 
+        
         public void AnimationUpdate()
         {
+            // Calculate the frame duration based on the frame rate
             frameDuration = 1f / frameRate;
 
+            // Add the elapsed time since the last frame to the timer
             timer += (float)Global.gameTime.ElapsedGameTime.TotalSeconds;
             if (timer > frameDuration)
             {
@@ -36,6 +38,7 @@ namespace Sem1OfficeRevenge
             }
         }
 
+        //Check if animation is done
         private void CheckAnimationDone()
         {
             if (currentFrame == frames.Count - 1)

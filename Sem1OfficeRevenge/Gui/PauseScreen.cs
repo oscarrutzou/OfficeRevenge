@@ -37,6 +37,7 @@ namespace Sem1OfficeRevenge
             WorldOnResolutionChanged();
         }
 
+        //hide pause menu
         public void HidePauseMenu()
         {
             pauseBtn.isVisible = false;
@@ -53,11 +54,13 @@ namespace Sem1OfficeRevenge
 
         public void ShowPauseMenu()
         {
+            //show pause menu
             pauseBtn.isVisible = true;
             settingsBtn.isVisible = true;
             quitBtn.isVisible = true;
             mainMenuBtn.isVisible = true;
 
+            //hide settings menu
             resolutionBtn.isVisible = false;
             sfxSlider.isVisible = false;
             musicSlider.isVisible = false;
@@ -67,6 +70,7 @@ namespace Sem1OfficeRevenge
         #region Default Menu
         private void InitDefaultMenu()
         {
+            //Create buttons
             pauseBtn = new Button(
                                  "Pause",
                                  true,
@@ -84,14 +88,16 @@ namespace Sem1OfficeRevenge
                                  "Quit",
                                  true,
                                  QuitGame);
-
+            //instansiate buttons
             Global.currentScene.Instantiate(pauseBtn);
             Global.currentScene.Instantiate(mainMenuBtn);
             Global.currentScene.Instantiate(settingsBtn);
             Global.currentScene.Instantiate(quitBtn);
         }
+
         private void PlayGame()
         {
+            //if the game is paused, unpause it
             HidePauseMenu();
             Global.currentScene.isPaused = false;
             showSettings = false;
@@ -108,6 +114,7 @@ namespace Sem1OfficeRevenge
         #endregion
 
         #region Setting Menu
+        //Create settings menu
         private void InitSettingsMenu()
         {
             resolutionBtn = new Button(
@@ -116,14 +123,17 @@ namespace Sem1OfficeRevenge
                                  ChangeResolution);
             resolutionBtn.isVisible = false;
 
+            //Create sliders
             Vector2 sfxPos = Global.world.uiCamera.Center;
             sfxSlider = new SoundSlider(sfxPos, true);
             sfxSlider.isVisible = false;
 
+            //Create sliders
             Vector2 musicPos = Global.world.uiCamera.Center + new Vector2(0, 85);
             musicSlider = new SoundSlider(musicPos, false);
             musicSlider.isVisible = false;
 
+            //Create back button
             backBtn = new Button(
                                  "Back",
                                  true,
@@ -134,6 +144,7 @@ namespace Sem1OfficeRevenge
             fadeInOutObj.fadeInTimeMillisec = 500;
             fadeInOutObj.fadeOutTime = 1f;
 
+            //instansiate buttons
             Global.currentScene.Instantiate(fadeInOutObj);
             Global.currentScene.Instantiate(resolutionBtn);
             Global.currentScene.Instantiate(sfxSlider);
@@ -142,6 +153,7 @@ namespace Sem1OfficeRevenge
         }
         private void Settings()
         {
+            //if the game is paused, unpause it
             if (!showSettings)
             {
                 DrawSettingsMenu();
@@ -155,11 +167,13 @@ namespace Sem1OfficeRevenge
         }
         private void DrawSettingsMenu()
         {
+            //hide pause menu
             pauseBtn.isVisible = false;
             settingsBtn.isVisible = false;
             quitBtn.isVisible = false;
             mainMenuBtn.isVisible = false;
 
+            //show settings menu
             resolutionBtn.isVisible = true;
             musicSlider.isVisible = true;
             sfxSlider.isVisible = true;
@@ -170,15 +184,18 @@ namespace Sem1OfficeRevenge
         #region Setting Resolution
         private void WorldOnResolutionChanged()
         {
+            // Set the button positions
             pauseBtn.position = Global.world.uiCamera.Center + new Vector2(0, -85);
             mainMenuBtn.position = Global.world.uiCamera.Center;
             settingsBtn.position = Global.world.uiCamera.Center + new Vector2(0, 85);
             quitBtn.position = Global.world.uiCamera.Center + new Vector2(0, 170);
 
+            // Set the slider positions
             resolutionBtn.position = Global.world.uiCamera.Center + new Vector2(0, -85);
             sfxSlider.position = Global.world.uiCamera.Center;
             sfxSlider.ChangeSliderRectangle(Global.world.uiCamera.Center);
 
+            // Set the slider positions
             musicSlider.position = Global.world.uiCamera.Center + new Vector2(0, 85);
             musicSlider.ChangeSliderRectangle(Global.world.uiCamera.Center + new Vector2(0, 85));
             backBtn.position = Global.world.uiCamera.Center + new Vector2(0, 170);
@@ -237,8 +254,10 @@ namespace Sem1OfficeRevenge
 
         private void DrawResolutionText()
         {
+            // If the resolution button is not visible, do nothing
             if (!resolutionBtn.isVisible) return;
 
+            // Draw the resolution text
             string text;
             if (Global.graphics.IsFullScreen)
             {
@@ -262,8 +281,10 @@ namespace Sem1OfficeRevenge
 
         private void DrawSfxText()
         {
+            // If the sfx slider is not visible, do nothing
             if (!sfxSlider.isVisible) return;
-
+            
+            // Draw the sfx text
             float volume = (float)Math.Round(GlobalSound.sfxVolume * 100, 0);
             string text = $"Sfx volume {volume}%";
 
@@ -280,8 +301,10 @@ namespace Sem1OfficeRevenge
 
         private void DrawMusicText()
         {
+            // If the music slider is not visible, do nothing
             if (!musicSlider.isVisible) return;
 
+            // Draw the music text
             float volume = (float)Math.Round(GlobalSound.musicVolume * 100, 0);
             string text = $"Music volume {volume}%";
 

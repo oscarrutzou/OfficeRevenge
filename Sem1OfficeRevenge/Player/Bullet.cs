@@ -9,6 +9,7 @@ namespace Sem1OfficeRevenge
         public float lifespan { get; private set; } //Brug timeren i stedet for til at finde at lave en life time.
         private int bulletDmg;
         public float totalSecondsTimer;
+
    
 
         public Bullet(int speed, int bulletDmg, float rotation)
@@ -17,6 +18,7 @@ namespace Sem1OfficeRevenge
             Global.currentScene.SetObjectLayerDepth(this, LayerDepth.Bullets);
             scale = new Vector2(0.05f, 0.05f);
 
+            //Set position and rotation and direction
             centerOrigin = true;
             SetCorrectBulletPositionWithOffset();
             this.rotation = rotation;
@@ -29,12 +31,14 @@ namespace Sem1OfficeRevenge
 
         public override void Update()
         {
+            //Remove bullet if it has been alive for too long
             if (isRemoved || Global.currentScene.isPaused) return;
             totalSecondsTimer = (float)Global.gameTime.ElapsedGameTime.TotalSeconds;
             position += direction * speed * totalSecondsTimer;
 
             bool isInsideRoom = false;
 
+            //Check if the bullet is inside a room
             foreach (Room room in Global.currentSceneData.rooms)
             {
                 if (Collision.ContainsEitherBox(this, room.collisionBox, room.hallwayCol))
@@ -44,6 +48,7 @@ namespace Sem1OfficeRevenge
                 }
             }
 
+            //Remove bullet if it is outside a room
             if (!isInsideRoom)
             {
                 this.isRemoved = true;
@@ -53,6 +58,7 @@ namespace Sem1OfficeRevenge
             
         }
 
+        //Check if the bullet has hit an enemy
         public override void CheckCollisionBox()
         {
             foreach (GenericEnemy enemy in Global.currentSceneData.enemies) //Ændre til at kigge i enemies i currentSceneData
@@ -69,6 +75,7 @@ namespace Sem1OfficeRevenge
             //Efter lav det samme foreach bare med en med væggene. 
         }
 
+        //Set the position of the bullet to the correct position on the player
         public Vector2 SetCorrectBulletPositionWithOffset()
         {
             Texture2D playerTexture = Global.player.animation.frames[Global.player.animation.currentFrame];

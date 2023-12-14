@@ -5,7 +5,6 @@ namespace Sem1OfficeRevenge
 {
     public class Room : GameObject
     {
-        //public Texture2D map;
         public int width;
         public int height;
         public float alpha;

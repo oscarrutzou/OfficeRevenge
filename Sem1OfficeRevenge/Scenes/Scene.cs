@@ -64,6 +64,7 @@ namespace Sem1OfficeRevenge
 
         public virtual void DrawInWorld()
         {
+            // Draw all GameObjects in the active scene.
             if (Global.currentScene == Global.world.scenes[Scenes.MainMenu] || Global.currentScene == Global.world.scenes[Scenes.LoadingScreen] || Global.currentScene == Global.world.scenes[Scenes.EndMenu])
             {
                 Global.graphics.GraphicsDevice.Clear(Color.DarkRed);
@@ -77,6 +78,7 @@ namespace Sem1OfficeRevenge
                 Global.graphics.GraphicsDevice.Clear(Color.Black);
             }
             
+            // Draw all GameObjects in the active scene.
             foreach (GameObject gameObject in Global.currentSceneData.gameObjects)
             {
                 if (gameObject is not Gui)
@@ -88,6 +90,7 @@ namespace Sem1OfficeRevenge
 
         public virtual void DrawOnScreen()
         {
+            // Draw all GameObjects in the active scene.
             foreach (GameObject guiGameObject in Global.currentSceneData.guis)
             {
                 guiGameObject.Draw();

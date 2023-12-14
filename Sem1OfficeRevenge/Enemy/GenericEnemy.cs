@@ -15,16 +15,18 @@ namespace Sem1OfficeRevenge
         protected Random rnd = new Random();
         public int health;
 
-
+        //Voice lines
         public static SoundNames[] deathVoiceLines = new SoundNames[]
         {
             SoundNames.DeathVoiceLine1, SoundNames.DeathVoiceLine2, SoundNames.DeathVoiceLine3, SoundNames.DeathVoiceLine4, SoundNames.DeathVoiceLine5, SoundNames.DeathVoiceLine6, SoundNames.DeathVoiceLine7, SoundNames.DeathVoiceLine8, SoundNames.DeathVoiceLine9, SoundNames.DeathVoiceLine10,
         };
 
+        //Death sounds
         internal SoundNames[] deathSounds = new SoundNames[]
 {
             SoundNames.GenericDeath1, SoundNames.GenericDeath2, SoundNames.GenericDeath3, SoundNames.GenericDeath4, SoundNames.GenericDeath5, SoundNames.GenericDeath6, SoundNames.GenericDeath7, SoundNames.GenericDeath8, SoundNames.GenericDeath9
         };
+
 
         public GenericEnemy()
         {
@@ -34,6 +36,7 @@ namespace Sem1OfficeRevenge
             SetCollisionBox(60, 60);
         }
 
+        //Take damage
         public void TakeDmg(int bulletDmg)
         {
             health -= bulletDmg;
@@ -44,6 +47,7 @@ namespace Sem1OfficeRevenge
             }
         }
         
+        //Die
         public void Die()
         {
             blood = new Blood(position);
@@ -51,13 +55,14 @@ namespace Sem1OfficeRevenge
             dead = true;
             ScoreManager.killCount++;
             
-
+            //Set death animation
             if (this is CombatEnemy)
             {
                 SetObjectAnimation(AnimNames.ChairDeath);
                 animation.onAnimationDone += () => { animation.frameRate = 0; };
             }
             
+            //Set death animation
             if (this is CivillianEnemy)
             {
                 SetObjectAnimation(AnimNames.CivDeath);
@@ -70,6 +75,7 @@ namespace Sem1OfficeRevenge
             
         }
 
+        //Play sound on death
         private void SoundOnDeath()
         {
             if (Global.rnd.Next(0, 2) != 0) return;
