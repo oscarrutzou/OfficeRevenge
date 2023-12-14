@@ -16,7 +16,7 @@ namespace Sem1OfficeRevenge
         public float cooldown;
         public float pumpTime;
 
-        private bool hasPlayedReloadAnim;
+       
         public Weapon()
         {
             cooldown = 0;

@@ -14,7 +14,6 @@ namespace Sem1OfficeRevenge
         public int textureOffset { get; private set; }
         public bool alive;
         public float playerSpeed = 10f;
-        private bool hasAttacked;
         
 
         private List<ShoePrint> shoePrints = new List<ShoePrint>();
