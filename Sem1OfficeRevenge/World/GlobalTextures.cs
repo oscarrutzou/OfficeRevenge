@@ -39,6 +39,12 @@ namespace Sem1OfficeRevenge
 
         Bullet,
         Pellet,
+
+        rifleBullet,
+        pistolBullet,
+        shotgunBullet,
+        magazin,
+
     }
 
     public static class GlobalTextures
@@ -86,6 +92,11 @@ namespace Sem1OfficeRevenge
                 {TextureNames.Blood, Global.world.Content.Load<Texture2D>("Fonts\\BloodPool") },
                 {TextureNames.Shoe, Global.world.Content.Load<Texture2D>("Fonts\\shoeprint") },
                 {TextureNames.Sight, Global.world.Content.Load<Texture2D>("Fonts\\sight") },
+
+                {TextureNames.rifleBullet, Global.world.Content.Load<Texture2D>("Fonts\\rifle") },
+                {TextureNames.pistolBullet, Global.world.Content.Load<Texture2D>("Fonts\\pistol") },
+                {TextureNames.shotgunBullet, Global.world.Content.Load<Texture2D>("Fonts\\shell") },
+                {TextureNames.magazin, Global.world.Content.Load<Texture2D>("Fonts\\magazin") },
 
                 {TextureNames.CrossHair, Global.world.Content.Load<Texture2D>("GUI\\crosshair") }
 

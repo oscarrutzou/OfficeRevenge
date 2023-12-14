@@ -47,7 +47,7 @@ namespace Sem1OfficeRevenge
             string folder = Path.Combine(appdataPath, "OfficeRevengeData");
             Directory.CreateDirectory(folder);
             string path = Path.Combine(folder, "data.txt");
-            
+            killCount = 0;
             File.Delete(path);
         }
 

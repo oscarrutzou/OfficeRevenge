@@ -180,6 +180,7 @@ namespace Sem1OfficeRevenge
         public void AnimReload()
         {
             if (animation == reloadAnim) return;
+            Global.currentScene.Instantiate(new Magazin(Global.player.position, Global.player.rotation));
             SetObjectAnimation(reloadAnim);
             animation.onAnimationDone += () => { SetObjectAnimation(idleAnim); };
         }

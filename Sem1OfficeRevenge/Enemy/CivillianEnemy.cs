@@ -38,7 +38,7 @@ namespace Sem1OfficeRevenge
             Vector2 tempPosition = this.position;            
         }
 
-        bool WalkedFar(float range, Vector2 v1, Vector2 v2)
+        private bool WalkedFar(float range, Vector2 v1, Vector2 v2)
         {
             var dx = v1.X - v2.X;
             var dy = v1.Y - v2.Y;
