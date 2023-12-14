@@ -60,7 +60,7 @@ namespace Sem1OfficeRevenge
     }
     public static class GlobalSounds
     {
-
+        //Sound effects
         public static Dictionary<SoundNames, SoundEffect> sounds;
         private static Dictionary<SoundNames, List<SoundEffectInstance>> soundInstancesPool;
         private static int maxInstanceOfOneSound = 2;
@@ -141,6 +141,7 @@ namespace Sem1OfficeRevenge
                 { SoundNames.TestSound3, Global.world.Content.Load<SoundEffect>("Fonts\\DistortedTheme")}
             };
 
+            //Create sound instances
             foreach (var sound in sounds)
             {
                 soundInstancesPool[sound.Key] = new List<SoundEffectInstance>();
@@ -156,6 +157,7 @@ namespace Sem1OfficeRevenge
 
         public static bool IsAnySoundPlaying(SoundNames[] soundArray)
         {
+            //Check if any sound is playing
             foreach (SoundNames name in soundArray)
             {
                 foreach (SoundEffectInstance inst in soundInstancesPool[name])
@@ -172,6 +174,7 @@ namespace Sem1OfficeRevenge
 
         public static void PlayRandomSound(SoundNames[] soundArray, float maxAmountPlaying)
         {
+            //Play a random sound from the array
             int soundIndex = Global.rnd.Next(0, soundArray.Length);
             int index = 0;
 
@@ -179,6 +182,7 @@ namespace Sem1OfficeRevenge
 
             foreach (SoundEffectInstance inst in soundInstancesPool[soundName])
             {
+                //Check how many of the same sound is playing
                 if (inst.State == SoundState.Playing)
                 {
                     index++;
@@ -195,6 +199,7 @@ namespace Sem1OfficeRevenge
 
         public static void PlaySound(SoundNames soundName)
         {
+            //Play a sound
             SoundEffectInstance instance = null;
             foreach (var inst in soundInstancesPool[soundName])
             {
@@ -218,11 +223,13 @@ namespace Sem1OfficeRevenge
 
         public static void PlayRandomSound(SoundNames[] soundArray, int maxAmountPlaying, float soundVolDivided)
         {
+            //Play a random sound from the array
             int soundIndex = Global.rnd.Next(0, soundArray.Length);
             int index = 0;
 
             SoundNames soundName = soundArray[soundIndex];
 
+            //Check how many of the same sound is playing
             foreach (SoundEffectInstance inst in soundInstancesPool[soundName])
             {
                 if (inst.State == SoundState.Playing)
@@ -231,6 +238,7 @@ namespace Sem1OfficeRevenge
                 }
             }
 
+            //Check if the max amount of the same sound is playing
             if (index >= maxAmountPlaying)
             {
                 return;
@@ -241,6 +249,7 @@ namespace Sem1OfficeRevenge
 
         public static void PlaySound(SoundNames soundName, float floatSoundVolDivided)
         {
+            //Play a sound
             SoundEffectInstance instance = null;
             foreach (var inst in soundInstancesPool[soundName])
             {
@@ -264,6 +273,7 @@ namespace Sem1OfficeRevenge
 
         public static void PitchedPlay(SoundNames soundName)
         {
+            //Play a sound with a random pitch
             float pitch = (float)Global.rnd.NextDouble();
             pitch = pitch - (1 - pitch);
             if (Global.rnd.Next(0, 10) > 5)
@@ -295,7 +305,8 @@ namespace Sem1OfficeRevenge
 
         public static void MusicUpdate() 
         {
-            if (instanceGameMusic == null || instanceMenuMusic == null || instanceElevatorMusic == null)
+            //Update music
+            if (InstanceGameMusic == null || InstanceMenuMusic == null || InstanceElevatorMusic == null)
             {
                 instanceMenuMusic = menuMusic.CreateInstance();
                 instanceGameMusic = gameMusic.CreateInstance();
@@ -307,7 +318,7 @@ namespace Sem1OfficeRevenge
                 instanceGameMusic.Volume = Math.Clamp(musicVolume, 0, 1) / musicVolDivide;
                 instanceElevatorMusic.Volume = Math.Clamp(musicVolume, 0, 1) / musicVolDivide;
 
-                
+                //Check if the music should be playing
                 if (inMenu)
                 {
                     instanceGameMusic.Stop();

@@ -33,6 +33,7 @@ namespace Sem1OfficeRevenge
             mousePositionOnScreen = GetMousePositionOnUI();
             mousePositionInWorld = GetMousePositionInWorld();
 
+            // Check if the player presses the escape key
             if (keyboardState.IsKeyDown(Keys.Escape) && !previousKeyboardState.IsKeyDown(Keys.Escape) && Global.player != null)
             {
                 Global.currentScene.isPaused = !Global.currentScene.isPaused;
@@ -93,6 +94,7 @@ namespace Sem1OfficeRevenge
                     Global.player.position.Y += Global.player.playerSpeed;
                 }
 
+                // Toggle no clip
                 if (keyboardState.IsKeyDown(Keys.N) && previousKeyboardState.IsKeyDown(Keys.N))
                 {
                     noClip = !noClip;

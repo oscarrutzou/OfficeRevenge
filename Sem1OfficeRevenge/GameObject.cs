@@ -39,6 +39,7 @@ namespace Sem1OfficeRevenge
                 if (drawTexture is null)
                     throw new InvalidOperationException("GameObject must have a valid texture or animation.");
 
+                // If the collision box width or height is bigger 0, use the width and height of the texture.
                 int width = collisionBoxWidth > 0 ? collisionBoxWidth : drawTexture.Width;
                 int height = collisionBoxHeight > 0 ? collisionBoxHeight : drawTexture.Height;
 
@@ -60,7 +61,10 @@ namespace Sem1OfficeRevenge
             isVisible = true;
         }
 
-        public virtual void Update(){}
+        public virtual void Update()
+        {
+            
+        }
 
         public virtual void Draw()
         {
@@ -182,6 +186,7 @@ namespace Sem1OfficeRevenge
             }
         }
 
+        //Draw CollisionBox with a custom rectangle
         internal void DrawDebugCollisionBox(Rectangle recBox)
         {
             // Draw debug collision box
@@ -212,6 +217,7 @@ namespace Sem1OfficeRevenge
             }
         }
 
+        // Draw a line between two points
         private void DrawLine(Texture2D pixel, Vector2 start, Vector2 end, Color color)
         {
             float length = Vector2.Distance(start, end);

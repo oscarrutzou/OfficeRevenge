@@ -16,7 +16,6 @@ namespace Sem1OfficeRevenge
         public float playerSpeed = 10f;
         private bool hasAttacked;
         
-
         private List<ShoePrint> shoePrints = new List<ShoePrint>();
         private Vector2 oldPos;
         private int bloodied = 0;
@@ -51,7 +50,7 @@ namespace Sem1OfficeRevenge
             SetCollisionBox(110, 110);
         }
 
-
+        //Set animations based on current weapon
         private void SetAnimCurrentWeapon()
         {
             switch (Global.world.currentWeapon)
@@ -85,6 +84,8 @@ namespace Sem1OfficeRevenge
             CheckCollisionBox();
 
             Weapon currentWeapon = Global.world.currentWeapon;
+
+            //Set animations based on current weapon
             if (InputManager.anyMoveKeyPressed && InputManager.mouseClicked)
             {
                 if (currentWeapon.reloading == false)
@@ -93,6 +94,7 @@ namespace Sem1OfficeRevenge
                     {
                         if (shotgun.pumpTime <= 0)
                         {
+                            //Change animation to shoot
                             AnimRunNShoot();
                             PlayShootVL();
                         }
@@ -100,6 +102,7 @@ namespace Sem1OfficeRevenge
                     }
                     else
                     {
+                        //Change animation to shoot
                         currentWeapon.Fire();
                         AnimRunNShoot();
                         PlayShootVL();
@@ -118,6 +121,7 @@ namespace Sem1OfficeRevenge
                     {
                         if (shotgun.pumpTime <= 0)
                         {
+                            //Change animation to shoot
                             AnimShoot();
                             PlayShootVL();
                         }
@@ -125,6 +129,7 @@ namespace Sem1OfficeRevenge
                     }
                     else
                     {
+                        //Change animation to shoot
                         currentWeapon.Fire();
                         AnimShoot();
                         PlayShootVL();
@@ -132,6 +137,7 @@ namespace Sem1OfficeRevenge
                 }               
             }
 
+            //Reload
             if (InputManager.mouseRightClicked)
             {
                 currentWeapon.Reload();
@@ -141,14 +147,17 @@ namespace Sem1OfficeRevenge
             {
                 if (bloodied > 0)
                 {
+                    //Add shoe prints
                     shoePrints.Add(new ShoePrint(right, position, rotation));
                     oldPos = position;
                     right = !right;
                     bloodied--;
                 }
             }
+
             foreach (Blood blood in Global.currentSceneData.bloods)
             {
+                //Check if player is in blood
                 if (Math.Abs(position.X - blood.position.X) < (blood.texture.Width * scale.X) / 2 / 2 && Math.Abs(position.Y - blood.position.Y) < (blood.texture.Height * scale.Y) / 2 / 2)
                 {
                     bloodied = 10;
@@ -159,18 +168,21 @@ namespace Sem1OfficeRevenge
 
         bool WalkedFar(float range, Vector2 v1, Vector2 v2)
         {
+            // Check if the player has moved more than the range
             var dx = v1.X - v2.X;
             var dy = v1.Y - v2.Y;
             return dx * dx + dy * dy < range * range;
         }
 
         private void AnimRunNShoot()
-        {           
+        {
+            //change animation to idle when player stops moving
             SetObjectAnimation(shootAnim);
             animation.onAnimationDone += () => { SetObjectAnimation(idleAnim); };
         }
         private void AnimMove()
         {
+            // Don't change animation if the player is already moving
             if (animation == shootAnim || animation == reloadAnim) return; // So it shows the shoot animation
             
             SetObjectAnimation(moveAnim);
@@ -179,6 +191,7 @@ namespace Sem1OfficeRevenge
 
         public void AnimReload()
         {
+            //Change animation to reload
             if (animation == reloadAnim) return;
             SetObjectAnimation(reloadAnim);
             animation.onAnimationDone += () => { SetObjectAnimation(idleAnim); };
@@ -186,12 +199,14 @@ namespace Sem1OfficeRevenge
 
         private void AnimShoot()
         {            
+            //Change animation to shoot
             SetObjectAnimation(shootAnim);
             animation.onAnimationDone += () => { SetObjectAnimation(idleAnim); };
         }
     
         private async void PlayShootVL()
         {
+            //Play a random voice line
             if (isPlayingVl) return;
             if (GlobalSounds.IsAnySoundPlaying(GenericEnemy.deathVoiceLines)) return;
 
@@ -211,6 +226,7 @@ namespace Sem1OfficeRevenge
 
         public void DamagePlayer(int dmgAmount)
         {
+            //Damage the player
             health -= dmgAmount;
             if (health <= 0)
             {

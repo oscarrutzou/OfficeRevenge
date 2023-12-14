@@ -66,6 +66,7 @@ namespace Sem1OfficeRevenge
         {
             DrawSceenColor();
             
+            // Draw all GameObjects in the active scene.
             foreach (GameObject gameObject in Global.currentSceneData.gameObjects)
             {
                 if (gameObject is not Gui)
@@ -77,6 +78,7 @@ namespace Sem1OfficeRevenge
 
         public virtual void DrawOnScreen()
         {
+            // Draw all GameObjects in the active scene.
             foreach (GameObject guiGameObject in Global.currentSceneData.guis)
             {
                 guiGameObject.Draw();

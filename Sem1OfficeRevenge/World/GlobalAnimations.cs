@@ -39,6 +39,7 @@ namespace Sem1OfficeRevenge
 
     public static class GlobalAnimations
     {
+        // Dictionary of all animations
         private static Dictionary<AnimNames, List<Texture2D>> animations = new Dictionary<AnimNames, List<Texture2D>>();
         public static float progress = 0f;
 
@@ -70,6 +71,7 @@ namespace Sem1OfficeRevenge
 
         private static void LoadAnimation(AnimNames animationName, string path, int framesInAnim)
         {
+            // Load all frames in the animation
             List<Texture2D> animList = new List<Texture2D>();
             for (int i = 0; i < framesInAnim; i++)
             {
@@ -84,12 +86,14 @@ namespace Sem1OfficeRevenge
 
         public static Animation SetAnimation(AnimNames name)
         {
+            // Check if the animation exists
             return new Animation(animations[name], name);
         }
 
         //Loaded before all other animations
         public static void LoadLoadingScreenIcon()
         {
+            // Load the loading screen icon
             List<Texture2D> animList = new List<Texture2D>();
             for (int i = 0; i < 3; i++)
             {

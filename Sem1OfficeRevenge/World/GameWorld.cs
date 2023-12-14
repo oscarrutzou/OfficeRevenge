@@ -117,6 +117,7 @@ namespace Sem1OfficeRevenge
         #region Scene and resolution management
         private void GenerateScenes()
         {
+            //Add scenes to dictionary
             scenes[Scenes.MainMenu] = new MainMenu();
             scenes[Scenes.LoadingScreen] = new LoadingScene();
             scenes[Scenes.ElevatorMenu] = new ElevatorMenu();
@@ -131,6 +132,7 @@ namespace Sem1OfficeRevenge
 
         public bool IsCurrentSceneMenu()
         {
+            //Check if the current scene is a menu
             return Global.currentScene == scenes[Scenes.MainMenu] || Global.currentScene == scenes[Scenes.LoadingScreen] || Global.currentScene == scenes[Scenes.ElevatorMenu] || Global.currentScene == scenes[Scenes.EndMenu];
         }
 

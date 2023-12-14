@@ -39,6 +39,7 @@ namespace Sem1OfficeRevenge
 
         private void InitMainMenu()
         {
+            // Instantiate the buttons
             nextLvlBtn = new Button(Vector2.Zero,
                     "",
                     GlobalTextures.textures[TextureNames.GuiEleBtnUp],
@@ -58,20 +59,14 @@ namespace Sem1OfficeRevenge
                     true,
                     ChangeToShotgun);
 
-            rifleBtn = new Button(Vector2.Zero,
-                    $"{riflePrice}",
-                    GlobalTextures.textures[TextureNames.GuiEleBtnNormal],
-                    true,
-                    ChangeToRifle);
-
+            // Add the buttons to the scene
             Global.currentScene.Instantiate(nextLvlBtn);
             Global.currentScene.Instantiate(pistolBtn);
             Global.currentScene.Instantiate(shotgunBtn);
             Global.currentScene.Instantiate(rifleBtn);
         }
 
-
-
+        // Change to the next level
         private async void NextLevel()
         {
             if (Global.world.curfloorLevel < 5) Global.world.curfloorLevel++;
@@ -99,6 +94,7 @@ namespace Sem1OfficeRevenge
 
         private void SetPositions()
         {
+            // Set the positions of the buttons
             pistolBtn.position = Global.world.uiCamera.Center + new Vector2(-200, 50);
             shotgunBtn.position = Global.world.uiCamera.Center + new Vector2(0, 50);
             rifleBtn.position = Global.world.uiCamera.Center + new Vector2(200, 50);
@@ -111,6 +107,7 @@ namespace Sem1OfficeRevenge
 
         private void ChangeColorOfBtn(Button button, int costOfWeapon)
         {
+            // Change the color of the button based on the cost of the weapon
             if (ScoreManager.killCount >= costOfWeapon)
             {
                 button.textColor = Color.Black;
@@ -123,6 +120,7 @@ namespace Sem1OfficeRevenge
 
         public override void Update()
         {
+            // Update the score
             ScoreManager.UpdateScore();
 
             ChangeColorOfBtn(pistolBtn, 0);
@@ -135,6 +133,7 @@ namespace Sem1OfficeRevenge
 
         public override void  DrawOnScreen()
         {
+            // Draw the buttons
             base.DrawOnScreen();
          
             ScoreManager.DrawScore(Color.Black);
