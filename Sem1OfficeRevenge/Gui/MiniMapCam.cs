@@ -28,7 +28,7 @@ namespace Sem1OfficeRevenge
 
             int x = Global.graphics.PreferredBackBufferWidth - dimension - posbuffer;
    
-            // Set dem and map based of what resolution is used
+            // Set the dimension of the minimap depending on the window size.
             if (Global.graphics.PreferredBackBufferWidth > 1300)
             {
                 dimension = 330;
@@ -42,7 +42,7 @@ namespace Sem1OfficeRevenge
                 smallMap = true;
             }
 
-            // Makes the new viewport and the rec that need determens when the minimap room textures stops drawing
+            // Makes the new viewport and the rec that determines when the minimap room textures stops drawing
             viewport = new Viewport(x, posbuffer, dimension - 2 * posbuffer, dimension - 2 * posbuffer);
             recViewPortWithBuffer = new Rectangle(x + dimBuffer, posbuffer + dimBuffer, dimension - 2 *  dimBuffer, dimension - 2 * dimBuffer);
 
@@ -81,6 +81,7 @@ namespace Sem1OfficeRevenge
 
         private void DrawPlayer()
         {
+            // Draw the player on the minimap.
             int playerDem = (int)(30 * texScale.X);
             Vector2 playerPos = ObjectPos(Global.player) - new Vector2(playerDem / 2, playerDem / 2);
 
@@ -101,11 +102,13 @@ namespace Sem1OfficeRevenge
 
         private Vector2 ObjectPos(GameObject gameObject)
         {
+            // Calculate the position of the object on the minimap.
             return center + (gameObject.position - Global.player.position) * scale;
         }
 
         private void DrawRooms()
         {
+            // Draw the rooms on the minimap.
             foreach (Room roomObj in Global.currentSceneData.rooms)
             {
                 Vector2 pos = ObjectPos(roomObj);
@@ -135,27 +138,23 @@ namespace Sem1OfficeRevenge
             }
         }
 
-
-
-
-
         private void DrawEnemies()
         {
+            // Draw the enemies on the minimap.
             foreach (GenericEnemy enemObj in Global.currentSceneData.enemies)
             {
+                // Create a rectangle for the enemy on the minimap.
                 Vector2 pos = ObjectPos(enemObj);
                 int dem = 20;
                 Rectangle enemRec = new Rectangle((int)pos.X, (int)pos.Y, (int)(dem * texScale.X), (int)(dem * texScale.X));
 
-
+                // Check if the enemy's rectangle is within the bounds of the viewport.
                 if (IsObjectInVisibleRoom(enemRec))
                 {
                     Global.spriteBatch.Draw(GlobalTextures.textures[TextureNames.Pixel], pos, enemRec, enemObj.dead ? Color.Red : Color.Green, 0f, Vector2.Zero, 1f, SpriteEffects.None, Global.currentScene.GetObjectLayerDepth(LayerDepth.Enemies));
                 }
             }
         }
-
-
 
         private void DrawBullets()
         {
@@ -186,6 +185,7 @@ namespace Sem1OfficeRevenge
 
         private bool IsObjectInVisibleRoom(Rectangle rec)
         {
+            // Check if the object is within the bounds of the viewport.
             foreach (Room roomObj in Global.currentSceneData.rooms)
             {
                 Vector2 roomPos = ObjectPos(roomObj);

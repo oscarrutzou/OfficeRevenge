@@ -24,14 +24,17 @@ namespace Sem1OfficeRevenge
             List<Bullet> bullets = new List<Bullet>();
             float spread = MathHelper.ToRadians(45f); // Spread angle in degrees. Adjust as needed.
             
+            //Shoot
             if (pumpTime <= 0)
             {
+                //Make bullets
                 for (int i = 0; i < 6; i++)
                 {
                     float bulletRotation = Global.player.rotation;
                     float offset = ((float)random1.NextDouble() - 0.5f) * spread;
                     bulletRotation += offset;
 
+                    //set bullet direction and speed.
                     Vector2 direction = new Vector2((float)Math.Cos(bulletRotation), (float)Math.Sin(bulletRotation));
                     Bullet bullet = new Bullet(bulletSpeed, bulletDmg, Global.player.rotation);
                     bullet.texture = GlobalTextures.textures[TextureNames.Pellet];

@@ -7,12 +7,12 @@ namespace Sem1OfficeRevenge
     public class BlackScreenFadeInOut : Gui
     {
         public float fadeInTime = 1f;
-        public int fadeInTimeMillisec = 800; //For the scenechange in gameworld.
+        public int fadeInTimeMillisec = 800; //For the scene change in gameworld.
         public float fadeOutTime = 2f; //To lerp towards
         private float timer;
         private float fadeAlpha = 0f; // Start with a transparent screen
         public bool beginAnimation = false;
-        public bool isFadingIn { get; private set; }
+        private bool isFadingIn;
         public EventHandler<EventArgs> onFadeToBlackDone;
         public EventHandler<EventArgs> onFadeFromBlackDone;
         public BlackScreenFadeInOut()

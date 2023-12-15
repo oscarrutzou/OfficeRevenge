@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 namespace Sem1OfficeRevenge
 {
+    // Texture names
     public enum TextureNames
     {
         TileMap1,
@@ -47,6 +48,7 @@ namespace Sem1OfficeRevenge
 
     }
 
+    // Dictionary of all textures
     public static class GlobalTextures
     {
         public static Dictionary<TextureNames, Texture2D> textures { get; private set; }
@@ -56,7 +58,7 @@ namespace Sem1OfficeRevenge
 
         public static void LoadContent()
         {
-
+            // Load all textures
             textures = new Dictionary<TextureNames, Texture2D>
             {
                 {TextureNames.TileMap1, Global.world.Content.Load<Texture2D>("Rooms\\TempLobby1") },
@@ -103,6 +105,7 @@ namespace Sem1OfficeRevenge
 
             };
 
+            // Load all fonts
             defaultFont = Global.world.Content.Load<SpriteFont>("Fonts\\SlencoBlack");
             defaultFontMid = Global.world.Content.Load<SpriteFont>("Fonts\\SlencoBlackMid");
             defaultFontBig = Global.world.Content.Load<SpriteFont>("Fonts\\SlencoBlackBig");

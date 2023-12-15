@@ -9,10 +9,8 @@ namespace Sem1OfficeRevenge
         private float timer;
         private float rotTarget;
 
-
         public CombatEnemy()
         {
-
             health = 50;
             SetObjectAnimation(AnimNames.ChairWalk);
             speed = 7.5f;
@@ -22,11 +20,12 @@ namespace Sem1OfficeRevenge
         private void Attack()
         {
             if (dead) return;
-            AttackVL();
+            
             Global.player.DamagePlayer(50);
             isAttacking = false;
             SetObjectAnimation(AnimNames.ChairAttack);
             animation.onAnimationDone += () => { SetObjectAnimation(AnimNames.ChairWalk); };
+            AttackVL();
         }
 
         private void AttackVL()
@@ -39,6 +38,7 @@ namespace Sem1OfficeRevenge
             }
         }
 
+        //Check if enemy has walked far enough to leave a shoe print
         bool WalkedFar(float range, Vector2 v1, Vector2 v2)
         {
             var dx = v1.X - v2.X;
@@ -51,14 +51,15 @@ namespace Sem1OfficeRevenge
             
             if (Global.currentScene.isPaused || dead) return;
 
+            //Check if the enemy is dead
             if (health <= 0)
             {
                 Die();
             }
             
-
             if (WalkedFar(75, position, oldPos) == false)
             {
+                //Add shoe prints
                 if (bloodied > 0)
                 {
                     shoePrints.Add(new ShoePrint(right, position, rotation));
@@ -68,6 +69,7 @@ namespace Sem1OfficeRevenge
                 }
 
             }
+            //Check if the enemy is in blood
             foreach (Blood blood in Global.currentSceneData.bloods)
             {
                 if (Math.Abs(position.X - blood.position.X) < (blood.texture.Width * scale.X) / 2 / 2 && Math.Abs(position.Y - blood.position.Y) < (blood.texture.Height * scale.Y) / 2 / 2)
@@ -78,17 +80,17 @@ namespace Sem1OfficeRevenge
                 }
             }
 
-
-
             //if in range:
             if (Math.Abs(Global.player.position.X - position.X) < rnd.Next(850, 1250) && Math.Abs(Global.player.position.Y - position.Y) < rnd.Next(850, 1250))
             {
+                //Walk
                 if (animation == GlobalAnimations.SetAnimation(AnimNames.NPCIdle))
                 {
                     SetObjectAnimation(AnimNames.ChairWalk);
-
+                    
                 }
 
+                //Attack
                 if (Math.Abs(Global.player.position.X - position.X) < 65 && Math.Abs(Global.player.position.Y - position.Y) < 65 && isAttacking == false)
                 {
                     isAttacking = true;
@@ -101,30 +103,27 @@ namespace Sem1OfficeRevenge
 
                 }
 
-
+                //Move towards player
                 if (Math.Abs(Global.player.position.X - position.X) > 50 && Global.player.position.X > position.X)
                 {
                     position.X += speed;
                 }
                 else if (Math.Abs(Global.player.position.X - position.X) > 50 && Global.player.position.X < position.X) { position.X -= speed; }
 
+                //Move towards player
                 if (Math.Abs(Global.player.position.Y - position.Y) > 50 && Global.player.position.Y > position.Y)
                 {
                     position.Y += speed;
                 }
                 else if (Math.Abs(Global.player.position.Y - position.Y) > 50 && Global.player.position.Y < position.Y) { position.Y -= speed; }
 
+                //Rotate towards player
                 timer += (float)Global.gameTime.ElapsedGameTime.TotalSeconds;
                 Vector2 dir = Global.player.position - position;
                 rotTarget = (float)Math.Atan2(-dir.Y, -dir.X) + MathHelper.Pi;
                 rotTarget = ShortestRotation(rotTarget, rotation);
                 LerpTowardsTarget(rotTarget, rotation, timer, 0.05f);
-
-
-
-
-            }
-            
+            }   
         }
     }
 }

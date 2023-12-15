@@ -5,6 +5,7 @@ namespace Sem1OfficeRevenge
 {
     public static class InputManager
     {
+        #region Variables
         public static KeyboardState keyboardState;
         public static KeyboardState previousKeyboardState;
         public static MouseState mouseState;
@@ -21,6 +22,8 @@ namespace Sem1OfficeRevenge
 
         public static bool noClip;
         public static bool anyMoveKeyPressed;
+        #endregion
+
         /// <summary>
         /// Gets called in GameWorld, at the start of the update
         /// </summary>
@@ -33,6 +36,7 @@ namespace Sem1OfficeRevenge
             mousePositionOnScreen = GetMousePositionOnUI();
             mousePositionInWorld = GetMousePositionInWorld();
 
+            // Check if the player presses the escape key
             if (keyboardState.IsKeyDown(Keys.Escape) && !previousKeyboardState.IsKeyDown(Keys.Escape) && Global.player != null)
             {
                 Global.currentScene.isPaused = !Global.currentScene.isPaused;
@@ -93,6 +97,7 @@ namespace Sem1OfficeRevenge
                     Global.player.position.Y += Global.player.playerSpeed;
                 }
 
+                // Toggle no clip
                 if (keyboardState.IsKeyDown(Keys.N) && previousKeyboardState.IsKeyDown(Keys.N))
                 {
                     noClip = !noClip;
@@ -137,6 +142,7 @@ namespace Sem1OfficeRevenge
                 Global.player.position = tempPosition;
             }
 
+            //Change scenes based on what floor the player is at.
             if (eleTimer >= eleMovePlayerTime)
             {
                 eleTimer = 0;

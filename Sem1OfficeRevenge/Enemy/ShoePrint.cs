@@ -7,8 +7,6 @@ namespace Sem1OfficeRevenge
 {
     public class ShoePrint : GameObject
     {
-        
-
         public ShoePrint(bool direction, Vector2 position, float rotation) 
         {
             centerOrigin = true;

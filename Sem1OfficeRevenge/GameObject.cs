@@ -6,6 +6,7 @@ namespace Sem1OfficeRevenge
 {
     public abstract class GameObject
     {
+        #region Variables
         public Vector2 position;
         public Vector2 origin;
         internal float rotation;
@@ -39,6 +40,7 @@ namespace Sem1OfficeRevenge
                 if (drawTexture is null)
                     throw new InvalidOperationException("GameObject must have a valid texture or animation.");
 
+                // If the collision box width or height is bigger 0, use the width and height of the texture.
                 int width = collisionBoxWidth > 0 ? collisionBoxWidth : drawTexture.Width;
                 int height = collisionBoxHeight > 0 ? collisionBoxHeight : drawTexture.Height;
 
@@ -53,6 +55,7 @@ namespace Sem1OfficeRevenge
             }
             set {  }
         }
+        #endregion
 
         public GameObject()
         {
@@ -60,16 +63,19 @@ namespace Sem1OfficeRevenge
             isVisible = true;
         }
 
-        public virtual void Update(){}
+        public virtual void Update() { } //Dosen't need anything in it, and each GameObject dosent need to have it
+
 
         public virtual void Draw()
         {
             if (!isVisible) return;
             Texture2D drawTexture = texture ?? animation?.frames[animation.currentFrame];
+            //Check if the drawTexture is null in the collisionBox, so there is no need to do it here too.
 
             //If the bool is true, choose the option on the left, if not then it chooses the right
             origin = centerOrigin ? new Vector2(drawTexture.Width / 2, drawTexture.Height / 2) : Vector2.Zero;
 
+            //Draw the animation texture or the staic texture 
             if (animation != null)
                 Global.spriteBatch.Draw(drawTexture, position, null, color, rotation, origin, scale, spriteEffects, layerDepth);
                 
@@ -107,6 +113,9 @@ namespace Sem1OfficeRevenge
             this.offset = offset;
         }
 
+        /// <summary>
+        /// Use Collision class in here to check if gameobject overlap
+        /// </summary>
         public virtual void CheckCollisionBox() { } 
 
         public void RotateTowardsTarget(Vector2 target)
@@ -116,6 +125,7 @@ namespace Sem1OfficeRevenge
             Vector2 dir = target - position;
             rotation = (float)Math.Atan2(-dir.Y, -dir.X) + MathHelper.Pi;
         }
+
         public void RotateTowardsTargetWithOffset(Vector2 target, Vector2 offset)
         {
             // Add the offset to the target
@@ -152,8 +162,12 @@ namespace Sem1OfficeRevenge
         #endregion
 
         #region DebugCollsionBox
+        /// <summary>
+        /// Draws the collisionBox that is on the gameObject
+        /// </summary>
         internal void DrawDebugCollisionBox()
         {
+            //This has been done in a weird way, because we at the start tried to use rotatiting box colliders.
             // Draw debug collision box
             Texture2D pixel = new Texture2D(Global.graphics.GraphicsDevice, 1, 1);
             pixel.SetData(new[] { Color.White });
@@ -182,8 +196,13 @@ namespace Sem1OfficeRevenge
             }
         }
 
+        /// <summary>
+        /// Draw CollisionBox with a custom rectangle
+        /// </summary>
+        /// <param name="recBox"></param>
         internal void DrawDebugCollisionBox(Rectangle recBox)
         {
+            //This has been done in a weird way, because we at the start tried to use rotatiting box colliders.
             // Draw debug collision box
             Texture2D pixel = new Texture2D(Global.graphics.GraphicsDevice, 1, 1);
             pixel.SetData(new[] { Color.White });
@@ -212,6 +231,13 @@ namespace Sem1OfficeRevenge
             }
         }
 
+        /// <summary>
+        ///  Draw a line between two points
+        /// </summary>
+        /// <param name="pixel"></param>
+        /// <param name="start"></param>
+        /// <param name="end"></param>
+        /// <param name="color"></param>
         private void DrawLine(Texture2D pixel, Vector2 start, Vector2 end, Color color)
         {
             float length = Vector2.Distance(start, end);

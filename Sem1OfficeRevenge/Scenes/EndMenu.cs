@@ -19,8 +19,8 @@ namespace Sem1OfficeRevenge
         private Button resolutionBtn;
         private Button backBtn;
 
-        private bool isChangingResolution = false;
-        private int resolutionIndex = 0;
+        private bool isChangingResolution;
+        private int resolutionIndex;
         private BlackScreenFadeInOut fadeInOutObj;
         #endregion
 
@@ -39,6 +39,7 @@ namespace Sem1OfficeRevenge
         #region Main Menu
         private void InitMainMenu()
         {
+            // Create the buttons
             playAgainBtn = new Button(
                                  "Play Again",
                                  true,
@@ -53,6 +54,7 @@ namespace Sem1OfficeRevenge
                                  true,
                                  QuitGame);
 
+            // Set the button positions
             Global.currentScene.Instantiate(playAgainBtn);
             Global.currentScene.Instantiate(settingsBtn);
             Global.currentScene.Instantiate(quitBtn);
@@ -60,6 +62,8 @@ namespace Sem1OfficeRevenge
 
         private void PlayGame()
         {
+            // Reset the floor level
+            Global.world.curfloorLevel = 1;
             Global.world.ChangeScene(Scenes.LoadingScreen);
             Global.world.curfloorLevel = 1;
             Global.world.playerWon = false;
@@ -75,6 +79,7 @@ namespace Sem1OfficeRevenge
         #region Setting Menu
         private void InitSettingsMenu()
         {
+            // Create the buttons
             resolutionBtn = new Button(
                                  "Resolution",
                                  true,
@@ -99,6 +104,7 @@ namespace Sem1OfficeRevenge
             fadeInOutObj.fadeInTimeMillisec = 500;
             fadeInOutObj.fadeOutTime = 1f;
 
+            // Set the button positions
             Global.currentScene.Instantiate(fadeInOutObj);
             Global.currentScene.Instantiate(resolutionBtn);
             Global.currentScene.Instantiate(sfxSlider);

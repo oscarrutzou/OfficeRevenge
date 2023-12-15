@@ -38,6 +38,7 @@ namespace Sem1OfficeRevenge
             Vector2 tempPosition = this.position;            
         }
 
+        //Check if enemy has walked far enough to leave a shoe print
         private bool WalkedFar(float range, Vector2 v1, Vector2 v2)
         {
             var dx = v1.X - v2.X;
@@ -45,12 +46,9 @@ namespace Sem1OfficeRevenge
             return dx * dx + dy * dy < range * range;
         }
 
-       
-
         public override void Update()
         {
-            
-
+            //Sets the room the enemy is in
             if (ourRoom == null)
             {
                 foreach (Room room in Global.currentSceneData.rooms)
@@ -67,6 +65,7 @@ namespace Sem1OfficeRevenge
 
             if (Global.currentScene.isPaused || dead) return;
 
+           
             if (WalkedFar(75, position, oldPos) == false)
             {
                 if (bloodied > 0)
@@ -115,6 +114,7 @@ namespace Sem1OfficeRevenge
             //    //this.position = tempPosition;
             //}
 
+            //check if the enemy is in blood
             foreach (Blood blood in Global.currentSceneData.bloods)
             {
                 if (Math.Abs(position.X - blood.position.X) < (blood.texture.Width * scale.X) / 2 / 2 && Math.Abs(position.Y - blood.position.Y) < (blood.texture.Height * scale.Y) / 2 / 2)
@@ -123,11 +123,10 @@ namespace Sem1OfficeRevenge
                 }
             }
 
-
-            
-            
+            //if in range:
             if (Math.Abs(Global.player.position.X - position.X) < rnd.Next(850, 1250) && Math.Abs(Global.player.position.Y - position.Y) < rnd.Next(850, 1250))
             {
+                //Walk
                 if (animation == GlobalAnimations.SetAnimation(AnimNames.CivWalk))
                 {
                     SetObjectAnimation(AnimNames.CivWalk);
@@ -136,6 +135,7 @@ namespace Sem1OfficeRevenge
                 {
                     //ChooseRndVoiceLine();
 
+                    //Flee randomly
                     fleeDirection = rnd.Next(1,4);
                     rotOrigin = rotation;
                     fleeing = true;
@@ -160,12 +160,14 @@ namespace Sem1OfficeRevenge
             }
         }
 
+
         public void ChangeDirection() 
         {
             fleeDirection = rnd.Next(1, 4);
             rotOrigin = rotation;
         }
         
+        //Choose a random voice line to play
         private void ChooseRndVoiceLine()
         {
             if (!shouldPlayVoice) lastSoundTime = soundCooldown;
@@ -185,21 +187,12 @@ namespace Sem1OfficeRevenge
             lastSoundTime = timer;
         }
 
-
-
-
-        //public void ChangeDirection() 
-        //{
-        //    fleeDirection = rnd.Next(1, 4);
-        //    rotOrigin = rotation;
-        //}
-
+        
         public void Flee()
         {
-
             if (isInsideRoom == false)
             {
-
+                
                 if (targetPos.X > position.X)
                 {
                     position.X += speed;

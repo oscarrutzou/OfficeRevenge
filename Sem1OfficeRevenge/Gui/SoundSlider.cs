@@ -42,6 +42,7 @@ namespace Sem1OfficeRevenge
             this.sfxSlider = sfxSlider;
         }
 
+        // Set the handle position based on the current volume
         private void SetHandlePos()
         {
             if (sfxSlider)
@@ -54,6 +55,7 @@ namespace Sem1OfficeRevenge
             }
         }
 
+        // Change the slider rectangle position
         public void ChangeSliderRectangle(Vector2 position)
         {
             position -= new Vector2(GlobalTextures.textures[TextureNames.GuiSliderBase].Width / 2, GlobalTextures.textures[TextureNames.GuiSliderBase].Height / 2);
@@ -69,6 +71,7 @@ namespace Sem1OfficeRevenge
             }
             else
             {
+                // Set the handle position when the MusicSlider becomes visible
                 SetHandlePos();
 
                 if (delayTimer < delayDuration)
@@ -124,6 +127,7 @@ namespace Sem1OfficeRevenge
                 musicWidth = GlobalSounds.musicVolume * sliderRectangle.Width;
             }
            
+            // Calculate the handle position
             Rectangle musicFill = new Rectangle(sliderRectangle.X, sliderRectangle.Y, (int)musicWidth, sliderRectangle.Height);
 
             Global.spriteBatch.Draw(GlobalTextures.textures[TextureNames.Pixel],

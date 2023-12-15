@@ -27,6 +27,7 @@ namespace Sem1OfficeRevenge
 
         public virtual void Fire()
         {
+            //Check if the gun is on cooldown or reloading
             if (cooldown > 0 || reloading) return;
             
             
@@ -43,6 +44,7 @@ namespace Sem1OfficeRevenge
         public override void Update()
         {
             base.Update();
+
             pumpTime -= (float)Global.gameTime.ElapsedGameTime.TotalSeconds;
             if (ammo <= 0) Reload();
 
@@ -52,9 +54,9 @@ namespace Sem1OfficeRevenge
                 
                 if (this is Shotgun)
                 {
+                    //Change animation to shoot
                     Global.player.AnimReload();
                     if (Global.player.animation == Global.player.reloadAnim) Global.player.animation.frameRate = 40;
-
                 }
             }
             else if (reloading)
@@ -62,8 +64,6 @@ namespace Sem1OfficeRevenge
                 reloading = false;
                 ammo = magFull; //Refill ammo
             }
-
-
         }
 
         public void RefreshGunAfterRun()

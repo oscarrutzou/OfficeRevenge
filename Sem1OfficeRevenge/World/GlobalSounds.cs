@@ -58,39 +58,35 @@ namespace Sem1OfficeRevenge
         GenericDeath9,
 
     }
-    internal static class GlobalSounds
+    public static class GlobalSounds
     {
-
+        //Sound effects
         public static Dictionary<SoundNames, SoundEffect> sounds;
-        public static Dictionary<SoundNames, List<SoundEffectInstance>> soundInstancesPool;
+        private static Dictionary<SoundNames, List<SoundEffectInstance>> soundInstancesPool;
         private static int maxInstanceOfOneSound = 2;
         private static int maxInstanceOfGunSound = 10;
 
         public static bool inMenu = true;
 
-        public static SoundEffect MenuMusic;
-        public static SoundEffect GameMusic;
-        public static SoundEffect ElevatorMusic;
+        private static SoundEffect menuMusic;
+        private static SoundEffect gameMusic;
+        private static SoundEffect elevatorMusic;
 
-        public static SoundEffectInstance InstanceMenuMusic;
-        public static SoundEffectInstance InstanceGameMusic;
-        public static SoundEffectInstance InstanceElevatorMusic;
+        private static SoundEffectInstance instanceMenuMusic;
+        private static SoundEffectInstance instanceGameMusic;
+        private static SoundEffectInstance instanceElevatorMusic;
 
         public static float musicVolume = 1f;
         public static float sfxVolume = 1f;
         private static int musicVolDivide = 4; //Makes the song less loud by dividing the real volume
 
-        public static List<SoundEffectData> soundInstances { get; private set; }
-
-
         public static void LoadContent()
         {
-            soundInstances = new List<SoundEffectData>();
             soundInstancesPool = new Dictionary<SoundNames, List<SoundEffectInstance>>();
 
-            MenuMusic = Global.world.Content.Load<SoundEffect>("Fonts\\MainTheme");
-            GameMusic = Global.world.Content.Load<SoundEffect>("Fonts\\DistortedTheme");
-            ElevatorMusic = Global.world.Content.Load<SoundEffect>("Sounds\\ElevatorTheme");
+            menuMusic = Global.world.Content.Load<SoundEffect>("Fonts\\MainTheme");
+            gameMusic = Global.world.Content.Load<SoundEffect>("Fonts\\DistortedTheme");
+            elevatorMusic = Global.world.Content.Load<SoundEffect>("Sounds\\ElevatorTheme");
 
             sounds = new Dictionary<SoundNames, SoundEffect>
             {
@@ -145,6 +141,7 @@ namespace Sem1OfficeRevenge
                 { SoundNames.TestSound3, Global.world.Content.Load<SoundEffect>("Fonts\\DistortedTheme")}
             };
 
+            //Create sound instances
             foreach (var sound in sounds)
             {
                 soundInstancesPool[sound.Key] = new List<SoundEffectInstance>();
@@ -160,6 +157,7 @@ namespace Sem1OfficeRevenge
 
         public static bool IsAnySoundPlaying(SoundNames[] soundArray)
         {
+            //Check if any sound is playing
             foreach (SoundNames name in soundArray)
             {
                 foreach (SoundEffectInstance inst in soundInstancesPool[name])
@@ -176,6 +174,7 @@ namespace Sem1OfficeRevenge
 
         public static void PlayRandomSound(SoundNames[] soundArray, float maxAmountPlaying)
         {
+            //Play a random sound from the array
             int soundIndex = Global.rnd.Next(0, soundArray.Length);
             int index = 0;
 
@@ -183,6 +182,7 @@ namespace Sem1OfficeRevenge
 
             foreach (SoundEffectInstance inst in soundInstancesPool[soundName])
             {
+                //Check how many of the same sound is playing
                 if (inst.State == SoundState.Playing)
                 {
                     index++;
@@ -197,10 +197,9 @@ namespace Sem1OfficeRevenge
             PlaySound(soundName);
         }
 
-
-
         public static void PlaySound(SoundNames soundName)
         {
+            //Play a sound
             SoundEffectInstance instance = null;
             foreach (var inst in soundInstancesPool[soundName])
             {
@@ -222,13 +221,15 @@ namespace Sem1OfficeRevenge
             instance.Play();
         }
 
-        public static void PlayRandomSound(SoundNames[] soundArray, int maxAmountPlaying, float floatSoundVolDivided)
+        public static void PlayRandomSound(SoundNames[] soundArray, int maxAmountPlaying, float soundVolDivided)
         {
+            //Play a random sound from the array
             int soundIndex = Global.rnd.Next(0, soundArray.Length);
             int index = 0;
 
             SoundNames soundName = soundArray[soundIndex];
 
+            //Check how many of the same sound is playing
             foreach (SoundEffectInstance inst in soundInstancesPool[soundName])
             {
                 if (inst.State == SoundState.Playing)
@@ -237,16 +238,18 @@ namespace Sem1OfficeRevenge
                 }
             }
 
+            //Check if the max amount of the same sound is playing
             if (index >= maxAmountPlaying)
             {
                 return;
             }
 
-            PlaySound(soundName, floatSoundVolDivided);
+            PlaySound(soundName, soundVolDivided);
         }
 
         public static void PlaySound(SoundNames soundName, float floatSoundVolDivided)
         {
+            //Play a sound
             SoundEffectInstance instance = null;
             foreach (var inst in soundInstancesPool[soundName])
             {
@@ -270,6 +273,7 @@ namespace Sem1OfficeRevenge
 
         public static void PitchedPlay(SoundNames soundName)
         {
+            //Play a sound with a random pitch
             float pitch = (float)Global.rnd.NextDouble();
             pitch = pitch - (1 - pitch);
             if (Global.rnd.Next(0, 10) > 5)
@@ -301,41 +305,42 @@ namespace Sem1OfficeRevenge
 
         public static void MusicUpdate() 
         {
-            if (InstanceGameMusic == null || InstanceMenuMusic == null || InstanceElevatorMusic == null)
+            //Update music
+            if (instanceGameMusic == null || instanceMenuMusic == null || instanceElevatorMusic == null)
             {
-                InstanceMenuMusic = MenuMusic.CreateInstance();
-                InstanceGameMusic = GameMusic.CreateInstance();
-                InstanceElevatorMusic = ElevatorMusic.CreateInstance();
+                instanceMenuMusic = menuMusic.CreateInstance();
+                instanceGameMusic = gameMusic.CreateInstance();
+                instanceElevatorMusic = elevatorMusic.CreateInstance();
             }
             else
             {
-                InstanceMenuMusic.Volume = Math.Clamp(musicVolume, 0, 1) / musicVolDivide;
-                InstanceGameMusic.Volume = Math.Clamp(musicVolume, 0, 1) / musicVolDivide;
-                InstanceElevatorMusic.Volume = Math.Clamp(musicVolume, 0, 1) / musicVolDivide;
+                instanceMenuMusic.Volume = Math.Clamp(musicVolume, 0, 1) / musicVolDivide;
+                instanceGameMusic.Volume = Math.Clamp(musicVolume, 0, 1) / musicVolDivide;
+                instanceElevatorMusic.Volume = Math.Clamp(musicVolume, 0, 1) / musicVolDivide;
 
-                
+                //Check if the music should be playing
                 if (inMenu)
                 {
-                    InstanceGameMusic.Stop();
+                    instanceGameMusic.Stop();
                 }
                 else
                 {
-                    InstanceMenuMusic.Stop();
-                    InstanceElevatorMusic.Stop();
+                    instanceMenuMusic.Stop();
+                    instanceElevatorMusic.Stop();
                 }
 
                 if (Global.currentScene == Global.world.scenes[Scenes.ElevatorMenu])
                 {
-                    InstanceElevatorMusic.Play();
-                    InstanceElevatorMusic.IsLooped = true;
+                    instanceElevatorMusic.Play();
+                    instanceElevatorMusic.IsLooped = true;
                 }
-                if (InstanceMenuMusic.State == SoundState.Stopped && inMenu && Global.currentScene != Global.world.scenes[Scenes.ElevatorMenu])
+                if (instanceMenuMusic.State == SoundState.Stopped && inMenu && Global.currentScene != Global.world.scenes[Scenes.ElevatorMenu])
                 {
-                    InstanceMenuMusic.Play();
+                    instanceMenuMusic.Play();
                 }
-                if (InstanceGameMusic.State == SoundState.Stopped && !inMenu)
+                if (instanceGameMusic.State == SoundState.Stopped && !inMenu)
                 {
-                    InstanceGameMusic.Play();
+                    instanceGameMusic.Play();
                 }
             }
 

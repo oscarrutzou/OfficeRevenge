@@ -10,13 +10,13 @@ namespace Sem1OfficeRevenge
         MainMenu,
         LoadingScreen,
         Level,
+        GameScene,
         ElevatorMenu,
         EndMenu,
         TestJasper,
         TestLeonard,
         TestMarc,
         TestOscar,
-        TestBaseScene,
     }
 
     public enum LayerDepth
@@ -66,6 +66,7 @@ namespace Sem1OfficeRevenge
         {
             DrawSceenColor();
             
+            // Draw all GameObjects in the active scene.
             foreach (GameObject gameObject in Global.currentSceneData.gameObjects)
             {
                 if (gameObject is not Gui)
@@ -77,6 +78,7 @@ namespace Sem1OfficeRevenge
 
         public virtual void DrawOnScreen()
         {
+            // Draw all GameObjects in the active scene.
             foreach (GameObject guiGameObject in Global.currentSceneData.guis)
             {
                 guiGameObject.Draw();

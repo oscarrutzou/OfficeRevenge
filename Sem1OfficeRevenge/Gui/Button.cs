@@ -24,8 +24,6 @@ namespace Sem1OfficeRevenge
             centerOrigin = true;
         }
 
-
-
         public Button(Vector2 position, string text, bool invokeActionOnFullScale, Action onClick)
         {
             this.position = position;
@@ -45,7 +43,6 @@ namespace Sem1OfficeRevenge
             this.onClick = onClick;
             centerOrigin = true;
         }
-
 
         public override void Update()
         {
@@ -70,11 +67,13 @@ namespace Sem1OfficeRevenge
             }
         }
 
+        // Check if the mouse is over the button
         public bool IsMouseOver()
         {
             return collisionBox.Contains(InputManager.mousePositionOnScreen.ToPoint());
         }
 
+        // Called when the left mouse button is pressed
         public void OnClick()
         {
             if (!isVisible) return;
