@@ -59,6 +59,12 @@ namespace Sem1OfficeRevenge
                     true,
                     ChangeToShotgun);
 
+            rifleBtn = new Button(Vector2.Zero,
+                    $"{riflePrice}",
+                    GlobalTextures.textures[TextureNames.GuiEleBtnNormal],
+                    true,
+                    ChangeToRifle);
+
             // Add the buttons to the scene
             Global.currentScene.Instantiate(nextLvlBtn);
             Global.currentScene.Instantiate(pistolBtn);
