@@ -44,6 +44,7 @@ public class LoadingScene : Scene
 
     private void InitLoadingIcon()
     {
+        // Create loading icon
         Vector2 scale = new Vector2(0.3f, 0.3f);
         Vector2 position = Global.world.uiCamera.BottomRight + new Vector2(-50, -50);
         loadingIcon = new Icon(scale, 

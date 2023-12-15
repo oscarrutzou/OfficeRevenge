@@ -126,10 +126,12 @@ namespace Sem1OfficeRevenge
 
         private void DrawSettingsMenu()
         {
+            // Hide the main menu buttons
             playAgainBtn.isVisible = false;
             settingsBtn.isVisible = false;
             quitBtn.isVisible = false;
 
+            // Show the settings menu buttons
             resolutionBtn.isVisible = true;
             sfxSlider.isVisible = true;
             musicSlider.isVisible = true;
@@ -138,10 +140,12 @@ namespace Sem1OfficeRevenge
 
         private void RemoveSettingsMenu()
         {
+            // Hide the settings menu buttons
             playAgainBtn.isVisible = true;
             settingsBtn.isVisible = true;
             quitBtn.isVisible = true;
 
+            // Show the main menu buttons
             resolutionBtn.isVisible = false;
             sfxSlider.isVisible = false;
             musicSlider.isVisible = false;
@@ -153,6 +157,7 @@ namespace Sem1OfficeRevenge
 
         private void WorldOnResolutionChanged()
         {
+            // Set the button positions
             playAgainBtn.position = Global.world.uiCamera.Center + new Vector2(0, -85);
             settingsBtn.position = Global.world.uiCamera.Center;
             quitBtn.position = Global.world.uiCamera.Center + new Vector2(0, 85);
