@@ -25,6 +25,8 @@ namespace Sem1OfficeRevenge
         public Weapon shotgun;
         public Weapon rifle;
         public Weapon currentWeapon;
+
+        private bool isChangingScene;
         #endregion
 
         public GameWorld()
@@ -141,7 +143,8 @@ namespace Sem1OfficeRevenge
 
         public async void ChangeScene(Scenes scene)
         {
-            if (scenes[scene] == Global.currentScene) return;
+            if (isChangingScene) return;
+            isChangingScene = true;
 
             //So it dosent fade in at the start when loading the game the first time
             if (Global.currentSceneData != null && Global.currentScene != null) 
@@ -170,6 +173,7 @@ namespace Sem1OfficeRevenge
             }
 
             Global.currentScene = scenes[scene];
+            isChangingScene = false;
             Global.currentScene.Initialize();
             Global.currentScene.isPaused = false;
             Global.currentScene.hasFadeOut = false;
@@ -177,7 +181,6 @@ namespace Sem1OfficeRevenge
             //Have to be here since this pausescreen uses gameobjects. Maybe move it to the GameScene, to remove clutter 
             if (pauseScreen == null) pauseScreen = new PauseScreen(); 
             if (!IsCurrentSceneMenu()) pauseScreen.Initialize();
-            
         }
 
 
