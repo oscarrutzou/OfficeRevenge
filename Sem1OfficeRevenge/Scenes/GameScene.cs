@@ -11,6 +11,8 @@ namespace Sem1OfficeRevenge
         public override void Initialize()
         {
             GlobalSounds.inMenu = false;
+            if (Global.world.pauseScreen == null) Global.world.pauseScreen = new PauseScreen();
+            if (!Global.world.IsCurrentSceneMenu()) Global.world.pauseScreen.Initialize();
 
             //Level Generation
             lvlGen = new LevelGeneration();

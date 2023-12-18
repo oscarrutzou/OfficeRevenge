@@ -85,13 +85,9 @@ namespace Sem1OfficeRevenge
                 timeSinceLastClick = 0; 
 
                 if (invokeActionOnFullScale)
-                {
                     hasPressed = true;
-                }
                 else
-                {
                     onClick?.Invoke();
-                }
             }
         }
 

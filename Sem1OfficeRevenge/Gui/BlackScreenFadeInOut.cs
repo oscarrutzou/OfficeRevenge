@@ -79,6 +79,7 @@ namespace Sem1OfficeRevenge
                     isFadingIn = false;
                     timer = 0f; // Reset the timer
                     onFadeToBlackDone?.Invoke(this, EventArgs.Empty);
+                    StopAnimation();
                 }
             }
             else
@@ -89,6 +90,7 @@ namespace Sem1OfficeRevenge
                 if (fadeAlpha <= 0f)
                 {
                     onFadeFromBlackDone?.Invoke(this, EventArgs.Empty);
+                    StopAnimation();
                 }
             }
 

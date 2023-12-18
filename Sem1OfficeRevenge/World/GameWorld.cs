@@ -14,7 +14,7 @@ namespace Sem1OfficeRevenge
         public MiniMapCam mapCamera { get; private set; } //Minimap
 
         public BlackScreenFadeInOut blackScreenFadeInOut; //For the fade animaiton when changing scenes/resolution
-        public PauseScreen pauseScreen { get; private set; } //Overlay on the GameScene
+        public PauseScreen pauseScreen;
         
         public bool playerWon;
 
@@ -143,8 +143,7 @@ namespace Sem1OfficeRevenge
 
         public async void ChangeScene(Scenes scene)
         {
-            if (isChangingScene) return;
-            isChangingScene = true;
+            if (isChangingScene) return; isChangingScene = true;
 
             //So it dosent fade in at the start when loading the game the first time
             if (Global.currentSceneData != null && Global.currentScene != null) 
@@ -153,12 +152,9 @@ namespace Sem1OfficeRevenge
                 {
                     //Start fade
                     blackScreenFadeInOut.StartFadeIn();
-                    blackScreenFadeInOut.onFadeToBlackDone += (sender, e) => { blackScreenFadeInOut.StopAnimation(); };
-                    blackScreenFadeInOut.onFadeFromBlackDone += (sender, e) => { blackScreenFadeInOut.StopAnimation(); };
-
+     
                     // Wait for the fade-in transition to complete
                     await Task.Delay(blackScreenFadeInOut.fadeInTimeMillisec);
-
                 }
 
                 if (Global.player != null) Global.player = null;
@@ -169,7 +165,6 @@ namespace Sem1OfficeRevenge
                 }
 
                 if (scene != Scenes.LoadingScreen) blackScreenFadeInOut?.StartFadeOut();
-
             }
 
             Global.currentScene = scenes[scene];
@@ -177,10 +172,6 @@ namespace Sem1OfficeRevenge
             Global.currentScene.Initialize();
             Global.currentScene.isPaused = false;
             Global.currentScene.hasFadeOut = false;
-
-            //Have to be here since this pausescreen uses gameobjects. Maybe move it to the GameScene, to remove clutter 
-            if (pauseScreen == null) pauseScreen = new PauseScreen(); 
-            if (!IsCurrentSceneMenu()) pauseScreen.Initialize();
         }
 
 
